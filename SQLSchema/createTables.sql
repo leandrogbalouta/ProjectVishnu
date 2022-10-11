@@ -22,7 +22,7 @@ CREATE TABLE FUNCIONARIO(
 );
 
 CREATE TABLE OBRA (
-		CodigoInterno varchar(20),
+		CodigoInterno varchar(20) primary key,
         Designacao varchar(20),
         Cliente varchar(20),
         DataInicio date,
@@ -31,4 +31,26 @@ CREATE TABLE OBRA (
         Funcionarios ???,
         AutosDeMedicao ???,
         FolhasDePonto ???
+);
+
+CREATE TABLE  (
+		Funcionario ???,
+        CodigoObra varchar(20),
+        Dia int,
+		Horas int,
+        Mes enum ('janeiro', 'fevereiro', 
+        'marco', 'abril', 'maio', 'junho', 'julho', 'agosto', 
+        'setembro', 'outubro', 'novembro', 'dezembro'),
+        Ano int,
+        Valor double,
+        foreign key (CodigoObra) references OBRA(CodigoInterno),
+        foreign key () references FUNCIONARIO()
+);
+
+CREATE TABLE  (
+		Funcionario ???,
+        Mes enum ('janeiro', 'fevereiro', 
+        'marco', 'abril', 'maio', 'junho', 'julho', 'agosto', 
+        'setembro', 'outubro', 'novembro', 'dezembro'),
+        Valor double
 );
