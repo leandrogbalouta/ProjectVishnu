@@ -2,25 +2,26 @@
 CREATE TABLE FUNCIONARIO(
 		Nome varchar(200) NOT NULL,
 		DtNascimento date NOT NULL,
-		Telemovel varchar(15),
-		Naturalidade varchar(20),
-		Pais varchar(8) NOT NULL,
+		Telemovel varchar(15) NOT NULL,
+		Nacionalidade varchar(20) NOT NULL,
+		Mercado varchar(8) NOT NULL,
 		TipoDocIdent varchar(30) NOT NULL,
 		DocIdent varchar(15) NOT NULL,
+		TituloResidencia varchar(20),
+		ManifestacaoInteresse varchar(20),
 		ValidadeDocIdent date NOT NULL,
 		CatProf varchar(20) references CATEGORIAS_PROFISSIONAIS(codigo) NOT NULL,
-		NIF varchar(15), /* PRIMARY KEY*/
+		NIF varchar(15) primary key, 
 		NISS varchar(15) NOT NULL,
 		Morada varchar(200) NOT NULL,
-		ContratoInicio date ,
-		ContratoFim date,
+		ContratoInicio date NOT NULL,
+		ContratoFim date NOT NULL,
 		VencimentoBase float(5, 2) NOT NULL,
 		TipoSalario	varchar NOT NULL,
 		SalarioReal	float(5, 2) NOT NULL,
 		Calcado	float(2,1),
-		CartaConducao varchar(3),
-		IBAN varchar(20),
-		Obra varchar(20) references OBRA(CodigoInterno),
+		CartaConducao varchar(3) NOT NULL,
+		IBAN varchar(30) NOT NULL,
 
 		constraint chk_TipoSalario CHECK(TipoSalario IN("horario", "fixo")),
 		constraint chk_CartaConducao CHECK(CartaConducao IN("Sim", "Nao"))
@@ -28,27 +29,29 @@ CREATE TABLE FUNCIONARIO(
 
 CREATE TABLE OBRA (
 		CodigoInterno varchar(20) primary key,
-        Designacao varchar(20),
-        Cliente varchar(20),
-        DataInicio date,
+        Designacao varchar(20) NOT NULL,
+        Cliente varchar(20) NOT NULL,
+        DataInicio date NOT NULL,
         DataFim date,
-        Pais varchar(8),
-        AutosDeMedicao varchar(100),
+        Mercado varchar(8) NOT NULL,
+        AutosDeMedicao varchar(100) NOT NULL,
 );
 
-CREATE TABLE OBRAS_PASSADAS(
+CREATE TABLE FUNCIONARIOS_OBRAS(
 		Funcionario varchar(15) references Funcionario(NIF),
-		Obra varchar(20) references Obra(CodigoInterno)
-)
+		Obra varchar(20) references Obra(CodigoInterno),
+		DataComeco date NOT NULL,
+		DataFim date  /* se a data estiver a null sinaliza que é a obra onde o funcionário se encontra atualmente.*/
+);
 
 CREATE TABLE DIA_TRABALHO(
 		Funcionario varchar(15) references Funcionario(NIF),
         CodigoObra varchar(20)references Obra(CodigoInterno),
-        Dia int,
-		Horas int,
-        Mes varchar(9), 
-        Ano int,
-        Valor float(7,2),
+        Dia int NOT NULL,
+		Horas int NOT NULL,
+        Mes varchar(9) NOT NULL, 
+        Ano int NOT NULL,
+        Valor float(7,2) NOT NULL,
 		constraint chk_Mes CHECK(Mes IN('janeiro', 'fevereiro', 
         'marco', 'abril', 'maio', 'junho', 'julho', 'agosto', 
         'setembro', 'outubro', 'novembro', 'dezembro')),
@@ -56,13 +59,14 @@ CREATE TABLE DIA_TRABALHO(
 
 
 CREATE TABLE CATEGORIAS_PROFISSIONAIS(
-		codigo varchar(20) PRIMARY KEY,
-		nomenclatura varchar(50)
+		codigo varchar(7) PRIMARY KEY,
+		nomenclatura varchar(50) NOT NULL
 );
 
 CREATE TABLE SALARIO_FINAL(
 		Funcionario varchar(15) references Funcionario(NIF),
-		Mes varchar(9), 
-        Ano int,
-        Valor float(7,2),
+		Mes varchar(9) NOT NULL, 
+        Ano int NOT NULL,
+        ValorFinal float(7,2) NOT NULL,
+		ValorAPagar float(7,2)
 );
