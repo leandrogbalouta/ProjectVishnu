@@ -3,6 +3,7 @@ CREATE TABLE FUNCIONARIO(
 		Nome varchar(200) NOT NULL,
 		DtNascimento date NOT NULL,
 		Telemovel varchar(15) NOT NULL,
+		ContactoEmergencia varchar(15) NOT NULL,
 		Nacionalidade varchar(20) NOT NULL,
 		Mercado varchar(8) NOT NULL,
 		TipoDocIdent varchar(30) NOT NULL,
