@@ -71,3 +71,8 @@ CREATE TABLE SALARIO_FINAL(
         ValorFinal float(7,2) NOT NULL,
 		ValorAPagar float(7,2)
 );
+
+CREATE TABLE CONTA(
+		Username varchar(40),
+		Pwd varchar(64)
+);
