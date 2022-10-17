@@ -35,6 +35,7 @@ namespace ProjectVishnu.Models
         public decimal? Calcado { get; set; }
         public string Cartaconducao { get; set; } = null!;
         public string Iban { get; set; } = null!;
+        public DateOnly? Deleted { get; set; }
 
         public virtual CategoriasProfissionai CatprofNavigation { get; set; } = null!;
         public virtual ICollection<DiaTrabalho> DiaTrabalhos { get; set; }

@@ -18,6 +18,7 @@ namespace ProjectVishnu.Models
         public DateOnly? Datafim { get; set; }
         public string Mercado { get; set; } = null!;
         public string Autosdemedicao { get; set; } = null!;
+        public DateOnly? Deleted { get; set; }
 
         public virtual ICollection<DiaTrabalho> DiaTrabalhos { get; set; }
         public virtual ICollection<FuncionariosObra> FuncionariosObras { get; set; }

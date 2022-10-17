@@ -27,6 +27,7 @@ CREATE TABLE FUNCIONARIO(
 		Calcado	decimal(2, 1),
 		CartaConducao varchar(3) NOT NULL,
 		IBAN varchar(30) NOT NULL,
+		deleted date default null,
 
 		constraint chk_TipoSalario CHECK(TipoSalario IN('horario', 'fixo')),
 		constraint chk_CartaConducao CHECK(CartaConducao IN('Sim', 'Nao'))
@@ -39,7 +40,8 @@ CREATE TABLE OBRA (
         DataInicio date NOT NULL,
         DataFim date,
         Mercado varchar(40) NOT NULL,
-        AutosDeMedicao varchar(100) NOT NULL
+        AutosDeMedicao varchar(100) NOT NULL,
+		deleted date default null
 );
 
 CREATE TABLE FUNCIONARIOS_OBRAS(
