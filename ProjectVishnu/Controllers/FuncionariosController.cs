@@ -25,6 +25,13 @@ namespace ProjectVishnu.Controllers
         {
             throw new NotImplementedException();
         }
+
+        [HttpPost("{id}")]
+        public IActionResult Create(int id) // levar um segundo parâmetro com os parâmetros necessários para editar um funcionário(possivelmente necessário criar um dto)
+        {
+            throw new NotImplementedException();
+        }
+
         [HttpPost("{id}")]
         public IActionResult Edit(int id) // levar um segundo parâmetro com os parâmetros necessários para editar um funcionário(possivelmente necessário criar um dto)
         {
