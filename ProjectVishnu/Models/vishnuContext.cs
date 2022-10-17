@@ -21,6 +21,7 @@ namespace ProjectVishnu.Models
         public virtual DbSet<DiaTrabalho> DiaTrabalhos { get; set; } = null!;
         public virtual DbSet<Funcionario> Funcionarios { get; set; } = null!;
         public virtual DbSet<FuncionariosObra> FuncionariosObras { get; set; } = null!;
+        public virtual DbSet<IntervaloMercado> IntervaloMercados { get; set; } = null!;
         public virtual DbSet<Obra> Obras { get; set; } = null!;
         public virtual DbSet<SalarioFinal> SalarioFinals { get; set; } = null!;
 
@@ -44,26 +45,30 @@ namespace ProjectVishnu.Models
 
             modelBuilder.Entity<Contum>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(e => e.Username)
+                    .HasName("conta_pkey");
 
                 entity.ToTable("conta");
-
-                entity.Property(e => e.Pwd)
-                    .HasMaxLength(64)
-                    .HasColumnName("pwd");
 
                 entity.Property(e => e.Username)
                     .HasMaxLength(40)
                     .HasColumnName("username");
+
+                entity.Property(e => e.Pwd)
+                    .HasMaxLength(64)
+                    .HasColumnName("pwd");
             });
 
             modelBuilder.Entity<DiaTrabalho>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(e => new { e.Funcionario, e.Codigoobra, e.Dia, e.Mes, e.Ano })
+                    .HasName("dia_trabalho_pkey");
 
                 entity.ToTable("dia_trabalho");
 
-                entity.Property(e => e.Ano).HasColumnName("ano");
+                entity.Property(e => e.Funcionario)
+                    .HasMaxLength(15)
+                    .HasColumnName("funcionario");
 
                 entity.Property(e => e.Codigoobra)
                     .HasMaxLength(20)
@@ -71,30 +76,30 @@ namespace ProjectVishnu.Models
 
                 entity.Property(e => e.Dia).HasColumnName("dia");
 
-                entity.Property(e => e.Funcionario)
-                    .HasMaxLength(15)
-                    .HasColumnName("funcionario");
+                entity.Property(e => e.Mes)
+                    .HasMaxLength(9)
+                    .HasColumnName("mes");
+
+                entity.Property(e => e.Ano).HasColumnName("ano");
 
                 entity.Property(e => e.Horas)
                     .HasPrecision(2, 1)
                     .HasColumnName("horas");
-
-                entity.Property(e => e.Mes)
-                    .HasMaxLength(9)
-                    .HasColumnName("mes");
 
                 entity.Property(e => e.Valor)
                     .HasPrecision(5, 2)
                     .HasColumnName("valor");
 
                 entity.HasOne(d => d.CodigoobraNavigation)
-                    .WithMany()
+                    .WithMany(p => p.DiaTrabalhos)
                     .HasForeignKey(d => d.Codigoobra)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("dia_trabalho_codigoobra_fkey");
 
                 entity.HasOne(d => d.FuncionarioNavigation)
-                    .WithMany()
+                    .WithMany(p => p.DiaTrabalhos)
                     .HasForeignKey(d => d.Funcionario)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("dia_trabalho_funcionario_fkey");
             });
 
@@ -144,7 +149,7 @@ namespace ProjectVishnu.Models
                     .HasColumnName("manifestacaointeresse");
 
                 entity.Property(e => e.Mercado)
-                    .HasMaxLength(8)
+                    .HasMaxLength(40)
                     .HasColumnName("mercado");
 
                 entity.Property(e => e.Morada)
@@ -198,13 +203,10 @@ namespace ProjectVishnu.Models
 
             modelBuilder.Entity<FuncionariosObra>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(e => new { e.Funcionario, e.Obra, e.Datacomeco })
+                    .HasName("funcionarios_obras_pkey");
 
                 entity.ToTable("funcionarios_obras");
-
-                entity.Property(e => e.Datacomeco).HasColumnName("datacomeco");
-
-                entity.Property(e => e.Datafim).HasColumnName("datafim");
 
                 entity.Property(e => e.Funcionario)
                     .HasMaxLength(15)
@@ -214,15 +216,37 @@ namespace ProjectVishnu.Models
                     .HasMaxLength(20)
                     .HasColumnName("obra");
 
+                entity.Property(e => e.Datacomeco).HasColumnName("datacomeco");
+
+                entity.Property(e => e.Datafim).HasColumnName("datafim");
+
                 entity.HasOne(d => d.FuncionarioNavigation)
-                    .WithMany()
+                    .WithMany(p => p.FuncionariosObras)
                     .HasForeignKey(d => d.Funcionario)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("funcionarios_obras_funcionario_fkey");
 
                 entity.HasOne(d => d.ObraNavigation)
-                    .WithMany()
+                    .WithMany(p => p.FuncionariosObras)
                     .HasForeignKey(d => d.Obra)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("funcionarios_obras_obra_fkey");
+            });
+
+            modelBuilder.Entity<IntervaloMercado>(entity =>
+            {
+                entity.HasKey(e => e.Mercado)
+                    .HasName("intervalo_mercado_pkey");
+
+                entity.ToTable("intervalo_mercado");
+
+                entity.Property(e => e.Mercado)
+                    .HasMaxLength(40)
+                    .HasColumnName("mercado");
+
+                entity.Property(e => e.DiaFim).HasColumnName("dia_fim");
+
+                entity.Property(e => e.DiaInicio).HasColumnName("dia_inicio");
             });
 
             modelBuilder.Entity<Obra>(entity =>
@@ -253,17 +277,16 @@ namespace ProjectVishnu.Models
                     .HasColumnName("designacao");
 
                 entity.Property(e => e.Mercado)
-                    .HasMaxLength(8)
+                    .HasMaxLength(40)
                     .HasColumnName("mercado");
             });
 
             modelBuilder.Entity<SalarioFinal>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(e => new { e.Funcionario, e.Mes, e.Ano })
+                    .HasName("salario_final_pkey");
 
                 entity.ToTable("salario_final");
-
-                entity.Property(e => e.Ano).HasColumnName("ano");
 
                 entity.Property(e => e.Funcionario)
                     .HasMaxLength(15)
@@ -272,6 +295,8 @@ namespace ProjectVishnu.Models
                 entity.Property(e => e.Mes)
                     .HasMaxLength(9)
                     .HasColumnName("mes");
+
+                entity.Property(e => e.Ano).HasColumnName("ano");
 
                 entity.Property(e => e.Valorapagar)
                     .HasPrecision(5, 2)
@@ -282,8 +307,9 @@ namespace ProjectVishnu.Models
                     .HasColumnName("valorfinal");
 
                 entity.HasOne(d => d.FuncionarioNavigation)
-                    .WithMany()
+                    .WithMany(p => p.SalarioFinals)
                     .HasForeignKey(d => d.Funcionario)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("salario_final_funcionario_fkey");
             });
 

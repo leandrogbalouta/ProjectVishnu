@@ -5,6 +5,13 @@ namespace ProjectVishnu.Models
 {
     public partial class Funcionario
     {
+        public Funcionario()
+        {
+            DiaTrabalhos = new HashSet<DiaTrabalho>();
+            FuncionariosObras = new HashSet<FuncionariosObra>();
+            SalarioFinals = new HashSet<SalarioFinal>();
+        }
+
         public string Nome { get; set; } = null!;
         public DateOnly Dtnascimento { get; set; }
         public string Telemovel { get; set; } = null!;
@@ -30,5 +37,8 @@ namespace ProjectVishnu.Models
         public string Iban { get; set; } = null!;
 
         public virtual CategoriasProfissionai CatprofNavigation { get; set; } = null!;
+        public virtual ICollection<DiaTrabalho> DiaTrabalhos { get; set; }
+        public virtual ICollection<FuncionariosObra> FuncionariosObras { get; set; }
+        public virtual ICollection<SalarioFinal> SalarioFinals { get; set; }
     }
 }
