@@ -146,6 +146,11 @@ namespace ProjectVishnu.Models
                     .HasMaxLength(30)
                     .HasColumnName("iban");
 
+                entity.Property(e => e.Id)
+                    .ValueGeneratedOnAdd()
+                    .HasColumnName("id")
+                    .UseIdentityAlwaysColumn();
+
                 entity.Property(e => e.Manifestacaointeresse)
                     .HasMaxLength(20)
                     .HasColumnName("manifestacaointeresse");

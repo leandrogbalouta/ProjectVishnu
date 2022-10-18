@@ -4,6 +4,7 @@
 );
 
 CREATE TABLE FUNCIONARIO(
+		Id INT GENERATED ALWAYS AS IDENTITY,
 		Nome varchar(200) NOT NULL,
 		DtNascimento date NOT NULL,
 		Telemovel varchar(15) NOT NULL,

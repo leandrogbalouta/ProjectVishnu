@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ProjectVishnu.Controllers
 {
-    [Route("[controller]/[action]")]
+    [Route("[controller]")]
     [ApiController]
     public class FuncionariosController : ControllerBase
     {
@@ -15,7 +15,7 @@ namespace ProjectVishnu.Controllers
         }
 
         [HttpGet]
-        public IActionResult ListByMarket()
+        public IActionResult ListByMarket([FromQuery(Name = "mercado")] string mercado)
         {
             throw new NotImplementedException();
         }
@@ -32,7 +32,7 @@ namespace ProjectVishnu.Controllers
             throw new NotImplementedException();
         }
 
-        [HttpPost("{id}")]
+        [HttpPut("{id}")]
         public IActionResult Edit(int id) // levar um segundo parâmetro com os parâmetros necessários para editar um funcionário(possivelmente necessário criar um dto)
         {
             throw new NotImplementedException();

@@ -12,6 +12,7 @@ namespace ProjectVishnu.Models
             SalarioFinals = new HashSet<SalarioFinal>();
         }
 
+        public int Id { get; set; }
         public string Nome { get; set; } = null!;
         public DateOnly Dtnascimento { get; set; }
         public string Telemovel { get; set; } = null!;
