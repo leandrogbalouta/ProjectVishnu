@@ -9,15 +9,10 @@ namespace ProjectVishnu.Controllers
     public class FuncionariosController : ControllerBase
     {
         [HttpGet]
-        public IActionResult ListAlphabetically()
+        public String List([FromQuery(Name = "mercado")] string? mercado)
         {
-            throw new NotImplementedException();
-        }
-
-        [HttpGet]
-        public IActionResult ListByMarket([FromQuery(Name = "mercado")] string mercado)
-        {
-            throw new NotImplementedException();
+            if (mercado == null) return "alphabetically";
+            return mercado;
         }
 
         [HttpGet("{id}")]
