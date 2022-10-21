@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using ProjectVishnu.Models;
+using ProjectVishnu.Services;
 
 namespace ProjectVishnu.Controllers
 {
@@ -8,17 +10,26 @@ namespace ProjectVishnu.Controllers
     [ApiController]
     public class FuncionariosController : ControllerBase
     {
-        [HttpGet]
-        public String List([FromQuery(Name = "mercado")] string? mercado)
+
+        private FuncionariosService _funcionariosService;
+
+        public FuncionariosController()
         {
-            if (mercado == null) return "alphabetically";
-            return mercado;
+            this._funcionariosService = new FuncionariosService();
+        }
+
+        [HttpGet]
+        public Funcionario List([FromQuery(Name = "mercado")] string? mercado)
+        {
+            if (mercado == null) return _funcionariosService.ListAlphabetically();
+            //else  return _funcionariosService.ListByMarket(mercado);
+            return null;
         }
 
         [HttpGet("{id}")]
-        public IActionResult Get(int id)
+        public String Get(int id)
         {
-            throw new NotImplementedException();
+            return _funcionariosService.Get(id);
         }
 
         [HttpPost("{id}")]
@@ -29,6 +40,12 @@ namespace ProjectVishnu.Controllers
 
         [HttpPut("{id}")]
         public IActionResult Edit(int id) // levar um segundo parâmetro com os parâmetros necessários para editar um funcionário(possivelmente necessário criar um dto)
+        {
+            throw new NotImplementedException();
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
         {
             throw new NotImplementedException();
         }
