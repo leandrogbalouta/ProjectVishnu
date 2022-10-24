@@ -11,18 +11,18 @@ namespace ProjectVishnu.Controllers
     public class FuncionariosController : ControllerBase
     {
 
-        private FuncionariosService _funcionariosService;
+        private readonly IFuncionariosService _funcionariosService;
 
-        public FuncionariosController()
+        public FuncionariosController(IFuncionariosService funcionariosService)
         {
-            this._funcionariosService = new FuncionariosService();
+            this._funcionariosService = funcionariosService;
         }
 
         [HttpGet]
-        public Funcionario List([FromQuery(Name = "mercado")] string? mercado)
+        public string List([FromQuery(Name = "mercado")] string? mercado)
         {
-            if (mercado == null) return _funcionariosService.ListAlphabetically();
-            //else  return _funcionariosService.ListByMarket(mercado);
+            if (mercado == null) return _funcionariosService.ListAlphabetically().Nome;
+            else  return _funcionariosService.ListByMarket(mercado);
             return null;
         }
 

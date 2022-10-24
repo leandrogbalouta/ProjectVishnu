@@ -1,6 +1,11 @@
 
 using Microsoft.EntityFrameworkCore;
+using ProjectVishnu.DataAccess;
+using ProjectVishnu.DataAccess.Concrete;
+using ProjectVishnu.DataAccess.Repository;
+using ProjectVishnu.DataAccess.Repository.Concrete;
 using ProjectVishnu.Models;
+using ProjectVishnu.Services;
 
 namespace ProjectVishnu
 {
@@ -11,11 +16,16 @@ namespace ProjectVishnu
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            builder.Services.AddDbContext<vishnuContext>(options =>
+                        options.UseNpgsql(builder.Configuration.GetConnectionString("vishnu")));
+            builder.Services.AddScoped<IFuncionarioRepository, FuncionarioRepository>();
+            builder.Services.AddScoped<IObraRepository, ObraRepository>();
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+            builder.Services.AddScoped<IFuncionariosService, FuncionariosService>();
 
             builder.Services.AddControllersWithViews();
 
-            builder.Services.AddDbContext<vishnuContext>(options =>
-                        options.UseNpgsql(builder.Configuration.GetConnectionString("vishnu")));
+            
 
             var app = builder.Build();
 
