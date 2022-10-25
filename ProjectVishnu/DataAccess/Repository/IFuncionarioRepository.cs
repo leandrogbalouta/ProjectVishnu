@@ -2,10 +2,10 @@
 
 namespace ProjectVishnu.DataAccess.Repository
 {
-    public interface IFuncionarioRepository
+    public interface IFuncionarioRepository : IRepository<Funcionario>
     {
-        string ListByMarket(string mercado);
-        Funcionario ListAlphabetically();
-        string Get(int id);
+        IEnumerable<Funcionario> ListByMarket(string mercado);
+        IEnumerable<Funcionario> ListAlphabetically();
+        Funcionario Get(int id);
     }
 }

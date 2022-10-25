@@ -20,6 +20,7 @@ namespace ProjectVishnu
                         options.UseNpgsql(builder.Configuration.GetConnectionString("vishnu")));
             builder.Services.AddScoped<IFuncionarioRepository, FuncionarioRepository>();
             builder.Services.AddScoped<IObraRepository, ObraRepository>();
+            builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddScoped<IFuncionariosService, FuncionariosService>();
 

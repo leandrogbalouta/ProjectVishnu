@@ -1,6 +1,8 @@
-﻿namespace ProjectVishnu.DataAccess.Repository
+﻿using ProjectVishnu.Models;
+
+namespace ProjectVishnu.DataAccess.Repository
 {
-    public interface IObraRepository
+    public interface IObraRepository : IRepository<Obra>
     {
     }
 }
