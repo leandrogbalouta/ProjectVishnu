@@ -6,6 +6,7 @@ using ProjectVishnu.DataAccess.Repository;
 using ProjectVishnu.DataAccess.Repository.Concrete;
 using ProjectVishnu.Models;
 using ProjectVishnu.Services;
+using ProjectVishnu.Services.Concrete;
 
 namespace ProjectVishnu
 {
@@ -23,6 +24,7 @@ namespace ProjectVishnu
             builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddScoped<IFuncionariosService, FuncionariosService>();
+            builder.Services.AddScoped<IObrasService, ObrasService>();
 
             builder.Services.AddControllersWithViews();
 

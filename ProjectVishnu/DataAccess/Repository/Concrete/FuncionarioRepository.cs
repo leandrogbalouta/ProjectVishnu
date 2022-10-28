@@ -22,10 +22,7 @@ namespace ProjectVishnu.DataAccess.Repository.Concrete
             return VishnuContext.Set<Funcionario>().OrderBy(func => func.Nome);
         }
 
-        public Funcionario Get(int id)
-        {
-            return VishnuContext.Set<Funcionario>().SingleOrDefault(func => func.Id == id);
-        }
+        public Funcionario Get(int id) => VishnuContext.Set<Funcionario>().SingleOrDefault(func => func.Id == id);
 
         public IEnumerable<Funcionario> GetAll()
         {

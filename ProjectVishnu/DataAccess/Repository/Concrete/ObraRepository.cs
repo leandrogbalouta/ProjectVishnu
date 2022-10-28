@@ -10,6 +10,18 @@ namespace ProjectVishnu.DataAccess.Repository.Concrete
         {
         }
 
+        public IEnumerable<Obra> ListByMarket(string mercado)
+        {
+            return VishnuContext.Set<Obra>().Where(obra => obra.Mercado.Contains(mercado));
+        }
+
+        public IEnumerable<Obra> ListAlphabetically()
+        {
+            return VishnuContext.Set<Obra>().OrderBy(obra => obra.Designacao);
+        }
+
+        public Obra Get(string codigoInterno) => VishnuContext.Set<Obra>().Find(codigoInterno);
+
         public void Add(Obra entity)
         {
             throw new NotImplementedException();

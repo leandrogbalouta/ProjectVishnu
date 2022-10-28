@@ -42,7 +42,13 @@ namespace ProjectVishnu.Controllers
         [HttpGet("{id}")]
         public String Get(int id)
         {
-            return _funcionariosService.Get(id);
+            try
+            {
+                return _funcionariosService.Get(id).Nome;
+            }catch(Exception e)
+            {
+                return "O id não é válido.";
+            }
         }
 
         [HttpPost]

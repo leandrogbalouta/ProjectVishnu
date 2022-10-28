@@ -22,9 +22,9 @@ namespace ProjectVishnu.Services
             return _unitOfWork.Funcionarios.ListAlphabetically();
         }
 
-        public string Get(int id)
+        public Funcionario Get(int id)
         {
-            return _unitOfWork.Funcionarios.Get(id).Nome;
+            return _unitOfWork.Funcionarios.Get(id);
         }
 
         public void Create(Funcionario funcionario)

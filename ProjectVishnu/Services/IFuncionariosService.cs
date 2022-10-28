@@ -6,7 +6,7 @@ namespace ProjectVishnu.Services
     {
         IEnumerable<Funcionario> ListByMarket(string mercado);
         IEnumerable<Funcionario> ListAlphabetically();
-        string Get(int id);
+        Funcionario Get(int id);
 
         void Create(Funcionario funcionario);
     }

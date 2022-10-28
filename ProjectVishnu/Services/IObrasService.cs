@@ -1,11 +1,13 @@
 ﻿using ProjectVishnu.Models;
 
-namespace ProjectVishnu.DataAccess.Repository
+namespace ProjectVishnu.Services
 {
-    public interface IObraRepository : IRepository<Obra>
+    public interface IObrasService
     {
         IEnumerable<Obra> ListByMarket(string mercado);
         IEnumerable<Obra> ListAlphabetically();
         Obra Get(string codigoInterno);
+
+        void Create(Obra obra);
     }
 }
