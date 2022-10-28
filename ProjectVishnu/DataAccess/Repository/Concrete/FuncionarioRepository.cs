@@ -14,16 +14,12 @@ namespace ProjectVishnu.DataAccess.Repository.Concrete
         }
         public IEnumerable<Funcionario> ListByMarket(string mercado)
         {
-            return "na";
+            return VishnuContext.Set<Funcionario>().Where(func => func.Mercado.Contains(mercado));
         }
 
         public IEnumerable<Funcionario> ListAlphabetically()
         {
-            IQueryable<Funcionario> funcionarios =
-               from funcionario in VishnuContext.Funcionarios
-               orderby funcionario.Nome
-               select funcionario;
-            return funcionarios.Last();
+            return VishnuContext.Set<Funcionario>().OrderBy(func => func.Nome);
         }
 
         public Funcionario Get(int id)
@@ -33,7 +29,7 @@ namespace ProjectVishnu.DataAccess.Repository.Concrete
 
         public IEnumerable<Funcionario> GetAll()
         {
-            throw new NotImplementedException();
+            return base.GetAll();
         }
 
         public IEnumerable<Funcionario> Find(Expression<Func<Funcionario, bool>> predicate)
@@ -43,7 +39,7 @@ namespace ProjectVishnu.DataAccess.Repository.Concrete
 
         public void Add(Funcionario entity)
         {
-            throw new NotImplementedException();
+            base.Add(entity);  
         }
 
         public void AddRange(IEnumerable<Funcionario> entities)
@@ -62,7 +58,7 @@ namespace ProjectVishnu.DataAccess.Repository.Concrete
         }
         public vishnuContext VishnuContext
         {
-            get { return Context as vishnuContext;  }
+            get { return Context as vishnuContext; }
         }
     }
 }

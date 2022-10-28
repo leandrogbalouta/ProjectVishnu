@@ -1,6 +1,7 @@
 ﻿using ProjectVishnu.DataAccess;
 using ProjectVishnu.DataAccess.Concrete;
 using ProjectVishnu.Models;
+using System.Globalization;
 
 namespace ProjectVishnu.Services
 {
@@ -11,24 +12,24 @@ namespace ProjectVishnu.Services
         {
             _unitOfWork = unitOfWork;
         }
-        public String ListByMarket(string mercado)
+        public IEnumerable<Funcionario> ListByMarket(string mercado)
         {
-            if (string.Equals(mercado, "franca") || string.Equals(mercado, "espanha") || string.Equals(mercado, "portugal"))
-            {
-                return _unitOfWork.Funcionarios.ListByMarket(mercado);
-            }
-            return "Mercado inválido";
+            return _unitOfWork.Funcionarios.ListByMarket(mercado);
         }
 
-        public Funcionario ListAlphabetically() 
+        public IEnumerable<Funcionario> ListAlphabetically()
         {
             return _unitOfWork.Funcionarios.ListAlphabetically();
         }
 
         public string Get(int id)
-        {   
-            return _unitOfWork.Funcionarios.Get(id);
+        {
+            return _unitOfWork.Funcionarios.Get(id).Nome;
         }
 
+        public void Create(Funcionario funcionario)
+        {
+            _unitOfWork.Funcionarios.Add(funcionario);
+        }
     }
 }

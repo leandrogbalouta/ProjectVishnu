@@ -4,8 +4,10 @@ namespace ProjectVishnu.Services
 {
     public interface IFuncionariosService
     {
-        String ListByMarket(string mercado);
-        Funcionario ListAlphabetically();
+        IEnumerable<Funcionario> ListByMarket(string mercado);
+        IEnumerable<Funcionario> ListAlphabetically();
         string Get(int id);
+
+        void Create(Funcionario funcionario);
     }
 }

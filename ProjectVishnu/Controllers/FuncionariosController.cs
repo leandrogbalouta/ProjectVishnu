@@ -21,9 +21,22 @@ namespace ProjectVishnu.Controllers
         [HttpGet]
         public string List([FromQuery(Name = "mercado")] string? mercado)
         {
-            if (mercado == null) return _funcionariosService.ListAlphabetically().Nome;
-            else  return _funcionariosService.ListByMarket(mercado);
-            return null;
+            if (mercado == null)
+            {
+                return _funcionariosService.ListAlphabetically().Last().Nome;
+            }
+            else
+            {
+                try
+                {
+                    return _funcionariosService.ListByMarket(mercado).Last().Nome;
+                }
+                catch (InvalidOperationException e)
+                {
+                    return "Mercado inválido.";
+                }
+                
+            }
         }
 
         [HttpGet("{id}")]
@@ -32,20 +45,27 @@ namespace ProjectVishnu.Controllers
             return _funcionariosService.Get(id);
         }
 
-        [HttpPost("{id}")]
-        public IActionResult Create(int id) // levar um segundo parâmetro com os parâmetros necessários para editar um funcionário(possivelmente necessário criar um dto)
+        [HttpPost]
+        public string Create([FromBody] Funcionario funcionario) // levar um segundo parâmetro com os parâmetros necessários para editar um funcionário(possivelmente necessário criar um dto)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _funcionariosService.Create(funcionario);
+                return "Criado com sucesso";
+            }catch(Exception e)
+            {
+                return "Erro";
+            }
         }
 
         [HttpPut("{id}")]
-        public IActionResult Edit(int id) // levar um segundo parâmetro com os parâmetros necessários para editar um funcionário(possivelmente necessário criar um dto)
+        public string Edit(int id) // levar um segundo parâmetro com os parâmetros necessários para editar um funcionário(possivelmente necessário criar um dto)
         {
             throw new NotImplementedException();
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public string Delete(int id)
         {
             throw new NotImplementedException();
         }
