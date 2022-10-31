@@ -8,6 +8,8 @@ namespace ProjectVishnu.Services
         IEnumerable<Funcionario> ListAlphabetically();
         Funcionario Get(int id);
 
+        IEnumerable<Funcionario> GetByName(string nome);
+
         void Create(Funcionario funcionario);
     }
 }

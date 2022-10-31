@@ -6,6 +6,8 @@ namespace ProjectVishnu.DataAccess.Repository
     {
         IEnumerable<Funcionario> ListByMarket(string mercado);
         IEnumerable<Funcionario> ListAlphabetically();
+
+        IEnumerable<Funcionario> GetByName(string nome);
         Funcionario Get(int id);
     }
 }

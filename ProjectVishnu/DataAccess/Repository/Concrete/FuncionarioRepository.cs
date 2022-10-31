@@ -22,6 +22,11 @@ namespace ProjectVishnu.DataAccess.Repository.Concrete
             return VishnuContext.Set<Funcionario>().OrderBy(func => func.Nome);
         }
 
+        public IEnumerable<Funcionario> GetByName(string nome)
+        {
+            return VishnuContext.Set<Funcionario>().Where(func => func.Nome.Contains(nome));
+        }
+
         public Funcionario Get(int id) => VishnuContext.Set<Funcionario>().SingleOrDefault(func => func.Id == id);
 
         public IEnumerable<Funcionario> GetAll()
@@ -36,7 +41,7 @@ namespace ProjectVishnu.DataAccess.Repository.Concrete
 
         public void Add(Funcionario entity)
         {
-            base.Add(entity);  
+            base.Add(entity);
         }
 
         public void AddRange(IEnumerable<Funcionario> entities)
@@ -53,6 +58,7 @@ namespace ProjectVishnu.DataAccess.Repository.Concrete
         {
             throw new NotImplementedException();
         }
+
         public vishnuContext VishnuContext
         {
             get { return Context as vishnuContext; }

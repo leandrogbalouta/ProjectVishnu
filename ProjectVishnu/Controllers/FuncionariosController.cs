@@ -1,8 +1,11 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Newtonsoft.Json;
 using ProjectVishnu.Models;
 using ProjectVishnu.Services;
+using System.ComponentModel;
+using System;
 
 namespace ProjectVishnu.Controllers
 {
@@ -19,13 +22,9 @@ namespace ProjectVishnu.Controllers
         }
 
         [HttpGet]
-        public string List([FromQuery(Name = "mercado")] string? mercado)
+        public string List([FromQuery(Name = "mercado")] string? mercado, [FromQuery(Name = "nome")] string? nome)
         {
-            if (mercado == null)
-            {
-                return _funcionariosService.ListAlphabetically().Last().Nome;
-            }
-            else
+            if (mercado != null )
             {
                 try
                 {
@@ -36,6 +35,21 @@ namespace ProjectVishnu.Controllers
                     return "Mercado inválido.";
                 }
                 
+            }
+            else if(nome != null)
+            {
+                try
+                {
+                    return _funcionariosService.GetByName(nome).Last().Nome;
+                }
+                catch (InvalidOperationException e)
+                {
+                    return "Nome inválido.";
+                }
+            }
+            else
+            {
+                return _funcionariosService.ListAlphabetically().Last().Nome;
             }
         }
 
@@ -52,16 +66,19 @@ namespace ProjectVishnu.Controllers
         }
 
         [HttpPost]
-        public string Create([FromBody] Funcionario funcionario) // levar um segundo parâmetro com os parâmetros necessários para editar um funcionário(possivelmente necessário criar um dto)
+        public string Create([FromBody] dynamic jsonData) // levar um segundo parâmetro com os parâmetros necessários para editar um funcionário(possivelmente necessário criar um dto)
         {
-            try
-            {
+                Funcionario funcionario = JsonConvert.DeserializeObject<Funcionario>(jsonData.ToString());
+                foreach (PropertyDescriptor descriptor in TypeDescriptor.GetProperties(funcionario))
+                {
+                    string name = descriptor.Name;
+                    object value = descriptor.GetValue(funcionario);
+                    Console.WriteLine("{0}={1}", name, value);
+                }
+                Console.WriteLine(funcionario.Dtnascimento.ToString());
+                Console.WriteLine("HERE");
                 _funcionariosService.Create(funcionario);
                 return "Criado com sucesso";
-            }catch(Exception e)
-            {
-                return "Erro";
-            }
         }
 
         [HttpPut("{id}")]

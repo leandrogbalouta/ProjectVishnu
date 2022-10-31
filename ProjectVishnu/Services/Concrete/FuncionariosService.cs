@@ -22,6 +22,11 @@ namespace ProjectVishnu.Services
             return _unitOfWork.Funcionarios.ListAlphabetically();
         }
 
+        public IEnumerable<Funcionario> GetByName(string nome)
+        {
+            return _unitOfWork.Funcionarios.GetByName(nome);
+        }
+
         public Funcionario Get(int id)
         {
             return _unitOfWork.Funcionarios.Get(id);
@@ -30,6 +35,7 @@ namespace ProjectVishnu.Services
         public void Create(Funcionario funcionario)
         {
             _unitOfWork.Funcionarios.Add(funcionario);
+            _unitOfWork.Complete();
         }
     }
 }
