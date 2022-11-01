@@ -37,5 +37,18 @@ namespace ProjectVishnu.Services
             _unitOfWork.Funcionarios.Add(funcionario);
             _unitOfWork.Complete();
         }
+
+        public void Delete(int id)
+        {
+            Funcionario funcionario = _unitOfWork.Funcionarios.Get(id);
+            funcionario.Deleted = DateOnly.Parse(DateTime.Now.ToString("yyyy/MM/dd"));
+            _unitOfWork.Funcionarios.Delete(funcionario);
+            _unitOfWork.Complete();
+        }
+
+        public void Update(Funcionario funcionario)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

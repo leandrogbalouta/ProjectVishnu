@@ -8,6 +8,10 @@ namespace ProjectVishnu.DataAccess.Repository
         IEnumerable<Funcionario> ListAlphabetically();
 
         IEnumerable<Funcionario> GetByName(string nome);
+
+        void Delete(Funcionario funcionario);
+
+        void Update(Funcionario funcionario);
         Funcionario Get(int id);
     }
 }

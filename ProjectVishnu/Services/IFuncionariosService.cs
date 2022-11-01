@@ -10,6 +10,10 @@ namespace ProjectVishnu.Services
 
         IEnumerable<Funcionario> GetByName(string nome);
 
+        void Delete(int id);
+
+        void Update(Funcionario funcionario);
+
         void Create(Funcionario funcionario);
     }
 }

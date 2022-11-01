@@ -82,15 +82,26 @@ namespace ProjectVishnu.Controllers
         }
 
         [HttpPut("{id}")]
-        public string Edit(int id) // levar um segundo parâmetro com os parâmetros necessários para editar um funcionário(possivelmente necessário criar um dto)
+        public string Edit(int id, [FromBody] dynamic jsonData) // levar um segundo parâmetro com os parâmetros necessários para editar um funcionário(possivelmente necessário criar um dto)
         {
-            throw new NotImplementedException();
+            Funcionario funcionario = JsonConvert.DeserializeObject<Funcionario>(jsonData.ToString());
+            foreach (PropertyDescriptor descriptor in TypeDescriptor.GetProperties(funcionario))
+            {
+                string name = descriptor.Name;
+                object value = descriptor.GetValue(funcionario);
+                Console.WriteLine("{0}={1}", name, value);
+            }
+            return "yo";
         }
 
         [HttpDelete("{id}")]
         public string Delete(int id)
         {
-            throw new NotImplementedException();
+
+                _funcionariosService.Delete(id);
+                return "Apagado com sucesso";
+            
+             
         }
     }
 }

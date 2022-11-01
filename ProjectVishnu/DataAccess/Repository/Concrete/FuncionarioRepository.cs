@@ -34,6 +34,16 @@ namespace ProjectVishnu.DataAccess.Repository.Concrete
             return base.GetAll();
         }
 
+        public void Delete(Funcionario funcionario)
+        {
+            VishnuContext.Entry(funcionario).Property(func => func.Deleted).IsModified = true;
+        }
+
+        public void Update(Funcionario funcionario)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<Funcionario> Find(Expression<Func<Funcionario, bool>> predicate)
         {
             throw new NotImplementedException();
