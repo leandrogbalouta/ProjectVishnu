@@ -18,12 +18,14 @@ namespace Tests.RepositoryTests
         {
             context = new vishnuContext();
             context.Database.SetConnectionString("Host=localhost;Database=vishnuTests;Username=postgres;Password=postgres");
+            createDB();
+            populateDB();
         }
 
         [TearDown]
         public void TearDown()
         {
-            context.Database.EnsureDeleted();
+            //context.Database.EnsureDeleted();
         }
 
         public void createDB()
@@ -34,7 +36,7 @@ namespace Tests.RepositoryTests
 
         public void populateDB()
         {
-            var sql = System.IO.File.ReadAllText("../../ProjectVishnu/ServerApp/App/SQLSchema/insertTables.sql");
+            var sql = System.IO.File.ReadAllText("../../../../ProjectVishnu/ServerApp/App/SQLSchema/insertTables.sql");
             context.Database.ExecuteSqlRaw(sql);
         }
     }

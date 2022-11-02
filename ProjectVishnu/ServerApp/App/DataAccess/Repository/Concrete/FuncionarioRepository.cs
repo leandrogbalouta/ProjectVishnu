@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProjectVishnu.Models;
+using System;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -14,35 +15,35 @@ namespace ProjectVishnu.DataAccess.Repository.Concrete
         }
         public IEnumerable<Funcionario> ListByMarket(string mercado)
         {
-            return VishnuContext.Set<Funcionario>().Where(func => func.Mercado.Contains(mercado));
+            return VishnuContext.Funcionarios.Where(FuncionarioExists).Where(func => func.Mercado.Contains(mercado));
 
         }
 
         public IEnumerable<Funcionario> ListAlphabetically()
         {
-            return VishnuContext.Set<Funcionario>().OrderBy(func => func.Nome);
+            return VishnuContext.Funcionarios.Where(FuncionarioExists).OrderBy(func => func.Nome);
         }
 
         public IEnumerable<Funcionario> GetByName(string nome)
         {
-            return VishnuContext.Set<Funcionario>().Where(func => func.Nome.Contains(nome));
+            return VishnuContext.Funcionarios.Where(FuncionarioExists).Where(func => func.Nome == nome);
         }
 
-        public Funcionario Get(int id) => VishnuContext.Set<Funcionario>().SingleOrDefault(func => func.Id == id);
+        public Funcionario Get(int id) => VishnuContext.Funcionarios.Where(FuncionarioExists).SingleOrDefault(func => func.Id == id);
 
         public IEnumerable<Funcionario> GetAll()
         {
-            return base.GetAll();
+            return VishnuContext.Funcionarios.Where(FuncionarioExists);
         }
 
         public void Delete(int id)
         {
-            VishnuContext.Entry(funcionario).Property(func => func.Deleted).IsModified = true;
+            VishnuContext.Funcionarios.Where(FuncionarioExists).Where(func => func.Id == id).First().Deleted = DateOnly.FromDateTime(DateTime.Now);
         }
 
         public void Update(Funcionario funcionario)
         {
-            throw new NotImplementedException();
+            VishnuContext.Funcionarios.Update(funcionario);
         }
 
         public IEnumerable<Funcionario> Find(Expression<Func<Funcionario, bool>> predicate)
@@ -69,6 +70,12 @@ namespace ProjectVishnu.DataAccess.Repository.Concrete
         {
             throw new NotImplementedException();
         }
+
+        private bool FuncionarioExists(Funcionario func)
+        {
+            return func.Deleted == null;
+        }
+
 
         public vishnuContext VishnuContext
         {
