@@ -4,7 +4,7 @@ using ProjectVishnu.DataAccess;
 using ProjectVishnu.DataAccess.Concrete;
 using ProjectVishnu.DataAccess.Repository;
 using ProjectVishnu.DataAccess.Repository.Concrete;
-using ProjectVishnu.ServerApp.App.Models;
+using ProjectVishnu.ServerApp;
 using ProjectVishnu.Services;
 using ProjectVishnu.Services.Concrete;
 

@@ -35,7 +35,7 @@ namespace ProjectVishnu.DataAccess.Repository.Concrete
             return base.GetAll();
         }
 
-        public void Delete(Funcionario funcionario)
+        public void Delete(int id)
         {
             VishnuContext.Entry(funcionario).Property(func => func.Deleted).IsModified = true;
         }

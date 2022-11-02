@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ProjectVishnu.ServerApp.App.Models
+namespace ProjectVishnu.Models
 {
     public partial class DiaTrabalho
     {
