@@ -15,7 +15,7 @@ namespace ProjectVishnu.DataAccess.Repository.Concrete
         }
         public IEnumerable<Funcionario> ListByMarket(string mercado)
         {
-            return VishnuContext.Funcionarios.Where(FuncionarioExists).Where(func => func.Mercado.Contains(mercado));
+            return VishnuContext.Funcionarios.Where(FuncionarioExists).Where(func => func.Mercado.Contains(mercado)).OrderBy(func => func.Nome);
 
         }
 
@@ -29,7 +29,7 @@ namespace ProjectVishnu.DataAccess.Repository.Concrete
             return VishnuContext.Funcionarios.Where(FuncionarioExists).Where(func => func.Nome == nome);
         }
 
-        public Funcionario Get(int id) => VishnuContext.Funcionarios.Where(FuncionarioExists).SingleOrDefault(func => func.Id == id);
+        public Funcionario Get(int id) => VishnuContext.Funcionarios.SingleOrDefault(func => func.Id == id);
 
         public IEnumerable<Funcionario> GetAll()
         {
@@ -53,7 +53,7 @@ namespace ProjectVishnu.DataAccess.Repository.Concrete
 
         public void Add(Funcionario entity)
         {
-            base.Add(entity);
+            VishnuContext.Funcionarios.Add(entity);
         }
 
         public void AddRange(IEnumerable<Funcionario> entities)

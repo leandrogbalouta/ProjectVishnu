@@ -25,7 +25,8 @@ namespace Tests.RepositoryTests
         [TearDown]
         public void TearDown()
         {
-            //context.Database.EnsureDeleted();
+            context.Database.EnsureDeleted();
+            context.Dispose();
         }
 
         public void createDB()
