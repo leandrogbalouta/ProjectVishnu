@@ -38,7 +38,7 @@ INSERT INTO OBRA
 (codigointerno,designacao,cliente,
 datainicio,datafim,mercado,autosdemedicao) values
 ('OB22PT04','Obra de um edificio','ISEL',
-'2022-05-09','2025-05-09','Portugal',
+'2022-05-09','2025-05-09','portugal',
 'Autos de medicao');
 
 INSERT INTO FUNCIONARIOS_OBRAS
