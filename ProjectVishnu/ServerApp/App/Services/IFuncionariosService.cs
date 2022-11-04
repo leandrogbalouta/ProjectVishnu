@@ -1,4 +1,5 @@
 ﻿using ProjectVishnu.Models;
+using ProjectVishnu.ServerApp.App.InputDtos;
 
 namespace ProjectVishnu.Services
 {
@@ -14,6 +15,6 @@ namespace ProjectVishnu.Services
 
         void Update(Funcionario funcionario);
 
-        void Create(Funcionario funcionario);
+        void Create(FuncionarioInputDto funcionarioDto);
     }
 }

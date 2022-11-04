@@ -6,6 +6,7 @@ using ProjectVishnu.Models;
 using ProjectVishnu.Services;
 using System.ComponentModel;
 using System;
+using ProjectVishnu.ServerApp.App.InputDtos;
 
 namespace ProjectVishnu.Controllers
 {
@@ -66,18 +67,9 @@ namespace ProjectVishnu.Controllers
         }
 
         [HttpPost]
-        public string Create([FromBody] dynamic jsonData) // levar um segundo parâmetro com os parâmetros necessários para editar um funcionário(possivelmente necessário criar um dto)
+        public string Create([FromBody] FuncionarioInputDto jsonData) // levar um segundo parâmetro com os parâmetros necessários para editar um funcionário(possivelmente necessário criar um dto)
         {
-                Funcionario funcionario = JsonConvert.DeserializeObject<Funcionario>(jsonData.ToString());
-                foreach (PropertyDescriptor descriptor in TypeDescriptor.GetProperties(funcionario))
-                {
-                    string name = descriptor.Name;
-                    object value = descriptor.GetValue(funcionario);
-                    Console.WriteLine("{0}={1}", name, value);
-                }
-                Console.WriteLine(funcionario.Dtnascimento.ToString());
-                Console.WriteLine("HERE");
-                _funcionariosService.Create(funcionario);
+                _funcionariosService.Create(jsonData);
                 return "Criado com sucesso";
         }
 

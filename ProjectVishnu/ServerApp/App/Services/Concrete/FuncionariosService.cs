@@ -1,6 +1,7 @@
 ﻿using ProjectVishnu.DataAccess;
 using ProjectVishnu.DataAccess.Concrete;
 using ProjectVishnu.Models;
+using ProjectVishnu.ServerApp.App.InputDtos;
 using System.Globalization;
 
 namespace ProjectVishnu.Services
@@ -32,9 +33,9 @@ namespace ProjectVishnu.Services
             return _unitOfWork.Funcionarios.Get(id);
         }
 
-        public void Create(Funcionario funcionario)
+        public void Create(FuncionarioInputDto funcionarioDto)
         {
-            _unitOfWork.Funcionarios.Add(funcionario);
+            _unitOfWork.Funcionarios.Add(funcionarioDto.ToFuncionario());
             _unitOfWork.Complete();
         }
 

@@ -70,6 +70,7 @@ namespace Tests.RepositoryTests
         {
             Funcionario fouto = funcionarioRepository.GetByName("Francisco Martins").First();
             Assert.That(fouto.Nif, Is.EqualTo("255896379"));
+            Assert.That(fouto.Dtnascimento, Is.EqualTo(new DateOnly(1999, 3, 20)));
         }
 
         [Test]
@@ -88,15 +89,41 @@ namespace Tests.RepositoryTests
         [Test]
         public void Add()
         {
-            Funcionario newFunc = new Funcionario();
-            newFunc.Nome="Leandro Balouta";
+            Funcionario newFunc1 = new Funcionario();
+            newFunc1.Nome="Leandro Balouta";
 
-            Assert.Throws<InvalidOperationException>(() => funcionarioRepository.Add(newFunc));
-            newFunc.Nif = "102039482";
-            funcionarioRepository.Add(newFunc);
+            Assert.Throws<InvalidOperationException>(() => funcionarioRepository.Add(newFunc1));
+            newFunc1.Nif = "102039482";
+            funcionarioRepository.Add(newFunc1);
             IEnumerable<Funcionario> addedFunc = funcionarioRepository.GetByName("Leandro Balouta");
             Assert.That(addedFunc.Count(), Is.EqualTo(0));
-           
+
+            Funcionario newFunc2 = new Funcionario();
+            newFunc2.Nome = "Joaquim Mendes";
+            newFunc2.Dtnascimento = new DateOnly(1987, 9, 8);
+            newFunc2.Telemovel = "918997656";
+            newFunc2.Contactoemergencia = "213453453";
+            newFunc2.Nacionalidade = "portuguesa";
+            newFunc2.Mercado = "franca";
+            newFunc2.Tipodocident = "CC";
+            newFunc2.Docident = "123123123";
+            newFunc2.Validadedocident = new DateOnly(2028, 5, 6);
+            newFunc2.Catprof = "1234567";
+            newFunc2.Nif = "234432234";
+            newFunc2.Niss = "12121212121212";
+            newFunc2.Morada = "Rua joaquim alberto n13";
+            newFunc2.Contratoinicio = new DateOnly(2022,5,5);
+            newFunc2.Contratofim = new DateOnly(2025,5,5);
+            newFunc2.Vencimentobase = 800;
+            newFunc2.Tiposalario = "fixo";
+            newFunc2.Cartaconducao = "Nao";
+            newFunc2.Iban = "33333333333333333333";
+
+            funcionarioRepository.Add(newFunc2);
+
+            IEnumerable<Funcionario> returnedFunc = funcionarioRepository.GetByName("Joaquim Mendes");
+
+            Assert.That(newFunc2.Nome, Is.EqualTo(returnedFunc.First().Nome));
         }
     }
 }
