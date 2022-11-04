@@ -7,7 +7,7 @@ namespace ProjectVishnu.DataAccess.Repository
         IEnumerable<Funcionario> ListByMarket(string mercado);
         IEnumerable<Funcionario> ListAlphabetically();
 
-        IEnumerable<Funcionario> GetByName(string nome);
+        IEnumerable<Funcionario> SearchByName(string nome);
 
         void Delete(int id);
 

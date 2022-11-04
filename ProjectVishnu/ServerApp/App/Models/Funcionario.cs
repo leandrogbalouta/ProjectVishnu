@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProjectVishnu.ServerApp.App.Dtos;
+using System;
 using System.Collections.Generic;
 
 namespace ProjectVishnu.Models
@@ -42,5 +43,36 @@ namespace ProjectVishnu.Models
         public virtual ICollection<DiaTrabalho> DiaTrabalhos { get; set; }
         public virtual ICollection<FuncionariosObra> FuncionariosObras { get; set; }
         public virtual ICollection<SalarioFinal> SalarioFinals { get; set; }
+
+        public FuncionarioOutputModel toOutputModel()
+        {
+            return new FuncionarioOutputModel
+            {
+                id = Id,
+                Nome = Nome,
+                Dtnascimento = Dtnascimento.ToShortDateString(),
+                Telemovel = Telemovel,
+                Contactoemergencia = Contactoemergencia,
+                Nacionalidade = Nacionalidade,
+                Mercado = Mercado,
+                Tipodocident = Tipodocident,
+                Docident = Docident,
+                Tituloresidencia = Tituloresidencia,
+                Manifestacaointeresse = Manifestacaointeresse,
+                Validadedocident = Validadedocident.ToShortDateString(),
+                Catprof = Catprof,
+                Nif = Nif,
+                Niss = Niss,
+                Morada = Morada,
+                Contratoinicio = Contratoinicio.ToShortDateString(),
+                Contratofim = Contratofim.ToShortDateString(),
+                Vencimentobase = Vencimentobase,
+                Tiposalario = Tiposalario,
+                Salarioreal = Salarioreal,
+                Calcado = Calcado,
+                Cartaconducao = Cartaconducao,
+                Iban = Iban
+            };
+        }
     }
 }

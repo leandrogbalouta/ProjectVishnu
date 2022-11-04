@@ -68,14 +68,14 @@ namespace Tests.RepositoryTests
         [Test]
         public void GetByName()
         {
-            Funcionario fouto = funcionarioRepository.GetByName("Francisco Martins").First();
+            Funcionario fouto = funcionarioRepository.SearchByName("Francisco Martins").First();
             Assert.That(fouto.Nif, Is.EqualTo("255896379"));
         }
 
         [Test]
         public void Delete()
         {
-            Funcionario fouto = funcionarioRepository.GetByName("Francisco Martins").First();
+            Funcionario fouto = funcionarioRepository.SearchByName("Francisco Martins").First();
             funcionarioRepository.Delete(fouto.Id);
             IEnumerable<Funcionario> returnedFuncs = funcionarioRepository.ListAlphabetically();
             Assert.That(returnedFuncs.Count, Is.EqualTo(2));
@@ -94,7 +94,7 @@ namespace Tests.RepositoryTests
             Assert.Throws<InvalidOperationException>(() => funcionarioRepository.Add(newFunc));
             newFunc.Nif = "102039482";
             funcionarioRepository.Add(newFunc);
-            IEnumerable<Funcionario> addedFunc = funcionarioRepository.GetByName("Leandro Balouta");
+            IEnumerable<Funcionario> addedFunc = funcionarioRepository.SearchByName("Leandro Balouta");
             Assert.That(addedFunc.Count(), Is.EqualTo(0));
            
         }
