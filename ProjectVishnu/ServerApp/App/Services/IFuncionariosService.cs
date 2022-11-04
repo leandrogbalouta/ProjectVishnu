@@ -13,7 +13,7 @@ namespace ProjectVishnu.Services
 
         void Delete(int id);
 
-        void Update(Funcionario funcionario);
+        void Update(FuncionarioInputModel funcionarioDto);
 
         void Create(FuncionarioInputModel funcionarioDto);
     }

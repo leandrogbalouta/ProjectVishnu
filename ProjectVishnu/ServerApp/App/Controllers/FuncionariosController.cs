@@ -72,23 +72,17 @@ namespace ProjectVishnu.Controllers
         }
 
         [HttpPost]
-        public string Create([FromBody] FuncionarioInputModel jsonData) // levar um segundo parâmetro com os parâmetros necessários para editar um funcionário(possivelmente necessário criar um dto)
+        public string Create([FromBody] FuncionarioInputModel funcionario) // levar um segundo parâmetro com os parâmetros necessários para editar um funcionário(possivelmente necessário criar um dto)
         {
-                _funcionariosService.Create(jsonData);
+                _funcionariosService.Create(funcionario);
                 return "Criado com sucesso";
         }
 
         [HttpPut("{id}")]
-        public string Edit(int id, [FromBody] dynamic jsonData) // levar um segundo parâmetro com os parâmetros necessários para editar um funcionário(possivelmente necessário criar um dto)
+        public string Edit(int id, [FromBody] FuncionarioInputModel funcionario) // levar um segundo parâmetro com os parâmetros necessários para editar um funcionário(possivelmente necessário criar um dto)
         {
-            Funcionario funcionario = JsonConvert.DeserializeObject<Funcionario>(jsonData.ToString());
-            foreach (PropertyDescriptor descriptor in TypeDescriptor.GetProperties(funcionario))
-            {
-                string name = descriptor.Name;
-                object value = descriptor.GetValue(funcionario);
-                Console.WriteLine("{0}={1}", name, value);
-            }
-            return "yo";
+            _funcionariosService.Update(funcionario);
+            return "";
         }
 
         [HttpDelete("{id}")]

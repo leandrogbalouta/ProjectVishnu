@@ -47,9 +47,9 @@ namespace ProjectVishnu.Services
             _unitOfWork.Complete();
         }
 
-        public void Update(Funcionario funcionario)
+        public void Update(FuncionarioInputModel funcionarioDto)
         {
-            throw new NotImplementedException();
+            _unitOfWork.Funcionarios.Update(funcionarioDto.ToFuncionario());
         }
     }
 }

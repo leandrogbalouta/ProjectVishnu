@@ -96,7 +96,31 @@ namespace Tests.RepositoryTests
             funcionarioRepository.Add(newFunc);
             IEnumerable<Funcionario> addedFunc = funcionarioRepository.SearchByName("Leandro Balouta");
             Assert.That(addedFunc.Count(), Is.EqualTo(0));
-           
+
+            newFunc.Dtnascimento = DateOnly.Parse("1999-03-20");
+            newFunc.Telemovel = "965040302";
+            newFunc.Contactoemergencia = "92391283";
+            newFunc.Nacionalidade = "portuguesa";
+            newFunc.Mercado = "portugal";
+            newFunc.Tipodocident = "cc";
+            newFunc.Docident = "21312323";
+            newFunc.Validadedocident = DateOnly.Parse("2025-03-12");
+            newFunc.Catprof = "1234567";
+            newFunc.Niss = "3213123123";
+            newFunc.Morada = "teste morada";
+            newFunc.Contratoinicio = DateOnly.Parse("2020-03-12");
+            newFunc.Contratofim = DateOnly.Parse("2025-03-12");
+            newFunc.Vencimentobase = 20;
+            newFunc.Tiposalario = "fixo";
+            newFunc.Salarioreal = 50;
+            newFunc.Cartaconducao = "Nao";
+            newFunc.Iban = "PT502312314523123";
+
+            funcionarioRepository.Add(newFunc);
+            funcionarioRepository.VishnuContext.SaveChanges();
+            addedFunc = funcionarioRepository.SearchByName("Leandro Balouta");
+            Assert.That(addedFunc.Count(), Is.EqualTo(1));
+
         }
     }
 }
