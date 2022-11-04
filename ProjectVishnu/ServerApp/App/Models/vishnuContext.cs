@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
@@ -7,13 +8,18 @@ namespace ProjectVishnu.Models
 {
     public partial class vishnuContext : DbContext
     {
-        public vishnuContext()
+        private readonly IConfiguration _configuration;
+        private string _connectionString;
+        public vishnuContext(string connectionString)
         {
+            _connectionString = connectionString;
         }
 
-        public vishnuContext(DbContextOptions<vishnuContext> options)
+        public vishnuContext(DbContextOptions<vishnuContext> options, IConfiguration configuration)
             : base(options)
         {
+            _configuration = configuration;
+            _connectionString = configuration.GetConnectionString("vishnu");
         }
 
         public virtual DbSet<CategoriasProfissionai> CategoriasProfissionais { get; set; } = null!;
@@ -30,7 +36,7 @@ namespace ProjectVishnu.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseNpgsql("Host=localhost;Database=vishnu;Username=postgres;Password=postgres");
+                optionsBuilder.UseNpgsql(_connectionString);
             }
         }
 

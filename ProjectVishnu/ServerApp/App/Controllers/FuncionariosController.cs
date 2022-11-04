@@ -22,17 +22,17 @@ namespace ProjectVishnu.Controllers
         }
 
         [HttpGet]
-        public string List([FromQuery(Name = "mercado")] string? mercado, [FromQuery(Name = "nome")] string? nome)
+        public IEnumerable<Funcionario> List([FromQuery(Name = "mercado")] string? mercado, [FromQuery(Name = "nome")] string? nome)
         {
             if (mercado != null )
             {
                 try
                 {
-                    return _funcionariosService.ListByMarket(mercado).Last().Nome;
+                    return _funcionariosService.ListByMarket(mercado);
                 }
                 catch (InvalidOperationException e)
                 {
-                    return "Mercado inválido.";
+                    return null;//"Mercado inválido.";
                 }
                 
             }
@@ -40,16 +40,16 @@ namespace ProjectVishnu.Controllers
             {
                 try
                 {
-                    return _funcionariosService.GetByName(nome).Last().Nome;
+                    return _funcionariosService.GetByName(nome);
                 }
                 catch (InvalidOperationException e)
                 {
-                    return "Nome inválido.";
+                    return null;//"Nome inválido.";
                 }
             }
             else
             {
-                return _funcionariosService.ListAlphabetically().Last().Nome;
+                return _funcionariosService.ListAlphabetically();
             }
         }
 

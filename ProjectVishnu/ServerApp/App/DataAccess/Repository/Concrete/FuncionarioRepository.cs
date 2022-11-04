@@ -53,7 +53,7 @@ namespace ProjectVishnu.DataAccess.Repository.Concrete
 
         public void Add(Funcionario entity)
         {
-            VishnuContext.Funcionarios.Add(entity);
+            base.Add(entity);
         }
 
         public void AddRange(IEnumerable<Funcionario> entities)
