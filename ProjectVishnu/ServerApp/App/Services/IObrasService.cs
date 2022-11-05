@@ -1,4 +1,5 @@
 ﻿using ProjectVishnu.Models;
+using ProjectVishnu.ServerApp.App.Dtos;
 
 namespace ProjectVishnu.Services
 {
@@ -8,6 +9,6 @@ namespace ProjectVishnu.Services
         IEnumerable<Obra> ListAlphabetically();
         Obra Get(string codigoInterno);
 
-        void Create(Obra obra);
+        void Create(ObraInputModel obra);
     }
 }

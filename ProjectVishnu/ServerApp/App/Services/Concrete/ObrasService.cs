@@ -1,5 +1,6 @@
 ﻿using ProjectVishnu.DataAccess;
 using ProjectVishnu.Models;
+using ProjectVishnu.ServerApp.App.Dtos;
 
 namespace ProjectVishnu.Services.Concrete
 {
@@ -11,9 +12,10 @@ namespace ProjectVishnu.Services.Concrete
             _unitOfWork = unitOfWork;
         }
 
-        public void Create(Obra obra)
+        public void Create(ObraInputModel obraInput)
         {
-            throw new NotImplementedException();
+            _unitOfWork.Obras.Add(obraInput.ToObra());
+            _unitOfWork.Complete();
         }
 
         public Obra Get(string codigoInterno)

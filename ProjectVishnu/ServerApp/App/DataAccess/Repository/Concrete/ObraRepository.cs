@@ -24,7 +24,7 @@ namespace ProjectVishnu.DataAccess.Repository.Concrete
 
         public void Add(Obra entity)
         {
-            throw new NotImplementedException();
+            VishnuContext.Obras.Add(entity);
         }
 
         public void AddRange(IEnumerable<Obra> entities)

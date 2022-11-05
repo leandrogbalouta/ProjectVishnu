@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ProjectVishnu.ServerApp.App.Dtos;
 using ProjectVishnu.Services;
 
 namespace ProjectVishnu.Controllers
@@ -49,9 +50,10 @@ namespace ProjectVishnu.Controllers
         }
 
         [HttpPost]
-        public string Create() 
+        public string Create([FromBody] ObraInputModel obraInput) 
         {
-            throw new NotImplementedException();
+            _obrasService.Create(obraInput);
+            return "Criado com sucesso";
         }
 
         [HttpPut("{id}")]
