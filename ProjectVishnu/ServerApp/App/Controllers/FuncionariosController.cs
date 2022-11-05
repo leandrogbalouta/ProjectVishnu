@@ -6,7 +6,8 @@ using ProjectVishnu.Models;
 using ProjectVishnu.Services;
 using System.ComponentModel;
 using System;
-using ProjectVishnu.ServerApp.App.InputDtos;
+using ProjectVishnu.ServerApp.App.Dtos;
+using System.Linq;
 
 namespace ProjectVishnu.Controllers
 {
@@ -23,17 +24,19 @@ namespace ProjectVishnu.Controllers
         }
 
         [HttpGet]
-        public string List([FromQuery(Name = "mercado")] string? mercado, [FromQuery(Name = "nome")] string? nome)
+        public IEnumerable<FuncionarioOutputModel> List([FromQuery(Name = "mercado")] string? mercado, [FromQuery(Name = "nome")] string? nome)
         {
             if (mercado != null )
             {
                 try
                 {
-                    return _funcionariosService.ListByMarket(mercado).Last().Nome;
+                    IEnumerable<Funcionario> funcionariosList = _funcionariosService.ListByMarket(mercado);
+                    return funcionariosList.Select(x => x.toOutputModel());
+
                 }
                 catch (InvalidOperationException e)
                 {
-                    return "Mercado inválido.";
+                    return null;//"Mercado inválido.";
                 }
                 
             }
@@ -41,16 +44,18 @@ namespace ProjectVishnu.Controllers
             {
                 try
                 {
-                    return _funcionariosService.GetByName(nome).Last().Nome;
+                    IEnumerable<Funcionario> funcionariosList = _funcionariosService.GetByName(nome);
+                    return funcionariosList.Select(x => x.toOutputModel());
                 }
                 catch (InvalidOperationException e)
                 {
-                    return "Nome inválido.";
+                    return null;//"Nome inválido.";
                 }
             }
             else
             {
-                return _funcionariosService.ListAlphabetically().Last().Nome;
+                IEnumerable<Funcionario> funcionariosList = _funcionariosService.ListAlphabetically();
+                return funcionariosList.Select(x => x.toOutputModel());
             }
         }
 
@@ -67,23 +72,17 @@ namespace ProjectVishnu.Controllers
         }
 
         [HttpPost]
-        public string Create([FromBody] FuncionarioInputDto jsonData) // levar um segundo parâmetro com os parâmetros necessários para editar um funcionário(possivelmente necessário criar um dto)
+        public string Create([FromBody] FuncionarioInputModel funcionario) // levar um segundo parâmetro com os parâmetros necessários para editar um funcionário(possivelmente necessário criar um dto)
         {
-                _funcionariosService.Create(jsonData);
+                _funcionariosService.Create(funcionario);
                 return "Criado com sucesso";
         }
 
         [HttpPut("{id}")]
-        public string Edit(int id, [FromBody] dynamic jsonData) // levar um segundo parâmetro com os parâmetros necessários para editar um funcionário(possivelmente necessário criar um dto)
+        public string Edit(int id, [FromBody] FuncionarioInputModel funcionario) // levar um segundo parâmetro com os parâmetros necessários para editar um funcionário(possivelmente necessário criar um dto)
         {
-            Funcionario funcionario = JsonConvert.DeserializeObject<Funcionario>(jsonData.ToString());
-            foreach (PropertyDescriptor descriptor in TypeDescriptor.GetProperties(funcionario))
-            {
-                string name = descriptor.Name;
-                object value = descriptor.GetValue(funcionario);
-                Console.WriteLine("{0}={1}", name, value);
-            }
-            return "yo";
+            _funcionariosService.Update(funcionario);
+            return "";
         }
 
         [HttpDelete("{id}")]

@@ -1,7 +1,7 @@
 ﻿using ProjectVishnu.DataAccess;
 using ProjectVishnu.DataAccess.Concrete;
 using ProjectVishnu.Models;
-using ProjectVishnu.ServerApp.App.InputDtos;
+using ProjectVishnu.ServerApp.App.Dtos;
 using System.Globalization;
 
 namespace ProjectVishnu.Services
@@ -25,7 +25,7 @@ namespace ProjectVishnu.Services
 
         public IEnumerable<Funcionario> GetByName(string nome)
         {
-            return _unitOfWork.Funcionarios.GetByName(nome);
+            return _unitOfWork.Funcionarios.SearchByName(nome);
         }
 
         public Funcionario Get(int id)
@@ -33,7 +33,7 @@ namespace ProjectVishnu.Services
             return _unitOfWork.Funcionarios.Get(id);
         }
 
-        public void Create(FuncionarioInputDto funcionarioDto)
+        public void Create(FuncionarioInputModel funcionarioDto)
         {
             _unitOfWork.Funcionarios.Add(funcionarioDto.ToFuncionario());
             _unitOfWork.Complete();
@@ -47,9 +47,9 @@ namespace ProjectVishnu.Services
             _unitOfWork.Complete();
         }
 
-        public void Update(Funcionario funcionario)
+        public void Update(FuncionarioInputModel funcionarioDto)
         {
-            throw new NotImplementedException();
+            _unitOfWork.Funcionarios.Update(funcionarioDto.ToFuncionario());
         }
     }
 }

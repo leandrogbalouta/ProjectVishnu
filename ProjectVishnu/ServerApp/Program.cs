@@ -16,9 +16,12 @@ namespace ProjectVishnu.ServerApp
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            
             // Add services to the container.
             builder.Services.AddDbContext<vishnuContext>(options =>
                         options.UseNpgsql(builder.Configuration.GetConnectionString("vishnu")));
+            builder.Services.AddScoped<DbContext, vishnuContext>();
+            builder.Services.AddSingleton(provider => builder.Configuration);
             builder.Services.AddScoped<IFuncionarioRepository, FuncionarioRepository>();
             builder.Services.AddScoped<IObraRepository, ObraRepository>();
             builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
@@ -28,7 +31,7 @@ namespace ProjectVishnu.ServerApp
 
             builder.Services.AddControllersWithViews();
 
-
+            
 
             var app = builder.Build();
 

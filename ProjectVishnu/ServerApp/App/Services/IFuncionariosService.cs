@@ -1,5 +1,5 @@
 ﻿using ProjectVishnu.Models;
-using ProjectVishnu.ServerApp.App.InputDtos;
+using ProjectVishnu.ServerApp.App.Dtos;
 
 namespace ProjectVishnu.Services
 {
@@ -13,8 +13,8 @@ namespace ProjectVishnu.Services
 
         void Delete(int id);
 
-        void Update(Funcionario funcionario);
+        void Update(FuncionarioInputModel funcionarioDto);
 
-        void Create(FuncionarioInputDto funcionarioDto);
+        void Create(FuncionarioInputModel funcionarioDto);
     }
 }
