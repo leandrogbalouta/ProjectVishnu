@@ -41,9 +41,7 @@ namespace ProjectVishnu.Services
 
         public void Delete(int id)
         {
-            Funcionario funcionario = _unitOfWork.Funcionarios.Get(id);
-            funcionario.Deleted = DateOnly.Parse(DateTime.Now.ToString("yyyy/MM/dd"));
-            //_unitOfWork.Funcionarios.Delete(funcionario);
+            _unitOfWork.Funcionarios.Delete(id);
             _unitOfWork.Complete();
         }
 
