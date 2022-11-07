@@ -34,13 +34,55 @@ namespace Tests.RepositoryTests
             Assert.That(returnedObras.Count(), Is.EqualTo(0));
 
             returnedObras = obraRepository.ListByMarket("espanha");
-            Assert.That(returnedObras.Count(), Is.EqualTo(0));
+            Assert.That(returnedObras.Count(), Is.EqualTo(1));
 
             returnedObras = obraRepository.ListByMarket("portugal");
             Assert.That(returnedObras.Count(), Is.EqualTo(1));
 
             Obra obra1 = returnedObras.First();
-            Assert.That(obra1.Codigointerno == "OB22PT04");
-        }       
+            Assert.That(obra1.Codigointerno == "OB22PT01");
+        }
+
+        [Test]
+        public void ListAlphabetically()
+        {
+            IEnumerable<Obra> returnedObras = obraRepository.ListAlphabetically();
+
+            Assert.That(returnedObras.Count(), Is.EqualTo(2));
+            Assert.That(returnedObras.First().Designacao == "Obra de um edificio");
+            Assert.That(returnedObras.Last().Designacao == "Obra em Espanha");
+        }
+
+        [Test]
+        public void Get()
+        {
+            Obra esObra = obraRepository.Get("OB22ES01");
+
+            Assert.That(esObra.Designacao == "Obra em Espanha");
+            Assert.That(esObra.Mercado == "espanha");
+
+            Obra ptObra = obraRepository.Get("OB22PT01");
+
+            Assert.That(ptObra.Datafim == new DateOnly(2025,5,9));
+            Assert.That(ptObra.Cliente == "ISEL");
+
+            Obra frObra = obraRepository.Get("OB19FR04");
+
+            Assert.That(frObra == null);
+        }
+
+        [Test]
+        public void Add()
+        {
+
+
+
+        }
+
+        [Test]
+        public void CodeNumber()
+        {
+
+        }
     }
 }
