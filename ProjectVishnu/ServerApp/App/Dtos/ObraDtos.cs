@@ -1,9 +1,11 @@
 ﻿using ProjectVishnu.Models;
+using System.Globalization;
 
 namespace ProjectVishnu.ServerApp.App.Dtos
 {
     public class ObraInputModel
     {
+        public string? CodigoInterno { get; set; } = null;
         public string Designacao { get; set; } = null!;
         public string Cliente { get; set; } = null!;
         public string? Datainicio { get; set; }
@@ -13,6 +15,7 @@ namespace ProjectVishnu.ServerApp.App.Dtos
         public Obra ToObra() 
         {
             Obra obra = new Obra();
+            obra.Codigointerno = CodigoInterno;
             obra.Designacao = Designacao;
             obra.Cliente = Cliente;
             obra.Datainicio = DateOnly.Parse(Datainicio);
@@ -21,17 +24,33 @@ namespace ProjectVishnu.ServerApp.App.Dtos
             return obra;
         }
 
-        public void generateInternalCodeFirstPart(int count)
+        public string generateInternalCodeFirstPart()
         {
             string code = "OB";
-            string year = Datainicio.Split("/")[2].Split(new char[]{' '}, 2)[1]; // Obter os dois ultimos digitos do ano
+            string year = Datainicio.Split("-")[0].Substring(2); // Obter os dois ultimos digitos do ano
             string _mercado;
-            if (Mercado != null) {
-                _mercado = "" + Mercado[0]  + "" + Mercado[1];
-                _mercado = _mercado.ToUpper();
+            if (Mercado == "portugal")
+            {
+                _mercado = "PT";
             }
-            
+            else if (Mercado == "espanha")
+            {
+                _mercado = "ES";
+            }
+            else _mercado = "FR";
+            CodigoInterno = code+year+ _mercado;
+            return CodigoInterno;
         }
+
+        public void generateInternalCode(int count)
+        {
+            if (count < 10)
+            {
+                CodigoInterno = CodigoInterno + "0" + count;
+            }
+            else CodigoInterno = CodigoInterno + "" + count;
+        }
+
     }
 
     public class ObraOutputModel

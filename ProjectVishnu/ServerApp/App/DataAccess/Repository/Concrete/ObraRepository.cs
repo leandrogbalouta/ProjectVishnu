@@ -27,6 +27,11 @@ namespace ProjectVishnu.DataAccess.Repository.Concrete
             VishnuContext.Obras.Add(entity);
         }
 
+        public int CodeNumber(string code)
+        {
+            return VishnuContext.Obras.Where(obra => obra.Codigointerno.Contains(code)).Count();
+        }
+
         public void AddRange(IEnumerable<Obra> entities)
         {
             throw new NotImplementedException();

@@ -14,6 +14,8 @@ namespace ProjectVishnu.Services.Concrete
 
         public void Create(ObraInputModel obraInput)
         {
+            obraInput.generateInternalCode( 
+                _unitOfWork.Obras.CodeNumber(obraInput.generateInternalCodeFirstPart())+1);
             _unitOfWork.Obras.Add(obraInput.ToObra());
             _unitOfWork.Complete();
         }
