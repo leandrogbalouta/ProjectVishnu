@@ -43,7 +43,7 @@ namespace ProjectVishnu.DataAccess.Repository.Concrete
 
         public void Update(Funcionario funcionario)
         {
-            VishnuContext.Funcionarios.Update(funcionario).Property(func => func.Id).IsModified = false; ;
+            VishnuContext.Funcionarios.Update(funcionario).Property(func => func.Id).IsModified = false; 
         }
 
         public IEnumerable<Funcionario> Find(Expression<Func<Funcionario, bool>> predicate)

@@ -122,5 +122,39 @@ namespace Tests.RepositoryTests
             Assert.That(addedFunc.Count(), Is.EqualTo(1));
 
         }
+
+        [Test]
+        public void Update()
+        {
+            Funcionario funcionario = funcionarioRepository.SearchByName("Afonso Ramos").First();
+
+            funcionario.Nome = "Joaquim Alberto";
+            funcionario.Dtnascimento = DateOnly.Parse("1999-03-20");
+            funcionario.Telemovel = "965040302";
+            funcionario.Contactoemergencia = "92391283";
+            funcionario.Nacionalidade = "portuguesa";
+            funcionario.Mercado = "portugal";
+            funcionario.Tipodocident = "cc";
+            funcionario.Docident = "21312323";
+            funcionario.Validadedocident = DateOnly.Parse("2025-03-12");
+            funcionario.Catprof = "1234567";
+            funcionario.Niss = "3213123123";
+            funcionario.Morada = "teste morada";
+            funcionario.Contratoinicio = DateOnly.Parse("2020-03-12");
+            funcionario.Contratofim = DateOnly.Parse("2025-03-12");
+            funcionario.Vencimentobase = 20;
+            funcionario.Tiposalario = "fixo";
+            funcionario.Salarioreal = 50;
+            funcionario.Cartaconducao = "Nao";
+            funcionario.Iban = "PT502312314523123";
+
+            funcionarioRepository.Update(funcionario);
+            funcionarioRepository.VishnuContext.SaveChanges();
+
+            Funcionario updatedFuncionario = funcionarioRepository.SearchByName("Joaquim Alberto").First();
+
+            Assert.That(updatedFuncionario.Nome, Is.EqualTo("Joaquim Alberto"));
+            Assert.That(updatedFuncionario.Nif, Is.EqualTo("234567899"));
+        }
     }
 }
