@@ -27,7 +27,7 @@ namespace ProjectVishnu.ServerApp.App.Dtos
         public string generateInternalCodeFirstPart()
         {
             string code = "OB";
-            string year = Datainicio.Split("-")[0].Substring(2); // Obter os dois ultimos digitos do ano
+            string year = Datainicio.Split("/")[0].Substring(2); // Obter os dois ultimos digitos do ano
             string _mercado;
             if (Mercado == "portugal")
             {

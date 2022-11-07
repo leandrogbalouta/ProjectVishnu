@@ -50,6 +50,7 @@ namespace ProjectVishnu.Services
         public void Update(FuncionarioInputModel funcionarioDto)
         {
             _unitOfWork.Funcionarios.Update(funcionarioDto.ToFuncionario());
+            _unitOfWork.Complete();
         }
     }
 }

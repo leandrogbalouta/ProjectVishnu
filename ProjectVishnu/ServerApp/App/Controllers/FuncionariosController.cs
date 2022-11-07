@@ -82,7 +82,7 @@ namespace ProjectVishnu.Controllers
         public string Edit(int id, [FromBody] FuncionarioInputModel funcionario) // levar um segundo parâmetro com os parâmetros necessários para editar um funcionário(possivelmente necessário criar um dto)
         {
             _funcionariosService.Update(funcionario);
-            return "";
+            return "Funcionario editado com sucesso.";
         }
 
         [HttpDelete("{id}")]
