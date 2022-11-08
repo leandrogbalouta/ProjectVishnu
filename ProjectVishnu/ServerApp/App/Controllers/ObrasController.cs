@@ -56,16 +56,18 @@ namespace ProjectVishnu.Controllers
             return "Criado com sucesso";
         }
 
-        [HttpPut("{id}")]
-        public string Edit(int id) 
+        [HttpPut("{codigoInterno}")]
+        public string Edit(string codigoInterno, [FromBody] ObraInputModel obraInput) 
         {
-            throw new NotImplementedException();
+            _obrasService.Update(codigoInterno,obraInput);
+            return "Obra editada com sucesso";
         }
 
-        [HttpDelete("{id}")]
-        public string Delete(int id)
+        [HttpDelete("{codigoInterno}")]
+        public string Delete(string codigoInterno)
         {
-            throw new NotImplementedException();
+            _obrasService.Delete(codigoInterno);
+            return "Obra apagada com sucesso";
         }
 
     }

@@ -10,6 +10,10 @@ namespace ProjectVishnu.DataAccess.Repository
 
         public void Add(Obra entity);
 
-        public int CodeNumber(string code);
+        public void Update(string codigoInterno, Obra entity);
+
+        public void Delete(string codigo);
+
+        public int SearchByCodeNumber(string code);
     }
 }

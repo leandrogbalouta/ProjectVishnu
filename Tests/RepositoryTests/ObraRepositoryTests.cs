@@ -1,4 +1,5 @@
-﻿using ProjectVishnu.DataAccess.Repository.Concrete;
+﻿using ProjectVishnu.DataAccess.Repository;
+using ProjectVishnu.DataAccess.Repository.Concrete;
 using ProjectVishnu.Models;
 using System;
 using System.Collections.Generic;
@@ -74,14 +75,63 @@ namespace Tests.RepositoryTests
         [Test]
         public void Add()
         {
-
+            //TODO
 
 
         }
 
         [Test]
-        public void CodeNumber()
+        public void SearchByCodeNumber()
         {
+            int codeNumberPt = obraRepository.SearchByCodeNumber("OB22PT");
+            Assert.That(codeNumberPt == 1);
+
+            int codeNumberEs = obraRepository.SearchByCodeNumber("OB22ES");
+            Assert.That(codeNumberEs == 1);
+
+            int codeNumberFr = obraRepository.SearchByCodeNumber("OB22FR");
+            Assert.That(codeNumberFr == 0);
+        }
+
+        [Test]
+        public void Delete()
+        {
+            Obra obra1 = obraRepository.Get("OB22PT01");
+            Obra obra2 = obraRepository.Get("OB22ES01");
+            obraRepository.Delete("OB22PT01");
+
+            Assert.That(obra1.Deleted == DateOnly.FromDateTime(DateTime.Now));
+            Assert.That(obra2.Deleted == null);
+            
+        }
+
+        [Test]
+        public void Update()
+        {
+            Obra obra = obraRepository.Get("OB22PT01");
+
+            Assert.That(obra.Designacao == "Obra de um edificio");
+            Assert.That(obra.Cliente == "ISEL");
+            Assert.That(obra.Datainicio == new DateOnly(2022,5,9));
+            Assert.That(obra.Datafim == new DateOnly(2025,5,9));
+            Assert.That(obra.Mercado == "portugal");
+            Assert.That(obra.Autosdemedicao == "Autos de medicao");
+
+            obra.Designacao = "Nova Designacao";
+            obra.Cliente = "Novo Cliente";
+            obra.Datainicio = new DateOnly(2022,3,9);
+            obra.Datafim = new DateOnly(2025,4,5);
+            obra.Mercado = "portugal";
+            obra.Autosdemedicao = "Autos de medicao";
+
+            obraRepository.Update("OB22PT01", obra);
+
+            Assert.That(obra.Designacao == "Nova Designacao");
+            Assert.That(obra.Cliente == "Novo Cliente");
+            Assert.That(obra.Datainicio == new DateOnly(2022, 3, 9));
+            Assert.That(obra.Datafim == new DateOnly(2025, 4, 5));
+            Assert.That(obra.Mercado == "portugal");
+            Assert.That(obra.Autosdemedicao == "Autos de medicao");
 
         }
     }

@@ -15,8 +15,14 @@ namespace ProjectVishnu.Services.Concrete
         public void Create(ObraInputModel obraInput)
         {
             obraInput.generateInternalCode( 
-                _unitOfWork.Obras.CodeNumber(obraInput.generateInternalCodeFirstPart())+1);
+                _unitOfWork.Obras.SearchByCodeNumber(obraInput.generateInternalCodeFirstPart())+1);
             _unitOfWork.Obras.Add(obraInput.ToObra());
+            _unitOfWork.Complete();
+        }
+
+        public void Delete(string codigoInterno)
+        {
+            _unitOfWork.Obras.Delete(codigoInterno);
             _unitOfWork.Complete();
         }
 
@@ -33,6 +39,12 @@ namespace ProjectVishnu.Services.Concrete
         public IEnumerable<Obra> ListByMarket(string mercado)
         {
             return _unitOfWork.Obras.ListByMarket(mercado);
+        }
+
+        public void Update(string codigoInterno, ObraInputModel obraInput)
+        {
+            _unitOfWork.Obras.Update(codigoInterno,obraInput.ToObra());
+            _unitOfWork.Complete();
         }
     }
 }

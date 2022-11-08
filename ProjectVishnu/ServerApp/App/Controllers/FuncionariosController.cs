@@ -90,7 +90,7 @@ namespace ProjectVishnu.Controllers
         {
 
                 _funcionariosService.Delete(id);
-                return "Apagado com sucesso";
+                return "Funcionario apagado com sucesso";
             
              
         }

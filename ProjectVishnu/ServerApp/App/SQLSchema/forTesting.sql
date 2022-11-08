@@ -136,11 +136,14 @@ cartaconducao,iban) values
 INSERT INTO OBRA
 (codigointerno,designacao,cliente,
 datainicio,datafim,mercado,autosdemedicao) values
-('OB22PT04','Obra de um edificio','ISEL',
+('OB22ES01','Obra em Espanha','FCBarcelona',
+'2022-08-09','2026-09-08','espanha',
+'Autos de medicao'),
+('OB22PT01','Obra de um edificio','ISEL',
 '2022-05-09','2025-05-09','portugal',
 'Autos de medicao');
 
 INSERT INTO FUNCIONARIOS_OBRAS
 (funcionario,obra,datacomeco,datafim) values
-('255896379','OB22PT04','2022-05-10',
+('255896379','OB22PT01','2022-05-10',
 null);

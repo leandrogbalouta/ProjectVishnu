@@ -27,7 +27,18 @@ namespace ProjectVishnu.DataAccess.Repository.Concrete
             VishnuContext.Obras.Add(entity);
         }
 
-        public int CodeNumber(string code)
+        public void Update(string codigoInterno,Obra entity)
+        {
+            entity.Codigointerno = codigoInterno;
+            VishnuContext.Obras.Update(entity);
+        }
+
+        public void Delete(string codigo)
+        {
+            VishnuContext.Obras.Where(ObraExists).Where(obra => obra.Codigointerno == codigo).First().Deleted = DateOnly.FromDateTime(DateTime.Now);
+        }
+
+        public int SearchByCodeNumber(string code)
         {
             return VishnuContext.Obras.Where(obra => obra.Codigointerno.Contains(code)).Count();
         }
@@ -56,6 +67,12 @@ namespace ProjectVishnu.DataAccess.Repository.Concrete
         {
             throw new NotImplementedException();
         }
+
+        private bool ObraExists(Obra obra)
+        {
+            return obra.Deleted == null;
+        }
+
 
         public vishnuContext VishnuContext
         {
