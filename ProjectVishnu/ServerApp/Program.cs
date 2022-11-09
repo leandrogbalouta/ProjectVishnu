@@ -5,6 +5,7 @@ using ProjectVishnu.DataAccess.Concrete;
 using ProjectVishnu.DataAccess.Repository;
 using ProjectVishnu.DataAccess.Repository.Concrete;
 using ProjectVishnu.Models;
+using ProjectVishnu.ServerApp.App.Services;
 using ProjectVishnu.Services;
 using ProjectVishnu.Services.Concrete;
 
@@ -28,6 +29,7 @@ namespace ProjectVishnu.ServerApp
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddScoped<IFuncionariosService, FuncionariosService>();
             builder.Services.AddScoped<IObrasService, ObrasService>();
+            builder.Services.AddScoped<IFolhaDePontoServices, IFolhaDePontoServices>();
 
             builder.Services.AddControllersWithViews();
 
