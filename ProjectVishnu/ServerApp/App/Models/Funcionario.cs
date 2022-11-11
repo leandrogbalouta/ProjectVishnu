@@ -48,7 +48,7 @@ namespace ProjectVishnu.Models
         {
             return new FuncionarioOutputModel
             {
-                id = Id,
+                Id = Id,
                 Nome = Nome,
                 Dtnascimento = Dtnascimento.ToShortDateString(),
                 Telemovel = Telemovel,

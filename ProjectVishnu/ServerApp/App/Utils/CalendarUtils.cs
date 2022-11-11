@@ -1,4 +1,5 @@
-﻿using ProjectVishnu.ServerApp.App.DataAccess.Repository.Concrete;
+﻿using ProjectVishnu.Models;
+using ProjectVishnu.ServerApp.App.DataAccess.Repository.Concrete;
 
 namespace ProjectVishnu.ServerApp.App.Utils
 {
@@ -34,8 +35,15 @@ namespace ProjectVishnu.ServerApp.App.Utils
 
         public static List<int> GetHolidays(string ano, string mes, string mercado)
         {
+
             // GET https://www.googleapis.com/calendar/v3/calendars/en.portuguese%23holiday@group.v.calendar.google.com/events?key=AIzaSyDklm-qOEzg1MzWbnRdHcuTxK5ChccxE-4
-            throw new NotImplementedException();
+            return new List<int>();
+        }
+
+        public static void GetNonWorkDays(string ano, string mes, IntervaloMercado interval, out List<int> saturdays, out List<int> sundays, out List<int> holidays)
+        {
+            holidays = GetHolidays(ano, mes, interval.Mercado);
+            GetWeekends(ano, mes, interval.DiaInicio.ToString(), interval.DiaFim.ToString(), out saturdays, out sundays);
         }
     }
 }

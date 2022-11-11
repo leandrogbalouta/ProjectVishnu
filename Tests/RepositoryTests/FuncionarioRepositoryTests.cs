@@ -117,7 +117,8 @@ namespace Tests.RepositoryTests
             newFunc.Iban = "PT502312314523123";
 
             funcionarioRepository.Add(newFunc);
-            funcionarioRepository.VishnuContext.SaveChanges();
+            EntityState state = funcionarioRepository.VishnuContext.Entry(newFunc).State;
+            int entries = funcionarioRepository.VishnuContext.SaveChanges();
             addedFunc = funcionarioRepository.SearchByName("Leandro Balouta");
             Assert.That(addedFunc.Count(), Is.EqualTo(1));
 

@@ -14,14 +14,15 @@ namespace ProjectVishnu.ServerApp.App.Dtos
 
         public Obra ToObra() 
         {
-            Obra obra = new Obra();
-            obra.Codigointerno = CodigoInterno;
-            obra.Designacao = Designacao;
-            obra.Cliente = Cliente;
-            obra.Datainicio = DateOnly.Parse(Datainicio);
-            obra.Mercado = Mercado;
-            obra.Autosdemedicao = Autosdemedicao;
-            return obra;
+            return new Obra
+            {
+                Codigointerno = CodigoInterno,
+                Designacao = Designacao,
+                Cliente = Cliente,
+                Datainicio = DateOnly.Parse(Datainicio),
+                Mercado = Mercado,
+                Autosdemedicao = Autosdemedicao
+            };
         }
 
         public string generateInternalCodeFirstPart()
@@ -56,5 +57,11 @@ namespace ProjectVishnu.ServerApp.App.Dtos
     public class ObraOutputModel
     {
 
+    }
+
+    public class FuncionarioObraInputModel
+    {
+        public int Id { get; set; }
+        public string Date { get; set; }
     }
 }

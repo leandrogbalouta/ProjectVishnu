@@ -12,6 +12,11 @@ namespace ProjectVishnu.Services.Concrete
             _unitOfWork = unitOfWork;
         }
 
+        public void AddFuncToObra(string codigoInterno, FuncionarioObraInputModel funcID)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Create(ObraInputModel obraInput)
         {
             obraInput.generateInternalCode( 
@@ -39,6 +44,11 @@ namespace ProjectVishnu.Services.Concrete
         public IEnumerable<Obra> ListByMarket(string mercado)
         {
             return _unitOfWork.Obras.ListByMarket(mercado);
+        }
+
+        public void RemoveFuncFromObra(string codigoInterno, FuncionarioObraInputModel funcInput)
+        {
+            throw new NotImplementedException();
         }
 
         public void Update(string codigoInterno, ObraInputModel obraInput)

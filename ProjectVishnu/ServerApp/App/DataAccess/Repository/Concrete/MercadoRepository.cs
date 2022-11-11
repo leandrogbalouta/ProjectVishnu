@@ -15,5 +15,10 @@ namespace ProjectVishnu.ServerApp.App.DataAccess.Repository.Concrete
         {
             get { return Context as vishnuContext; }
         }
+
+        public IntervaloMercado GetIntervaloMercado(string mercado)
+        {
+            return VishnuContext.IntervaloMercados.Find(mercado);
+        }
     }
 }

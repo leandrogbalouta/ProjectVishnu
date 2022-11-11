@@ -14,5 +14,7 @@ namespace ProjectVishnu.Services
         void Delete(string codigoInterno);
 
         void Update(string codigoInterno, ObraInputModel obraInput);
+        void AddFuncToObra(string codigoInterno, FuncionarioObraInputModel funcID);
+        void RemoveFuncFromObra(string codigoInterno, FuncionarioObraInputModel funcInput);
     }
 }

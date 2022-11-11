@@ -30,39 +30,39 @@ namespace ProjectVishnu.ServerApp.App.Dtos
 
         public Funcionario ToFuncionario()
         {
-            Funcionario funcionario = new Funcionario();
-            funcionario.Nome = Nome;
-            funcionario.Dtnascimento = DateOnly.Parse(Dtnascimento);
-            funcionario.Telemovel = Telemovel;
-            funcionario.Contactoemergencia = Contactoemergencia;
-            funcionario.Nacionalidade = Nacionalidade;
-            funcionario.Mercado = Mercado;
-            funcionario.Tipodocident = Tipodocident;
-            funcionario.Docident = Docident;
-            funcionario.Tituloresidencia = Tituloresidencia;
-            funcionario.Manifestacaointeresse = Manifestacaointeresse;
-            funcionario.Validadedocident = DateOnly.Parse(Validadedocident);
-            funcionario.Catprof = Catprof;
-            funcionario.Nif = Nif;
-            funcionario.Niss = Niss;
-            funcionario.Morada = Morada;
-            funcionario.Contratoinicio = DateOnly.Parse(Contratoinicio);
-            funcionario.Contratofim = DateOnly.Parse(Contratofim);
-            funcionario.Vencimentobase = Vencimentobase;
-            funcionario.Tiposalario = Tiposalario;
-            funcionario.Salarioreal = Salarioreal;
-            funcionario.Calcado = Calcado;
-            funcionario.Cartaconducao = Cartaconducao;
-            funcionario.Iban = Iban;
-
-            return funcionario;
+            return new Funcionario
+            {
+                Nome = Nome,
+                Dtnascimento = DateOnly.Parse(Dtnascimento),
+                Telemovel = Telemovel,
+                Contactoemergencia = Contactoemergencia,
+                Nacionalidade = Nacionalidade,
+                Mercado = Mercado,
+                Tipodocident = Tipodocident,
+                Docident = Docident,
+                Tituloresidencia = Tituloresidencia,
+                Manifestacaointeresse = Manifestacaointeresse,
+                Validadedocident = DateOnly.Parse(Validadedocident),
+                Catprof = Catprof,
+                Nif = Nif,
+                Niss = Niss,
+                Morada = Morada,
+                Contratoinicio = DateOnly.Parse(Contratoinicio),
+                Contratofim = DateOnly.Parse(Contratofim),
+                Vencimentobase = Vencimentobase,
+                Tiposalario = Tiposalario,
+                Salarioreal = Salarioreal,
+                Calcado = Calcado,
+                Cartaconducao = Cartaconducao,
+                Iban = Iban
+            };
         }
 
     }
 
     public class FuncionarioOutputModel
     {
-        public int id { get; set; }
+        public int Id { get; set; }
         public string Nome { get; set; } = null!;
         public string? Dtnascimento { get; set; }
         public string Telemovel { get; set; } = null!;

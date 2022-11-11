@@ -70,5 +70,18 @@ namespace ProjectVishnu.Controllers
             return "Obra apagada com sucesso";
         }
 
+        [HttpPost("{codigoInterno}/add")]
+        public string AddFuncionario(string codigoInterno, [FromBody] FuncionarioObraInputModel funcInput)
+        {
+            _obrasService.AddFuncToObra(codigoInterno, funcInput);
+            return "";
+        }
+
+        [HttpPut("{codigoInterno}/remove")]
+        public string RemoveFuncionario(string codigoInterno, [FromBody] FuncionarioObraInputModel funcInput)
+        {
+            _obrasService.RemoveFuncFromObra(codigoInterno, funcInput);
+            return "";
+        }
     }
 }

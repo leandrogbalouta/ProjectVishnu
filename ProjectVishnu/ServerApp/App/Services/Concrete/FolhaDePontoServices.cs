@@ -1,4 +1,5 @@
 ﻿using ProjectVishnu.DataAccess;
+using ProjectVishnu.Models;
 using ProjectVishnu.ServerApp.App.Dtos;
 using ProjectVishnu.ServerApp.App.Utils;
 using System;
@@ -16,7 +17,34 @@ namespace ProjectVishnu.ServerApp.App.Services.Concrete
 
         public FolhaDePontoEmptyOutputModel GenerateWithInfo(string obraID, FolhaDePontoInfoModel info)
         {
-            throw new NotImplementedException();
+            FolhaDePontoEmptyOutputModel model = new FolhaDePontoEmptyOutputModel();
+            List<int> saturdays;
+            List<int> sundays;
+            List<int> holidays;
+
+
+            IntervaloMercado interval = _unitOfWork.Mercados.GetIntervaloMercado(_unitOfWork.Obras.GetMercado(obraID)); // TODO: MUDAR ISTO
+
+            int previousMonth = int.Parse(info.Mes) - 1;
+            string prevMonthStr = previousMonth >= 10 ? previousMonth.ToString() : "0" + previousMonth.ToString();
+            DateOnly startDate = DateOnly.Parse(String.Format("{0}-{1}-{2}", info.Ano, prevMonthStr, interval.DiaInicio));
+            DateOnly endDate = DateOnly.Parse(String.Format("{0}-{1}-{2}", info.Ano, info.Mes, interval.DiaFim));
+
+            model.Funcionarios = _unitOfWork.FuncionariosObra.GetFuncsDuringInterval(obraID, startDate, endDate).Select(func => func.toOutputModel()).ToList();
+
+            int midLimit = CalendarUtils.GetMidLimit(info.Ano, info.Mes);
+            model.Limits.Add((int)interval.DiaInicio);
+            model.Limits.Add(midLimit);
+            model.Limits.Add((int)interval.DiaFim);
+
+            CalendarUtils.GetNonWorkDays(info.Ano, info.Mes, interval, out saturdays, out sundays, out holidays);
+
+            model.Saturdays = saturdays;
+            model.Sundays = sundays;
+            model.Holidays = holidays;
+            model.Info = info;
+
+            return model;
         }
 
         public List<FolhaDePontoInfoModel> GetAllFromMercado(string mercado)
