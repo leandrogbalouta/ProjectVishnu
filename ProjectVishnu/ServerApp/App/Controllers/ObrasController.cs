@@ -16,21 +16,21 @@ namespace ProjectVishnu.Controllers
         }
 
         [HttpGet]
-        public string List([FromQuery(Name = "mercado")] string? mercado)
+        public IEnumerable<ObraOutputModel> List([FromQuery(Name = "mercado")] string? mercado)
         {
             if(mercado == null)
             {
-                return _obrasService.ListAlphabetically().Last().Designacao;
+                return _obrasService.ListAlphabetically().Select(obra => obra.toObraOutputModel());
             }
             else
             {
                 try
                 {
-                    return _obrasService.ListByMarket(mercado).Last().Designacao;
+                    return _obrasService.ListByMarket(mercado).Select(obra => obra.toObraOutputModel());
                 }
                 catch (InvalidOperationException e)
                 {
-                    return "Mercado inválido.";
+                    throw e;
                 }
             }
         }

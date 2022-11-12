@@ -10,7 +10,6 @@ namespace ProjectVishnu.ServerApp.App.Dtos
         public string Cliente { get; set; } = null!;
         public string? Datainicio { get; set; }
         public string Mercado { get; set; } = null!;
-        public string Autosdemedicao { get; set; } = null!;
 
         public Obra ToObra() 
         {
@@ -20,8 +19,7 @@ namespace ProjectVishnu.ServerApp.App.Dtos
                 Designacao = Designacao,
                 Cliente = Cliente,
                 Datainicio = DateOnly.Parse(Datainicio),
-                Mercado = Mercado,
-                Autosdemedicao = Autosdemedicao
+                Mercado = Mercado
             };
         }
 
@@ -56,7 +54,12 @@ namespace ProjectVishnu.ServerApp.App.Dtos
 
     public class ObraOutputModel
     {
-
+        public string CodigoInterno { get; set; } = null!;
+        public string Designacao { get; set; } = null!;
+        public string Cliente { get; set; } = null!;
+        public string? Datainicio { get; set; }
+        public string Mercado { get; set; } = null!;
+        public string Autosdemedicao { get; set; } = null!;
     }
 
     public class FuncionarioObraInputModel

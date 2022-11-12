@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
 
-export class FetchData extends Component {
-  static displayName = FetchData.name;
+export class Funcionarios extends Component {
+    static displayName = Funcionarios.name;
 
   constructor(props) {
     super(props);
-    this.state = { forecasts: [], loading: true };
+    this.state = { funcionarios: [], loading: true };
   }
 
   componentDidMount() {
-    this.populateWeatherData();
+    this.populateFuncionariosData();
   }
 
-  static renderForecastsTable(forecasts) {
+  static renderFuncionariosTable(funcionarios) {
     return (
       <table className='table table-striped' aria-labelledby="tabelLabel">
         <thead>
@@ -24,12 +24,12 @@ export class FetchData extends Component {
           </tr>
         </thead>
         <tbody>
-          {forecasts.map(forecast =>
-            <tr key={forecast.nome}>
-              <td>{forecast.nome}</td>
-              <td>{forecast.nif}</td>
-              <td>{forecast.niss}</td>
-              <td>{forecast.mercado}</td>
+          {funcionarios.map(funcionario =>
+            <tr key={funcionario.nome}>
+              <td>{funcionario.nome}</td>
+              <td>{funcionario.nif}</td>
+              <td>{funcionario.niss}</td>
+              <td>{funcionario.mercado}</td>
             </tr>
           )}
         </tbody>
@@ -39,8 +39,8 @@ export class FetchData extends Component {
 
   render() {
     let contents = this.state.loading
-      ? <p><em>Loading...</em></p>
-      : FetchData.renderForecastsTable(this.state.forecasts);
+        ? <p><em>Loading...</em></p>
+        : Funcionarios.renderFuncionariosTable(this.state.funcionarios);
 
     return (
       <div>
@@ -51,9 +51,9 @@ export class FetchData extends Component {
     );
   }
 
-  async populateWeatherData() {
-    const response = await fetch('funcionarios');
+  async populateFuncionariosData() {
+    const response = await fetch('api/funcionarios');
     const data = await response.json();
-    this.setState({ forecasts: data, loading: false });
+    this.setState({ funcionarios: data, loading: false });
   }
 }

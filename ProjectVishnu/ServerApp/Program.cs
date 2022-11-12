@@ -6,6 +6,7 @@ using ProjectVishnu.DataAccess.Repository;
 using ProjectVishnu.DataAccess.Repository.Concrete;
 using ProjectVishnu.Models;
 using ProjectVishnu.ServerApp.App.Services;
+using ProjectVishnu.ServerApp.App.Services.Concrete;
 using ProjectVishnu.Services;
 using ProjectVishnu.Services.Concrete;
 
@@ -29,7 +30,7 @@ namespace ProjectVishnu.ServerApp
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddScoped<IFuncionariosService, FuncionariosService>();
             builder.Services.AddScoped<IObrasService, ObrasService>();
-            builder.Services.AddScoped<IFolhaDePontoServices, IFolhaDePontoServices>();
+            builder.Services.AddScoped<IFolhaDePontoServices, FolhaDePontoServices>();
 
             builder.Services.AddControllersWithViews();
 
@@ -37,13 +38,13 @@ namespace ProjectVishnu.ServerApp
 
             var app = builder.Build();
 
+            app.UsePathBase("/api");
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProjectVishnu.ServerApp.App.Dtos;
+using System;
 using System.Collections.Generic;
 
 namespace ProjectVishnu.Models
@@ -22,5 +23,19 @@ namespace ProjectVishnu.Models
 
         public virtual ICollection<DiaTrabalho> DiaTrabalhos { get; set; }
         public virtual ICollection<FuncionariosObra> FuncionariosObras { get; set; }
+
+        public ObraOutputModel toObraOutputModel()
+        {
+            return new ObraOutputModel
+            {
+                CodigoInterno = Codigointerno,
+                Designacao = Designacao,
+                Cliente = Cliente,
+                Datainicio = Datainicio.ToShortDateString(),
+                Mercado = Mercado
+            };
     }
+    }
+
+    
 }
