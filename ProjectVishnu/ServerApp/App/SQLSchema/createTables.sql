@@ -3,6 +3,13 @@
 		nomenclatura varchar(50) NOT NULL
 );
 
+CREATE TABLE MERCADO(
+		Mercado varchar(40) primary key,
+		Sigla varchar(2),
+		Dia_Inicio int,
+		Dia_Fim int
+);
+
 CREATE TABLE FUNCIONARIO(
 		Id INT GENERATED ALWAYS AS IDENTITY,
 		Nome varchar(200) NOT NULL,
@@ -10,7 +17,7 @@ CREATE TABLE FUNCIONARIO(
 		Telemovel varchar(15) NOT NULL,
 		ContactoEmergencia varchar(15) NOT NULL,
 		Nacionalidade varchar(20) NOT NULL,
-		Mercado varchar(40) NOT NULL,
+		Mercado varchar(40) references MERCADO(Mercado),
 		TipoDocIdent varchar(30) NOT NULL,
 		DocIdent varchar(15) NOT NULL,
 		TituloResidencia varchar(20),
@@ -40,7 +47,7 @@ CREATE TABLE OBRA (
         Cliente varchar(20) NOT NULL,
         DataInicio date NOT NULL,
         DataFim date,
-        Mercado varchar(40) NOT NULL,
+        Mercado varchar(40) references MERCADO(mercado),
         AutosDeMedicao varchar(100) NOT NULL,
 		deleted date default null
 );
@@ -79,10 +86,4 @@ CREATE TABLE SALARIO_FINAL(
 CREATE TABLE CONTA(
 		Username varchar(40) primary key,
 		Pwd varchar(64)
-);
-
-CREATE TABLE INTERVALO_MERCADO(
-		Mercado varchar(40) primary key,
-		Dia_Inicio int,
-		Dia_Fim int
 );

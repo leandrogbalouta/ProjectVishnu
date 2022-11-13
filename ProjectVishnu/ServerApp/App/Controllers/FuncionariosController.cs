@@ -60,11 +60,11 @@ namespace ProjectVishnu.Controllers
         }
 
         [HttpGet("{id}")]
-        public String Get(int id)
+        public FuncionarioOutputModel Get(int id)
         {
             try
             {
-                return _funcionariosService.Get(id).Nome;
+                return _funcionariosService.Get(id).toOutputModel();
             }catch(Exception e)
             {
                 return "O id não é válido.";
@@ -89,8 +89,8 @@ namespace ProjectVishnu.Controllers
         public string Delete(int id)
         {
 
-                _funcionariosService.Delete(id);
-                return "Funcionario apagado com sucesso";
+            _funcionariosService.Delete(id);
+            return "Funcionario apagado com sucesso";
             
              
         }

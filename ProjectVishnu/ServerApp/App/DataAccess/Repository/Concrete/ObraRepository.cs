@@ -73,9 +73,9 @@ namespace ProjectVishnu.DataAccess.Repository.Concrete
             return obra.Deleted == null;
         }
 
-        public string GetMercado(string codigoInterno)
+        public Mercado GetMercado(string codigoInterno)
         {
-            return Get(codigoInterno).Mercado;
+            return Get(codigoInterno).MercadoNavigation;
         }
 
         public vishnuContext VishnuContext

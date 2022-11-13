@@ -17,10 +17,11 @@ namespace ProjectVishnu.Models
         public string Cliente { get; set; } = null!;
         public DateOnly Datainicio { get; set; }
         public DateOnly? Datafim { get; set; }
-        public string Mercado { get; set; } = null!;
+        public string? Mercado { get; set; }
         public string Autosdemedicao { get; set; } = null!;
         public DateOnly? Deleted { get; set; }
 
+        public virtual Mercado? MercadoNavigation { get; set; }
         public virtual ICollection<DiaTrabalho> DiaTrabalhos { get; set; }
         public virtual ICollection<FuncionariosObra> FuncionariosObras { get; set; }
 

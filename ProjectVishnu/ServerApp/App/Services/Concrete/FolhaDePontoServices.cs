@@ -23,7 +23,7 @@ namespace ProjectVishnu.ServerApp.App.Services.Concrete
             List<int> holidays;
 
 
-            IntervaloMercado interval = _unitOfWork.Mercados.GetIntervaloMercado(_unitOfWork.Obras.GetMercado(obraID)); // TODO: MUDAR ISTO
+            Mercado interval = _unitOfWork.Obras.GetMercado(obraID); // TODO: MUDAR ISTO
 
             int previousMonth = int.Parse(info.Mes) - 1;
             string prevMonthStr = previousMonth >= 10 ? previousMonth.ToString() : "0" + previousMonth.ToString();

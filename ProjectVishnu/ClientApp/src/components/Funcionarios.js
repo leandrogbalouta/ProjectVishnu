@@ -9,7 +9,7 @@ export class Funcionarios extends Component {
   }
 
   componentDidMount() {
-    this.populateFuncionariosData();
+    this.populateWeatherData();
   }
 
   static renderFuncionariosTable(funcionarios) {
@@ -51,7 +51,7 @@ export class Funcionarios extends Component {
     );
   }
 
-  async populateFuncionariosData() {
+  async populateWeatherData() {
     const response = await fetch('api/funcionarios');
     const data = await response.json();
     this.setState({ funcionarios: data, loading: false });
