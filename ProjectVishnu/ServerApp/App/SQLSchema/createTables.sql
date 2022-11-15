@@ -75,12 +75,28 @@ CREATE TABLE DIA_TRABALHO(
 );
 
 CREATE TABLE SALARIO_FINAL(
+		Id INT UNIQUE GENERATED ALWAYS AS IDENTITY, 
 		Funcionario varchar(15) references Funcionario(NIF),
 		Mes varchar(9) NOT NULL, 
         Ano int NOT NULL,
         ValorFinal decimal(5, 2) NOT NULL,
 		ValorAPagar decimal(5, 2),
 		primary key(Funcionario, Mes, Ano)
+);
+
+CREATE TABLE FOLHA_DE_PONTO(
+		Id INT UNIQUE GENERATED ALWAYS AS IDENTITY,
+		Mes varchar(9) NOT NULL, 
+        Ano int NOT NULL,
+		Obra varchar(20) references Obra(CodigoInterno),
+		Mercado varchar(40) references MERCADO(mercado),
+		primary key(Mes,Ano,Obra)
+);
+
+CREATE TABLE FOLHAS_SALARIO(
+		Id_salario int references SALARIO_FINAL(Id),
+		Id_folha_de_ponto int references FOLHA_DE_PONTO(Id),
+		primary key(Id_salario,Id_folha_de_ponto)
 );
 
 CREATE TABLE CONTA(
