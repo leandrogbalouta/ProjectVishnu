@@ -18,7 +18,7 @@ namespace ProjectVishnu.ServerApp.App.DataAccess.Repository.Concrete
 
         public IntervaloMercado GetMercado(string mercado)
         {
-            return VishnuContext.IntervaloMercados.Find(mercado);
+            throw new NotImplementedException();
         }
     }
 }

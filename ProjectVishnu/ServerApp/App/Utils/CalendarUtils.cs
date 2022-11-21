@@ -42,7 +42,7 @@ namespace ProjectVishnu.ServerApp.App.Utils
 
         public static void GetNonWorkDays(string ano, string mes, Mercado interval, out List<int> saturdays, out List<int> sundays, out List<int> holidays)
         {
-            holidays = GetHolidays(ano, mes, interval.Mercado);
+            holidays = GetHolidays(ano, mes, interval.Mercadoname);
             GetWeekends(ano, mes, interval.DiaInicio.ToString(), interval.DiaFim.ToString(), out saturdays, out sundays);
         }
     }

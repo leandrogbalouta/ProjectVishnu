@@ -67,7 +67,7 @@ namespace ProjectVishnu.Controllers
                 return _funcionariosService.Get(id).toOutputModel();
             }catch(Exception e)
             {
-                return "O id não é válido.";
+                return null;
             }
         }
 

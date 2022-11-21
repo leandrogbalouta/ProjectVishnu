@@ -1,6 +1,7 @@
 ﻿using ProjectVishnu.ServerApp.App.Dtos;
 using System;
 using System.Collections.Generic;
+using ProjectVishnu.Models;
 
 namespace ProjectVishnu.Models
 {
@@ -9,6 +10,7 @@ namespace ProjectVishnu.Models
         public Obra()
         {
             DiaTrabalhos = new HashSet<DiaTrabalho>();
+            FolhaDePontos = new HashSet<FolhaDePonto>();
             FuncionariosObras = new HashSet<FuncionariosObra>();
         }
 
@@ -23,6 +25,7 @@ namespace ProjectVishnu.Models
 
         public virtual Mercado? MercadoNavigation { get; set; }
         public virtual ICollection<DiaTrabalho> DiaTrabalhos { get; set; }
+        public virtual ICollection<FolhaDePonto> FolhaDePontos { get; set; }
         public virtual ICollection<FuncionariosObra> FuncionariosObras { get; set; }
 
         public ObraOutputModel toObraOutputModel()
