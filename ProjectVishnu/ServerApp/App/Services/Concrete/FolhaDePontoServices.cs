@@ -47,14 +47,26 @@ namespace ProjectVishnu.ServerApp.App.Services.Concrete
             return model;
         }
 
+        public List<FolhaDePontoInfoModel> FolhasDePontoToFolhasDePontoInfoModel(List<FolhaDePonto> folhasDePonto)
+        {
+            List<FolhaDePontoInfoModel> folhaDePontoInfoModels = new List<FolhaDePontoInfoModel>();
+            foreach (FolhaDePonto folhaDePonto in folhasDePonto)
+            {
+                folhaDePontoInfoModels.Add(folhaDePonto.toFolhaDePontoInfoModel());
+            }
+            return folhaDePontoInfoModels;
+        }
+
         public List<FolhaDePontoInfoModel> GetAllFromMercado(string mercado)
         {
-            throw new NotImplementedException();
+            List<FolhaDePonto> folhasDePonto = _unitOfWork.FolhaDePontos.GetAllFromMercado(mercado);
+            return FolhasDePontoToFolhasDePontoInfoModel(folhasDePonto);
         }
 
         public List<FolhaDePontoInfoModel> GetAllFromObra(string obraID)
         {
-            throw new NotImplementedException();
+            List<FolhaDePonto> folhasDePonto = _unitOfWork.FolhaDePontos.GetAllFromObra(obraID);
+            return FolhasDePontoToFolhasDePontoInfoModel(folhasDePonto);
         }
 
         public FolhaDePontoValuesOutputModel GetFromMercado(string mercado, string ano, string mes)

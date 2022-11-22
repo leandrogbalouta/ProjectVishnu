@@ -154,11 +154,11 @@ namespace ProjectVishnu.Models
                     .HasForeignKey(d => d.Mercado)
                     .HasConstraintName("folha_de_ponto_mercado_fkey");
 
-                /*entity.HasOne(d => d.ObraNavigation)
+                entity.HasOne(d => d.ObraNavigation)
                     .WithMany(p => p.FolhaDePontos)
                     .HasForeignKey(d => d.Obra)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("folha_de_ponto_obra_fkey");*/
+                    .HasConstraintName("folha_de_ponto_obra_fkey");
             });
 
             modelBuilder.Entity<Funcionario>(entity =>

@@ -12,6 +12,8 @@ namespace ProjectVishnu.DataAccess
         IFuncionariosObraRepository FuncionariosObra { get; }
         IMercadoRepository Mercados { get; }
         ISalarioFinalRepository SalarioFinal { get; }
+
+        IFolhaDePontoRepository FolhaDePontos { get; }
         int Complete();
     }
 }

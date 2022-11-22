@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using ProjectVishnu.Models;
+using ProjectVishnu.ServerApp.App.Dtos;
 
 namespace ProjectVishnu.Models
 {
@@ -21,5 +22,14 @@ namespace ProjectVishnu.Models
         public virtual Obra ObraNavigation { get; set; } = null!;
 
         public virtual ICollection<SalarioFinal> IdSalarios { get; set; }
+
+        public FolhaDePontoInfoModel toFolhaDePontoInfoModel()
+        {
+            return new FolhaDePontoInfoModel
+            {
+                Mes = Mes,
+                Ano = Ano.ToString()
+            };
+        }
     }
 }

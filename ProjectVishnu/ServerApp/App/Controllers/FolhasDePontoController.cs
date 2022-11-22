@@ -24,10 +24,9 @@ namespace ProjectVishnu.ServerApp.App.Controllers
         }
 
         [HttpGet("/obras/{obraID}/folha-de-ponto")]
-        public string GetAllByObra(string obraID)
+        public List<FolhaDePontoInfoModel> GetAllByObra(string obraID)
         {
-            _folhadepontoServices.GetAllFromObra(obraID);
-            return "";
+            return _folhadepontoServices.GetAllFromObra(obraID);
         }
         [HttpGet("/obras/{obraID}/folha-de-ponto/{date}")]
         public string GetByObra(string obraID, string date)
@@ -40,10 +39,9 @@ namespace ProjectVishnu.ServerApp.App.Controllers
         }
 
         [HttpGet("/folha-de-ponto/{mercado}")]
-        public string GetAllByMercado(string mercado)
+        public List<FolhaDePontoInfoModel> GetAllByMercado(string mercado)
         {
-            _folhadepontoServices.GetAllFromMercado(mercado);
-            return "";
+            return _folhadepontoServices.GetAllFromMercado(mercado);
         }
 
         [HttpGet("/folha-de-ponto/{mercado}/{date}")]
