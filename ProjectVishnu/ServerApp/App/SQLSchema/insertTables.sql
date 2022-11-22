@@ -108,6 +108,19 @@ INSERT INTO SALARIO_FINAL
 (funcionario,mes,ano,valorfinal,valorapagar) values
 ('234567899','junho',2022,999,999);
 
+INSERT INTO FOLHA_DE_PONTO
+(mes,ano,obra,mercado) values
+('01','2022','OB22PT01','portugal'),
+('02','2022','OB22PT01','portugal'),
+('03','2022','OB22PT01','portugal'),
+('04','2022','OB22PT01','portugal'),
+('05','2022','OB22PT01','portugal'),
+('06','2022','OB22PT01','portugal'),
+('07','2022','OB22PT01','portugal'),
+('08','2022','OB22PT01','portugal'),
+('09','2022','OB22PT01','portugal'),
+('09','2022','OB22ES01','espanha');
+
 INSERT INTO CONTA
 (username,pwd) values
 ('afonso','afonso123');

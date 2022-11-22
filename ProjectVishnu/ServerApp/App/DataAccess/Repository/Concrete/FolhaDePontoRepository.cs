@@ -12,12 +12,12 @@ namespace ProjectVishnu.ServerApp.App.DataAccess.Repository.Concrete
 
         public List<FolhaDePonto> GetAllFromMercado(string mercado)
         {
-            return (List<FolhaDePonto>)VishnuContext.FolhaDePontos.Where(folhaDePonto => folhaDePonto.Mercado == mercado);
+            return VishnuContext.FolhaDePontos.Where(folhaDePonto => folhaDePonto.Mercado == mercado).ToList();
         }
 
         public List<FolhaDePonto> GetAllFromObra(string obraID)
         {
-            return (List<FolhaDePonto>)VishnuContext.FolhaDePontos.Where(folhaDePonto => folhaDePonto.Obra == obraID);
+            return VishnuContext.FolhaDePontos.Where(folhaDePonto => folhaDePonto.Obra == obraID).ToList();
         }
 
         public vishnuContext VishnuContext

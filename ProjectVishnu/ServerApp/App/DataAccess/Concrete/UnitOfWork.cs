@@ -38,6 +38,8 @@ namespace ProjectVishnu.DataAccess.Concrete
 
         public ISalarioFinalRepository SalarioFinal { get; private set; }
 
+        public IFolhaDePontoRepository FolhaDePontos { get; private set; }
+
         public int Complete()
         {
             return _context.SaveChanges();
