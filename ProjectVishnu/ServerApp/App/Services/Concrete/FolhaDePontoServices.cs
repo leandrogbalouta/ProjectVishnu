@@ -47,26 +47,16 @@ namespace ProjectVishnu.ServerApp.App.Services.Concrete
             return model;
         }
 
-        public List<FolhaDePontoInfoModel> FolhasDePontoToFolhasDePontoInfoModel(List<FolhaDePonto> folhasDePonto)
-        {
-            List<FolhaDePontoInfoModel> folhaDePontoInfoModels = new List<FolhaDePontoInfoModel>();
-            foreach (FolhaDePonto folhaDePonto in folhasDePonto)
-            {
-                folhaDePontoInfoModels.Add(folhaDePonto.toFolhaDePontoInfoModel());
-            }
-            return folhaDePontoInfoModels;
-        }
+        
 
         public List<FolhaDePontoInfoModel> GetAllFromMercado(string mercado)
         {
-            List<FolhaDePonto> folhasDePonto = _unitOfWork.FolhaDePontos.GetAllFromMercado(mercado);
-            return FolhasDePontoToFolhasDePontoInfoModel(folhasDePonto);
+            return _unitOfWork.FolhaDePontos.GetAllFromMercado(mercado).Select(x => x.toFolhaDePontoInfoModel()).ToList();
         }
 
         public List<FolhaDePontoInfoModel> GetAllFromObra(string obraID)
         {
-            List<FolhaDePonto> folhasDePonto = _unitOfWork.FolhaDePontos.GetAllFromObra(obraID);
-            return FolhasDePontoToFolhasDePontoInfoModel(folhasDePonto);
+            return _unitOfWork.FolhaDePontos.GetAllFromObra(obraID).Select(x => x.toFolhaDePontoInfoModel()).ToList();
         }
 
         public FolhaDePontoValuesOutputModel GetFromMercado(string mercado, string ano, string mes)

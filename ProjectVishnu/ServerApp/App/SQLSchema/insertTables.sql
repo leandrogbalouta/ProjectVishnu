@@ -4,7 +4,7 @@ INSERT INTO CATEGORIAS_PROFISSIONAIS
 ('1243123','XXXXXXX');
 
 INSERT INTO MERCADO
-(mercado,sigla,dia_inicio,dia_fim) values
+(mercadoName,sigla,dia_inicio,dia_fim) values
 ('portugal','PT',21,20),
 ('espanha','ES',26,25),
 ('franca','FR',21,20);
