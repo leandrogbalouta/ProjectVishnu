@@ -4,7 +4,7 @@
 );
 
 CREATE TABLE MERCADO(
-		Mercado varchar(40) primary key,
+		MercadoName varchar(40) primary key,
 		Sigla varchar(2),
 		Dia_Inicio int,
 		Dia_Fim int
@@ -17,7 +17,7 @@ CREATE TABLE FUNCIONARIO(
 		Telemovel varchar(15) NOT NULL,
 		ContactoEmergencia varchar(15) NOT NULL,
 		Nacionalidade varchar(20) NOT NULL,
-		Mercado varchar(40) references MERCADO(Mercado),
+		Mercado varchar(40) references MERCADO(MercadoName),
 		TipoDocIdent varchar(30) NOT NULL,
 		DocIdent varchar(15) NOT NULL,
 		TituloResidencia varchar(20),
@@ -47,7 +47,7 @@ CREATE TABLE OBRA (
         Cliente varchar(20) NOT NULL,
         DataInicio date NOT NULL,
         DataFim date,
-        Mercado varchar(40) references MERCADO(mercado),
+        Mercado varchar(40) references MERCADO(mercadoName),
         AutosDeMedicao varchar(100) NOT NULL,
 		deleted date default null
 );
@@ -89,7 +89,7 @@ CREATE TABLE FOLHA_DE_PONTO(
 		Mes varchar(9) NOT NULL, 
         Ano int NOT NULL,
 		Obra varchar(20) references Obra(CodigoInterno),
-		Mercado varchar(40) references MERCADO(mercado),
+		Mercado varchar(40) references MERCADO(mercadoName),
 		primary key(Mes,Ano,Obra)
 );
 

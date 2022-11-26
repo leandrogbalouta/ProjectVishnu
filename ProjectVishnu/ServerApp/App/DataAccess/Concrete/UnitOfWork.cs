@@ -22,6 +22,7 @@ namespace ProjectVishnu.DataAccess.Concrete
             FuncionariosObra = new FuncionariosObraRepository(_context);
             Mercados = new MercadoRepository(_context);
             SalarioFinal = new SalarioFinalRepository(_context);
+            FolhaDePontos = new FolhaDePontoRepository(_context);
         }
 
         public IFuncionarioRepository Funcionarios { get; private set; }

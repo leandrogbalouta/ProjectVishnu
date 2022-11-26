@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ProjectVishnu.Models;
 using ProjectVishnu.ServerApp.App.Dtos;
 using ProjectVishnu.ServerApp.App.Services;
 using ProjectVishnu.Services;
@@ -27,7 +28,9 @@ namespace ProjectVishnu.ServerApp.App.Controllers
         public List<FolhaDePontoInfoModel> GetAllByObra(string obraID)
         {
             return _folhadepontoServices.GetAllFromObra(obraID);
+            
         }
+
         [HttpGet("/obras/{obraID}/folha-de-ponto/{date}")]
         public string GetByObra(string obraID, string date)
         {
