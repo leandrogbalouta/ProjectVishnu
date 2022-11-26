@@ -1,19 +1,36 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect, useState } from 'react';
+import { Layout } from './Layout';
 
-export class Funcionarios extends Component {
-    static displayName = Funcionarios.name;
+export function Funcionarios(){
+    const [funcionarios, setFuncionarios] = useState(null)
 
-  constructor(props) {
-    super(props);
-    this.state = { funcionarios: [], loading: true };
-  }
+    let contents = funcionarios === null
+        ? <p><em>Loading...</em></p>
+        : renderFuncionariosTable(funcionarios);
 
-  componentDidMount() {
-    this.populateWeatherData();
-  }
+    useEffect(() => {
+        const populateFuncionariosData = async ()=> {
+            const response = await fetch('api/funcionarios');
+            const data = await response.json();
+            setFuncionarios(data)
+        }
+        populateFuncionariosData()
+        
+    }, [])
 
-  static renderFuncionariosTable(funcionarios) {
     return (
+      <Layout>
+        <div>
+          <h1 id="tabelLabel" >Funcionarios</h1>
+          <p>This component demonstrates fetching data from the server.</p>
+          {contents}
+        </div>
+      </Layout>
+    );
+}
+
+function renderFuncionariosTable(funcionarios) {
+  return (
       <table className='table table-striped' aria-labelledby="tabelLabel">
         <thead>
           <tr>
@@ -34,26 +51,5 @@ export class Funcionarios extends Component {
           )}
         </tbody>
       </table>
-    );
-  }
-
-  render() {
-    let contents = this.state.loading
-        ? <p><em>Loading...</em></p>
-        : Funcionarios.renderFuncionariosTable(this.state.funcionarios);
-
-    return (
-      <div>
-        <h1 id="tabelLabel" >Funcionarios</h1>
-        <p>This component demonstrates fetching data from the server.</p>
-        {contents}
-      </div>
-    );
-  }
-
-  async populateWeatherData() {
-    const response = await fetch('api/funcionarios');
-    const data = await response.json();
-    this.setState({ funcionarios: data, loading: false });
-  }
+  );
 }

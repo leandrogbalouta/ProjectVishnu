@@ -1,22 +1,39 @@
 import React, { Component } from 'react';
-import { Route, Routes } from 'react-router-dom';
-import AppRoutes from './AppRoutes';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Layout } from './components/Layout';
 import './custom.css';
+import { Counter } from "./components/Counter";
+import { Funcionarios } from "./components/Funcionarios";
+import { Obras } from "./components/Obras";
+import { Home } from "./components/Home";
 
-export default class App extends Component {
-  static displayName = App.name;
+const router = createBrowserRouter([
+    {
+      path: '/',
+      element: <Home />
+    },
+    {
+      path: '/counter',
+      element: <Counter />
+    },
+    {
+      path: '/funcionarios',
+      element: <Funcionarios />
+      },
+    {
+      path: '/obras',
+      element: <Obras />
+    }
+])
 
-  render() {
-    return (
-      <Layout>
-        <Routes>
-          {AppRoutes.map((route, index) => {
-            const { element, ...rest } = route;
-            return <Route key={index} {...rest} element={element} />;
-          })}
-        </Routes>
-      </Layout>
-    );
-  }
+export function App() {
+
+  console.log(router)
+
+  return(
+    <RouterProvider router = {router}>
+      
+    </RouterProvider>
+  )
 }
+
