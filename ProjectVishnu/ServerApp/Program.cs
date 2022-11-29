@@ -30,7 +30,8 @@ namespace ProjectVishnu.ServerApp
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddScoped<IFuncionariosService, FuncionariosService>();
             builder.Services.AddScoped<IObrasService, ObrasService>();
-            builder.Services.AddScoped<IFolhaDePontoServices, FolhaDePontoServices>();
+            builder.Services.AddScoped<IFolhaDePontoService, FolhaDePontoService>();
+            builder.Services.AddScoped<IMercadosService, MercadosService>();
 
             builder.Services.AddControllersWithViews();
 

@@ -10,9 +10,9 @@ namespace ProjectVishnu.ServerApp.App.Controllers
     public class FolhasDePontoController : ControllerBase
     {
 
-        private readonly IFolhaDePontoServices _folhadepontoServices;
+        private readonly IFolhaDePontoService _folhadepontoServices;
 
-        public FolhasDePontoController(IFolhaDePontoServices folhadepontoServices)
+        public FolhasDePontoController(IFolhaDePontoService folhadepontoServices)
         {
             this._folhadepontoServices = folhadepontoServices;
         }

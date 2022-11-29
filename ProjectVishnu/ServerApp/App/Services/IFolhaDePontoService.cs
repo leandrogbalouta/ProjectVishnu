@@ -2,7 +2,7 @@
 
 namespace ProjectVishnu.ServerApp.App.Services
 {
-    public interface IFolhaDePontoServices
+    public interface IFolhaDePontoService
     {
         FolhaDePontoEmptyOutputModel GenerateWithInfo(string obraID, FolhaDePontoInfoModel info);
         List<FolhaDePontoInfoModel> GetAllFromMercado(string mercado);

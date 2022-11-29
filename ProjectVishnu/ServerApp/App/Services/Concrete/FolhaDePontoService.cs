@@ -6,11 +6,11 @@ using System;
 
 namespace ProjectVishnu.ServerApp.App.Services.Concrete
 {
-    public class FolhaDePontoServices : IFolhaDePontoServices
+    public class FolhaDePontoService : IFolhaDePontoService
     {
 
         private readonly IUnitOfWork _unitOfWork;
-        public FolhaDePontoServices(IUnitOfWork unitOfWork)
+        public FolhaDePontoService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }

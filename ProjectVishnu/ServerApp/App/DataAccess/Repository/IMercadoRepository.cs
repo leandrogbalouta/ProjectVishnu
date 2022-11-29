@@ -3,8 +3,9 @@ using ProjectVishnu.Models;
 
 namespace ProjectVishnu.ServerApp.App.DataAccess.Repository
 {
-    public interface IMercadoRepository : IRepository<IntervaloMercado>
+    public interface IMercadoRepository : IRepository<Mercado>
     {
-        public IntervaloMercado GetMercado(string mercado);
+        public Mercado GetMercado(string mercado);
+        public IEnumerable<Mercado> ListAlphabetically();
     }
 }
