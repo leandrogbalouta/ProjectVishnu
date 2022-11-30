@@ -1,9 +1,13 @@
 import React, {useEffect, useState } from 'react';
+import { fetchFuncionarios } from '../APICalls';
 import { FilterBar } from './FilterBar';
 import { Layout } from './Layout';
 
 export function Funcionarios(){
-    const [funcionarios, setFuncionarios] = useState(null)
+  const [funcionarios, setFuncionarios] = useState(null)
+  const [mercado, setMercado] = useState(null)
+  const [searchString, setSearchString] = useState(null)
+  
     
     async function searchBarSubmit(searchString){
         const response = await fetch(`api/funcionarios?nome=${searchString}`)
@@ -22,14 +26,20 @@ export function Funcionarios(){
         : renderFuncionariosTable(funcionarios);
 
     useEffect(() => {
+
+        const filters = Object.assign({},
+            mercado === null ? null : {mercado : mercado},
+            searchString === null ? null : {nome : searchString})
+
         const populateFuncionariosData = async ()=> {
-            const response = await fetch('api/funcionarios');
+
+            const response = await fetchFuncionarios(filters);
             const data = await response.json();
             setFuncionarios(data)
         }
         populateFuncionariosData()
         
-    }, [])
+    }, [mercado, searchString])
 
     return (
       <Layout>
@@ -45,7 +55,7 @@ export function Funcionarios(){
     function renderFuncionariosTable(funcionarios) {
       return (
         <div>
-          <FilterBar searchByMercado={searchByMercado} searchBarSubmit={searchBarSubmit}/>
+          <FilterBar setMercado={setMercado} setSearchString={setSearchString}/>
           <table className='table table-striped' aria-labelledby="tabelLabel">
             <thead>
               <tr>

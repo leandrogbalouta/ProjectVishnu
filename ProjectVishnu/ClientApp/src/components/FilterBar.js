@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from 'react'
 
-export function FilterBar({searchByMercado, searchBarSubmit}){
+export function FilterBar({setMercado, setSearchString}){
     const [mercados, setMercados] = useState(null)
     const [dropdownText, setDropdownText] = useState("Mercados")
 
     function onClickSearch(){
         const searchString= document.getElementById("searchBar").value
-        searchBarSubmit(searchString)
+        setSearchString(searchString)
     }
 
     function onClickDropDownItem(mercado){
-        setDropdownText(mercado)
-        searchByMercado(mercado)
+        if(mercado === null) setDropdownText("Mercados")
+        else setDropdownText(mercado)
+        setMercado(mercado)
     }
 
     useEffect(() => {
@@ -33,6 +34,7 @@ export function FilterBar({searchByMercado, searchBarSubmit}){
                     {dropdownText}
                 </button>
                 <ul class="dropdown-menu">
+                    {mercados && <li><button class="dropdown-item" onClick={() => onClickDropDownItem(null)}>Todos</button></li>}
                     {mercados.map(mercado => 
                         <li><button class="dropdown-item" onClick={() => onClickDropDownItem(mercado)}>{mercado}</button></li>
                     )}
