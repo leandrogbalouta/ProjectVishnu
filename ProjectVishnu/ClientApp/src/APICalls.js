@@ -1,9 +1,27 @@
 export async function fetchFuncionarios(filters){
     var path = "api/funcionarios"
-   
-    console.log(filters)
+    path = addFiltersToQuery(path, filters)   
+    return fetch(path)
+}
 
-    // Adds filters to query string
+export async function fetchFuncionario(id) {
+    const path = `api/funcionarios/${id}`
+    return fetch(path)
+}
+
+export async function fetchObras(filters){
+    var path = "api/obras"
+    path = addFiltersToQuery(path, filters)   
+    return fetch(path)
+}
+
+export async function fetchObra(codigo) {
+    const path = `api/obras/${codigo}`
+    return fetch(path)
+}
+
+function addFiltersToQuery(path, filters) {
+
     var size = Object.keys(filters).length
     if(size > 0) {
         var i = 1
@@ -17,11 +35,6 @@ export async function fetchFuncionarios(filters){
             if(i < size) path = path.concat("&")
             i++
         })
-
-        
-
-        
     }
-    console.log(path)
-    return fetch(path)
+    return path
 }

@@ -34,7 +34,7 @@ export function FilterBar({setMercado, setSearchString}){
                     {dropdownText}
                 </button>
                 <ul class="dropdown-menu">
-                    {mercados && <li><button class="dropdown-item" onClick={() => onClickDropDownItem(null)}>Todos</button></li>}
+                    {dropdownText != "Mercados" && <li><button class="dropdown-item" onClick={() => onClickDropDownItem(null)}>Todos</button></li>}
                     {mercados.map(mercado => 
                         <li><button class="dropdown-item" onClick={() => onClickDropDownItem(mercado)}>{mercado}</button></li>
                     )}

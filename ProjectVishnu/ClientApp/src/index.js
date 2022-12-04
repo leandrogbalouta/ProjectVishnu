@@ -9,7 +9,6 @@ import { Layout } from './components/Layout';
 const rootElement = document.getElementById('root');
 const root = createRoot(rootElement);
 
-console.log("in index")
 
 root.render(
     <App />

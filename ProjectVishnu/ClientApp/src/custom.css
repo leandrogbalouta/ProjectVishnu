@@ -12,3 +12,8 @@ code {
   background-color: #1b6ec2;
   border-color: #1861ac;
 }
+
+.hoverable-tr:hover{
+  background-color: #dbdbcc;
+  cursor:pointer;
+}

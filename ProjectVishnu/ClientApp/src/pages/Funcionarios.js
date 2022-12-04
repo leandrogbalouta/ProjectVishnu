@@ -1,24 +1,17 @@
 import React, {useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { fetchFuncionarios } from '../APICalls';
-import { FilterBar } from './FilterBar';
-import { Layout } from './Layout';
+import { FilterBar } from '../components/FilterBar';
+import { Layout } from '../components/Layout';
 
 export function Funcionarios(){
   const [funcionarios, setFuncionarios] = useState(null)
   const [mercado, setMercado] = useState(null)
   const [searchString, setSearchString] = useState(null)
-  
-    
-    async function searchBarSubmit(searchString){
-        const response = await fetch(`api/funcionarios?nome=${searchString}`)
-          const data = await response.json()
-          setFuncionarios(data)
-    }
+  const navigate = useNavigate()
 
-    async function searchByMercado(mercado){
-        const response = await fetch(`api/funcionarios?mercado=${mercado}`)
-        const data = await response.json()
-        setFuncionarios(data)
+    async function redirectToFuncionario(id) {
+      navigate(`/funcionarios/${id}`)
     }
 
     let contents = funcionarios === null
@@ -45,7 +38,6 @@ export function Funcionarios(){
       <Layout>
         <div>
           <h1 id="tabelLabel" >Funcionarios</h1>
-          <p>This component demonstrates fetching data from the server.</p>
           {contents}
         </div>
       </Layout>
@@ -67,7 +59,7 @@ export function Funcionarios(){
             </thead>
             <tbody>
               {funcionarios.map(funcionario =>
-                <tr key={funcionario.nome}>
+                <tr class="hoverable-tr" onClick={() => redirectToFuncionario(funcionario.id)} key={funcionario.nome}>
                   <td>{funcionario.nome}</td>
                   <td>{funcionario.nif}</td>
                   <td>{funcionario.niss}</td>
