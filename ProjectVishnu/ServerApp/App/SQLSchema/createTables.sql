@@ -66,7 +66,7 @@ CREATE TABLE DIA_TRABALHO(
         Dia int NOT NULL,
 		Horas decimal(2, 1) NOT NULL,
         Mes varchar(9) NOT NULL, 
-        Ano int NOT NULL,
+        Ano varchar(4) NOT NULL,
         Valor decimal(5, 2) NOT NULL,
 		constraint chk_Mes CHECK(Mes IN('janeiro', 'fevereiro', 
         'marco', 'abril', 'maio', 'junho', 'julho', 'agosto', 
@@ -78,7 +78,7 @@ CREATE TABLE SALARIO_FINAL(
 		Id INT UNIQUE GENERATED ALWAYS AS IDENTITY, 
 		Funcionario varchar(15) references Funcionario(NIF),
 		Mes varchar(9) NOT NULL, 
-        Ano int NOT NULL,
+        Ano varchar(4) NOT NULL,
         ValorFinal decimal(5, 2) NOT NULL,
 		ValorAPagar decimal(5, 2),
 		primary key(Funcionario, Mes, Ano)
@@ -87,7 +87,7 @@ CREATE TABLE SALARIO_FINAL(
 CREATE TABLE FOLHA_DE_PONTO(
 		Id INT UNIQUE GENERATED ALWAYS AS IDENTITY,
 		Mes varchar(9) NOT NULL, 
-        Ano int NOT NULL,
+        Ano varchar(4) NOT NULL,
 		Obra varchar(20) references Obra(CodigoInterno),
 		Mercado varchar(40) references MERCADO(mercadoName),
 		primary key(Mes,Ano,Obra)

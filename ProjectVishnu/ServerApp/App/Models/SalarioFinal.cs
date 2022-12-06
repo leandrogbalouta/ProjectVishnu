@@ -13,7 +13,7 @@ namespace ProjectVishnu.Models
         public int Id { get; set; }
         public string Funcionario { get; set; } = null!;
         public string Mes { get; set; } = null!;
-        public int Ano { get; set; }
+        public string Ano { get; set; }
         public decimal Valorfinal { get; set; }
         public decimal? Valorapagar { get; set; }
 

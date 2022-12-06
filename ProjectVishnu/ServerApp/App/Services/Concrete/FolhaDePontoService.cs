@@ -1,4 +1,5 @@
-﻿using ProjectVishnu.DataAccess;
+﻿using NUnit.Framework.Constraints;
+using ProjectVishnu.DataAccess;
 using ProjectVishnu.Models;
 using ProjectVishnu.ServerApp.App.Dtos;
 using ProjectVishnu.ServerApp.App.Utils;
@@ -61,7 +62,18 @@ namespace ProjectVishnu.ServerApp.App.Services.Concrete
 
         public FolhaDePontoValuesOutputModel GetFromMercado(string mercado, string ano, string mes)
         {
-            throw new NotImplementedException();
+            FolhaDePontoValuesOutputModel model = new FolhaDePontoValuesOutputModel();
+
+            FolhaDePontoInfoModel info = new FolhaDePontoInfoModel();
+            info.Mes = mes;
+            info.Ano = ano;
+            model.Info = info;
+
+            List<FolhaDePonto> folhaDePontoList = _unitOfWork.FolhaDePontos.GetFromMercado(mercado,ano,mes);
+
+
+
+            return model;
         }
 
         public FolhaDePontoValuesOutputModel GetFromObra(string obraID, string ano, string mes)

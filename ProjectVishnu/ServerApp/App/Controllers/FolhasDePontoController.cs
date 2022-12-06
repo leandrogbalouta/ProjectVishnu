@@ -48,13 +48,12 @@ namespace ProjectVishnu.ServerApp.App.Controllers
         }
 
         [HttpGet("/folha-de-ponto/{mercado}/{date}")]
-        public string GetByMercado(string mercado, string date)
+        public FolhaDePontoValuesOutputModel GetByMercado(string mercado, string date)
         {
             string[] dateValues = date.Split('-');
             string ano = dateValues[0];
             string mes = dateValues[1];
-            _folhadepontoServices.GetFromMercado(mercado, ano, mes);
-            return "";
+            return _folhadepontoServices.GetFromMercado(mercado, ano, mes);
         }
 
         [HttpPut("/obras/{obraID}/folha-de-ponto/{date}")]
