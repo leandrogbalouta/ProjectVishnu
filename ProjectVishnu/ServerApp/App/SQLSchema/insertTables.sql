@@ -121,6 +121,10 @@ INSERT INTO FOLHA_DE_PONTO
 ('setembro','2022','OB22PT01','portugal'),
 ('setembro','2022','OB22ES01','espanha');
 
+INSERT INTO FOLHAS_SALARIO
+(id_salario,id_folha_de_ponto) values
+(1,6);
+
 INSERT INTO CONTA
 (username,pwd) values
 ('afonso','afonso123');
