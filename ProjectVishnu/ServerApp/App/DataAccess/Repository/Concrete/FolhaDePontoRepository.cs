@@ -3,6 +3,7 @@ using ProjectVishnu.Models;
 
 namespace ProjectVishnu.ServerApp.App.DataAccess.Repository.Concrete
 {
+
     public class FolhaDePontoRepository : Repository<FolhaDePonto> , IFolhaDePontoRepository
     {
         public FolhaDePontoRepository(vishnuContext context)
@@ -20,6 +21,19 @@ namespace ProjectVishnu.ServerApp.App.DataAccess.Repository.Concrete
             return VishnuContext.FolhaDePontos.Where(folhaDePonto => folhaDePonto.Obra.Contains(obraID)).ToList();
             
         }
+
+        public List<FolhaDePonto> GetFromMercado(string mercado, string ano, string mes)
+        {
+            return VishnuContext.FolhaDePontos.
+                Where(folhaDePonto => folhaDePonto.Ano == ano && folhaDePonto.Mercado == mercado && folhaDePonto.Mes == mes).ToList();
+        }
+
+        public List<FolhaDePonto> GetFromObra(string obraID, string ano, string mes)
+        {
+            return VishnuContext.FolhaDePontos.
+                Where(folhaDePonto => folhaDePonto.Ano == ano && folhaDePonto.Obra == obraID && folhaDePonto.Mes == mes).ToList();
+        }
+
 
         public vishnuContext VishnuContext
         {

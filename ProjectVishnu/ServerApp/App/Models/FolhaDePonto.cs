@@ -14,7 +14,7 @@ namespace ProjectVishnu.Models
 
         public int Id { get; set; }
         public string Mes { get; set; } = null!;
-        public int Ano { get; set; }
+        public string Ano { get; set; }
         public string Obra { get; set; } = null!;
         public string? Mercado { get; set; }
 
