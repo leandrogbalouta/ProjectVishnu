@@ -20,7 +20,7 @@ namespace ProjectVishnu.DataAccess.Repository.Concrete
             return VishnuContext.Obras.OrderBy(obra => obra.Designacao);
         }
 
-        public Obra Get(string codigoInterno) => VishnuContext.Set<Obra>().Find(codigoInterno);
+        public Obra Get(string codigoInterno) => VishnuContext.Obras.Find(codigoInterno);
 
         public void Add(Obra entity)
         {
@@ -75,7 +75,8 @@ namespace ProjectVishnu.DataAccess.Repository.Concrete
 
         public Mercado GetMercado(string codigoInterno)
         {
-            return Get(codigoInterno).MercadoNavigation;
+            Obra o = Get(codigoInterno);
+            return o.MercadoNavigation;
         }
 
         public vishnuContext VishnuContext

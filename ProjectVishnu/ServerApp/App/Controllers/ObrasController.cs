@@ -36,15 +36,15 @@ namespace ProjectVishnu.Controllers
         }
 
         [HttpGet("{codigoInterno}")]
-        public String Get(string codigoInterno)
+        public ObraOutputModel Get(string codigoInterno)
         {
             try
             {
-                return _obrasService.Get(codigoInterno).Designacao;
+                return _obrasService.Get(codigoInterno).toObraOutputModel();
             }
             catch (Exception e)
             {
-                return "Código interno inválido.";
+                return null;
             }
             
         }

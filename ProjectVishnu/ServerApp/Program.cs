@@ -21,7 +21,7 @@ namespace ProjectVishnu.ServerApp
             
             // Add services to the container.
             builder.Services.AddDbContext<vishnuContext>(options =>
-                        options.UseNpgsql(builder.Configuration.GetConnectionString("vishnu")));
+                        options.UseLazyLoadingProxies().UseNpgsql(builder.Configuration.GetConnectionString("vishnu")));
             builder.Services.AddScoped<DbContext, vishnuContext>();
             builder.Services.AddSingleton(provider => builder.Configuration);
             builder.Services.AddScoped<IFuncionarioRepository, FuncionarioRepository>();

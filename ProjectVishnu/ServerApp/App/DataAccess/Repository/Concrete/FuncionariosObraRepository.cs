@@ -22,7 +22,7 @@ namespace ProjectVishnu.ServerApp.App.DataAccess.Repository.Concrete
 
         public IEnumerable<Funcionario> GetFuncsDuringInterval(string obraID, DateOnly start, DateOnly end)
         {
-            return VishnuContext.FuncionariosObras.Where(fo => fo.Obra == obraID).Where(fo => WorkedAtObraDuringInterval(fo, start, end)).Select(fo => fo.FuncionarioNavigation).ToList();
+            return VishnuContext.FuncionariosObras.Where(fo => fo.Obra == obraID).ToList().Where(fo => WorkedAtObraDuringInterval(fo, start, end)).Select(fo => fo.FuncionarioNavigation).ToList();
         }
 
         private bool CurrentlyAtObra(FuncionariosObra fo)

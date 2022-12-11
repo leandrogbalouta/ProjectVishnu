@@ -19,6 +19,7 @@ namespace ProjectVishnu.ServerApp.App.Services.Concrete
         public FolhaDePontoEmptyOutputModel GenerateWithInfo(string obraID, FolhaDePontoInfoModel info)
         {
             FolhaDePontoEmptyOutputModel model = new FolhaDePontoEmptyOutputModel();
+            model.Limits = new List<int>();
             List<int> saturdays;
             List<int> sundays;
             List<int> holidays;

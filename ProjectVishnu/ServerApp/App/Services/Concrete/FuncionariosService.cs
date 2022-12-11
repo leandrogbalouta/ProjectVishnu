@@ -30,6 +30,8 @@ namespace ProjectVishnu.Services
 
         public Funcionario Get(int id)
         {
+            Funcionario f = _unitOfWork.Funcionarios.Get(id);
+            Mercado m = f.MercadoNavigation;
             return _unitOfWork.Funcionarios.Get(id);
         }
 

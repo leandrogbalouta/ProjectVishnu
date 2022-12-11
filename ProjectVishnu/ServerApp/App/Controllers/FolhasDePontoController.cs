@@ -18,10 +18,19 @@ namespace ProjectVishnu.ServerApp.App.Controllers
         }
 
         [HttpPost("/obras/{obraID}/folha-de-ponto")]
-        public string Create(string obraID, [FromBody] FolhaDePontoInfoModel info)
+        public IActionResult Create(string obraID, [FromBody] FolhaDePontoInfoModel info)
         {
-            _folhadepontoServices.GenerateWithInfo(obraID, info);
-            return "";
+            FolhaDePontoEmptyOutputModel model = _folhadepontoServices.GenerateWithInfo(obraID, info);
+            var actionName = nameof(FolhasDePontoController.GetByObra);
+            var controllerName = "FolhasDePonto";
+            var routeValues = new
+            {
+                obraID = obraID,
+                date = "" + info.Ano + "-" + info.Mes
+            };
+            ActionResult a = CreatedAtAction(actionName, routeValues, model);
+            
+            return a;
         }
 
         [HttpGet("/obras/{obraID}/folha-de-ponto")]

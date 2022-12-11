@@ -9,6 +9,17 @@ export async function fetchFuncionario(id) {
     return fetch(path)
 }
 
+export async function AddFuncionario(func){
+    const path = "api/funcionarios"
+    return fetch(path,{
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body : JSON.stringify(func)
+    })
+}
+
 export async function fetchObras(filters){
     var path = "api/obras"
     path = addFiltersToQuery(path, filters)   
@@ -18,6 +29,21 @@ export async function fetchObras(filters){
 export async function fetchObra(codigo) {
     const path = `api/obras/${codigo}`
     return fetch(path)
+}
+
+export async function createFolhaDePonto(mes, ano, codigo){
+    const path = `api/obras/${codigo}/folha-de-ponto`
+    return fetch(path, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body : JSON.stringify(
+            {
+                mes : mes,
+                ano : ano
+            })
+    })
 }
 
 function addFiltersToQuery(path, filters) {

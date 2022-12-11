@@ -14,6 +14,10 @@ export function Funcionarios(){
       navigate(`/funcionarios/${id}`)
     }
 
+    async function redirectToFuncionarioCreation(){
+      navigate("funcionarios/create")
+    }
+
     let contents = funcionarios === null
         ? <p><em>Loading...</em></p>
         : renderFuncionariosTable(funcionarios);
@@ -48,6 +52,7 @@ export function Funcionarios(){
       return (
         <div>
           <FilterBar setMercado={setMercado} setSearchString={setSearchString}/>
+          <button type="button" class="btn btn-primary" onClick={() => redirectToFuncionarioCreation}>Criar</button>
           <table className='table table-striped' aria-labelledby="tabelLabel">
             <thead>
               <tr>

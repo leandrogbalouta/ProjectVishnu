@@ -19,7 +19,7 @@ namespace ProjectVishnu.Models
         public string Telemovel { get; set; } = null!;
         public string Contactoemergencia { get; set; } = null!;
         public string Nacionalidade { get; set; } = null!;
-        public string? Mercado { get; set; }
+        public string Mercado { get; set; }
         public string Tipodocident { get; set; } = null!;
         public string Docident { get; set; } = null!;
         public string? Tituloresidencia { get; set; }
@@ -40,7 +40,7 @@ namespace ProjectVishnu.Models
         public DateOnly? Deleted { get; set; }
 
         public virtual CategoriasProfissionai CatprofNavigation { get; set; } = null!;
-        public virtual Mercado? MercadoNavigation { get; set; }
+        public virtual Mercado MercadoNavigation { get; set; }
         public virtual ICollection<DiaTrabalho> DiaTrabalhos { get; set; }
         public virtual ICollection<FuncionariosObra> FuncionariosObras { get; set; }
         public virtual ICollection<SalarioFinal> SalarioFinals { get; set; }

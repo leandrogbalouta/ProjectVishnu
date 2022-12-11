@@ -6,6 +6,7 @@ import { Funcionario } from "./pages/Funcionario";
 import { Obras } from "./pages/Obras";
 import { Obra } from "./pages/Obra";
 import { Home } from "./pages/Home";
+import { FolhaDePonto } from './pages/FolhaDePonto';
 
 const router = createBrowserRouter([
     {
@@ -27,12 +28,17 @@ const router = createBrowserRouter([
     {
       path: '/obras/:codigo',
       element: <Obra />
+    },
+    {
+      path: '/obras/:codigo/folha-de-ponto/:data',
+      element: <FolhaDePonto />
+    },
+    {
+      path: '/folha-de-ponto/:mercado/:data'
     }
 ])
 
 export function App() {
-
-  console.log(router)
 
   return(
     <RouterProvider router = {router}>
