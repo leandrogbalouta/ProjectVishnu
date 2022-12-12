@@ -8,6 +8,7 @@ using System.ComponentModel;
 using System;
 using ProjectVishnu.ServerApp.App.Dtos;
 using System.Linq;
+using ProjectVishnu.ServerApp.App.Controllers;
 
 namespace ProjectVishnu.Controllers
 {
@@ -60,8 +61,15 @@ namespace ProjectVishnu.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult Create([FromBody] FuncionarioInputModel funcionario) // levar um segundo parâmetro com os parâmetros necessários para editar um funcionário(possivelmente necessário criar um dto)
         {
-            string result = _funcionariosService.Create(funcionario);
-            return result == null ? BadRequest() : Ok(result);
+            int result = _funcionariosService.Create(funcionario);
+            Console.WriteLine(result);
+            var actionName = nameof(FuncionariosController.Get);
+            var routeValues = new
+            {
+                id = result
+            };
+            ActionResult a = CreatedAtAction(actionName, routeValues);
+            return a;
         }
 
         [HttpPut("{id}")]

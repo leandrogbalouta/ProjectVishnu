@@ -62,16 +62,16 @@ namespace ProjectVishnu.Services
             
         }
 
-        public string Create(FuncionarioInputModel funcionarioDto)
+        public int Create(FuncionarioInputModel funcionarioDto)
         {
             try
             {
-                _unitOfWork.Funcionarios.Add(funcionarioDto.ToFuncionario());
+                int id = _unitOfWork.Funcionarios.Add(funcionarioDto.ToFuncionario());
                 _unitOfWork.Complete();
-                return "Funcionário criado com sucesso.";
+                return id;
             }catch(Exception e)
             {
-                return null;
+                return 0;
             }
             
         }

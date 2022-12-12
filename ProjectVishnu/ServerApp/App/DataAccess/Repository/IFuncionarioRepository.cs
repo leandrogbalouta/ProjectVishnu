@@ -12,6 +12,8 @@ namespace ProjectVishnu.DataAccess.Repository
         void Delete(int id);
 
         void Update(Funcionario funcionario);
+
+        int Add(Funcionario funcionario);
         Funcionario Get(int id);
     }
 }

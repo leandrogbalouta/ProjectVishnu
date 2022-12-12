@@ -15,6 +15,6 @@ namespace ProjectVishnu.Services
 
         string Update(FuncionarioInputModel funcionarioDto);
 
-        string Create(FuncionarioInputModel funcionarioDto);
+        int Create(FuncionarioInputModel funcionarioDto);
     }
 }

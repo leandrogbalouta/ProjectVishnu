@@ -5,7 +5,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ProjectVishnu.ServerApp.App.DataAccess.Repository.Concrete
 {
+
     public class CategoriaProfRepository : Repository<CategoriasProfissionai>, ICategoriaProfRepository
+
     {
         public CategoriaProfRepository(DbContext context) : base(context)
         {
