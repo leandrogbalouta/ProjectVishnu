@@ -68,9 +68,9 @@ CREATE TABLE DIA_TRABALHO(
         Mes varchar(9) NOT NULL, 
         Ano varchar(4) NOT NULL,
         Valor decimal(5, 2) NOT NULL,
-		constraint chk_Mes CHECK(Mes IN('janeiro', 'fevereiro', 
-        'marco', 'abril', 'maio', 'junho', 'julho', 'agosto', 
-        'setembro', 'outubro', 'novembro', 'dezembro')),
+		constraint chk_Mes CHECK(Mes IN('01', '02', 
+        '03', '04', '05', '06', '07', '08', 
+        '09', '10', '11', '12')),
 		primary key(Funcionario, CodigoObra, Dia, Mes, Ano)
 );
 

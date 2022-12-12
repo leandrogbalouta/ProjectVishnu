@@ -1,4 +1,8 @@
-﻿namespace ProjectVishnu.ServerApp.App.Dtos
+﻿using System.Globalization;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+
+namespace ProjectVishnu.ServerApp.App.Dtos
 {
     public class FolhaDePontoInfoModel
     {
@@ -26,8 +30,9 @@
     public class FolhaDePontoValuesOutputModel
     {
         public FolhaDePontoInfoModel Info { get; set; }
-        public Dictionary<FuncionarioOutputModel, Dictionary<int, decimal>> FuncWorkDays { get; set; }
-        public Dictionary<FuncionarioOutputModel, decimal> FinalValue { get; set; }
+        public Dictionary<string, Dictionary<int, decimal>> FuncWorkDays { get; set; }
+        public Dictionary<string, decimal> FinalValue { get; set; }
+        public List<FuncionarioOutputModel> funcionariosOutputModel { get; set; }
         public List<int> Limits { get; set; }
         public List<int> Saturdays { get; set; }
         public List<int> Sundays { get; set; }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using ProjectVishnu.Models;
 using ProjectVishnu.ServerApp.App.Dtos;
 using ProjectVishnu.ServerApp.App.Services;
@@ -41,13 +42,15 @@ namespace ProjectVishnu.ServerApp.App.Controllers
         }
 
         [HttpGet("/obras/{obraID}/folha-de-ponto/{date}")]
-        public string GetByObra(string obraID, string date)
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(FolhaDePontoValuesOutputModel))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult GetByObra(string obraID, string date)
         {
             string[] dateValues = date.Split('-');
             string ano = dateValues[0];
             string mes = dateValues[1];
-            _folhadepontoServices.GetFromObra(obraID, ano, mes);
-            return "";
+            var output = _folhadepontoServices.GetFromObra(obraID, ano, mes);
+            return output == null ? NotFound() : Ok(output);
         }
 
         [HttpGet("/folha-de-ponto/{mercado}")]
@@ -57,12 +60,15 @@ namespace ProjectVishnu.ServerApp.App.Controllers
         }
 
         [HttpGet("/folha-de-ponto/{mercado}/{date}")]
-        public FolhaDePontoValuesOutputModel GetByMercado(string mercado, string date)
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(FolhaDePontoValuesOutputModel))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult GetByMercado(string mercado, string date)
         {
             string[] dateValues = date.Split('-');
             string ano = dateValues[0];
             string mes = dateValues[1];
-            return _folhadepontoServices.GetFromMercado(mercado, ano, mes);
+            var output = _folhadepontoServices.GetFromMercado(mercado, ano, mes);
+            return output == null ? NotFound() : Ok(output);
         }
 
         [HttpPut("/obras/{obraID}/folha-de-ponto/{date}")]

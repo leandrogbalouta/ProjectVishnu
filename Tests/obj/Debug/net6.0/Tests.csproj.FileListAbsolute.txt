@@ -119,3 +119,7 @@ C:\Users\Leandro\Desktop\DKM\ProjectVishnu\Tests\obj\Debug\net6.0\Tests.Generate
 C:\Users\Leandro\Desktop\DKM\ProjectVishnu\Tests\obj\Debug\net6.0\Tests.AssemblyInfoInputs.cache
 C:\Users\Leandro\Desktop\DKM\ProjectVishnu\Tests\obj\Debug\net6.0\Tests.AssemblyInfo.cs
 C:\Users\Leandro\Desktop\DKM\ProjectVishnu\Tests\obj\Debug\net6.0\Tests.csproj.CoreCompileInputs.cache
+C:\Users\Francisco Martins\Desktop\ProjetoDKM\ProjectVishnu\Tests\bin\Debug\net6.0\package-lock.json
+C:\Users\Francisco Martins\Desktop\ProjetoDKM\ProjectVishnu\Tests\bin\Debug\net6.0\package.json
+C:\Users\Francisco Martins\Desktop\ProjetoDKM\ProjectVishnu\Tests\bin\Debug\net6.0\Castle.Core.dll
+C:\Users\Francisco Martins\Desktop\ProjetoDKM\ProjectVishnu\Tests\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Proxies.dll

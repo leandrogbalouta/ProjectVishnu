@@ -63,6 +63,24 @@ namespace ProjectVishnu.ServerApp.App.Services.Concrete
 
         public FolhaDePontoValuesOutputModel GetFromMercado(string mercado, string ano, string mes)
         {
+            List<FolhaDePonto> folhaDePontoList = _unitOfWork.FolhaDePontos.GetFromMercado(mercado,ano,mes);
+            return GenerateFolhaDePontoValuesOutputModel(folhaDePontoList, ano, mes);
+            
+        }
+
+        public FolhaDePontoValuesOutputModel GetFromObra(string obraID, string ano, string mes)
+        {
+            List<FolhaDePonto> folhaDePontoList = _unitOfWork.FolhaDePontos.GetFromObra(obraID, ano, mes);
+            return GenerateFolhaDePontoValuesOutputModel(folhaDePontoList, ano, mes);
+        }
+
+        public void setValues(string obraID, string date, FolhaDePontoValuesInputModel values)
+        {
+            throw new NotImplementedException();
+        }
+
+        private FolhaDePontoValuesOutputModel GenerateFolhaDePontoValuesOutputModel(List<FolhaDePonto> folhasDePonto, string ano, string mes)
+        {
             FolhaDePontoValuesOutputModel model = new FolhaDePontoValuesOutputModel();
 
             FolhaDePontoInfoModel info = new FolhaDePontoInfoModel();
@@ -70,54 +88,58 @@ namespace ProjectVishnu.ServerApp.App.Services.Concrete
             info.Ano = ano;
             model.Info = info;
 
-            Dictionary<FuncionarioOutputModel, Dictionary<int, decimal>> FuncWorkDays = 
-                new Dictionary<FuncionarioOutputModel, Dictionary<int, decimal>>();
+            Dictionary<string, Dictionary<int, decimal>> FuncWorkDays =
+                new Dictionary<string, Dictionary<int, decimal>>();
 
-            Dictionary<FuncionarioOutputModel, decimal> FinalValue = new Dictionary<FuncionarioOutputModel, decimal>();
+            Dictionary<string, decimal> FinalValue = new Dictionary<string, decimal>();
 
-            List<FolhaDePonto> folhaDePontoList = _unitOfWork.FolhaDePontos.GetFromMercado(mercado,ano,mes);
+            List<FuncionarioOutputModel> funcionariosOutputModel = new List<FuncionarioOutputModel>();
 
-            foreach (FolhaDePonto folha in folhaDePontoList)
+            foreach (FolhaDePonto folha in folhasDePonto)
             {
-                Console.WriteLine(folha.Ano);
-                Console.WriteLine(folha.Mes);
-
-
                 foreach (SalarioFinal salario in folha.IdSalarios)
                 {
-                    Console.WriteLine("HERE");
 
                     Funcionario funcionario = salario.FuncionarioNavigation;
                     FuncionarioOutputModel funcionarioOutputModel = funcionario.toOutputModel();
 
-                    Dictionary<int,decimal> diasAReceber = new Dictionary<int,decimal>();
+                    Dictionary<int, decimal> diasAReceber = new Dictionary<int, decimal>();
 
                     foreach (DiaTrabalho dia in funcionario.DiaTrabalhos)
                     {
                         diasAReceber.Add(dia.Dia, dia.Valor);
                     }
-                    FuncWorkDays.Add(funcionarioOutputModel, diasAReceber);
-                    FinalValue.Add(funcionarioOutputModel, salario.Valorfinal);
+                    funcionariosOutputModel.Add(funcionarioOutputModel);
+                    FuncWorkDays.Add(funcionario.Nif, diasAReceber);
+                    FinalValue.Add(funcionario.Nif, salario.Valorfinal);
                 }
 
             }
 
             model.FuncWorkDays = FuncWorkDays;
             model.FinalValue = FinalValue;
+            model.funcionariosOutputModel = funcionariosOutputModel;
 
-            //TODO GetNonWorkDays
+            model.Limits = new List<int>();
+            List<int> saturdays;
+            List<int> sundays;
+            List<int> holidays;
+
+            Mercado interval = folhasDePonto[0].MercadoNavigation;
+
+            CalendarUtils.GetNonWorkDays(ano, mes, interval, out saturdays, out sundays, out holidays);
+
+
+            int midLimit = CalendarUtils.GetMidLimit(info.Ano, info.Mes);
+            model.Limits.Add((int)interval.DiaInicio);
+            model.Limits.Add(midLimit);
+            model.Limits.Add((int)interval.DiaFim);
+
+            model.Saturdays = saturdays;
+            model.Sundays = sundays;
+            model.Holidays = holidays;
 
             return model;
-        }
-
-        public FolhaDePontoValuesOutputModel GetFromObra(string obraID, string ano, string mes)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void setValues(string obraID, string date, FolhaDePontoValuesInputModel values)
-        {
-            throw new NotImplementedException();
         }
     }
 }
