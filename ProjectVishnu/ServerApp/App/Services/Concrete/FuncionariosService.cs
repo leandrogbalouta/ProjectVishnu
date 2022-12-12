@@ -15,42 +15,94 @@ namespace ProjectVishnu.Services
         }
         public IEnumerable<Funcionario> ListByMarket(string mercado)
         {
-            return _unitOfWork.Funcionarios.ListByMarket(mercado);
+            try
+            {
+                return _unitOfWork.Funcionarios.ListByMarket(mercado);
+            }catch(Exception e)
+            {
+                return null;
+            }
         }
 
         public IEnumerable<Funcionario> ListAlphabetically()
         {
-            return _unitOfWork.Funcionarios.ListAlphabetically();
+            try
+            {
+                return _unitOfWork.Funcionarios.ListAlphabetically();
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
         }
 
         public IEnumerable<Funcionario> GetByName(string nome)
         {
-            return _unitOfWork.Funcionarios.SearchByName(nome);
+            try
+            {
+                return _unitOfWork.Funcionarios.SearchByName(nome);
+
+            }catch(Exception e)
+            {
+                return null;
+            }
         }
 
         public Funcionario Get(int id)
         {
-            Funcionario f = _unitOfWork.Funcionarios.Get(id);
-            Mercado m = f.MercadoNavigation;
-            return _unitOfWork.Funcionarios.Get(id);
+            try
+            {
+                Funcionario f = _unitOfWork.Funcionarios.Get(id);
+                Mercado m = f.MercadoNavigation;
+                return _unitOfWork.Funcionarios.Get(id);
+            }catch(Exception e)
+            {
+                return null;
+            }
+            
         }
 
-        public void Create(FuncionarioInputModel funcionarioDto)
+        public string Create(FuncionarioInputModel funcionarioDto)
         {
-            _unitOfWork.Funcionarios.Add(funcionarioDto.ToFuncionario());
-            _unitOfWork.Complete();
+            try
+            {
+                _unitOfWork.Funcionarios.Add(funcionarioDto.ToFuncionario());
+                _unitOfWork.Complete();
+                return "Funcionário criado com sucesso.";
+            }catch(Exception e)
+            {
+                return null;
+            }
+            
         }
 
-        public void Delete(int id)
+        public string Delete(int id)
         {
-            _unitOfWork.Funcionarios.Delete(id);
-            _unitOfWork.Complete();
+            try
+            {
+                _unitOfWork.Funcionarios.Delete(id);
+                _unitOfWork.Complete();
+                return "Funcionário apagado com sucesso.";
+            }catch(Exception e)
+            {
+                return null;
+            }
+            
         }
 
-        public void Update(FuncionarioInputModel funcionarioDto)
+        public string Update(FuncionarioInputModel funcionarioDto)
         {
-            _unitOfWork.Funcionarios.Update(funcionarioDto.ToFuncionario());
-            _unitOfWork.Complete();
+            try
+            {
+                _unitOfWork.Funcionarios.Update(funcionarioDto.ToFuncionario());
+                _unitOfWork.Complete();
+                return "Funcionário atualizado com sucesso.";
+            }
+            catch(Exception e)
+            {
+                return null;
+            }
+            
         }
     }
 }

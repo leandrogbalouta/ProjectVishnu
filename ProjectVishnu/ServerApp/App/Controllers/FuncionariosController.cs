@@ -24,73 +24,63 @@ namespace ProjectVishnu.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<FuncionarioOutputModel> List([FromQuery(Name = "mercado")] string? mercado, [FromQuery(Name = "nome")] string? nome)
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<FuncionarioOutputModel>))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult List([FromQuery(Name = "mercado")] string? mercado, [FromQuery(Name = "nome")] string? nome)
         {
+            IEnumerable<Funcionario> funcionariosList;
             if (mercado != null )
             {
-                try
-                {
-                    IEnumerable<Funcionario> funcionariosList = _funcionariosService.ListByMarket(mercado);
-                    return funcionariosList.Select(x => x.toOutputModel());
-
-                }
-                catch (InvalidOperationException e)
-                {
-                    return null;//"Mercado inválido.";
-                }
-                
+                    funcionariosList = _funcionariosService.ListByMarket(mercado);
             }
             else if(nome != null)
             {
-                try
-                {
-                    IEnumerable<Funcionario> funcionariosList = _funcionariosService.GetByName(nome);
-                    return funcionariosList.Select(x => x.toOutputModel());
-                }
-                catch (InvalidOperationException e)
-                {
-                    return null;//"Nome inválido.";
-                }
+                    funcionariosList = _funcionariosService.GetByName(nome);
             }
             else
             {
-                IEnumerable<Funcionario> funcionariosList = _funcionariosService.ListAlphabetically();
-                return funcionariosList.Select(x => x.toOutputModel());
+                funcionariosList = _funcionariosService.ListAlphabetically();
             }
+            return funcionariosList == null ? NotFound() : Ok(funcionariosList.Select(x => x.toOutputModel()));
+
         }
 
         [HttpGet("{id}")]
-        public FuncionarioOutputModel Get(int id)
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(FuncionarioOutputModel))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult Get(int id)
         {
-            try
-            {
-                return _funcionariosService.Get(id).toOutputModel();
-            }catch(Exception e)
-            {
-                return null;
-            }
+            FuncionarioOutputModel result = _funcionariosService.Get(id).toOutputModel();
+            return result == null ? NotFound() : Ok(result);
+            
         }
 
         [HttpPost]
-        public string Create([FromBody] FuncionarioInputModel funcionario) // levar um segundo parâmetro com os parâmetros necessários para editar um funcionário(possivelmente necessário criar um dto)
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(string))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult Create([FromBody] FuncionarioInputModel funcionario) // levar um segundo parâmetro com os parâmetros necessários para editar um funcionário(possivelmente necessário criar um dto)
         {
-                _funcionariosService.Create(funcionario);
-                return "Criado com sucesso";
+            string result = _funcionariosService.Create(funcionario);
+            return result == null ? BadRequest() : Ok(result);
         }
 
         [HttpPut("{id}")]
-        public string Edit(int id, [FromBody] FuncionarioInputModel funcionario) // levar um segundo parâmetro com os parâmetros necessários para editar um funcionário(possivelmente necessário criar um dto)
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(string))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult Edit(int id, [FromBody] FuncionarioInputModel funcionario) // levar um segundo parâmetro com os parâmetros necessários para editar um funcionário(possivelmente necessário criar um dto)
         {
-            _funcionariosService.Update(funcionario);
-            return "Funcionario editado com sucesso.";
+            string result = _funcionariosService.Update(funcionario);
+            return result == null ? BadRequest() : Ok(result);
         }
 
         [HttpDelete("{id}")]
-        public string Delete(int id)
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(string))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult Delete(int id)
         {
 
-            _funcionariosService.Delete(id);
-            return "Funcionario apagado com sucesso";
+            string result = _funcionariosService.Delete(id);
+            return result == null ? BadRequest() : Ok(result);
             
              
         }
