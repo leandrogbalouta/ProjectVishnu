@@ -12,7 +12,14 @@ namespace ProjectVishnu.ServerApp.App.Services.Concrete
         }
         public IEnumerable<string> ListAlphabetically()
         {
-            return _unitOfWork.Mercados.ListAlphabetically().Select(mercado => mercado.Mercadoname);
+            try
+            {
+                return _unitOfWork.Mercados.ListAlphabetically().Select(mercado => mercado.Mercadoname);
+
+            }catch(Exception e)
+            {
+                return null;
+            }
         }
     }
 }

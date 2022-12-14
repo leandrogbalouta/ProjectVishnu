@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ProjectVishnu.ServerApp.App.Dtos;
 using ProjectVishnu.ServerApp.App.Services;
 using ProjectVishnu.Services;
 
@@ -16,9 +17,12 @@ namespace ProjectVishnu.ServerApp.App.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<string> List()
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<string>))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult List()
         {
-            return _mercadosService.ListAlphabetically();
+            var result = _mercadosService.ListAlphabetically();
+            return result == null ? NotFound() : Ok(result);
         }
     }
 }
