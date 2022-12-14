@@ -29,7 +29,7 @@ namespace ProjectVishnu.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult List([FromQuery(Name = "mercado")] string? mercado, [FromQuery(Name = "nome")] string? nome)
         {
-            IEnumerable<Funcionario> funcionariosList;
+            IEnumerable<Funcionario > funcionariosList;
             if (mercado != null )
             {
                     funcionariosList = _funcionariosService.ListByMarket(mercado);
@@ -51,8 +51,8 @@ namespace ProjectVishnu.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult Get(int id)
         {
-            FuncionarioOutputModel result = _funcionariosService.Get(id).toOutputModel();
-            return result == null ? NotFound() : Ok(result);
+            Funcionario result = _funcionariosService.Get(id);
+            return result == null ? NotFound() : Ok(result.toOutputModel());
             
         }
 

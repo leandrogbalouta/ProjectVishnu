@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ProjectVishnu.Models;
 using ProjectVishnu.ServerApp.App.Dtos;
 using ProjectVishnu.Services;
 
@@ -16,36 +17,30 @@ namespace ProjectVishnu.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<ObraOutputModel> List([FromQuery(Name = "mercado")] string? mercado)
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<ObraOutputModel>))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult List([FromQuery(Name = "mercado")] string? mercado)
         {
-            if(mercado == null)
+            IEnumerable<Obra> obraList;
+            if (mercado == null)
             {
-                return _obrasService.ListAlphabetically().Select(obra => obra.toObraOutputModel());
+                obraList = _obrasService.ListAlphabetically();
             }
             else
             {
-                try
-                {
-                    return _obrasService.ListByMarket(mercado).Select(obra => obra.toObraOutputModel());
-                }
-                catch (InvalidOperationException e)
-                {
-                    throw e;
-                }
+                obraList = _obrasService.ListByMarket(mercado);
+
             }
+            return obraList == null ? NotFound() : Ok(obraList.Select(obra => obra.toObraOutputModel()));
         }
 
         [HttpGet("{codigoInterno}")]
-        public ObraOutputModel Get(string codigoInterno)
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ObraOutputModel))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult Get(string codigoInterno)
         {
-            try
-            {
-                return _obrasService.Get(codigoInterno).toObraOutputModel();
-            }
-            catch (Exception e)
-            {
-                return null;
-            }
+            Obra result = _obrasService.Get(codigoInterno);
+            return result == null ? NotFound() : Ok(result.toObraOutputModel());
             
         }
 

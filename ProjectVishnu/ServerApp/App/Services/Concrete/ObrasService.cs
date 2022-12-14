@@ -33,17 +33,35 @@ namespace ProjectVishnu.Services.Concrete
 
         public Obra Get(string codigoInterno)
         {
-            return _unitOfWork.Obras.Get(codigoInterno);
+            try
+            {
+                return _unitOfWork.Obras.Get(codigoInterno);
+            }catch(Exception e)
+            {
+                return null;
+            }
         }
 
         public IEnumerable<Obra> ListAlphabetically()
         {
-            return _unitOfWork.Obras.ListAlphabetically();
+            try
+            {
+                return _unitOfWork.Obras.ListAlphabetically();
+            }catch(Exception e)
+            {
+                return null;
+            }
         }
 
         public IEnumerable<Obra> ListByMarket(string mercado)
         {
-            return _unitOfWork.Obras.ListByMarket(mercado);
+            try
+            {
+                return _unitOfWork.Obras.ListByMarket(mercado);
+            }catch(Exception e)
+            {
+                return null;
+            }
         }
 
         public void RemoveFuncFromObra(string codigoInterno, FuncionarioObraInputModel funcInput)
