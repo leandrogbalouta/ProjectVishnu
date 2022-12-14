@@ -52,8 +52,6 @@ namespace ProjectVishnu.Services
         {
             try
             {
-                /*Funcionario f = _unitOfWork.Funcionarios.Get(id); Acho que esta a mais //TODO
-                Mercado m = f.MercadoNavigation;*/
                 return _unitOfWork.Funcionarios.Get(id);
             }catch(Exception e)
             {
@@ -71,7 +69,7 @@ namespace ProjectVishnu.Services
                 return id;
             }catch(Exception e)
             {
-                return 0;
+                throw e;
             }
             
         }
