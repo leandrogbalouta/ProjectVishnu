@@ -33,26 +33,37 @@ export function FuncionarioCreation() {
 
 
     useEffect(() => {
-      const inputs = document.querySelectorAll("input")
+      //const inputs = document.querySelectorAll("input")
       
-      inputs.forEach(element => {
-        element.addEventListener('change', (event)=>{
-          setFuncionario({ element : event.target.value})
-        })
-      })
+      // const changeHandler = e => {
+      //   setAllValues({...allValues, [e.target.name]: e.target.value})
+      // }
+
+      // inputs.forEach(element => {
+      //   element.addEventListener('change', (event)=>{
+      //     setFuncionario({...funcionario, [element.target.name] : element.target.value})
+      //   })
+      // })
+      
     }, [])
     
-
+    const inputs = element => {
+      console.log("HERE")
+      setFuncionario({...funcionario, [element.target.name]: element.target.value})
+    }
 
     async function AddFuncionario(){
       console.log(funcionario.nome)
       
-        const resp = await AddFuncionario()
+        const resp = await AddFuncionario2()
         if(resp.status === 201){
             navigate(resp.location)
         }
     }
 
+    function AddFuncionario2(){
+      console.log("DONE")
+    }
     
 
     return(
@@ -65,9 +76,9 @@ export function FuncionarioCreation() {
           
             <tr>
               <label>Nome</label>
-              <input type={"text"} className="funcionarioInput" id="nome" name="nome" value={funcionario.nome} required/>
+              <input type={"text"} className="funcionarioInput" id="nome" name="nome" onChange={inputs} required/>
             </tr>        
-            <tr>
+            {/* <tr>
               <label>Data de Nascimento</label>
               <input type={"date"} name="dtnascimento" required />
             </tr>
@@ -160,7 +171,7 @@ export function FuncionarioCreation() {
             <tr>
               <label>IBAN</label>
               <input type={"text"} name="iban" required />
-            </tr>
+            </tr> */}
           <button type="button" class="btn btn-primary" onClick={() => AddFuncionario()}>Criar</button>
           
         </tbody>
