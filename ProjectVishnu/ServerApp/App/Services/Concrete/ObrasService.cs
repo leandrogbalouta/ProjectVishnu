@@ -25,10 +25,19 @@ namespace ProjectVishnu.Services.Concrete
             _unitOfWork.Complete();
         }
 
-        public void Delete(string codigoInterno)
+        public string Delete(string codigoInterno)
         {
-            _unitOfWork.Obras.Delete(codigoInterno);
-            _unitOfWork.Complete();
+            try
+            {
+                _unitOfWork.Obras.Delete(codigoInterno);
+                _unitOfWork.Complete();
+                return "Obra apagada com sucesso.";
+
+            }catch(Exception e)
+            {
+                return null;
+            }
+            
         }
 
         public Obra Get(string codigoInterno)
@@ -69,10 +78,18 @@ namespace ProjectVishnu.Services.Concrete
             throw new NotImplementedException();
         }
 
-        public void Update(string codigoInterno, ObraInputModel obraInput)
+        public string Update(string codigoInterno, ObraInputModel obraInput)
         {
-            _unitOfWork.Obras.Update(codigoInterno,obraInput.ToObra());
-            _unitOfWork.Complete();
+            try
+            {
+                _unitOfWork.Obras.Update(codigoInterno, obraInput.ToObra());
+                _unitOfWork.Complete();
+                return "Obra atualizada com sucesso.";
+            }catch(Exception e)
+            {
+                return null;
+            }
+            
         }
     }
 }

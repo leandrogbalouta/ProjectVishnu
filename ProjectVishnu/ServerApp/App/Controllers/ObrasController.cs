@@ -52,17 +52,21 @@ namespace ProjectVishnu.Controllers
         }
 
         [HttpPut("{codigoInterno}")]
-        public string Edit(string codigoInterno, [FromBody] ObraInputModel obraInput) 
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(string))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult Edit(string codigoInterno, [FromBody] ObraInputModel obraInput) 
         {
-            _obrasService.Update(codigoInterno,obraInput);
-            return "Obra editada com sucesso";
+            string result = _obrasService.Update(codigoInterno,obraInput);
+            return result == null ? NotFound() : Ok(result);
         }
 
         [HttpDelete("{codigoInterno}")]
-        public string Delete(string codigoInterno)
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(string))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult Delete(string codigoInterno)
         {
-            _obrasService.Delete(codigoInterno);
-            return "Obra apagada com sucesso";
+            string result = _obrasService.Delete(codigoInterno);
+            return result == null ? NotFound() : Ok(result);
         }
 
         [HttpPost("{codigoInterno}/add")]
