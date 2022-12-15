@@ -53,25 +53,51 @@ namespace ProjectVishnu.ServerApp.App.Services.Concrete
 
         public List<FolhaDePontoInfoModel> GetAllFromMercado(string mercado)
         {
-            return _unitOfWork.FolhaDePontos.GetAllFromMercado(mercado).Select(x => x.toFolhaDePontoInfoModel()).ToList();
+            try
+            {
+                return _unitOfWork.FolhaDePontos.GetAllFromMercado(mercado).Select(x => x.toFolhaDePontoInfoModel()).ToList();
+            }catch(Exception e)
+            {
+                return null;
+            }
         }
 
         public List<FolhaDePontoInfoModel> GetAllFromObra(string obraID)
         {
-            return _unitOfWork.FolhaDePontos.GetAllFromObra(obraID).Select(x => x.toFolhaDePontoInfoModel()).ToList();
+            try
+            {
+                return _unitOfWork.FolhaDePontos.GetAllFromObra(obraID).Select(x => x.toFolhaDePontoInfoModel()).ToList();
+            }catch(Exception e)
+            {
+                return null;
+            }
         }
 
         public FolhaDePontoValuesOutputModel GetFromMercado(string mercado, string ano, string mes)
         {
-            List<FolhaDePonto> folhaDePontoList = _unitOfWork.FolhaDePontos.GetFromMercado(mercado,ano,mes);
-            return GenerateFolhaDePontoValuesOutputModel(folhaDePontoList, ano, mes);
+            try
+            {
+                List<FolhaDePonto> folhaDePontoList = _unitOfWork.FolhaDePontos.GetFromMercado(mercado, ano, mes);
+                return GenerateFolhaDePontoValuesOutputModel(folhaDePontoList, ano, mes);
+            }catch(Exception e)
+            {
+                return null;
+            }
+            
             
         }
 
         public FolhaDePontoValuesOutputModel GetFromObra(string obraID, string ano, string mes)
         {
-            List<FolhaDePonto> folhaDePontoList = _unitOfWork.FolhaDePontos.GetFromObra(obraID, ano, mes);
-            return GenerateFolhaDePontoValuesOutputModel(folhaDePontoList, ano, mes);
+            try
+            {
+                List<FolhaDePonto> folhaDePontoList = _unitOfWork.FolhaDePontos.GetFromObra(obraID, ano, mes);
+                return GenerateFolhaDePontoValuesOutputModel(folhaDePontoList, ano, mes);
+            }catch(Exception e)
+            {
+                return null;
+            }
+            
         }
 
         public void setValues(string obraID, string date, FolhaDePontoValuesInputModel values)

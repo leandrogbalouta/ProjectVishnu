@@ -63,6 +63,7 @@ namespace ProjectVishnu.Controllers
         {
             int result = _funcionariosService.Create(funcionario);
             Console.WriteLine(result);
+            Console.WriteLine("Funcionario novo id " + funcionario.ToFuncionario().Id);
             var actionName = nameof(FuncionariosController.Get);
             var routeValues = new
             {

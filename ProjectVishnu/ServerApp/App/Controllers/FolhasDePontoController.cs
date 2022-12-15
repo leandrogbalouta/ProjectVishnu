@@ -35,9 +35,12 @@ namespace ProjectVishnu.ServerApp.App.Controllers
         }
 
         [HttpGet("/obras/{obraID}/folha-de-ponto")]
-        public List<FolhaDePontoInfoModel> GetAllByObra(string obraID)
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<FolhaDePontoInfoModel>))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult GetAllByObra(string obraID)
         {
-            return _folhadepontoServices.GetAllFromObra(obraID);
+            var result = _folhadepontoServices.GetAllFromObra(obraID);
+            return result == null ? NotFound() : Ok(result);
             
         }
 
@@ -54,9 +57,12 @@ namespace ProjectVishnu.ServerApp.App.Controllers
         }
 
         [HttpGet("/folha-de-ponto/{mercado}")]
-        public List<FolhaDePontoInfoModel> GetAllByMercado(string mercado)
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<FolhaDePontoInfoModel>))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult GetAllByMercado(string mercado)
         {
-            return _folhadepontoServices.GetAllFromMercado(mercado);
+            var result = _folhadepontoServices.GetAllFromMercado(mercado);
+            return result == null ? NotFound() : Ok(result);   
         }
 
         [HttpGet("/folha-de-ponto/{mercado}/{date}")]

@@ -51,10 +51,9 @@ namespace ProjectVishnu.DataAccess.Repository.Concrete
             throw new NotImplementedException();
         }
 
-        public int Add(Funcionario entity)
+        public void Add(Funcionario entity)
         {
             base.Add(entity);
-            return entity.Id;
         }
 
         public void AddRange(IEnumerable<Funcionario> entities)
