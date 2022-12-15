@@ -7,6 +7,7 @@ import { Obras } from "./pages/Obras";
 import { Obra } from "./pages/Obra";
 import { Home } from "./pages/Home";
 import { FolhaDePonto } from './pages/FolhaDePonto';
+import { FuncionarioCreation } from './pages/FuncionarioCreation';
 
 const router = createBrowserRouter([
     {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
     {
       path: '/funcionarios/:id',
       element: <Funcionario />
+    },
+    {
+      path: '/funcionarios/create',
+      element: <FuncionarioCreation/>
     },
     {
       path: '/obras/:codigo',
