@@ -65,6 +65,8 @@ export function FuncionarioCreation() {
     }
     
     return(
+      <Layout>
+      <div>
       <form>
       <table className='table table-striped' aria-labelledby="tabelLabel">
         <thead>
@@ -175,5 +177,7 @@ export function FuncionarioCreation() {
         </tbody>
       </table> 
       </form>
+      </div>
+      </Layout>
     )
 }
