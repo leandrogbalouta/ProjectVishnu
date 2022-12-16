@@ -15,7 +15,8 @@ export function Funcionarios(){
     }
 
     async function redirectToFuncionarioCreation(){
-      navigate("funcionarios/create")
+      console.log("onclick")
+      navigate("/funcionarios/create")
     }
 
     let contents = funcionarios === null
@@ -52,7 +53,7 @@ export function Funcionarios(){
       return (
         <div>
           <FilterBar setMercado={setMercado} setSearchString={setSearchString}/>
-          <button type="button" class="btn btn-primary" onClick={() => redirectToFuncionarioCreation}>Criar</button>
+          <button type="button" class="btn btn-primary" onClick={() => redirectToFuncionarioCreation()}>Criar</button>
           <table className='table table-striped' aria-labelledby="tabelLabel">
             <thead>
               <tr>

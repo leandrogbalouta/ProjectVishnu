@@ -1,5 +1,7 @@
 import { useNavigate } from "react-router-dom"
 import React, {useEffect, useState} from 'react';
+import { FilterBar } from "../components/FilterBar";
+import { Layout } from "../components/Layout";
 import { fetchAddFuncionario } from "../APICalls";
 
 
