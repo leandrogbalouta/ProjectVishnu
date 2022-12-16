@@ -16,33 +16,7 @@ export async function fetchAddFuncionario(func){
         headers: {
             'Content-Type': 'application/json'
         },
-        body : JSON.stringify(
-            {
-                nome: func.nome,
-                dtnascimento: func.dtnascimento,
-                telemovel: func.telemovel,
-                contactoemergencia: func.contactoemergencia,
-                nacionalidade: func.nacionalidade,
-                mercado: func.mercado,
-                tipodocident: func.tipodocident,
-                docident: func.docident,
-                tituloresidencia: func.tituloresidencia,
-                manifestacaointeresse: func.manifestacaointeresse,
-                validadedocident: func.validadedocident,
-                catprof: func.catprof,
-                nif: func.nif,
-                niss: func.niss,
-                morada: func.morada,
-                contratoinicio: func.contratoinicio,
-                contratofim: func.contratofim,
-                vencimentobase: func.vencimentobase,
-                tiposalario: func.tiposalario,
-                salarioreal: func.salarioreal,
-                calcado: func.calcado,
-                cartaconducao: func.cartaconducao,
-                iban: func.iban
-              }
-        )
+        body : JSON.stringify(func)
     })
 }
 
