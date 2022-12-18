@@ -61,6 +61,7 @@ namespace ProjectVishnu.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult Create([FromBody] FuncionarioInputModel funcionario) // levar um segundo parâmetro com os parâmetros necessários para editar um funcionário(possivelmente necessário criar um dto)
         {
+            Console.WriteLine("HERE");
             int result = _funcionariosService.Create(funcionario);
             Console.WriteLine(result);
             Console.WriteLine("Funcionario novo id " + funcionario.ToFuncionario().Id);

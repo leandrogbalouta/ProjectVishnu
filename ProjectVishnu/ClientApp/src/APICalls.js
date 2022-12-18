@@ -9,7 +9,7 @@ export async function fetchFuncionario(id) {
     return fetch(path)
 }
 
-export async function AddFuncionario(func){
+export async function fetchAddFuncionario(func){
     const path = "api/funcionarios"
     return fetch(path,{
         method: 'POST',
