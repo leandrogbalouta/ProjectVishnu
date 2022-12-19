@@ -24,16 +24,28 @@ code {
   border: 3px solid green;
 }
 
-.saturday-cell{
-  background-color: lightblue;
+th.saturday-cell{
+  background: lightblue;
 }
 
-.sunday-cell{
-  background-color: blue;
+td.saturday-cell{
+  background: lightblue;
 }
 
-.holiday-cell{
-  background-color: rgb(202, 100, 100);
+th.sunday-cell{
+  background: orange;
+}
+
+td.sunday-cell{
+  background: orange;
+}
+
+th.holiday-cell{
+  background: rgb(202, 100, 100);
+}
+
+td.holiday-cell{
+  background: rgb(202, 100, 100);
 }
 
 .tableData{

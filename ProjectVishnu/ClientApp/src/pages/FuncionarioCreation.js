@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom"
 import React, {useEffect, useState} from 'react';
 import { FilterBar } from "../components/FilterBar";
 import { Layout } from "../components/Layout";
-import { fetchAddFuncionario } from "../APICalls";
+import { CreateFuncionario } from "../APICalls";
 
 
 export function FuncionarioCreation() {
@@ -58,7 +58,7 @@ export function FuncionarioCreation() {
     async function AddFuncionario(){
       console.log(funcionario)
       
-        const resp = await fetchAddFuncionario(funcionario)
+        const resp = await CreateFuncionario(funcionario)
         if(resp.status === 201){
             navigate(resp.location)
         }

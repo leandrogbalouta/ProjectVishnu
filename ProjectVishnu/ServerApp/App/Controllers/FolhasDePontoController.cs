@@ -78,10 +78,10 @@ namespace ProjectVishnu.ServerApp.App.Controllers
         }
 
         [HttpPut("/obras/{obraID}/folha-de-ponto/{date}")]
-        public string setValues(string obraID, string date, [FromBody] FolhaDePontoValuesInputModel values)
+        public IActionResult setValues(string obraID, string date, [FromBody] FolhaDePontoValuesInputModel values)
         {
             _folhadepontoServices.setValues(obraID, date, values);
-            return "";
+            return Ok();
         }
     }
 }

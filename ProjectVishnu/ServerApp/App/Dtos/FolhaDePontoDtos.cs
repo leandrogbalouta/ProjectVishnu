@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System.Collections;
+using System.Globalization;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -22,10 +23,21 @@ namespace ProjectVishnu.ServerApp.App.Dtos
 
     public class FolhaDePontoValuesInputModel
     {
-        public FolhaDePontoInfoModel Info { get; set; }
-        public Dictionary<FuncionarioOutputModel, Dictionary<int, decimal>> FuncWorkDays { get; set; }
-        public Dictionary<FuncionarioOutputModel, decimal> FinalValue { get; set; }
+        public List<FuncDaysOfWorkInputModel> Values {get; set;}
         
+    }
+
+    public class FuncDaysOfWorkInputModel
+    {
+        public FuncionarioInputModel Func { get; set; }
+        public List<WorkDaysInputModel> Dias { get; set; }
+        public int? ValorFinal { get; set; }
+    }
+
+    public class WorkDaysInputModel
+    {
+        public int Dia { get; set; }
+        public double Horas { get; set; }
     }
     public class FolhaDePontoValuesOutputModel
     {
