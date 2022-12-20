@@ -9,7 +9,7 @@ namespace ProjectVishnu.Services
         IEnumerable<Obra> ListAlphabetically();
         Obra Get(string codigoInterno);
 
-        void Create(ObraInputModel obra);
+        string Create(ObraInputModel obra);
 
         string Delete(string codigoInterno);
 

@@ -20,6 +20,17 @@ export async function CreateFuncionario(func){
     })
 }
 
+export async function CreateObra(obra){
+    const path = "api/obras"
+    return fetch(path,{
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body : JSON.stringify(obra)
+    })
+}
+
 export async function fetchObras(filters){
     var path = "api/obras"
     path = addFiltersToQuery(path, filters)   

@@ -17,12 +17,20 @@ namespace ProjectVishnu.Services.Concrete
             throw new NotImplementedException();
         }
 
-        public void Create(ObraInputModel obraInput)
+        public string Create(ObraInputModel obraInput)
         {
-            obraInput.generateInternalCode( 
-                _unitOfWork.Obras.SearchByCodeNumber(obraInput.generateInternalCodeFirstPart())+1);
-            _unitOfWork.Obras.Add(obraInput.ToObra());
-            _unitOfWork.Complete();
+            try
+            {
+                obraInput.generateInternalCode(
+                _unitOfWork.Obras.SearchByCodeNumber(obraInput.generateInternalCodeFirstPart()) + 1);
+                _unitOfWork.Obras.Add(obraInput.ToObra());
+                _unitOfWork.Complete();
+                return obraInput.CodigoInterno;
+            } catch(Exception e)
+            {
+                return null;
+            }
+            
         }
 
         public string Delete(string codigoInterno)

@@ -45,10 +45,18 @@ namespace ProjectVishnu.Controllers
         }
 
         [HttpPost]
-        public string Create([FromBody] ObraInputModel obraInput) 
+        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(string))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult Create([FromBody] ObraInputModel obraInput) 
         {
-            _obrasService.Create(obraInput);
-            return "Criado com sucesso";
+            string codigoInterno = _obrasService.Create(obraInput);
+            var actionName = nameof(ObrasController.Get);
+            var routeValues = new
+            {
+                codigoInterno = codigoInterno
+            };
+            ActionResult a = CreatedAtAction(actionName, routeValues, obraInput);
+            return a;
         }
 
         [HttpPut("{codigoInterno}")]

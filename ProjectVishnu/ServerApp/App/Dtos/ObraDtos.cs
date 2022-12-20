@@ -19,7 +19,8 @@ namespace ProjectVishnu.ServerApp.App.Dtos
                 Designacao = Designacao,
                 Cliente = Cliente,
                 Datainicio = DateOnly.Parse(Datainicio),
-                Mercado = Mercado
+                Mercado = Mercado,
+                Autosdemedicao = "HARDCODED"
             };
         }
 

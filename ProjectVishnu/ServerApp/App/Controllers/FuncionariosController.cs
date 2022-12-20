@@ -59,15 +59,15 @@ namespace ProjectVishnu.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(string))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public IActionResult Create([FromBody] FuncionarioInputModel funcionario) // levar um segundo parâmetro com os parâmetros necessários para editar um funcionário(possivelmente necessário criar um dto)
+        public IActionResult Create([FromBody] FuncionarioInputModel funcionarioInput) // levar um segundo parâmetro com os parâmetros necessários para editar um funcionário(possivelmente necessário criar um dto)
         {
-            int result = _funcionariosService.Create(funcionario);
+            int result = _funcionariosService.Create(funcionarioInput);
             var actionName = nameof(FuncionariosController.Get);
             var routeValues = new
             {
                 id = result
             };
-            ActionResult a = CreatedAtAction(actionName, routeValues, funcionario);
+            ActionResult a = CreatedAtAction(actionName, routeValues, funcionarioInput);
             return a;
         }
 

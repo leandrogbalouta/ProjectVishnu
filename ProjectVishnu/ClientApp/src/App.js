@@ -8,6 +8,7 @@ import { Obra } from "./pages/Obra";
 import { Home } from "./pages/Home";
 import { FolhaDePonto } from './pages/FolhaDePonto';
 import { FuncionarioCreation } from './pages/FuncionarioCreation';
+import { ObraCreation } from './pages/ObraCreation';
 
 const router = createBrowserRouter([
     {
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
     {
       path: '/obras/:codigo',
       element: <Obra />
+    },
+    {
+      path: '/obras/create',
+      element: <ObraCreation/>
     },
     {
       path: '/obras/:codigo/folha-de-ponto/:data',
