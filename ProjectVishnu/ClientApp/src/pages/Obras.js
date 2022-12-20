@@ -15,6 +15,11 @@ export function Obras() {
         navigate(`/obras/${codigo}`)
     }
 
+    async function redirectToObraCreation(){
+        console.log("onclick")
+        navigate("/obras/create")
+      }
+
     let contents = obras === null
             ? <p><em>Loading...</em></p>
             : renderObrasTable(obras);
@@ -47,6 +52,7 @@ export function Obras() {
         return (
             <div>
                 <FilterBar setMercado={setMercado} setSearchString={setSearchString} />
+                <button type="button" class="btn btn-primary" onClick={() => redirectToObraCreation()}>Criar</button>
                 <table className='table table-striped' aria-labelledby="tabelLabel">
                     <thead>
                         <tr>
