@@ -65,11 +65,9 @@ namespace ProjectVishnu.Services
             try
             {
                 Funcionario funcionario = funcionarioDto.ToFuncionario();
-                _unitOfWork.Funcionarios.Add(funcionarioDto.ToFuncionario());
+                _unitOfWork.Funcionarios.Add(funcionario);
                 _unitOfWork.Complete();
-                Console.WriteLine("Funcioanrio antes id "  + funcionario.Id);
-                Console.WriteLine("Funcioanrio depois id " + funcionarioDto.ToFuncionario().Id);
-                return funcionarioDto.ToFuncionario().Id;
+                return _unitOfWork.Funcionarios.GetFuncId(funcionario.Nif);
             }catch(Exception e)
             {
                 throw e;

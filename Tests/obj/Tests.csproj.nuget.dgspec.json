@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Leandro\\Desktop\\DKM\\ProjectVishnu\\Tests\\Tests.csproj": {}
+    "C:\\Users\\Francisco Martins\\Desktop\\ProjetoDKM\\ProjectVishnu\\Tests\\Tests.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Leandro\\Desktop\\DKM\\ProjectVishnu\\ProjectVishnu\\ProjectVishnu.csproj": {
+    "C:\\Users\\Francisco Martins\\Desktop\\ProjetoDKM\\ProjectVishnu\\ProjectVishnu\\ProjectVishnu.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Leandro\\Desktop\\DKM\\ProjectVishnu\\ProjectVishnu\\ProjectVishnu.csproj",
+        "projectUniqueName": "C:\\Users\\Francisco Martins\\Desktop\\ProjetoDKM\\ProjectVishnu\\ProjectVishnu\\ProjectVishnu.csproj",
         "projectName": "ProjectVishnu",
-        "projectPath": "C:\\Users\\Leandro\\Desktop\\DKM\\ProjectVishnu\\ProjectVishnu\\ProjectVishnu.csproj",
-        "packagesPath": "C:\\Users\\Leandro\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Leandro\\Desktop\\DKM\\ProjectVishnu\\ProjectVishnu\\obj\\",
+        "projectPath": "C:\\Users\\Francisco Martins\\Desktop\\ProjetoDKM\\ProjectVishnu\\ProjectVishnu\\ProjectVishnu.csproj",
+        "packagesPath": "C:\\Users\\Francisco Martins\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Francisco Martins\\Desktop\\ProjetoDKM\\ProjectVishnu\\ProjectVishnu\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Leandro\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Francisco Martins\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -82,24 +82,6 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[6.0.11, 6.0.11]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Host.win-x64",
-              "version": "[6.0.11, 6.0.11]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Ref",
-              "version": "[6.0.11, 6.0.11]"
-            },
-            {
-              "name": "Microsoft.WindowsDesktop.App.Ref",
-              "version": "[6.0.11, 6.0.11]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -108,21 +90,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\Leandro\\Desktop\\DKM\\ProjectVishnu\\Tests\\Tests.csproj": {
+    "C:\\Users\\Francisco Martins\\Desktop\\ProjetoDKM\\ProjectVishnu\\Tests\\Tests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Leandro\\Desktop\\DKM\\ProjectVishnu\\Tests\\Tests.csproj",
+        "projectUniqueName": "C:\\Users\\Francisco Martins\\Desktop\\ProjetoDKM\\ProjectVishnu\\Tests\\Tests.csproj",
         "projectName": "Tests",
-        "projectPath": "C:\\Users\\Leandro\\Desktop\\DKM\\ProjectVishnu\\Tests\\Tests.csproj",
-        "packagesPath": "C:\\Users\\Leandro\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Leandro\\Desktop\\DKM\\ProjectVishnu\\Tests\\obj\\",
+        "projectPath": "C:\\Users\\Francisco Martins\\Desktop\\ProjetoDKM\\ProjectVishnu\\Tests\\Tests.csproj",
+        "packagesPath": "C:\\Users\\Francisco Martins\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Francisco Martins\\Desktop\\ProjetoDKM\\ProjectVishnu\\Tests\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Leandro\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Francisco Martins\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -136,8 +118,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\Leandro\\Desktop\\DKM\\ProjectVishnu\\ProjectVishnu\\ProjectVishnu.csproj": {
-                "projectPath": "C:\\Users\\Leandro\\Desktop\\DKM\\ProjectVishnu\\ProjectVishnu\\ProjectVishnu.csproj"
+              "C:\\Users\\Francisco Martins\\Desktop\\ProjetoDKM\\ProjectVishnu\\ProjectVishnu\\ProjectVishnu.csproj": {
+                "projectPath": "C:\\Users\\Francisco Martins\\Desktop\\ProjetoDKM\\ProjectVishnu\\ProjectVishnu\\ProjectVishnu.csproj"
               }
             }
           }
@@ -188,26 +170,12 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[6.0.11, 6.0.11]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Ref",
-              "version": "[6.0.11, 6.0.11]"
-            },
-            {
-              "name": "Microsoft.WindowsDesktop.App.Ref",
-              "version": "[6.0.11, 6.0.11]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
         }
       }
     }

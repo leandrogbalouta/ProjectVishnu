@@ -24,7 +24,7 @@ namespace ProjectVishnu.ServerApp.App.Dtos
         public decimal Vencimentobase { get; set; }
         public string Tiposalario { get; set; } = null!;
         public decimal Salarioreal { get; set; }
-        public decimal? Calcado { get; set; }
+        public decimal? Calcado { get; set; } = null;
         public string Cartaconducao { get; set; } = null!;
         public string Iban { get; set; } = null!;
 

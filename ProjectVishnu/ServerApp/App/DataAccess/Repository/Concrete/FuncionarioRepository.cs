@@ -76,6 +76,10 @@ namespace ProjectVishnu.DataAccess.Repository.Concrete
             return func.Deleted == null;
         }
 
+        public int GetFuncId(string nif)
+        {
+            return VishnuContext.Funcionarios.Where(func => func.Nif == nif).First().Id;
+        }
 
         public vishnuContext VishnuContext
         {

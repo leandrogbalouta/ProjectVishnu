@@ -16,8 +16,8 @@ export function FuncionarioCreation() {
       mercado: '',
       tipodocident: '',
       docident: '',
-      tituloresidencia: '',
-      manifestacaointeresse: '',
+      tituloresidencia: null,
+      manifestacaointeresse: null,
       validadedocident: '',
       catprof: '',
       nif: '',
@@ -28,39 +28,31 @@ export function FuncionarioCreation() {
       vencimentobase: 0,
       tiposalario: '',
       salarioreal: 0,
-      calcado: 0,
+      calcado: null,
       cartaconducao: '',
       iban: ''
     })
     const navigate = useNavigate()
-
-
-    useEffect(() => {
-      //const inputs = document.querySelectorAll("input")
-      
-      // const changeHandler = e => {
-      //   setAllValues({...allValues, [e.target.name]: e.target.value})
-      // }
-
-      // inputs.forEach(element => {
-      //   element.addEventListener('change', (event)=>{
-      //     setFuncionario({...funcionario, [element.target.name] : element.target.value})
-      //   })
-      // })
-      
-    }, [])
     
     const inputs = element => {
-      console.log("HERE")
+      if(element.target.value === "") element.target.value = null
       setFuncionario({...funcionario, [element.target.name]: element.target.value})
     }
 
     async function AddFuncionario(){
-      console.log(funcionario)
-      
+      console.log("Inside AddFuncionario")
+        funcionario.contratofim = funcionario.contratofim.replace('-','/').replace('-','/')
+        funcionario.contratoinicio = funcionario.contratoinicio.replace('-','/').replace('-','/')
+        funcionario.dtnascimento = funcionario.dtnascimento.replace('-','/').replace('-','/')
+        funcionario.validadedocident = funcionario.validadedocident.replace('-','/').replace('-','/')
+
         const resp = await CreateFuncionario(funcionario)
         if(resp.status === 201){
-            navigate(resp.location)
+          const location = resp.headers.get("location").toLowerCase()
+          const array = location.split("api")
+          const result = array.pop();
+            
+          navigate(result)
         }
     }
     
@@ -159,7 +151,7 @@ export function FuncionarioCreation() {
             </tr>
             <tr>
               <label>Calçado</label>
-              <input type={"number"} name="calcado" onChange={inputs} required />
+              <input type={"number"} name="calcado" onChange={inputs} />
             </tr>
             <tr>
               <label>Carta de condução</label>
