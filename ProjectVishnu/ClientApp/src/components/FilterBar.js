@@ -25,6 +25,7 @@ export function FilterBar({setMercado, setSearchString}){
         getMercadosData()
         
     }, [])
+    
 
     return (
         <nav class="navbar bg-light">

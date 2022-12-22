@@ -9,6 +9,7 @@ import { Home } from "./pages/Home";
 import { FolhaDePonto } from './pages/FolhaDePonto';
 import { FuncionarioCreation } from './pages/FuncionarioCreation';
 import { ObraCreation } from './pages/ObraCreation';
+import { FolhasDePonto } from './pages/FolhasDePonto';
 
 const router = createBrowserRouter([
     {
@@ -45,6 +46,10 @@ const router = createBrowserRouter([
     },
     {
       path: '/folha-de-ponto/:mercado/:data'
+    },
+    {
+      path: 'folha-de-ponto',
+      element: <FolhasDePonto/>
     }
 ])
 

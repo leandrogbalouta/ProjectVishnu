@@ -83,6 +83,16 @@ export async function submitFolhaDePontoValues(codigo, mes, ano, values){
     })
 }
 
+export async function fetchFolhaDePontoAllByobra(codigo){
+    const path = `api/obras/${codigo}/folha-de-ponto`
+    return fetch(path)
+}
+
+export async function fetchFolhaDePontoAllByMercado(mercado){
+    const path = `api/folha-de-ponto/${mercado}`
+    return fetch(path)
+}
+
 function addFiltersToQuery(path, filters) {
 
     var size = Object.keys(filters).length
