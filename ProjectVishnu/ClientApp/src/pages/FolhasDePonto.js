@@ -10,6 +10,10 @@ export function FolhasDePonto(){
     const [mercado,setMercado] = useState(null)
     const navigate = useNavigate()
 
+    async function redirectToFolhaDePonto(mes,ano,mercado) {
+      navigate(`/folha-de-ponto/${mercado}/${ano}-${mes}`)
+    }
+
 
     let contents = folhasDePonto === null
         ? <p><em>Loading...</em></p>
@@ -51,7 +55,7 @@ export function FolhasDePonto(){
                 </thead>
                 <tbody>
                   {folhasDePonto.map( folhaDePonto =>
-                     <tr class="hoverable-tr">
+                     <tr class="hoverable-tr" onClick={() => redirectToFolhaDePonto(folhaDePonto.mes,folhaDePonto.ano,mercado)}>
                         <td>{folhaDePonto.mes}</td>
                         <td>{folhaDePonto.ano}</td>
                         <td>{mercado}</td>

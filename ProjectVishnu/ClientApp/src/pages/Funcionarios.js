@@ -15,7 +15,6 @@ export function Funcionarios(){
     }
 
     async function redirectToFuncionarioCreation(){
-      console.log("onclick")
       navigate("/funcionarios/create")
     }
 

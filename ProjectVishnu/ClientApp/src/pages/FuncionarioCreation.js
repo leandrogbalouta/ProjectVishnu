@@ -60,6 +60,7 @@ export function FuncionarioCreation() {
       <Layout>
       <div>
       <form>
+        <ul class="errorMessages"></ul>
       <table className='table table-striped' aria-labelledby="tabelLabel">
         <thead>
           <b>Criar um Funcionário</b>
@@ -68,7 +69,7 @@ export function FuncionarioCreation() {
           
             <tr>
               <label>Nome</label>
-              <input type={"text"} name="nome" onChange={inputs} required/>
+              <input type={"text"}  name="nome" maxlength={200} onChange={inputs} required/>
             </tr>        
              <tr>
               <label>Data de Nascimento</label>
@@ -76,15 +77,15 @@ export function FuncionarioCreation() {
             </tr>
             <tr>
               <label>Telemóvel</label>
-              <input type={"text"} name="telemovel" onChange={inputs} required />
+              <input type={"text"} name="telemovel" maxlength={15} onChange={inputs} required />
             </tr>
             <tr>
               <label>Contacto de emergência</label>
-              <input type={"text"} name="contactoemergencia" onChange={inputs} required />
+              <input type={"text"} name="contactoemergencia" maxlength={15} onChange={inputs} required />
             </tr>
             <tr>
               <label>Nacionalidade</label>
-              <input type={"text"} name="nacionalidade" onChange={inputs} required />
+              <input type={"text"} name="nacionalidade" maxlength={20} onChange={inputs} required />
             </tr>
             <tr>
               <label>Mercado</label>
@@ -92,19 +93,19 @@ export function FuncionarioCreation() {
             </tr>
             <tr>
               <label>Tipo de documento de identificação</label>
-              <input type={"text"} name="tipodocident" onChange={inputs} required />
+              <input type={"text"} name="tipodocident" maxlength={30} onChange={inputs} required />
             </tr>
             <tr>
               <label>Número do documento de identificação</label>
-              <input type={"text"} name="docident" onChange={inputs} required />
+              <input type={"text"} name="docident" maxlength={15} onChange={inputs} required />
             </tr>
             <tr>
               <label>Título de Residência</label>
-              <input type={"text"} name="tituloresidencia" onChange={inputs}/>
+              <input type={"text"} name="tituloresidencia" maxlength={20} onChange={inputs}/>
             </tr>
             <tr>
               <label>Manifestação de interesse</label>
-              <input type={"text"} name="manifestacaointeresse" onChange={inputs} />
+              <input type={"text"} name="manifestacaointeresse" maxlength={20} onChange={inputs} />
             </tr>
             <tr>
               <label>Validade do documento de identificação</label>
@@ -112,19 +113,19 @@ export function FuncionarioCreation() {
             </tr>
             <tr>
               <label>Categoria Profissional</label>
-              <input type={"text"} name="catprof" onChange={inputs} required />
+              <input type={"text"} name="catprof" maxlength={7} onChange={inputs} required />
             </tr>
             <tr>
               <label>Número de Identificação Fiscal (NIF)</label>
-              <input type={"text"} name="nif" onChange={inputs} required />
+              <input type={"text"} name="nif" maxlength={15} onChange={inputs} required />
             </tr>
             <tr>
               <label>Número de Identificação de Segurança Social (NISS)</label>
-              <input type={"text"} name="niss" onChange={inputs} required />
+              <input type={"text"} name="niss" maxlength={15} onChange={inputs} required />
             </tr>
             <tr>
               <label>Morada</label>
-              <input type={"text"} name="morada" onChange={inputs} required />
+              <input type={"text"} name="morada" maxlength={200} onChange={inputs} required />
             </tr>
             <tr>
               <label>Data de ínicio de contrato</label>
@@ -162,7 +163,7 @@ export function FuncionarioCreation() {
             </tr>
             <tr>
               <label>IBAN</label>
-              <input type={"text"} name="iban" required onChange={inputs}/>
+              <input type={"text"} name="iban" maxlength={30} required onChange={inputs}/>
             </tr> 
           <button type="button" class="btn btn-primary" onClick={() => AddFuncionario()}>Criar</button>
           

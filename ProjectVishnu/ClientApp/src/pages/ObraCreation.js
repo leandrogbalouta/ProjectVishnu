@@ -44,11 +44,11 @@ export function ObraCreation() {
         <tbody>          
             <tr>
                 <label>Designação</label>
-                <input type={"text"} name="designacao" onChange={inputs} required/>
+                <input type={"text"} name="designacao" maxlength={20} onChange={inputs} required/>
             </tr> 
             <tr>
                 <label>Cliente</label>
-                <input type={"text"} name="cliente" onChange={inputs} required/>
+                <input type={"text"} name="cliente" maxlength={20} onChange={inputs} required/>
             </tr>
             <tr>
                 <label>Data de Início</label>
