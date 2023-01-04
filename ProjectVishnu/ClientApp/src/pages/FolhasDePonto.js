@@ -40,7 +40,7 @@ export function FolhasDePonto(){
     function renderFolhasDePontoTable(folhasDePonto) {
         return (
             <div>
-              <FilterBar setMercado={setMercado}/>
+              <FilterBar setMercado={setMercado} />
               <table className='table table-striped' aria-labelledby="tabelLabel">
                 <thead>
                   <tr>

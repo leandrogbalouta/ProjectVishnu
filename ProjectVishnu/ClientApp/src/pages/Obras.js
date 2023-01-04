@@ -51,7 +51,7 @@ export function Obras() {
     function renderObrasTable(Obras) {
         return (
             <div>
-                <FilterBar setMercado={setMercado} setSearchString={setSearchString} />
+                <FilterBar setMercado={setMercado} setSearchString={setSearchString} searchBar={"searchBar"} />
                 <button type="button" class="btn btn-primary" onClick={() => redirectToObraCreation()}>Criar</button>
                 <table className='table table-striped' aria-labelledby="tabelLabel">
                     <thead>

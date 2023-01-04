@@ -52,7 +52,7 @@ export function Funcionarios(){
     function renderFuncionariosTable(funcionarios) {
       return (
         <div>
-          <FilterBar setMercado={setMercado} setSearchString={setSearchString}/>
+          <FilterBar setMercado={setMercado} setSearchString={setSearchString} searchBar={"searchBar"}/>
           <button type="button" class="btn btn-primary" onClick={() => redirectToFuncionarioCreation()}>Criar</button>
           <table className='table table-striped' aria-labelledby="tabelLabel">
             <thead>

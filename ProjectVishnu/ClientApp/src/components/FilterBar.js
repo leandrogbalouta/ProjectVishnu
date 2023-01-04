@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
-export function FilterBar({setMercado, setSearchString}){
+export function FilterBar({setMercado, setSearchString, searchBar = null}){
     const [mercados, setMercados] = useState(null)
     const [dropdownText, setDropdownText] = useState("Mercados")
 
@@ -26,6 +26,16 @@ export function FilterBar({setMercado, setSearchString}){
         
     }, [])
     
+    function useSearchBar(){
+        if(searchBar != null){
+            return (
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" id= "searchBar" type="search" placeholder="Search" aria-label="Search"/>
+                    <button class="btn btn-outline-success" type="button" onClick = { () => onClickSearch()}>Search</button>
+                </form>
+            )
+        }
+    }
 
     return (
         <nav class="navbar bg-light">
@@ -41,10 +51,7 @@ export function FilterBar({setMercado, setSearchString}){
                     )}
                 </ul>
                 </div>}
-            <form class="d-flex" role="search">
-                <input class="form-control me-2" id= "searchBar" type="search" placeholder="Search" aria-label="Search"/>
-                <button class="btn btn-outline-success" type="button" onClick = { () => onClickSearch()}>Search</button>
-            </form>
+            {useSearchBar()}
         </div>
         </nav>
     )
