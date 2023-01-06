@@ -7,25 +7,23 @@ import { CreateObra } from "../APICalls";
 
 export function ObraCreation() {
 
-    const [obra, setObra] = useState({
-        designacao : "",
-        cliente : "",
-        datainicio : "",
-        mercado : ""
-      })
       const navigate = useNavigate()
-      
-      const inputs = element => {
-        if(element.target.value === "") element.target.value = null
-        setObra({...obra, [element.target.name]: element.target.value})
-      }
 
       async function AddObra(){
-        obra.datainicio = obra.datainicio.replace('-','/').replace('-','/')
+        const inputs =  document.querySelectorAll('#designacao, #cliente, #datainicio, #mercado')
 
+        let obra = {}
+
+        for(let i = 0; i<inputs.length; i++){
+          if(inputs[i].innerHTML === "") obra[inputs[i].id] = null
+          else obra[inputs[i].id] = inputs[i].innerHTML
+        }
+                 
         const resp = await CreateObra(obra)
         if(resp.status === 201){
-            const location = resp.headers.get("location").toLowerCase()
+            const splitLocation =  resp.headers.get("location").split('OB')
+            const location = splitLocation[0].toLowerCase() + "OB" +splitLocation[1]
+
             const array = location.split("api")
             const result = array.pop();
               
@@ -36,32 +34,24 @@ export function ObraCreation() {
       return(
         <Layout>
             <div>
-      <form>
-      <table className='table table-striped' aria-labelledby="tabelLabel">
+      <table className='table table-bordered table-sm' aria-labelledby="tabelLabel">
         <thead>
           <b>Criar uma Obra</b>
         </thead>
         <tbody>          
             <tr>
-                <label>Designação</label>
-                <input type={"text"} name="designacao" maxlength={20} onChange={inputs} required/>
-            </tr> 
-            <tr>
-                <label>Cliente</label>
-                <input type={"text"} name="cliente" maxlength={20} onChange={inputs} required/>
-            </tr>
-            <tr>
-                <label>Data de Início</label>
-                <input type={"date"} name="datainicio" onChange={inputs} required/>
-            </tr>
-            <tr>
-                <label>Mercado</label>
-                <input type={"text"} name="mercado" onChange={inputs} required/>
+              <td class="font-bold p-2.5">Designação</td> 
+              <td contentEditable="true" id="designacao"></td>
+              <td class="font-bold p-2.5">Cliente</td> 
+              <td contentEditable="true" id="cliente"></td>
+              <td class="font-bold p-2.5">Data de Início</td> 
+              <td contentEditable="true" id="datainicio"></td>
+              <td class="font-bold p-2.5">Mercado</td> 
+              <td contentEditable="true" id="mercado"></td>
             </tr>
             <button type="button" class="btn btn-primary" onClick={() => AddObra()}>Criar</button>
         </tbody>
         </table>
-        </form>
         </div>
     </Layout>
       )

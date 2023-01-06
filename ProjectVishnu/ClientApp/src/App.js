@@ -45,7 +45,8 @@ const router = createBrowserRouter([
       element: <FolhaDePonto />
     },
     {
-      path: '/folha-de-ponto/:mercado/:data'
+      path: '/folha-de-ponto/:mercado/:data',
+      element: <FolhaDePonto />
     },
     {
       path: 'folha-de-ponto',
