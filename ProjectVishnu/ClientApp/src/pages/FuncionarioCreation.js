@@ -41,7 +41,7 @@ export function FuncionarioCreation() {
       <Layout>
       <div>
       <form>
-      <table className='table table-striped' aria-labelledby="tabelLabel">
+      <table className='table table-bordered table-sm' aria-labelledby="tabelLabel">
         <thead>
           <b>Criar um Funcionário</b>
         </thead>
@@ -50,47 +50,69 @@ export function FuncionarioCreation() {
               <td class="font-bold p-2.5">Nome</td> 
               <td contentEditable="true" id="nome"></td>
               <td class="font-bold p-2.5">Data de Nascimento</td> 
-              <td contentEditable="true" id="dtnascimento"></td>
-              <td class="font-bold p-2.5">Telemóvel</td> 
+              <td class="" contentEditable="true" id="dtnascimento"></td>
+            </tr>
+            <tr>
+              <td class="font-bold p-2.5">Telemóvel</td>
               <td contentEditable="true" id="telemovel"></td>
-              <td class="font-bold p-2.5">Contacto de emergência</td> 
+              <td class="font-bold p-2.5">Contacto de emergência</td>
               <td contentEditable="true" id="contactoemergencia"></td>
-              <td class="font-bold p-2.5">Nacionalidade</td> 
+            </tr>
+            <tr>
+              <td class="font-bold p-2.5">Nacionalidade</td>
               <td contentEditable="true" id="nacionalidade"></td>
-              <td class="font-bold p-2.5">Mercado</td> 
+              <td class="font-bold p-2.5">Mercado</td>
               <td contentEditable="true" id="mercado"></td>
-              <td class="font-bold p-2.5">Tipo de documento de identificação</td> 
+            </tr>
+            <tr>
+              <td class="font-bold p-2.5">Tipo de documento de identificação</td>
               <td contentEditable="true" id="tipodocident"></td>
-              <td class="font-bold p-2.5">Número do documento de identificação</td> 
+              <td class="font-bold p-2.5">Número do documento de identificação</td>
               <td contentEditable="true" id="docident"></td>
-              <td class="font-bold p-2.5">Título de Residência</td> 
+            </tr> 
+            <tr>
+              <td class="font-bold p-2.5">Título de Residência</td>
               <td contentEditable="true" id="tituloresidenica"></td>
-              <td class="font-bold p-2.5">Manifestação de interesse</td> 
+              <td class="font-bold p-2.5">Manifestação de interesse</td>
               <td contentEditable="true" id="manifestacaointeresse"></td>
+            </tr>
+            <tr>
               <td class="font-bold p-2.5">Validade do documento de identificação</td> 
               <td contentEditable="true" id="validadedocident"></td>
               <td class="font-bold p-2.5">Categoria Profissional</td> 
               <td contentEditable="true" id="catprof"></td>
+            </tr>
+            <tr>
               <td class="font-bold p-2.5">Número de Identificação Fiscal (NIF)</td> 
               <td contentEditable="true" id="nif"></td>
               <td class="font-bold p-2.5">Número de Identificação de Segurança Social (NISS)</td> 
               <td contentEditable="true" id="niss"></td>
+            </tr>
+            <tr>
               <td class="font-bold p-2.5">Morada</td> 
               <td contentEditable="true" id="morada"></td>
               <td class="font-bold p-2.5">Data de ínicio de contrato</td> 
               <td contentEditable="true" id="contratoinicio"></td>
+            </tr>
+            <tr>
               <td class="font-bold p-2.5">Data de fim de contrato</td> 
               <td contentEditable="true" id="contratofim"></td>
               <td class="font-bold p-2.5">Vencimento base</td> 
               <td contentEditable="true" id="vencimentobase"></td>
+            </tr>
+            <tr>
               <td class="font-bold p-2.5">Tipo de salário</td> 
               <td contentEditable="true" id="tiposalario"></td>
               <td class="font-bold p-2.5">Salário Real</td> 
               <td contentEditable="true" id="salarioreal"></td>
+            </tr>
+            <tr>
               <td class="font-bold p-2.5">Calçado</td> 
               <td contentEditable="true" id="calcado"></td>
               <td class="font-bold p-2.5">Carta de condução</td> 
               <td contentEditable="true" id="cartaconducao"></td>
+            </tr>
+            <tr>
               <td class="font-bold p-2.5">IBAN</td> 
               <td contentEditable="true" id="iban"></td>
             </tr>
