@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Leandro\\Desktop\\DKM\\ProjectVishnu\\Tests\\Tests.csproj": {}
+    "c:\\Users\\Leandro\\Desktop\\DKM\\ProjectVishnu\\Tests\\Tests.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Leandro\\Desktop\\DKM\\ProjectVishnu\\ProjectVishnu\\ProjectVishnu.csproj": {
+    "c:\\Users\\Leandro\\Desktop\\DKM\\ProjectVishnu\\ProjectVishnu\\ProjectVishnu.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Leandro\\Desktop\\DKM\\ProjectVishnu\\ProjectVishnu\\ProjectVishnu.csproj",
+        "projectUniqueName": "c:\\Users\\Leandro\\Desktop\\DKM\\ProjectVishnu\\ProjectVishnu\\ProjectVishnu.csproj",
         "projectName": "ProjectVishnu",
-        "projectPath": "C:\\Users\\Leandro\\Desktop\\DKM\\ProjectVishnu\\ProjectVishnu\\ProjectVishnu.csproj",
+        "projectPath": "c:\\Users\\Leandro\\Desktop\\DKM\\ProjectVishnu\\ProjectVishnu\\ProjectVishnu.csproj",
         "packagesPath": "C:\\Users\\Leandro\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Leandro\\Desktop\\DKM\\ProjectVishnu\\ProjectVishnu\\obj\\",
+        "outputPath": "c:\\Users\\Leandro\\Desktop\\DKM\\ProjectVishnu\\ProjectVishnu\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Leandro\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -40,23 +40,19 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
-            "Microsoft.AspNetCore.SpaProxy": {
-              "target": "Package",
-              "version": "[6.0.11, )"
-            },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[6.0.11, )"
+              "version": "[7.0.2, )"
             },
             "Microsoft.EntityFrameworkCore.Proxies": {
               "target": "Package",
-              "version": "[6.0.11, )"
+              "version": "[7.0.2, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[6.0.11, )"
+              "version": "[7.0.2, )"
             },
             "NUnit": {
               "target": "Package",
@@ -66,9 +62,13 @@
               "target": "Package",
               "version": "[13.0.2, )"
             },
+            "Npgsql": {
+              "target": "Package",
+              "version": "[7.0.1, )"
+            },
             "Npgsql.EntityFrameworkCore.PostgreSQL": {
               "target": "Package",
-              "version": "[6.0.7, )"
+              "version": "[7.0.1, )"
             }
           },
           "imports": [
@@ -112,14 +112,14 @@
         }
       }
     },
-    "C:\\Users\\Leandro\\Desktop\\DKM\\ProjectVishnu\\Tests\\Tests.csproj": {
+    "c:\\Users\\Leandro\\Desktop\\DKM\\ProjectVishnu\\Tests\\Tests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Leandro\\Desktop\\DKM\\ProjectVishnu\\Tests\\Tests.csproj",
+        "projectUniqueName": "c:\\Users\\Leandro\\Desktop\\DKM\\ProjectVishnu\\Tests\\Tests.csproj",
         "projectName": "Tests",
-        "projectPath": "C:\\Users\\Leandro\\Desktop\\DKM\\ProjectVishnu\\Tests\\Tests.csproj",
+        "projectPath": "c:\\Users\\Leandro\\Desktop\\DKM\\ProjectVishnu\\Tests\\Tests.csproj",
         "packagesPath": "C:\\Users\\Leandro\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Leandro\\Desktop\\DKM\\ProjectVishnu\\Tests\\obj\\",
+        "outputPath": "c:\\Users\\Leandro\\Desktop\\DKM\\ProjectVishnu\\Tests\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Leandro\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -136,8 +136,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\Leandro\\Desktop\\DKM\\ProjectVishnu\\ProjectVishnu\\ProjectVishnu.csproj": {
-                "projectPath": "C:\\Users\\Leandro\\Desktop\\DKM\\ProjectVishnu\\ProjectVishnu\\ProjectVishnu.csproj"
+              "c:\\Users\\Leandro\\Desktop\\DKM\\ProjectVishnu\\ProjectVishnu\\ProjectVishnu.csproj": {
+                "projectPath": "c:\\Users\\Leandro\\Desktop\\DKM\\ProjectVishnu\\ProjectVishnu\\ProjectVishnu.csproj"
               }
             }
           }

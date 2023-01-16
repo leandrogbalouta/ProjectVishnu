@@ -8,7 +8,10 @@ const rewrites = () => {
   ];
 };
 
+
+
 const nextConfig = {
+  swcMinify : false,
   reactStrictMode: true,
   webpackDevMiddleware: config => {
     config.watchOptions = {

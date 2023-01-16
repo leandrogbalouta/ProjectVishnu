@@ -10,9 +10,6 @@
     <RootNamespace>ProjectVishnu</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <!-- Test if thang below works... -->
-    <Target Name="RunFrontend" BeforeTargets="Build">
-      <Exec Command="cd ../ClientApp/ &amp;&amp; npm run dev" />
-  </Target>
   </PropertyGroup>
 
   <ItemGroup>

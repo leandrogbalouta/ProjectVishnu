@@ -67,7 +67,7 @@ export default function Funcionarios() {
           <Tbody>
             {funcionarios.map((funcionario) => (
               <Tr
-                className="hoverable-tr"
+                className="hover:bg-gray-200 cursor-pointer"
                 onClick={() => redirectToFuncionario(funcionario.id)}
                 key={funcionario.nome}
               >
