@@ -69,7 +69,9 @@ datainicio,datafim,mercado,autosdemedicao) values
 
 INSERT INTO FUNCIONARIOS_OBRAS
 (funcionario,obra,datacomeco,datafim) values
-('234567899','OB22PT01','2022-05-21',null);
+('234567899','OB22PT01','2022-05-21',null),
+('214439239','OB22PT01','2022-05-21',null);
+
 
 INSERT INTO DIA_TRABALHO
 (funcionario,codigoobra,dia,horas,mes,ano,valor) values

@@ -9,8 +9,7 @@ namespace ProjectVishnu.ServerApp.App.Utils
 
         public static int GetMidLimit(string ano, string mes)
         {
-            int previousMonth = (int.Parse(mes)-1);
-            if (previousMonth-1 < 0) previousMonth += 12;
+            int previousMonth = GetPreviousMonth(mes);
             return MonthsArray[(previousMonth-1) % 13].GetNumberOfDays(int.Parse(ano));
         }
 
@@ -18,11 +17,18 @@ namespace ProjectVishnu.ServerApp.App.Utils
         {
             saturdays = new List<int>();
             sundays = new List<int>();
-            int previousMonth = int.Parse(mes) - 1;
+            int previousMonth = CalendarUtils.GetPreviousMonth(mes);
             string prevMonthStr = previousMonth >= 10 ? previousMonth.ToString() : "0" + previousMonth.ToString();
 
-            DateTime firstDay = DateTime.Parse(ano + "-" + previousMonth + "-" + startDay);
+            //define lastday first in case the year changes in the following code
             DateTime lastDay = DateTime.Parse(ano + "-" + mes + "-" + endDay);
+
+            //if previous month was december, subtract one from the year
+            if(previousMonth == 12) ano = (int.Parse(ano)-1).ToString();
+
+            //first day is always defined with the correct year for the previous month
+            DateTime firstDay = DateTime.Parse(ano + "-" + previousMonth + "-" + startDay);
+
             DateTime currentDay = firstDay;
             while(currentDay <= lastDay)
             {
@@ -44,6 +50,12 @@ namespace ProjectVishnu.ServerApp.App.Utils
         {
             holidays = GetHolidays(ano, mes, interval.Mercadoname);
             GetWeekends(ano, mes, interval.DiaInicio.ToString(), interval.DiaFim.ToString(), out saturdays, out sundays);
+        }
+
+        public static int GetPreviousMonth(string mes){
+            int previousMonth = (int.Parse(mes)-1);
+            if (previousMonth-1 < 0) previousMonth += 12;
+            return previousMonth;
         }
     }
 }

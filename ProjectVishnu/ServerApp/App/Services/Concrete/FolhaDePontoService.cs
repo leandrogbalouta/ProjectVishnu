@@ -3,6 +3,7 @@ using ProjectVishnu.DataAccess;
 using ProjectVishnu.Models;
 using ProjectVishnu.ServerApp.App.Dtos;
 using ProjectVishnu.ServerApp.App.Utils;
+using System.Linq;
 using System;
 
 namespace ProjectVishnu.ServerApp.App.Services.Concrete
@@ -27,7 +28,7 @@ namespace ProjectVishnu.ServerApp.App.Services.Concrete
 
             Mercado interval = _unitOfWork.Obras.GetMercado(obraID); // TODO: MUDAR ISTO
 
-            int previousMonth = int.Parse(info.Mes) - 1;
+            int previousMonth = CalendarUtils.GetPreviousMonth(info.Mes);
             string prevMonthStr = previousMonth >= 10 ? previousMonth.ToString() : "0" + previousMonth.ToString();
             DateOnly startDate = DateOnly.Parse(String.Format("{0}-{1}-{2}", info.Ano, prevMonthStr, interval.DiaInicio));
             DateOnly endDate = DateOnly.Parse(String.Format("{0}-{1}-{2}", info.Ano, info.Mes, interval.DiaFim));
@@ -102,6 +103,9 @@ namespace ProjectVishnu.ServerApp.App.Services.Concrete
 
         public void setValues(string obraID, string date, FolhaDePontoValuesInputModel values)
         {
+            // values.Values.ForEach(f => {
+            //     f.Func
+            // });
             throw new NotImplementedException();
         }
 
