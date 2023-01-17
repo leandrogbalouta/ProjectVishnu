@@ -264,7 +264,7 @@ console.log(funcionario);
           </div>
         </div>
 
-        <Button onClick={() => AddFuncionario()}>Criar</Button>
+        <Button className='mt-5' onClick={() => AddFuncionario()}>Criar</Button>
       </form>
     </div>
   );

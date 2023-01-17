@@ -47,7 +47,7 @@ export default function Obras() {
 
   return (
     <div>
-      <h1 id="tabelLabel">Obras</h1>
+      <h1 className="text-center text-4xl mb-5">Obras</h1>
       {contents}
     </div>
   );
@@ -79,7 +79,7 @@ export default function Obras() {
                 key={obra.codigoInterno}
                 >
                 <Td>{obra.codigoInterno}</Td>
-                <Td>{obra.Designacao}</Td>
+                <Td>{obra.designacao}</Td>
                 <Td>{obra.cliente}</Td>
                 <Td className="capitalize">{obra.mercado}</Td>
               </Tr>

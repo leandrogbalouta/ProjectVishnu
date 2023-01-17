@@ -46,8 +46,8 @@ export async function fetchObra(codigo: string) {
 }
 
 export async function createFolhaDePonto(
-  mes: number,
-  ano: number,
+  mes: string,
+  ano: string,
   codigo: string
 ) {
   const path = `/api/obras/${codigo}/folha-de-ponto`;
@@ -65,8 +65,8 @@ export async function createFolhaDePonto(
 
 export async function fetchFolhaDePontoByObra(
   codigo: string,
-  mes: number,
-  ano: number
+  mes: string,
+  ano: string
 ) {
   const path = `/api/obras/${codigo}/folha-de-ponto/${ano}-${mes}`;
   return fetch(path);

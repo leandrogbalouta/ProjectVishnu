@@ -6,8 +6,10 @@ import FilterBar  from "../../components/FilterBar";
 
 export default function FolhasDePonto() {
   const [folhasDePonto, setFolhasDePonto] = useState(null);
-  const [mercado, setMercado] = useState<string | null>(null);
+  const [mercado, setMercado] = useState<string | null>("portugal");
   const router = useRouter();
+  console.log(router.query)
+  
 
   async function redirectToFolhaDePonto(
     mes: string,
@@ -35,7 +37,7 @@ export default function FolhasDePonto() {
 
   return (
     <div>
-      <h1 id="tabelLabel">Folhas De Ponto</h1>
+      <h1 className="text-center text-4xl mb-5">Folhas De Ponto</h1>
       {contents}
     </div>
   );
@@ -61,7 +63,7 @@ export default function FolhasDePonto() {
             {/* TODO check folhasdeponto type */}
             {folhasDePonto.map((folhaDePonto: any) => (
               <Tr
-                className="hoverable-tr"
+                className="hover:bg-gray-200 cursor-pointer"
                 onClick={() =>
                   redirectToFolhaDePonto(
                     folhaDePonto.mes,

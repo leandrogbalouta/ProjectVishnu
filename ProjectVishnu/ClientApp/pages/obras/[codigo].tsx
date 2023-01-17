@@ -3,7 +3,10 @@ import { fetchObra, createFolhaDePonto } from "../../common/APICalls";
 import { Button, Input, Spinner } from "@chakra-ui/react";
 import IObraOutput from "../../common/Interfaces/Obra/IObraOutput";
 import { useRouter } from 'next/router';
+import IFolhaDePontoOutput from "../../common/Interfaces/FolhaDePonto/IFolhaDePontoOutput";
 
+
+//TODO: ADICIONAR LISTA DE FOLHAS DE PONTO JÁ CRIADAS
 export default function Obra() {
   const router = useRouter();
   const [obra, setObra] = useState(null);
@@ -12,7 +15,7 @@ export default function Obra() {
   const [data, setData] = useState(
     `${date.getFullYear()}-${date.getMonth() + 1}`
   );
-  // TODO check this
+  // TODO: check this
   const handleChange = (event: any) => {
     setData(event!.target!.value!);
   };
@@ -23,16 +26,17 @@ export default function Obra() {
   async function submitFolhaDePonto() {
     const monthInput = document.getElementById("date");
     const date = monthInput!.nodeValue!;
-    const [ano, mes] = date.split("-");
+    console.log(data)
+    const [ano, mes] = data.split("-");
 
-    const resp = await createFolhaDePonto(Number(mes), Number(ano), codigo!);
-    const data = await resp.json();
+    const resp = await createFolhaDePonto(mes, ano, codigo!);
+    const respData = await resp.json();
     const location = resp.headers.get("location");
-    const array = location!.split("api");
+    const array = location!.split("4000"); //FIXME: fix this somehow???
     const result = array.pop();
     console.log(result);
     // double check this workin
-    router.push(result!, { query: data });
+    router.push({pathname : result!, query : {info : JSON.stringify(respData)} }, result!);
   }
 
   useEffect(() => {

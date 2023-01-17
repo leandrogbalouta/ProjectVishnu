@@ -42,7 +42,7 @@ export default function Funcionarios() {
 
   return (
     <div>
-      <h1 id="tabelLabel">Funcionarios</h1>
+      <h1 className="text-center text-4xl mb-5">Funcionarios</h1>
       {contents}
     </div>
   );

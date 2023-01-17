@@ -1,6 +1,6 @@
 export default interface IObraOutput {
     codigoInterno: string;
-    Designacao: string;
+    designacao: string;
     cliente: string;
     datainicio: string | undefined;
     mercado: string;
