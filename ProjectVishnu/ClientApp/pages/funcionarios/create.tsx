@@ -17,10 +17,10 @@ import * as yup from "yup";
 import axios from "axios";
 import {
   FaCalendarAlt,
-  FaChartBar,
   FaCreditCard,
   FaFileSignature,
   FaGlobe,
+  FaGlobeEurope,
   FaHome,
   FaIdCard,
   FaMapMarkerAlt,
@@ -62,39 +62,39 @@ export default function FuncionarioCreation() {
   // Form
   const schema = yup
     .object({
-      nome: yup.string().required("Please enter your name."),
+      nome: yup.string().required("Por favor, introduza o nome."),
       dtnascimento: yup.string(),
-      telemovel: yup.string().required("Please enter your phone number."),
+      telemovel: yup.string().required("Por favor, introduza o número de telefone."),
       contactoemergencia: yup
         .string()
-        .required("Please enter emergency contact information."),
-      nacionalidade: yup.string().required("Please enter your nationality."),
-      mercado: yup.string().required("Please enter the market."),
+        .required("Por favor, introduza o contacto de emergência."),
+      nacionalidade: yup.string().required("Por favor, introduza a nacionalidade."),
+      mercado: yup.string().required("Por favor, introduza o mercado (país)."),
       tipodocident: yup
         .string()
-        .required("Please enter the type of identification document."),
+        .required("Por favor, introduza o tipo de documento de identificação."),
       docident: yup
         .string()
-        .required("Please enter your identification number."),
+        .required("Por favor, introduza o  número de identificação."),
       tituloresidencia: yup.string(),
       manifestacaointeresse: yup.string(),
       validadedocident: yup.string(),
       catprof: yup
         .string()
-        .required("Please enter your professional category."),
-      nif: yup.string().required("Please enter your NIF."),
-      niss: yup.string().required("Please enter your NISS."),
-      morada: yup.string().required("Please enter your address."),
+        .required("Por favor, introduza a categoria profissional."),
+      nif: yup.string().required("Por favor, introduza o NIF."),
+      niss: yup.string().required("Por favor, introduza o NISS."),
+      morada: yup.string().required("Por favor, introduza o endereço de morada."),
       contratoinicio: yup.string(),
       contratofim: yup.string(),
-      vencimentobase: yup.number().required("Please enter your base salary."),
-      tiposalario: yup.string().required("Please enter the type of salary"),
-      salarioreal: yup.number().required("Please enter your real salary"),
+      vencimentobase: yup.number().required("Por favor, introduza o salário base."),
+      tiposalario: yup.string().required("Por favor, introduza o tipo de salário"),
+      salarioreal: yup.number().required("Por favor, introduza salário real"),
       calcado: yup.number(),
       cartaconducao: yup
         .string()
-        .required("Please enter your driver's license number"),
-      iban: yup.string().required("Please enter your IBAN"),
+        .required("Por favor, introduza o número da carta de condução"),
+      iban: yup.string().required("Por favor, introduza o IBAN"),
     })
     .required();
 
@@ -273,7 +273,7 @@ export default function FuncionarioCreation() {
               <InputGroup>
                 <InputLeftElement
                   pointerEvents="none"
-                  children={<FaChartBar color="#000E31" />}
+                  children={<FaGlobeEurope color="#000E31" />}
                 />
                 <Input
                   id="mercado"
