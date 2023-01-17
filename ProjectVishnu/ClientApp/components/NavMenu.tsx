@@ -13,7 +13,7 @@ export default function NavMenu() {
   const router = useRouter();
 
   return (
-    <header className="sticky top-0 !z-100">
+    <header className="sticky top-0 !z-[1000]">
       <nav className="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-900">
         <div className="container-fluid flex flex-wrap items-center justify-between mx-0">
           <span
