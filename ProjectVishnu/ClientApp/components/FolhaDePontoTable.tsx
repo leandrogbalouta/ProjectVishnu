@@ -11,46 +11,47 @@ import { useRouter } from 'next/router';
 import { fetchFolhaDePontoByMercado, submitFolhaDePontoValues } from "../common/APICalls";
 import IFolhaDePontoOutput from "../common/Interfaces/FolhaDePonto/IFolhaDePontoOutput";
 import IFuncionarioOutput from "../common/Interfaces/Funcionario/IFuncionarioOutput";
+import FolhaDePontoValuesInput, { FuncDaysOfWorkInput } from "../common/Interfaces/FolhaDePonto/IFolhaDePontoInput";
+import IFuncionarioInput, { funcionarioOutputToInput } from "../common/Interfaces/Funcionario/IFuncionarioInput";
 
 type FolhaDePontoTableProps = {
     folhaDePontoData : IFolhaDePontoOutput,
-    submitValues? : () => {}
+    submitValues? : (values : FolhaDePontoValuesInput) => {}
     //acrescentar as funções necessárias
 }
 
 export function FolhaDePontoTable({ folhaDePontoData, submitValues } : FolhaDePontoTableProps){
 
     
-    // async function submitValues() {
-    //     // TODO check values type
-    //     const values: any[] = []
-    //     const firstDay = info.limits[0]
-    //     // const firstDay = info.limits[0] what was this doin'???
-    //     const endOfMonth = info.limits[1]
-    //     const lastDay = info.limits[2]
-    //     let day = firstDay
+    async function formatValues() {
+        // TODO check values type
+        const firstDay = folhaDePontoData.limits[0]
+        const endOfMonth = folhaDePontoData.limits[1]
+        const lastDay = folhaDePontoData.limits[2]
+        let values : FolhaDePontoValuesInput = {values : []}
 
-    //     info.funcionarios.forEach(func => {
-    //         let funcValues = { func : func, dias : [], valorFinal : null}
-    //         for(day; day != lastDay; day = (day + 1)%endOfMonth){
-    //             if(day == 0) day = endOfMonth
-    //             let hours = document.getElementById(`Func${func.id}Day${day}`).innerHTML
-    //             if(hours === '') hours = 0
-    //             funcValues.dias.push(
-    //                 {
-    //                     dia: day,
-    //                     horas: hours
-    //                 }
-    //             )
-    //         }
-    //         //console.log(document.getElementById(`Val${func.id}`).innerHTML === '')
-    //         // VER SE SALARIO FINAL É DIFERENTE DO SALARIO FINAL RECEBIDO E SE FOR, ENVIAR ESSE VALOR
-    //         values.push(funcValues)
-    //     })
-    //     const [ano, mes] = data.split("-")
-    //     const res = await submitFolhaDePontoValues(codigo, mes, ano, values)
-    //     if(res.status == 200) fetchDataByObra()
-    // }
+        folhaDePontoData.funcionarios.forEach(func => {
+            
+            let funcValues : FuncDaysOfWorkInput = {func : func as IFuncionarioInput, dias : []}
+            let day = firstDay
+            for(day; day != lastDay; day = (day + 1)%endOfMonth){
+                if(day == 0) day = endOfMonth
+                let hours : string | number = document.getElementById(`Func${func.id}Day${day}`)!.innerHTML
+                if(hours === '') hours = 0
+                else hours = Number(hours)
+                funcValues.dias.push(
+                    {
+                        dia: day,
+                        horas: hours
+                    }
+                )
+            }
+            //console.log(document.getElementById(`Val${func.id}`).innerHTML === '')
+            // VER SE SALARIO FINAL É DIFERENTE DO SALARIO FINAL RECEBIDO E SE FOR, ENVIAR ESSE VALOR
+            values.values.push(funcValues)
+        })
+        submitValues!(values)
+    }
 
     // async function fetchDataByMercado(){
     //     const [ano, mes] = data.split("-")
@@ -94,7 +95,7 @@ export function FolhaDePontoTable({ folhaDePontoData, submitValues } : FolhaDePo
                         )}
                     </Tbody>
                 </Table>
-                {/* <button type="button" className="btn btn-primary" onClick={() => submitValues()}>Submeter</button> */}
+                <button type="button" className="btn btn-primary" onClick={() => formatValues()}>Submeter</button>
             </div>
         )
     }

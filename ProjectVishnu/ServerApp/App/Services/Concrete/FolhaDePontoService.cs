@@ -103,9 +103,32 @@ namespace ProjectVishnu.ServerApp.App.Services.Concrete
 
         public void setValues(string obraID, string date, FolhaDePontoValuesInputModel values)
         {
-            // values.Values.ForEach(f => {
-            //     f.Func
-            // });
+            string[] dateArr = date.Split("-");
+            string mes = dateArr[0];
+            string ano = dateArr[1];
+            values.Values.ForEach(f => {
+                decimal valorFinal = 0;
+                f.Dias.ForEach(dia => {
+                    valorFinal = valorFinal + ((decimal) dia.Horas) * f.Func.Salarioreal;
+                    DiaTrabalho diaTrabalho = new DiaTrabalho {
+                        Funcionario = f.Func.Nif,
+                        Codigoobra = obraID,
+                        Dia = dia.Dia,
+                        Horas = (decimal) dia.Horas,
+                        Mes = mes,
+                        Ano = ano,
+                        Valor = f.Func.Salarioreal
+                    };
+                    _unitOfWork.DiasTrabalho.Add(diaTrabalho);
+                });
+                SalarioFinal salarioFinal = new SalarioFinal {
+                    Funcionario = f.Func.Nif,
+                    Mes = mes,
+                    Ano = ano,
+                    Valorfinal = valorFinal
+                };
+                _unitOfWork.SalarioFinal.Add(salarioFinal);
+            });
             throw new NotImplementedException();
         }
 

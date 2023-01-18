@@ -2,8 +2,9 @@ import { Spinner } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { FolhaDePontoTable } from "../../../../components/FolhaDePontoTable";
-import { fetchFolhaDePontoByObra } from "../../../../common/APICalls";
+import { fetchFolhaDePontoByObra, submitFolhaDePontoValues } from "../../../../common/APICalls";
 import IFolhaDePontoOutput from "../../../../common/Interfaces/FolhaDePonto/IFolhaDePontoOutput";
+import FolhaDePontoValuesInput from "../../../../common/Interfaces/FolhaDePonto/IFolhaDePontoInput";
 
 
 export default function FolhaDePontoObra(){
@@ -24,9 +25,14 @@ export default function FolhaDePontoObra(){
     //     fetchDataByObra()
     // }, [])
 
+    async function submitValues(values : FolhaDePontoValuesInput){
+        const [ano, mes] = data.split("-")
+        submitFolhaDePontoValues(codigo, mes, ano, values)
+    }
+
     return(
         <div>
-            <FolhaDePontoTable folhaDePontoData={infoState}/>
+            <FolhaDePontoTable folhaDePontoData={infoState} submitValues={submitValues}/>
         </div>
     )
 }

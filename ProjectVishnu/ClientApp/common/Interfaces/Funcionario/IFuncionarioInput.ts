@@ -1,3 +1,5 @@
+import IFuncionarioOutput from "./IFuncionarioOutput";
+
 export default interface IFuncionarioInput {
   nome: string;
   dtnascimento: string | undefined;

@@ -14,7 +14,7 @@ export default interface IFuncionarioOutput {
   catprof: string;
   nif: string;
   niss: string;
-  Morada: string;
+  morada: string;
   contratoinicio: string | undefined;
   contratofim: string | undefined;
   vencimentobase: number;

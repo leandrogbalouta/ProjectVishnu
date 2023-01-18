@@ -1,4 +1,5 @@
 
+import IFolhaDePontoInput from "./Interfaces/FolhaDePonto/IFolhaDePontoInput";
 import IFuncionarioInput from "./Interfaces/Funcionario/IFuncionarioInput";
 import IObraOutput from "./Interfaces/Obra/IObraOutput";
 export async function fetchFuncionarios(filters: Record<string, string>) {
@@ -83,9 +84,9 @@ export async function fetchFolhaDePontoByMercado(
 // TODO check valus type
 export async function submitFolhaDePontoValues(
   codigo: string,
-  mes: number,
-  ano: number,
-  values: any
+  mes: string,
+  ano: string,
+  values: IFolhaDePontoInput
 ) {
   const path = `/api/obras/${codigo}/folha-de-ponto/${ano}-${mes}`;
 
@@ -96,7 +97,7 @@ export async function submitFolhaDePontoValues(
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      values: values,
+      values : values.values,
     }),
   });
 }
