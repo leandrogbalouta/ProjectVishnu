@@ -259,12 +259,12 @@ export default function FuncionarioCreation() {
                   id="nacionalidade"
                   type="text"
                   placeholder="Nacionalidade"
-                  autoComplete="blank-contactoemergencia"
-                  {...register("contactoemergencia", { required: true })}
+                  autoComplete="blank-nacionalidade"
+                  {...register("nacionalidade", { required: true })}
                 />
               </InputGroup>
               <FormErrorMessage>
-                {errors.contactoemergencia?.message}
+                {errors.nacionalidade?.message}
               </FormErrorMessage>
             </FormControl>
             {/* mercado field */}
@@ -467,7 +467,7 @@ export default function FuncionarioCreation() {
                   type="text"
                   placeholder="Morada"
                   autoComplete="blank-Morada"
-                  {...register("niss", { required: true })}
+                  {...register("morada", { required: true })}
                 />
               </InputGroup>
               <FormErrorMessage>{errors.morada?.message}</FormErrorMessage>
@@ -487,7 +487,7 @@ export default function FuncionarioCreation() {
                   type="text"
                   placeholder="Data de ínicio de contrato"
                   autoComplete="blank-contratoinicio"
-                  {...register("niss", { required: true })}
+                  {...register("contratoinicio", { required: true })}
                 />
               </InputGroup>
               <FormErrorMessage>
@@ -509,7 +509,7 @@ export default function FuncionarioCreation() {
                   type="text"
                   placeholder="Data de fim de Contrato"
                   autoComplete="blank-contratofim"
-                  {...register("niss", { required: true })}
+                  {...register("contratofim", { required: true })}
                 />
               </InputGroup>
               <FormErrorMessage>{errors.contratofim?.message}</FormErrorMessage>
@@ -527,7 +527,7 @@ export default function FuncionarioCreation() {
                   type="text"
                   placeholder="Vencimento base"
                   autoComplete="blank-vencimentobase"
-                  {...register("niss", { required: true })}
+                  {...register("vencimentobase", { required: true })}
                 />
               </InputGroup>
               <FormErrorMessage>
@@ -547,7 +547,7 @@ export default function FuncionarioCreation() {
                   type="text"
                   placeholder="Tipo de salário"
                   autoComplete="blank-tiposalario"
-                  {...register("niss", { required: true })}
+                  {...register("tiposalario", { required: true })}
                 />
               </InputGroup>
               <FormErrorMessage>{errors.tiposalario?.message}</FormErrorMessage>
@@ -565,7 +565,7 @@ export default function FuncionarioCreation() {
                   type="text"
                   placeholder="Salário Real"
                   autoComplete="blank-salarioreal"
-                  {...register("niss", { required: true })}
+                  {...register("salarioreal", { required: true })}
                 />
               </InputGroup>
               <FormErrorMessage>{errors.salarioreal?.message}</FormErrorMessage>
@@ -583,14 +583,14 @@ export default function FuncionarioCreation() {
                   type="text"
                   placeholder="Calçado"
                   autoComplete="blank-calcado"
-                  {...register("niss", { required: true })}
+                  {...register("calcado", { required: true })}
                 />
               </InputGroup>
               <FormErrorMessage>{errors.calcado?.message}</FormErrorMessage>
             </FormControl>
             {/* cartaconducao field */}
             <FormControl className="mb-5" isInvalid={!!errors.cartaconducao}>
-              <FormLabel htmlFor="salarioreal">Carta de condução</FormLabel>
+              <FormLabel htmlFor="cartaconducao">Carta de condução</FormLabel>
               <InputGroup>
                 <InputLeftElement
                   pointerEvents="none"
@@ -601,7 +601,7 @@ export default function FuncionarioCreation() {
                   type="text"
                   placeholder="Carta de condução"
                   autoComplete="blank-cartaconducao"
-                  {...register("niss", { required: true })}
+                  {...register("cartaconducao", { required: true })}
                 />
               </InputGroup>
               <FormErrorMessage>
@@ -621,7 +621,7 @@ export default function FuncionarioCreation() {
                   type="text"
                   placeholder="IBAN"
                   autoComplete="blank-iban"
-                  {...register("niss", { required: true })}
+                  {...register("iban", { required: true })}
                 />
               </InputGroup>
               <FormErrorMessage>{errors.iban?.message}</FormErrorMessage>
