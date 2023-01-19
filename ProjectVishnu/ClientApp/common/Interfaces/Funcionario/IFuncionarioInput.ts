@@ -2,7 +2,7 @@ import IFuncionarioOutput from "./IFuncionarioOutput";
 
 export default interface IFuncionarioInput {
   nome: string;
-  dtnascimento: string | undefined;
+  dtnascimento: Date | undefined;
   telemovel: string;
   contactoemergencia: string;
   nacionalidade: string;
@@ -11,17 +11,17 @@ export default interface IFuncionarioInput {
   docident: string;
   tituloresidencia: string | undefined;
   manifestacaointeresse: string | undefined;
-  validadedocident: string | undefined;
+  validadedocident: Date | undefined;
   catprof: string;
   nif: string;
   niss: string;
   morada: string;
-  contratoinicio: string | undefined;
-  contratofim: string | undefined;
+  contratoinicio: Date | undefined;
+  contratofim: Date | undefined;
   vencimentobase: number;
   tiposalario: string;
   salarioreal: number;
   calcado: number | undefined;
-  cartaconducao: string;
+  cartaconducao: boolean;
   iban: string;
 }

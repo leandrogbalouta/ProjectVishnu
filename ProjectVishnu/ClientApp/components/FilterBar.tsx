@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {
   Button,
+  IconButton,
   Input,
   Menu,
   MenuButton,
@@ -54,19 +55,18 @@ export default function FilterBar({
             className=""
             id="searchBar"
             type="search"
-            placeholder="Search"
-            aria-label="Search"
+            placeholder="Procurar"
+            aria-label="Procurar"
             value={searchInputValue}
             onChange={(e) => setSearchInputValue(e.target.value)}
           />
-          <Button
+          <IconButton
+            aria-label='Procurar'
             colorScheme="teal"
-            variant="outline"
             type="button"
+            icon={<BsSearch />}
             onClick={() => onClickSearch()}
-          >
-            <BsSearch />
-          </Button>
+          />
         </form>
       );
     }

@@ -5,7 +5,7 @@ namespace ProjectVishnu.ServerApp.App.Dtos
     public class FuncionarioInputModel
     {
         public string Nome { get; set; } = null!;
-        public string? Dtnascimento { get; set; }
+        public DateTime? Dtnascimento { get; set; }
         public string Telemovel { get; set; } = null!;
         public string Contactoemergencia { get; set; } = null!;
         public string Nacionalidade { get; set; } = null!;
@@ -14,18 +14,18 @@ namespace ProjectVishnu.ServerApp.App.Dtos
         public string Docident { get; set; } = null!;
         public string? Tituloresidencia { get; set; }
         public string? Manifestacaointeresse { get; set; }
-        public string? Validadedocident { get; set; }
+        public DateTime? Validadedocident { get; set; }
         public string Catprof { get; set; } = null!;
         public string Nif { get; set; } = null!;
         public string Niss { get; set; } = null!;
         public string Morada { get; set; } = null!;
-        public string? Contratoinicio { get; set; }
-        public string? Contratofim { get; set; }
+        public DateTime? Contratoinicio { get; set; }
+        public DateTime? Contratofim { get; set; }
         public decimal Vencimentobase { get; set; }
         public string Tiposalario { get; set; } = null!;
         public decimal Salarioreal { get; set; }
         public decimal? Calcado { get; set; } = null;
-        public string Cartaconducao { get; set; } = null!;
+        public bool Cartaconducao { get; set; }
         public string Iban { get; set; } = null!;
 
         public Funcionario ToFuncionario()
@@ -33,7 +33,7 @@ namespace ProjectVishnu.ServerApp.App.Dtos
             return new Funcionario
             {
                 Nome = Nome,
-                Dtnascimento = DateOnly.Parse(Dtnascimento),
+                Dtnascimento = (Dtnascimento is not null) ? DateOnly.Parse(Dtnascimento.Value.ToShortDateString()!) : DateOnly.MinValue, // TODO CHECK ALL NULLABLE DATES IN THIS CTOR (pure code smell, but im tired, finna check this tomorrow..)
                 Telemovel = Telemovel,
                 Contactoemergencia = Contactoemergencia,
                 Nacionalidade = Nacionalidade,
@@ -42,19 +42,20 @@ namespace ProjectVishnu.ServerApp.App.Dtos
                 Docident = Docident,
                 Tituloresidencia = Tituloresidencia,
                 Manifestacaointeresse = Manifestacaointeresse,
-                Validadedocident = DateOnly.Parse(Validadedocident),
+                Validadedocident = (Validadedocident  is not null) ? DateOnly.Parse(Validadedocident.Value.ToShortDateString()!) : DateOnly.MinValue,
                 Catprof = Catprof,
                 Nif = Nif,
                 Niss = Niss,
                 Morada = Morada,
-                Contratoinicio = DateOnly.Parse(Contratoinicio),
-                Contratofim = DateOnly.Parse(Contratofim),
+                Contratoinicio = (Contratoinicio  is not null) ? DateOnly.Parse(Contratoinicio.Value.ToShortDateString()!) : DateOnly.MinValue,
+                Contratofim = (Contratofim is not null) ? DateOnly.Parse(Contratofim.ToString()!) : DateOnly.MinValue,
                 Vencimentobase = Vencimentobase,
                 Tiposalario = Tiposalario,
                 Salarioreal = Salarioreal,
                 Calcado = Calcado,
                 Cartaconducao = Cartaconducao,
                 Iban = Iban
+                // Smells like teen 🚽
             };
         }
 
@@ -64,7 +65,7 @@ namespace ProjectVishnu.ServerApp.App.Dtos
     {
         public int Id { get; set; }
         public string Nome { get; set; } = null!;
-        public string? Dtnascimento { get; set; }
+        public DateOnly? Dtnascimento { get; set; }
         public string Telemovel { get; set; } = null!;
         public string Contactoemergencia { get; set; } = null!;
         public string Nacionalidade { get; set; } = null!;
@@ -73,18 +74,18 @@ namespace ProjectVishnu.ServerApp.App.Dtos
         public string Docident { get; set; } = null!;
         public string? Tituloresidencia { get; set; }
         public string? Manifestacaointeresse { get; set; }
-        public string? Validadedocident { get; set; }
+        public DateOnly? Validadedocident { get; set; }
         public string Catprof { get; set; } = null!;
         public string Nif { get; set; } = null!;
         public string Niss { get; set; } = null!;
         public string Morada { get; set; } = null!;
-        public string? Contratoinicio { get; set; }
-        public string? Contratofim { get; set; }
+        public DateOnly? Contratoinicio { get; set; }
+        public DateOnly? Contratofim { get; set; }
         public decimal Vencimentobase { get; set; }
         public string Tiposalario { get; set; } = null!;
         public decimal Salarioreal { get; set; }
         public decimal? Calcado { get; set; }
-        public string Cartaconducao { get; set; } = null!;
+        public bool Cartaconducao { get; set; }
         public string Iban { get; set; } = null!;
 
 

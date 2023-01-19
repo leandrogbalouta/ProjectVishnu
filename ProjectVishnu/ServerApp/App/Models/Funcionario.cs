@@ -35,7 +35,7 @@ namespace ProjectVishnu.Models
         public string Tiposalario { get; set; } = null!;
         public decimal Salarioreal { get; set; }
         public decimal? Calcado { get; set; }
-        public string Cartaconducao { get; set; } = null!;
+        public bool Cartaconducao { get; set; }
         public string Iban { get; set; } = null!;
         public DateOnly? Deleted { get; set; }
 
@@ -50,7 +50,7 @@ namespace ProjectVishnu.Models
                 {
                     Id = Id,
                     Nome = Nome,
-                    Dtnascimento = Dtnascimento.ToShortDateString(),
+                    Dtnascimento = Dtnascimento,
                     Telemovel = Telemovel,
                     Contactoemergencia = Contactoemergencia,
                     Nacionalidade = Nacionalidade,
@@ -59,13 +59,13 @@ namespace ProjectVishnu.Models
                     Docident = Docident,
                     Tituloresidencia = Tituloresidencia,
                     Manifestacaointeresse = Manifestacaointeresse,
-                    Validadedocident = Validadedocident.ToShortDateString(),
+                    Validadedocident = Validadedocident,
                     Catprof = Catprof,
                     Nif = Nif,
                     Niss = Niss,
                     Morada = Morada,
-                    Contratoinicio = Contratoinicio.ToShortDateString(),
-                    Contratofim = Contratofim.ToShortDateString(),
+                    Contratoinicio = Contratoinicio,
+                    Contratofim = Contratofim,
                     Vencimentobase = Vencimentobase,
                     Tiposalario = Tiposalario,
                     Salarioreal = Salarioreal,

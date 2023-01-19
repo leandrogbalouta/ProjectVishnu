@@ -21,6 +21,6 @@ export default interface IFuncionarioOutput {
   tiposalario: string;
   salarioreal: number;
   calcado: number | undefined;
-  cartaconducao: string;
+  cartaconducao: boolean;
   iban: string;
 }
