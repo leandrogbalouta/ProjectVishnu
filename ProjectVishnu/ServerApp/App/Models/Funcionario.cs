@@ -31,10 +31,6 @@ namespace ProjectVishnu.Models
 
         public string Docident { get; set; } = null!;
 
-        public string? Tituloresidencia { get; set; }
-
-        public string? Manifestacaointeresse { get; set; }
-
         public string? Passaporte { get; set; }
 
         public DateOnly Validadedocident { get; set; }
@@ -87,8 +83,6 @@ namespace ProjectVishnu.Models
                     Mercado = Mercado,
                     Tipodocident = Tipodocident,
                     Docident = Docident,
-                    Tituloresidencia = Tituloresidencia,
-                    Manifestacaointeresse = Manifestacaointeresse,
                     Passaporte = Passaporte,
                     Validadedocident = Validadedocident,
                     Catprof = Catprof,

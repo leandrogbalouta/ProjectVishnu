@@ -196,9 +196,6 @@ namespace ProjectVishnu.Models
                     .ValueGeneratedOnAdd()
                     .UseIdentityAlwaysColumn()
                     .HasColumnName("id");
-                entity.Property(e => e.Manifestacaointeresse)
-                    .HasMaxLength(20)
-                    .HasColumnName("manifestacaointeresse");
                 entity.Property(e => e.Mercado)
                     .HasMaxLength(40)
                     .HasColumnName("mercado");
@@ -229,9 +226,6 @@ namespace ProjectVishnu.Models
                 entity.Property(e => e.Tiposalario)
                     .HasColumnType("character varying")
                     .HasColumnName("tiposalario");
-                entity.Property(e => e.Tituloresidencia)
-                    .HasMaxLength(20)
-                    .HasColumnName("tituloresidencia");
                 entity.Property(e => e.Validadedocident).HasColumnName("validadedocident");
                 entity.Property(e => e.Vencimentobase)
                     .HasPrecision(5, 2)

@@ -12,8 +12,6 @@ namespace ProjectVishnu.ServerApp.App.Dtos
         public string Mercado { get; set; } = null!;
         public string Tipodocident { get; set; } = null!;
         public string Docident { get; set; } = null!;
-        public string? Tituloresidencia { get; set; }
-        public string? Manifestacaointeresse { get; set; }
         public string? Passaporte { get; set; }
         public DateTime? Validadedocident { get; set; }
         public string Catprof { get; set; } = null!;
@@ -41,8 +39,6 @@ namespace ProjectVishnu.ServerApp.App.Dtos
                 Mercado = Mercado,
                 Tipodocident = Tipodocident,
                 Docident = Docident,
-                Tituloresidencia = Tituloresidencia,
-                Manifestacaointeresse = Manifestacaointeresse,
                 Passaporte = Passaporte,
                 Validadedocident = (Validadedocident  is not null) ? DateOnly.Parse(Validadedocident.Value.ToShortDateString()!) : DateOnly.MinValue,
                 Catprof = Catprof,
@@ -74,8 +70,6 @@ namespace ProjectVishnu.ServerApp.App.Dtos
         public string Mercado { get; set; } = null!;
         public string Tipodocident { get; set; } = null!;
         public string Docident { get; set; } = null!;
-        public string? Tituloresidencia { get; set; }
-        public string? Manifestacaointeresse { get; set; }
         public string? Passaporte { get; set; }
         public DateOnly? Validadedocident { get; set; }
         public string Catprof { get; set; } = null!;
