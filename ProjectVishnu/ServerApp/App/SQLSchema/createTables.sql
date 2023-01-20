@@ -33,12 +33,11 @@ CREATE TABLE FUNCIONARIO(
 		TipoSalario	varchar NOT NULL,
 		SalarioReal	decimal(5, 2) NOT NULL,
 		Calcado	decimal(2, 1),
-		CartaConducao varchar(3) NOT NULL,
+		CartaConducao boolean NOT NULL,
 		IBAN varchar(30) NOT NULL,
 		deleted date default null,
 
-		constraint chk_TipoSalario CHECK(TipoSalario IN('horario', 'fixo')),
-		constraint chk_CartaConducao CHECK(CartaConducao IN('Sim', 'Nao'))
+		constraint chk_TipoSalario CHECK(TipoSalario IN('horario', 'fixo'))
 );
 
 CREATE TABLE OBRA (

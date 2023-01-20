@@ -21,7 +21,7 @@ cartaconducao,iban) values
 '2025-09-19','1234567','255896379',
 '12345678910','Rua Leandro Bolota n420',
 '2021-03-09','2023-03-09',800.0,
-'fixo',800.0,null,'Sim',
+'fixo',800.0,null,true,
 '0000000000000000000000'),
 ('Afonso Ramos','1999-05-30',
 '919929349','214456789','Portuguesa',
@@ -29,7 +29,7 @@ cartaconducao,iban) values
 '2027-08-29','1243123','234567899',
 '10987654321','Rua Antonio Silva n14 3Esq',
 '2020-05-30','2022-05-30',900.0,
-'fixo',900.0,null,'Sim',
+'fixo',900.0,null,true,
 '111111111111111111111'),
 ('Joao Filipe','1985-06-07',
 '967899876','214498672','Espanhola',
@@ -37,7 +37,7 @@ cartaconducao,iban) values
 '2023-09-09','1243123','244555678',
 '12436587091','Rua Umberto Delgado n66',
 '2019-08-20','2022-12-31',900.0,
-'horario',900.0,null,'Sim',
+'horario',900.0,null,true,
 '22222222222222222222'),
 ('Andre Ferro','1999-03-04',
 '914324322','214455444','Espanhola',
@@ -45,7 +45,7 @@ cartaconducao,iban) values
 '2025-03-03','1243123','321311322',
 '12333221222','Rua Joao Andrade 520',
 '2021-05-06','2023-05-06',900.0,
-'horario',900.0,null,'Nao',
+'horario',900.0,null,false,
 '12312232132113211133');
 
 INSERT INTO OBRA
@@ -70,7 +70,7 @@ datainicio,datafim,mercado,autosdemedicao) values
 INSERT INTO FUNCIONARIOS_OBRAS
 (funcionario,obra,datacomeco,datafim) values
 ('234567899','OB22PT01','2022-05-21',null),
-('214439239','OB22PT01','2022-05-21',null);
+('255896379','OB22PT01','2022-05-21',null);
 
 
 INSERT INTO DIA_TRABALHO
