@@ -31,9 +31,8 @@ CREATE TABLE FUNCIONARIO(
 		Nacionalidade varchar(20) NOT NULL,
 		Mercado varchar(40) references MERCADO(MercadoName),
 		TipoDocIdent varchar(30) NOT NULL,
-		DocIdent varchar(15) NOT NULL,
-		TituloResidencia varchar(20),
-		ManifestacaoInteresse varchar(20),
+		DocIdent varchar(20) NOT NULL,
+		Passaporte varchar(20),
 		ValidadeDocIdent date NOT NULL,
 		CatProf varchar(7) references CATEGORIAS_PROFISSIONAIS(codigo) NOT NULL,
 		NIF varchar(15) primary key, 
@@ -45,12 +44,11 @@ CREATE TABLE FUNCIONARIO(
 		TipoSalario	varchar NOT NULL,
 		SalarioReal	decimal(5, 2) NOT NULL,
 		Calcado	decimal(2, 1),
-		CartaConducao varchar(3) NOT NULL,
+		CartaConducao boolean NOT NULL,
 		IBAN varchar(30) NOT NULL,
 		deleted date default null,
 
-		constraint chk_TipoSalario CHECK(TipoSalario IN('horario', 'fixo')),
-		constraint chk_CartaConducao CHECK(CartaConducao IN('Sim', 'Nao'))
+		constraint chk_TipoSalario CHECK(TipoSalario IN('horario', 'fixo'))
 );
 
 CREATE TABLE OBRA (
@@ -117,6 +115,7 @@ CREATE TABLE CONTA(
 );
 
 
+
 INSERT INTO CATEGORIAS_PROFISSIONAIS
 (codigo,nomenclatura) values
 ('1234567','XXXXXXX'),
@@ -130,42 +129,42 @@ INSERT INTO MERCADO
 
 INSERT INTO FUNCIONARIO 
 (nome,dtnascimento,telemovel,contactoemergencia,nacionalidade,mercado,
-tipodocident,docident,tituloresidencia,manifestacaointeresse,
+tipodocident,docident,
 validadedocident,catprof,nif,niss,morada,contratoinicio,
 contratofim,vencimentobase,tiposalario,salarioreal,calcado,
-cartaconducao,iban) values
+cartaconducao,iban, passaporte) values
 ('Francisco Martins','1999-03-20',
 '916705652','214439239','Portuguesa',
-'portugal','CC','14627570',null,null,
+'portugal','CC','14627570',
 '2025-09-19','1234567','255896379',
 '12345678910','Rua Leandro Bolota n420',
 '2021-03-09','2023-03-09',800.0,
-'fixo',800.0,null,'Sim',
-'0000000000000000000000'),
+'fixo',800.0,null,true,
+'0000000000000000000000', null),
 ('Afonso Ramos','1999-05-30',
 '919929349','214456789','Portuguesa',
-'portugal','CC','13456234',null,null,
+'portugal','CC','13456234',
 '2027-08-29','1243123','234567899',
 '10987654321','Rua Antonio Silva n14 3Esq',
 '2020-05-30','2022-05-30',900.0,
-'fixo',900.0,null,'Sim',
-'111111111111111111111'),
+'fixo',900.0,null,true,
+'111111111111111111111', null),
 ('Joao Filipe','1985-06-07',
 '967899876','214498672','Espanhola',
-'espanha','CC','195345543',null,null,
+'espanha','CC','195345543',
 '2023-09-09','1243123','244555678',
 '12436587091','Rua Umberto Delgado n66',
 '2019-08-20','2022-12-31',900.0,
-'horario',900.0,null,'Sim',
-'22222222222222222222'),
+'horario',900.0,null,true,
+'22222222222222222222', null),
 ('Andre Ferro','1999-03-04',
 '914324322','214455444','Espanhola',
-'espanha','CC','123321111',null,null,
+'espanha','CC','123321111',
 '2025-03-03','1243123','321311322',
 '12333221222','Rua Joao Andrade 520',
 '2021-05-06','2023-05-06',900.0,
-'horario',900.0,null,'Nao',
-'12312232132113211133');
+'horario',900.0,null,false,
+'12312232132113211133',null);
 
 INSERT INTO OBRA
 (codigointerno,designacao,cliente,
@@ -188,7 +187,9 @@ datainicio,datafim,mercado,autosdemedicao) values
 
 INSERT INTO FUNCIONARIOS_OBRAS
 (funcionario,obra,datacomeco,datafim) values
-('234567899','OB22PT01','2022-05-21',null);
+('234567899','OB22PT01','2022-05-21',null),
+('255896379','OB22PT01','2022-05-21',null);
+
 
 INSERT INTO DIA_TRABALHO
 (funcionario,codigoobra,dia,horas,mes,ano,valor) values
