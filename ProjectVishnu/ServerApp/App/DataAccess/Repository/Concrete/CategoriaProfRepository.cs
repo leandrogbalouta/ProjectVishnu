@@ -17,5 +17,15 @@ namespace ProjectVishnu.ServerApp.App.DataAccess.Repository.Concrete
         {
             get { return Context as vishnuContext; }
         }
+
+        public CategoriasProfissionai GetCatProf(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<CategoriasProfissionai> ListAlphabetically()
+        {
+            return VishnuContext.CategoriasProfissionais.OrderBy(catprof => catprof.Nomenclatura).ToList();
+        }
     }
 }

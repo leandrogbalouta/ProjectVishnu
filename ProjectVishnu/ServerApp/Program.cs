@@ -5,6 +5,8 @@ using ProjectVishnu.DataAccess.Concrete;
 using ProjectVishnu.DataAccess.Repository;
 using ProjectVishnu.DataAccess.Repository.Concrete;
 using ProjectVishnu.Models;
+using ProjectVishnu.ServerApp.App.DataAccess.Repository;
+using ProjectVishnu.ServerApp.App.DataAccess.Repository.Concrete;
 using ProjectVishnu.ServerApp.App.Services;
 using ProjectVishnu.ServerApp.App.Services.Concrete;
 using ProjectVishnu.Services;
@@ -26,12 +28,14 @@ namespace ProjectVishnu.ServerApp
             builder.Services.AddSingleton(provider => builder.Configuration);
             builder.Services.AddScoped<IFuncionarioRepository, FuncionarioRepository>();
             builder.Services.AddScoped<IObraRepository, ObraRepository>();
+            builder.Services.AddScoped<ICategoriaProfRepository, CategoriaProfRepository>();
             builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddScoped<IFuncionariosService, FuncionariosService>();
             builder.Services.AddScoped<IObrasService, ObrasService>();
             builder.Services.AddScoped<IFolhaDePontoService, FolhaDePontoService>();
             builder.Services.AddScoped<IMercadosService, MercadosService>();
+            builder.Services.AddScoped<ICategoriaProfService, CategoriaProfService>();
 
             builder.Services.AddControllersWithViews();
 
