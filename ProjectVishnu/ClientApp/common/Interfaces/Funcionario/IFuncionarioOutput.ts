@@ -8,8 +8,7 @@ export default interface IFuncionarioOutput {
   mercado: string;
   tipodocident: string;
   docident: string;
-  tituloresidencia: string | undefined;
-  manifestacaointeresse: string | undefined;
+  passaporte: string | undefined;
   validadedocident: string | undefined;
   catprof: string;
   nif: string;

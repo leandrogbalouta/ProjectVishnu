@@ -2,12 +2,13 @@
 import IFolhaDePontoInput from "./Interfaces/FolhaDePonto/IFolhaDePontoInput";
 import IFuncionarioInput from "./Interfaces/Funcionario/IFuncionarioInput";
 import IObraOutput from "./Interfaces/Obra/IObraOutput";
+
+// Funcionario
 export async function fetchFuncionarios(filters: Record<string, string>) {
   var path = "/api/funcionarios";
   path = addFiltersToQuery(path, filters);
   return fetch(path);
 }
-
 export async function fetchFuncionario(id: string) {
   const path = `/api/funcionarios/${id}`;
   return fetch(path);
@@ -23,7 +24,7 @@ export async function CreateFuncionario(functionario: IFuncionarioInput) {
     body: JSON.stringify(functionario),
   });
 }
-
+// Obra
 export async function CreateObra(obra: IObraOutput) {
   const path = "/api/obras";
   return fetch(path, {
@@ -34,18 +35,16 @@ export async function CreateObra(obra: IObraOutput) {
     body: JSON.stringify(obra),
   });
 }
-
 export async function fetchObras(filters: Record<string, string>) {
   var path = "/api/obras";
   path = addFiltersToQuery(path, filters);
   return fetch(path);
 }
-
 export async function fetchObra(codigo: string) {
   const path = `/api/obras/${codigo}`;
   return fetch(path);
 }
-
+// Folha de ponto
 export async function createFolhaDePonto(
   mes: string,
   ano: string,
@@ -63,7 +62,6 @@ export async function createFolhaDePonto(
     }),
   });
 }
-
 export async function fetchFolhaDePontoByObra(
   codigo: string,
   mes: string,
@@ -72,7 +70,6 @@ export async function fetchFolhaDePontoByObra(
   const path = `/api/obras/${codigo}/folha-de-ponto/${ano}-${mes}`;
   return fetch(path);
 }
-
 export async function fetchFolhaDePontoByMercado(
   mercado: string,
   mes: number,
@@ -81,7 +78,6 @@ export async function fetchFolhaDePontoByMercado(
   const path = `/api/folha-de-ponto/${mercado}/${ano}-${mes}`;
   return fetch(path);
 }
-// TODO check valus type
 export async function submitFolhaDePontoValues(
   codigo: string,
   mes: string,
@@ -112,7 +108,7 @@ export async function fetchFolhaDePontoAllByMercado(mercado: string) {
   console.log("pa: " + path);
   return fetch(path);
 }
-
+// Filtes
 function addFiltersToQuery(path: string, filters: Record<string, String>) {
   var size = Object.keys(filters).length;
   if (size > 0) {

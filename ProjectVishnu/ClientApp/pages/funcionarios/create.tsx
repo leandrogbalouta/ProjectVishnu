@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { CreateFuncionario } from "../../common/APICalls";
 import {
   Input,
@@ -13,18 +13,19 @@ import {
   Stack,
   Radio,
   RadioGroup,
-  InputRightElement,
   InputRightAddon,
+  Select,
+  InputLeftAddon,
 } from "@chakra-ui/react";
 import IFuncionarioInput from "../../common/Interfaces/Funcionario/IFuncionarioInput";
 import { useRouter } from "next/router";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { Spinner } from "@chakra-ui/react";
 import {
   FaCalendarAlt,
   FaCreditCard,
-  FaFileSignature,
   FaGlobe,
   FaGlobeEurope,
   FaHome,
@@ -44,7 +45,11 @@ export default function FuncionarioCreation() {
   const schema = yup
     .object({
       nome: yup.string().required("Por favor, introduza o nome."),
-      dtnascimento: yup.date().nullable().notRequired().transform((value) => (isNaN(value) ? undefined : value)),
+      dtnascimento: yup
+        .date()
+        .nullable()
+        .notRequired()
+        .transform((value) => (isNaN(value) ? undefined : value)),
       telemovel: yup
         .string()
         .required("Por favor, introduza o número de telefone."),
@@ -61,9 +66,11 @@ export default function FuncionarioCreation() {
       docident: yup
         .string()
         .required("Por favor, introduza o  número de identificação."),
-      tituloresidencia: yup.string(),
-      manifestacaointeresse: yup.string(),
-      validadedocident: yup.date().nullable().notRequired().transform((value) => (isNaN(value) ? undefined : value)),
+      validadedocident: yup
+        .date()
+        .nullable()
+        .notRequired()
+        .transform((value) => (isNaN(value) ? undefined : value)),
       catprof: yup
         .string()
         .required("Por favor, introduza a categoria profissional."),
@@ -72,8 +79,16 @@ export default function FuncionarioCreation() {
       morada: yup
         .string()
         .required("Por favor, introduza o endereço de morada."),
-      contratoinicio: yup.date().nullable().notRequired().transform((value) => (isNaN(value) ? undefined : value)),
-      contratofim: yup.date().nullable().notRequired().transform((value) => (isNaN(value) ? undefined : value)),
+      contratoinicio: yup
+        .date()
+        .nullable()
+        .notRequired()
+        .transform((value) => (isNaN(value) ? undefined : value)),
+      contratofim: yup
+        .date()
+        .nullable()
+        .notRequired()
+        .transform((value) => (isNaN(value) ? undefined : value)),
       vencimentobase: yup
         .number()
         .transform((value) => (isNaN(value) ? undefined : value))
@@ -96,6 +111,7 @@ export default function FuncionarioCreation() {
         .max(999999, "Máximo 50"),
       cartaconducao: yup.boolean(),
       iban: yup.string().required("Por favor, introduza o IBAN"),
+      passaporte: yup.string(),
     })
     .required();
 
@@ -111,6 +127,22 @@ export default function FuncionarioCreation() {
       AddFuncionario(data);
     } catch (error) {}
   };
+  // Hooks
+  const [tipodocidentState, setTipodocidentState] = useState<string>("");
+  // Data from db
+  const [categoriasProfissionais, setCategoriasProfissionais] = useState<any[]>([]);
+  const [tiposDeDocumento, setTiposDeDocumento] = useState<any[]>([]);
+  const [mercados, setMercados] = useState<any[]>([]);
+  // UseEffect
+  useEffect(() => {
+    // Get Tipos de documento
+    // TODO
+    // Get Categorias profissionais
+    // TODO
+    // Get mercados
+    // TODO
+  });
+  // Component
   async function AddFuncionario(funcionario: IFuncionarioInput) {
     console.log(funcionario);
     const resp = await CreateFuncionario(funcionario);
@@ -229,17 +261,20 @@ export default function FuncionarioCreation() {
           <FormControl className="mb-5" isInvalid={!!errors.mercado}>
             <FormLabel htmlFor="mercado">Mercado</FormLabel>
             <InputGroup>
-              <InputLeftElement
-                pointerEvents="none"
-                children={<FaGlobeEurope color="#000E31" />}
-              />
-              <Input
+              <Select
                 id="mercado"
-                type="text"
                 placeholder="Mercado"
-                autoComplete="blank-mercado"
                 {...register("mercado", { required: true })}
-              />
+              >
+                {mercados && (
+                  <>
+                    {mercados.map((mercado: any) => {
+                      <option value="option1">Option 1</option>;
+                    })}
+                    <option value="option1">Option 1</option>;
+                  </>
+                )}
+              </Select>
             </InputGroup>
             <FormErrorMessage>{errors.mercado?.message}</FormErrorMessage>
           </FormControl>
@@ -249,19 +284,64 @@ export default function FuncionarioCreation() {
               Tipo de documento de identificação
             </FormLabel>
             <InputGroup>
-              <InputLeftElement
-                pointerEvents="none"
-                children={<FaIdCard color="#000E31" />}
-              />
-              <Input
+              <Select
                 id="tipodocident"
-                type="text"
                 placeholder="Tipo de Documento de Identificação"
-                autoComplete="blank-tipodocident"
                 {...register("tipodocident", { required: true })}
-              />
+                value={tipodocidentState}
+                onChange={(e) => setTipodocidentState(e.target.value)}
+              >
+                {tiposDeDocumento && (
+                  <>
+                    {tiposDeDocumento.map((tipoDoc: any) => {
+                      <option value="option1">Option 1</option>;
+                    })}
+                  </>
+                )}
+                <option value="2">Teste 2</option>
+              </Select>
             </InputGroup>
             <FormErrorMessage>{errors.tipodocident?.message}</FormErrorMessage>
+          </FormControl>
+          {/* Se tipo de documento for 'demontrar interesse' mostrat input passaporte */}
+          {tipodocidentState! == "2" && (
+            <>
+              {/* passaporte field */}
+              <FormControl className="mb-5">
+                <FormLabel htmlFor="passaporte">Passaporte</FormLabel>
+                <InputGroup>
+                  <InputLeftElement
+                    pointerEvents="none"
+                    children={<FaMoneyBillAlt color="#000E31" />}
+                  />
+                  <Input
+                    id="passaporte"
+                    type="text"
+                    placeholder="Passaporte"
+                    autoComplete="blank-passaporte"
+                    {...register("passaporte")}
+                  />
+                </InputGroup>
+              </FormControl>
+            </>
+          )}
+          {/* tiposalario field */}
+          <FormControl className="mb-5" isInvalid={!!errors.tiposalario}>
+            <FormLabel htmlFor="tiposalario">Tipo de salário</FormLabel>
+            <InputGroup>
+              <InputLeftElement
+                pointerEvents="none"
+                children={<FaMoneyBillAlt color="#000E31" />}
+              />
+              <Input
+                id="tiposalario"
+                type="text"
+                placeholder="Tipo de salário"
+                autoComplete="blank-tiposalario"
+                {...register("tiposalario", { required: true })}
+              />
+            </InputGroup>
+            <FormErrorMessage>{errors.tiposalario?.message}</FormErrorMessage>
           </FormControl>
           {/* docident field */}
           <FormControl className="mb-5" isInvalid={!!errors.docident}>
@@ -282,53 +362,6 @@ export default function FuncionarioCreation() {
               />
             </InputGroup>
             <FormErrorMessage>{errors.docident?.message}</FormErrorMessage>
-          </FormControl>
-          {/* tituloresidencia field */}
-          <FormControl className="mb-5" isInvalid={!!errors.tituloresidencia}>
-            <FormLabel htmlFor="tituloresidenica">
-              Título de Residência
-            </FormLabel>
-            <InputGroup>
-              <InputLeftElement
-                pointerEvents="none"
-                children={<FaHome color="#000E31" />}
-              />
-              <Input
-                id="tituloresidencia"
-                type="text"
-                placeholder="Título de Residência"
-                autoComplete="blank-tituloresidencia"
-                {...register("tituloresidencia")}
-              />
-            </InputGroup>
-            <FormErrorMessage>
-              {errors.tituloresidencia?.message}
-            </FormErrorMessage>
-          </FormControl>
-          {/* manifestacaointeresse field */}
-          <FormControl
-            className="mb-5"
-            isInvalid={!!errors.manifestacaointeresse}
-          >
-            <FormLabel htmlFor="manifestacaointeresse">
-              Manifestação de interesse
-            </FormLabel>
-            <InputGroup>
-              <InputLeftElement
-                pointerEvents="none"
-                children={<FaFileSignature color="#000E31" />}
-              />
-              <Input
-                id="manifestacaointeresse"
-                type="text"
-                placeholder="Manifestação de Interesse"
-                autoComplete="blank-manifestacaointeresse"
-                {...register("manifestacaointeresse")}
-              />
-            </InputGroup>
-            <FormErrorMessage>
-              {errors.manifestacaointeresse?.message}
-            </FormErrorMessage>
           </FormControl>
           {/* validadedocident field */}
           <FormControl className="mb-5" isInvalid={!!errors.validadedocident}>
@@ -356,17 +389,20 @@ export default function FuncionarioCreation() {
           <FormControl className="mb-5" isInvalid={!!errors.catprof}>
             <FormLabel htmlFor="catprof">Categoria Profissional</FormLabel>
             <InputGroup>
-              <InputLeftElement
-                pointerEvents="none"
-                children={<FaUserTie color="#000E31" />}
-              />
-              <Input
+              <Select
                 id="catprof"
-                type="text"
                 placeholder="Categoria Profissional"
-                autoComplete="blank-catprof"
                 {...register("catprof", { required: true })}
-              />
+              >
+                {categoriasProfissionais && (
+                  <>
+                    {categoriasProfissionais.map((categoria: any) => {
+                      <option value="option1">Option 1</option>;
+                    })}
+                  </>
+                )}
+                <option value="option1">Option 1</option>;
+              </Select>
             </InputGroup>
             <FormErrorMessage>{errors.catprof?.message}</FormErrorMessage>
           </FormControl>
@@ -545,7 +581,6 @@ export default function FuncionarioCreation() {
           {/* cartaconducao field */}
           <FormControl className="mb-5" isInvalid={!!errors.cartaconducao}>
             <FormLabel htmlFor="cartaconducao">Carta de condução</FormLabel>
-              
 
             <InputGroup>
               <RadioGroup defaultValue="0">
@@ -558,7 +593,11 @@ export default function FuncionarioCreation() {
                   >
                     Sim
                   </Radio>
-                  <Radio colorScheme="red" value="0" {...register("cartaconducao", { required: true })}>
+                  <Radio
+                    colorScheme="red"
+                    value="0"
+                    {...register("cartaconducao", { required: true })}
+                  >
                     Não
                   </Radio>
                 </Stack>
