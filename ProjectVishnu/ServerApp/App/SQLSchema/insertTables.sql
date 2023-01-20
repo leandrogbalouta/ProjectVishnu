@@ -14,7 +14,7 @@ INSERT INTO FUNCIONARIO
 tipodocident,docident,tituloresidencia,manifestacaointeresse,
 validadedocident,catprof,nif,niss,morada,contratoinicio,
 contratofim,vencimentobase,tiposalario,salarioreal,calcado,
-cartaconducao,iban) values
+cartaconducao,iban, passaporte) values
 ('Francisco Martins','1999-03-20',
 '916705652','214439239','Portuguesa',
 'portugal','CC','14627570',null,null,
@@ -22,7 +22,7 @@ cartaconducao,iban) values
 '12345678910','Rua Leandro Bolota n420',
 '2021-03-09','2023-03-09',800.0,
 'fixo',800.0,null,true,
-'0000000000000000000000'),
+'0000000000000000000000', null),
 ('Afonso Ramos','1999-05-30',
 '919929349','214456789','Portuguesa',
 'portugal','CC','13456234',null,null,
@@ -30,7 +30,7 @@ cartaconducao,iban) values
 '10987654321','Rua Antonio Silva n14 3Esq',
 '2020-05-30','2022-05-30',900.0,
 'fixo',900.0,null,true,
-'111111111111111111111'),
+'111111111111111111111', null),
 ('Joao Filipe','1985-06-07',
 '967899876','214498672','Espanhola',
 'espanha','CC','195345543',null,null,
@@ -38,7 +38,7 @@ cartaconducao,iban) values
 '12436587091','Rua Umberto Delgado n66',
 '2019-08-20','2022-12-31',900.0,
 'horario',900.0,null,true,
-'22222222222222222222'),
+'22222222222222222222', null),
 ('Andre Ferro','1999-03-04',
 '914324322','214455444','Espanhola',
 'espanha','CC','123321111',null,null,
@@ -46,7 +46,7 @@ cartaconducao,iban) values
 '12333221222','Rua Joao Andrade 520',
 '2021-05-06','2023-05-06',900.0,
 'horario',900.0,null,false,
-'12312232132113211133');
+'12312232132113211133',null);
 
 INSERT INTO OBRA
 (codigointerno,designacao,cliente,

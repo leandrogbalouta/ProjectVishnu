@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ZtcsOQV5+xqdIZaYGEnTP0FguhKnvjdyLauLMBnz/4dZbU8RvmNVdE4Uwx+IWEJwqiqzlir65VZJ/Obvj6UXOQ==",
+  "dgSpecHash": "+uWSeWGFJOmiDLPAYb7WiKwrbi2hVBJH1XY4HF6u9qj3N4g9uMf/Eg2QO/I7WCNi2sgTiahP6vYoJ/m2GXfn5w==",
   "success": true,
-  "projectFilePath": "c:\\Users\\Leandro\\Desktop\\DKM\\ProjectVishnu\\Tests\\Tests.csproj",
+  "projectFilePath": "C:\\Users\\Leandro\\Desktop\\DKM\\ProjectVishnu\\Tests\\Tests.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Leandro\\.nuget\\packages\\castle.core\\5.1.0\\castle.core.5.1.0.nupkg.sha512",
     "C:\\Users\\Leandro\\.nuget\\packages\\coverlet.collector\\3.2.0\\coverlet.collector.3.2.0.nupkg.sha512",
@@ -36,9 +36,9 @@
     "C:\\Users\\Leandro\\.nuget\\packages\\system.diagnostics.eventlog\\6.0.0\\system.diagnostics.eventlog.6.0.0.nupkg.sha512",
     "C:\\Users\\Leandro\\.nuget\\packages\\system.reflection.metadata\\1.6.0\\system.reflection.metadata.1.6.0.nupkg.sha512",
     "C:\\Users\\Leandro\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512",
-    "C:\\Users\\Leandro\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.11\\microsoft.netcore.app.ref.6.0.11.nupkg.sha512",
+    "C:\\Users\\Leandro\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.11\\microsoft.aspnetcore.app.ref.6.0.11.nupkg.sha512",
     "C:\\Users\\Leandro\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.11\\microsoft.windowsdesktop.app.ref.6.0.11.nupkg.sha512",
-    "C:\\Users\\Leandro\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.11\\microsoft.aspnetcore.app.ref.6.0.11.nupkg.sha512"
+    "C:\\Users\\Leandro\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.11\\microsoft.netcore.app.ref.6.0.11.nupkg.sha512"
   ],
   "logs": []
 }

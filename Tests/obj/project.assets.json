@@ -1852,11 +1852,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Users\\Leandro\\Desktop\\DKM\\ProjectVishnu\\Tests\\Tests.csproj",
+      "projectUniqueName": "C:\\Users\\Leandro\\Desktop\\DKM\\ProjectVishnu\\Tests\\Tests.csproj",
       "projectName": "Tests",
-      "projectPath": "c:\\Users\\Leandro\\Desktop\\DKM\\ProjectVishnu\\Tests\\Tests.csproj",
+      "projectPath": "C:\\Users\\Leandro\\Desktop\\DKM\\ProjectVishnu\\Tests\\Tests.csproj",
       "packagesPath": "C:\\Users\\Leandro\\.nuget\\packages\\",
-      "outputPath": "c:\\Users\\Leandro\\Desktop\\DKM\\ProjectVishnu\\Tests\\obj\\",
+      "outputPath": "C:\\Users\\Leandro\\Desktop\\DKM\\ProjectVishnu\\Tests\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Leandro\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -1873,8 +1873,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "c:\\Users\\Leandro\\Desktop\\DKM\\ProjectVishnu\\ProjectVishnu\\ProjectVishnu.csproj": {
-              "projectPath": "c:\\Users\\Leandro\\Desktop\\DKM\\ProjectVishnu\\ProjectVishnu\\ProjectVishnu.csproj"
+            "C:\\Users\\Leandro\\Desktop\\DKM\\ProjectVishnu\\ProjectVishnu\\ProjectVishnu.csproj": {
+              "projectPath": "C:\\Users\\Leandro\\Desktop\\DKM\\ProjectVishnu\\ProjectVishnu\\ProjectVishnu.csproj"
             }
           }
         }

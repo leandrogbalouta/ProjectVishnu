@@ -22,6 +22,7 @@ CREATE TABLE FUNCIONARIO(
 		DocIdent varchar(15) NOT NULL,
 		TituloResidencia varchar(20),
 		ManifestacaoInteresse varchar(20),
+		Passaporte varchar(20),
 		ValidadeDocIdent date NOT NULL,
 		CatProf varchar(7) references CATEGORIAS_PROFISSIONAIS(codigo) NOT NULL,
 		NIF varchar(15) primary key, 

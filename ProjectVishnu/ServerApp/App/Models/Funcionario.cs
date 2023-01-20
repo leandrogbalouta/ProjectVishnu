@@ -14,36 +14,66 @@ namespace ProjectVishnu.Models
         }
 
         public int Id { get; set; }
+
         public string Nome { get; set; } = null!;
+
         public DateOnly Dtnascimento { get; set; }
+
         public string Telemovel { get; set; } = null!;
+
         public string Contactoemergencia { get; set; } = null!;
+
         public string Nacionalidade { get; set; } = null!;
-        public string Mercado { get; set; }
+
+        public string? Mercado { get; set; }
+
         public string Tipodocident { get; set; } = null!;
+
         public string Docident { get; set; } = null!;
+
         public string? Tituloresidencia { get; set; }
+
         public string? Manifestacaointeresse { get; set; }
+
+        public string? Passaporte { get; set; }
+
         public DateOnly Validadedocident { get; set; }
+
         public string Catprof { get; set; } = null!;
+
         public string Nif { get; set; } = null!;
+
         public string Niss { get; set; } = null!;
+
         public string Morada { get; set; } = null!;
+
         public DateOnly Contratoinicio { get; set; }
+
         public DateOnly Contratofim { get; set; }
+
         public decimal Vencimentobase { get; set; }
+
         public string Tiposalario { get; set; } = null!;
+
         public decimal Salarioreal { get; set; }
+
         public decimal? Calcado { get; set; }
+
         public bool Cartaconducao { get; set; }
+
         public string Iban { get; set; } = null!;
+
         public DateOnly? Deleted { get; set; }
 
         public virtual CategoriasProfissionai CatprofNavigation { get; set; } = null!;
-        public virtual Mercado MercadoNavigation { get; set; }
-        public virtual ICollection<DiaTrabalho> DiaTrabalhos { get; set; }
-        public virtual ICollection<FuncionariosObra> FuncionariosObras { get; set; }
-        public virtual ICollection<SalarioFinal> SalarioFinals { get; set; }
+
+        public virtual ICollection<DiaTrabalho> DiaTrabalhos { get; } = new List<DiaTrabalho>();
+
+        public virtual ICollection<FuncionariosObra> FuncionariosObras { get; } = new List<FuncionariosObra>();
+
+        public virtual Mercado? MercadoNavigation { get; set; }
+
+        public virtual ICollection<SalarioFinal> SalarioFinals { get; } = new List<SalarioFinal>();
         public FuncionarioOutputModel toOutputModel()
             {
                 return new FuncionarioOutputModel
@@ -59,6 +89,7 @@ namespace ProjectVishnu.Models
                     Docident = Docident,
                     Tituloresidencia = Tituloresidencia,
                     Manifestacaointeresse = Manifestacaointeresse,
+                    Passaporte = Passaporte,
                     Validadedocident = Validadedocident,
                     Catprof = Catprof,
                     Nif = Nif,

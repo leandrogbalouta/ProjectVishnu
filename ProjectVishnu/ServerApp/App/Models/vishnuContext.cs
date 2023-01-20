@@ -165,110 +165,84 @@ namespace ProjectVishnu.Models
 
             modelBuilder.Entity<Funcionario>(entity =>
             {
-                entity.HasKey(e => e.Nif)
-                    .HasName("funcionario_pkey");
+                entity.HasKey(e => e.Nif).HasName("funcionario_pkey");
 
                 entity.ToTable("funcionario");
 
                 entity.Property(e => e.Nif)
                     .HasMaxLength(15)
                     .HasColumnName("nif");
-
                 entity.Property(e => e.Calcado)
                     .HasPrecision(2, 1)
                     .HasColumnName("calcado");
-
-                entity.Property(e => e.Cartaconducao)
-                    .HasMaxLength(3)
-                    .HasColumnName("cartaconducao");
-
+                entity.Property(e => e.Cartaconducao).HasColumnName("cartaconducao");
                 entity.Property(e => e.Catprof)
                     .HasMaxLength(7)
                     .HasColumnName("catprof");
-
                 entity.Property(e => e.Contactoemergencia)
                     .HasMaxLength(15)
                     .HasColumnName("contactoemergencia");
-
                 entity.Property(e => e.Contratofim).HasColumnName("contratofim");
-
                 entity.Property(e => e.Contratoinicio).HasColumnName("contratoinicio");
-
                 entity.Property(e => e.Deleted).HasColumnName("deleted");
-
                 entity.Property(e => e.Docident)
                     .HasMaxLength(15)
                     .HasColumnName("docident");
-
                 entity.Property(e => e.Dtnascimento).HasColumnName("dtnascimento");
-
                 entity.Property(e => e.Iban)
                     .HasMaxLength(30)
                     .HasColumnName("iban");
-
                 entity.Property(e => e.Id)
                     .ValueGeneratedOnAdd()
-                    .HasColumnName("id")
-                    .UseIdentityAlwaysColumn();
-
+                    .UseIdentityAlwaysColumn()
+                    .HasColumnName("id");
                 entity.Property(e => e.Manifestacaointeresse)
                     .HasMaxLength(20)
                     .HasColumnName("manifestacaointeresse");
-
                 entity.Property(e => e.Mercado)
                     .HasMaxLength(40)
                     .HasColumnName("mercado");
-
                 entity.Property(e => e.Morada)
                     .HasMaxLength(200)
                     .HasColumnName("morada");
-
                 entity.Property(e => e.Nacionalidade)
                     .HasMaxLength(20)
                     .HasColumnName("nacionalidade");
-
                 entity.Property(e => e.Niss)
                     .HasMaxLength(15)
                     .HasColumnName("niss");
-
                 entity.Property(e => e.Nome)
                     .HasMaxLength(200)
                     .HasColumnName("nome");
-
+                entity.Property(e => e.Passaporte)
+                    .HasMaxLength(20)
+                    .HasColumnName("passaporte");
                 entity.Property(e => e.Salarioreal)
                     .HasPrecision(5, 2)
                     .HasColumnName("salarioreal");
-
                 entity.Property(e => e.Telemovel)
                     .HasMaxLength(15)
                     .HasColumnName("telemovel");
-
                 entity.Property(e => e.Tipodocident)
                     .HasMaxLength(30)
                     .HasColumnName("tipodocident");
-
                 entity.Property(e => e.Tiposalario)
                     .HasColumnType("character varying")
                     .HasColumnName("tiposalario");
-
                 entity.Property(e => e.Tituloresidencia)
                     .HasMaxLength(20)
                     .HasColumnName("tituloresidencia");
-
                 entity.Property(e => e.Validadedocident).HasColumnName("validadedocident");
-
                 entity.Property(e => e.Vencimentobase)
                     .HasPrecision(5, 2)
                     .HasColumnName("vencimentobase");
 
-                entity.HasOne(d => d.CatprofNavigation)
-                    .WithMany(p => p.Funcionarios)
+                entity.HasOne(d => d.CatprofNavigation).WithMany(p => p.Funcionarios)
                     .HasForeignKey(d => d.Catprof)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("funcionario_catprof_fkey");
 
-                entity.HasOne(d => d.MercadoNavigation)
-                    .WithMany(p => p.Funcionarios)
+                entity.HasOne(d => d.MercadoNavigation).WithMany(p => p.Funcionarios)
                     .HasForeignKey(d => d.Mercado)
                     .HasConstraintName("funcionario_mercado_fkey");
             });

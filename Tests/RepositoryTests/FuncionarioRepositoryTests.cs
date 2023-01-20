@@ -113,7 +113,7 @@ namespace Tests.RepositoryTests
             newFunc.Vencimentobase = 20;
             newFunc.Tiposalario = "fixo";
             newFunc.Salarioreal = 50;
-            newFunc.Cartaconducao = "Nao";
+            newFunc.Cartaconducao = false;
             newFunc.Iban = "PT502312314523123";
 
             funcionarioRepository.Add(newFunc);
@@ -146,7 +146,7 @@ namespace Tests.RepositoryTests
             funcionario.Vencimentobase = 20;
             funcionario.Tiposalario = "fixo";
             funcionario.Salarioreal = 50;
-            funcionario.Cartaconducao = "Nao";
+            funcionario.Cartaconducao = false;
             funcionario.Iban = "PT502312314523123";
 
             funcionarioRepository.Update(funcionario);
