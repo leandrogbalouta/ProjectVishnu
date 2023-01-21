@@ -4,7 +4,10 @@ import IFuncionarioInput from "./Interfaces/Funcionario/IFuncionarioInput";
 import IObraOutput from "./Interfaces/Obra/IObraOutput";
 
 // Tipos de documento
-// TODO
+export async function fetchTiposDocumento(){
+  var path = "/api/tiposdoc"
+  return fetch(path)
+}
 // Mercados
 export async function fetchMercados() {
   var path = "/api/mercados";

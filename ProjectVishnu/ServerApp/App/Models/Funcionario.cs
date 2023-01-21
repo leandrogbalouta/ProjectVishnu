@@ -62,6 +62,8 @@ namespace ProjectVishnu.Models
         public DateOnly? Deleted { get; set; }
 
         public virtual CategoriasProfissionai CatprofNavigation { get; set; } = null!;
+        
+        public virtual TipoDoc TipoDocNavigation { get; set; } = null!;
 
         public virtual ICollection<DiaTrabalho> DiaTrabalhos { get; } = new List<DiaTrabalho>();
 
