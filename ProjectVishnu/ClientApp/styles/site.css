@@ -4,8 +4,11 @@
 @tailwind components;
 @tailwind utilities;
 
-* {
-  @apply font-Dosis;
+*:not(button, svg) {
+  @apply font-Dosis !text-teal-800 dark:!text-white;
+}
+svg:not(button svg) {
+  @apply dark:!text-teal-800;
 }
 html,
 body,
@@ -13,8 +16,25 @@ body,
   @apply w-full h-full;
 }
 .active-nav-link {
-  @apply block py-2 pl-3 pr-4 text-white bg-emerald-700 rounded md:bg-transparent md:text-emerald-700 md:p-0 dark:text-white;
+  @apply block py-2 pl-3 pr-4 !text-white bg-teal-700 rounded md:bg-transparent md:p-0 dark:!text-white;
+}
+.active-nav-link div {
+  @apply !text-white;
 }
 .inactive-nav-link {
-  @apply block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-emerald-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent;
+  @apply block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-teal-100 md:hover:bg-transparent md:border-0 md:hover:text-teal-700 md:p-0 dark:text-teal-400 md:dark:hover:text-white dark:hover:bg-teal-700 dark:hover:text-white md:dark:hover:bg-transparent;
+}
+/* Radio buttons */
+.chakra-radio__control {
+  @apply !text-white;
+}
+input,
+input div,
+select,
+#mercados-dropdown span,
+#mercados-dropdown button {
+  @apply dark:!bg-teal-50 !text-teal-900;
+}
+.chakra-form__error-message {
+  @apply dark:!text-orange-500
 }

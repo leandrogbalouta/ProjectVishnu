@@ -3,9 +3,16 @@ import IFolhaDePontoInput from "./Interfaces/FolhaDePonto/IFolhaDePontoInput";
 import IFuncionarioInput from "./Interfaces/Funcionario/IFuncionarioInput";
 import IObraOutput from "./Interfaces/Obra/IObraOutput";
 
+// Tipos de documento
+// TODO
+// Mercados
+export async function fetchMercados() {
+  var path = "/api/mercados";
+  return fetch(path);
+}
 // Categorias Profissionais
 export async function fetchCategoriasProfissionais() {
-  var path = "/api/CategoriasProfissionais";
+  var path = "/api/categorias-profissionais";
   return fetch(path);
 }
 // Funcionario

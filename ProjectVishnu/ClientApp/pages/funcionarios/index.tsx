@@ -1,9 +1,18 @@
-import { Button, Spinner, Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
+import {
+  Button,
+  Spinner,
+  Table,
+  Tbody,
+  Td,
+  Th,
+  Thead,
+  Tr,
+} from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { fetchFuncionarios } from "../../common/APICalls";
 import IFuncionarioOutput from "../../common/Interfaces/Funcionario/IFuncionarioOutput";
-import FilterBar  from "../../components/FilterBar";
+import FilterBar from "../../components/FilterBar";
 
 export default function Funcionarios() {
   const [funcionarios, setFuncionarios] = useState([]);
@@ -28,8 +37,8 @@ export default function Funcionarios() {
       {},
       // mercado === null ? null : { mercado: mercado },
       // searchString === null ? null : { nome: searchString }
-      { mercado: mercado } ?? null,
-      { nome: searchString } ?? null
+      { mercado: mercado ?? null },
+      { nome: searchString ?? null }
     );
 
     const populateFuncionariosData = async () => {
@@ -53,7 +62,7 @@ export default function Funcionarios() {
         <FilterBar
           setMercado={setMercado}
           setSearchString={setSearchString}
-          searchBar={"searchBar"}
+          searchBar
         />
         <Table className="table table-striped" aria-labelledby="tabelLabel">
           <Thead>
@@ -67,7 +76,7 @@ export default function Funcionarios() {
           <Tbody>
             {funcionarios.map((funcionario) => (
               <Tr
-                className="hover:bg-gray-200 cursor-pointer"
+                className="hover:bg-teal-200 dark:hover:bg-teal-700 cursor-pointer"
                 onClick={() => redirectToFuncionario(funcionario.id)}
                 key={funcionario.nome}
               >

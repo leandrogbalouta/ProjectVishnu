@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { CreateFuncionario } from "../../common/APICalls";
+import {
+  CreateFuncionario,
+  fetchCategoriasProfissionais,
+  fetchMercados,
+} from "../../common/APICalls";
 import {
   Input,
   Button,
@@ -130,18 +134,32 @@ export default function FuncionarioCreation() {
   // Hooks
   const [tipodocidentState, setTipodocidentState] = useState<string>("");
   // Data from db
-  const [categoriasProfissionais, setCategoriasProfissionais] = useState<any[]>([]);
+  const [categoriasProfissionais, setCategoriasProfissionais] = useState<any[]>(
+    []
+  );
   const [tiposDeDocumento, setTiposDeDocumento] = useState<any[]>([]);
-  const [mercados, setMercados] = useState<any[]>([]);
+  const [mercados, setMercados] = useState<string[]>([]);
   // UseEffect
   useEffect(() => {
-    // Get Tipos de documento
-    // TODO
-    // Get Categorias profissionais
-    // TODO
-    // Get mercados
-    // TODO
-  });
+      // TODO se calhar mudar a maneira como isto é executado..
+      // Get Tipos de documento
+      // TODO
+      // Get Categorias profissionais
+      const populateCategoriasProfissionais = async () => {
+        const response = await fetchCategoriasProfissionais();
+        const data = await response.json();
+        setCategoriasProfissionais(data);
+      };
+      // Get Mercados
+      const populateMercados = async () => {
+        const response = await fetchMercados();
+        const data = await response.json();
+        setMercados(data);
+      };
+      // run 'em
+      populateCategoriasProfissionais();
+      populateMercados();
+  },[]);
   // Component
   async function AddFuncionario(funcionario: IFuncionarioInput) {
     console.log(funcionario);
@@ -263,15 +281,15 @@ export default function FuncionarioCreation() {
             <InputGroup>
               <Select
                 id="mercado"
+                className="capitalize"
                 placeholder="Mercado"
                 {...register("mercado", { required: true })}
               >
                 {mercados && (
                   <>
-                    {mercados.map((mercado: any) => {
-                      <option value="option1">Option 1</option>;
-                    })}
-                    <option value="option1">Option 1</option>;
+                    {mercados.map((mercado: string) => (
+                      <option value={mercado}>{mercado}</option>
+                    ))}
                   </>
                 )}
               </Select>
@@ -396,12 +414,11 @@ export default function FuncionarioCreation() {
               >
                 {categoriasProfissionais && (
                   <>
-                    {categoriasProfissionais.map((categoria: any) => {
-                      <option value="option1">Option 1</option>;
-                    })}
+                    {categoriasProfissionais.map((categoria: any) => (
+                      <option value={categoria.codigo}>{categoria.nomenclatura}</option>
+                    ))}
                   </>
                 )}
-                <option value="option1">Option 1</option>;
               </Select>
             </InputGroup>
             <FormErrorMessage>{errors.catprof?.message}</FormErrorMessage>
@@ -544,7 +561,7 @@ export default function FuncionarioCreation() {
           </FormControl>
           {/* salarioreal field */}
           <FormControl className="mb-5" isInvalid={!!errors.salarioreal}>
-            <FormLabel htmlFor="salarioreal">Salário Real</FormLabel>
+            <FormLabel htmlFor="salarioreal" className="flex flex-col">Salário Real</FormLabel>
             <InputGroup>
               <InputLeftElement
                 pointerEvents="none"
@@ -586,7 +603,7 @@ export default function FuncionarioCreation() {
               <RadioGroup defaultValue="0">
                 <Stack spacing={5} direction="row">
                   <Radio
-                    colorScheme="green"
+                    colorScheme="teal"
                     value="1"
                     id="cartaconducao"
                     {...register("cartaconducao", { required: true })}

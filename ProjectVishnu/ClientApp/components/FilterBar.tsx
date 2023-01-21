@@ -9,17 +9,18 @@ import {
   MenuList,
 } from "@chakra-ui/react";
 import { BsChevronDown, BsSearch } from "react-icons/bs";
+import { fetchMercados } from "../common/APICalls";
 
 // TODO check parameters
 interface Params {
   setMercado: any;
   setSearchString: any;
-  searchBar: any;
+  searchBar: boolean;
 }
 export default function FilterBar({
   setMercado,
   setSearchString,
-  searchBar = null,
+  searchBar = false,
 }: Params) {
   const [mercados, setMercados] = useState<string[]>([]);
   const [dropdownText, setDropdownText] = useState("Mercados");
@@ -39,7 +40,7 @@ export default function FilterBar({
 
   useEffect(() => {
     const getMercadosData = async () => {
-      const response = await fetch("/api/mercados");
+      const response = await fetchMercados();
       const data = await response.json();
       setMercados(data);
     };
@@ -48,7 +49,7 @@ export default function FilterBar({
   }, []);
 
   function useSearchBar() {
-    if (searchBar != null) {
+    if (searchBar) {
       return (
         <form className="flex w-full" role="search">
           <Input
@@ -74,11 +75,11 @@ export default function FilterBar({
 
   return (
     <div className="w-full flex justify-between">
-      <div className="flex-1 ">
+      <div id="mercados-dropdown" className="flex-1">
         {mercados && (
           <Menu>
             <MenuButton
-              className="capitalize"
+              className="capitalize !text-teal-900"
               as={Button}
               rightIcon={<BsChevronDown />}
             >

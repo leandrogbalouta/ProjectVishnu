@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ProjectVishnu.ServerApp.App.Dtos;
 using ProjectVishnu.ServerApp.App.Services;
-using ProjectVishnu.Services;
 
 namespace ProjectVishnu.ServerApp.App.Controllers
 {
