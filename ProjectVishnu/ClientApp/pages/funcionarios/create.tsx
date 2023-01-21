@@ -122,7 +122,7 @@ export default function FuncionarioCreation() {
   } = useForm<IFuncionarioInput>({
     resolver: yupResolver<yup.AnyObjectSchema>(schema),
   });
-  const onSubmit: SubmitHandler<IFuncionarioInput> = async (data) => {
+  const onSubmit: SubmitHandler<IFuncionarioInput> = async (data: any) => {
     try {
       AddFuncionario(data);
     } catch (error) {}

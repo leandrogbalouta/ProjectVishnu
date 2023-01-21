@@ -13,11 +13,11 @@ export default function NavMenu() {
   const router = useRouter();
 
   return (
-    <header className="sticky top-0 !z-[1000]">
+    <header className="sticky top-0 !z-[1000] shadow-sm shadow-emerald-600">
       <nav className="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-900">
         <div className="container-fluid flex flex-wrap items-center justify-between mx-0">
           <span
-            className="self-center text-xl font-semibold whitespace-nowrap dark:text-white cursor-pointer"
+            className="self-center text-xl font-semibold whitespace-nowrap text-emerald-800 dark:text-white cursor-pointer"
             onClick={() => router.push("/")}
           >
             ProjectVishnu

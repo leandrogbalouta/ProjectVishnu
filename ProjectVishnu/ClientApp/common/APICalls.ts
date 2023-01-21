@@ -3,6 +3,11 @@ import IFolhaDePontoInput from "./Interfaces/FolhaDePonto/IFolhaDePontoInput";
 import IFuncionarioInput from "./Interfaces/Funcionario/IFuncionarioInput";
 import IObraOutput from "./Interfaces/Obra/IObraOutput";
 
+// Categorias Profissionais
+export async function fetchCategoriasProfissionais() {
+  var path = "/api/CategoriasProfissionais";
+  return fetch(path);
+}
 // Funcionario
 export async function fetchFuncionarios(filters: Record<string, string>) {
   var path = "/api/funcionarios";
