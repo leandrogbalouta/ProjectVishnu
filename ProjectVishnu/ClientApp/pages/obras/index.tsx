@@ -89,7 +89,7 @@ export default function Obras() {
         <div id="button-container" className="flex justify-end mt-3">
           <Button
             onClick={() => redirectToObraCreation()}
-            colorScheme="teal"
+            colorScheme="blue"
           >
             Criar
           </Button>

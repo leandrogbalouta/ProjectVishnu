@@ -63,7 +63,7 @@ export default function FilterBar({
           />
           <IconButton
             aria-label='Procurar'
-            colorScheme="teal"
+            colorScheme="blue"
             type="button"
             icon={<BsSearch />}
             onClick={() => onClickSearch()}
@@ -79,7 +79,7 @@ export default function FilterBar({
         {mercados && (
           <Menu>
             <MenuButton
-              className="capitalize !text-teal-900"
+              className="capitalize !text-slate-900"
               as={Button}
               rightIcon={<BsChevronDown />}
             >

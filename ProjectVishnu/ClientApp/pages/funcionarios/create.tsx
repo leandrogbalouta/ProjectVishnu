@@ -288,7 +288,7 @@ export default function FuncionarioCreation() {
                 {mercados && (
                   <>
                     {mercados.map((mercado: string) => (
-                      <option value={mercado}>{mercado}</option>
+                      <option value={mercado} key={mercado}>{mercado}</option>
                     ))}
                   </>
                 )}
@@ -312,7 +312,7 @@ export default function FuncionarioCreation() {
                 {tiposDeDocumento && (
                   <>
                     {tiposDeDocumento.map((tipoDoc: any) => {
-                      <option value="option1">Option 1</option>;
+                      <option value={tipoDoc} key={tipoDoc}>{tipoDoc}</option>;
                     })}
                   </>
                 )}
@@ -415,7 +415,7 @@ export default function FuncionarioCreation() {
                 {categoriasProfissionais && (
                   <>
                     {categoriasProfissionais.map((categoria: any) => (
-                      <option value={categoria.codigo}>{categoria.nomenclatura}</option>
+                      <option value={categoria.codigo} key={categoria.codigo}>{categoria.nomenclatura}</option>
                     ))}
                   </>
                 )}
@@ -603,7 +603,7 @@ export default function FuncionarioCreation() {
               <RadioGroup defaultValue="0">
                 <Stack spacing={5} direction="row">
                   <Radio
-                    colorScheme="teal"
+                    colorScheme="blue"
                     value="1"
                     id="cartaconducao"
                     {...register("cartaconducao", { required: true })}
@@ -647,7 +647,7 @@ export default function FuncionarioCreation() {
           <Button
             type="submit"
             size="lg"
-            colorScheme="teal"
+            colorScheme="blue"
             className="mt-3 w-full sm:w-auto"
           >
             Criar

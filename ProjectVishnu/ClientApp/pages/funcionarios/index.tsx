@@ -64,34 +64,36 @@ export default function Funcionarios() {
           setSearchString={setSearchString}
           searchBar
         />
-        <Table className="table table-striped" aria-labelledby="tabelLabel">
-          <Thead>
-            <Tr>
-              <Th>Nome</Th>
-              <Th>Nif</Th>
-              <Th>Niss</Th>
-              <Th>Mercado</Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            {funcionarios.map((funcionario) => (
-              <Tr
-                className="hover:bg-teal-200 dark:hover:bg-teal-700 cursor-pointer"
-                onClick={() => redirectToFuncionario(funcionario.id)}
-                key={funcionario.nome}
-              >
-                <Td>{funcionario.nome}</Td>
-                <Td>{funcionario.nif}</Td>
-                <Td>{funcionario.niss}</Td>
-                <Td className="capitalize">{funcionario.mercado}</Td>
+        <div id="table-container" className="overflow-x-scroll">
+          <Table className="table table-striped" aria-labelledby="tabelLabel">
+            <Thead>
+              <Tr>
+                <Th>Nome</Th>
+                <Th>Nif</Th>
+                <Th>Niss</Th>
+                <Th>Mercado</Th>
               </Tr>
-            ))}
-          </Tbody>
-        </Table>
+            </Thead>
+            <Tbody>
+              {funcionarios.map((funcionario) => (
+                <Tr
+                  className="hover:bg-slate-200 dark:hover:bg-slate-700 cursor-pointer"
+                  onClick={() => redirectToFuncionario(funcionario.id)}
+                  key={funcionario.nome}
+                >
+                  <Td>{funcionario.nome}</Td>
+                  <Td>{funcionario.nif}</Td>
+                  <Td>{funcionario.niss}</Td>
+                  <Td className="capitalize">{funcionario.mercado}</Td>
+                </Tr>
+              ))}
+            </Tbody>
+          </Table>
+        </div>
         <div id="button-container" className="flex justify-end mt-3">
           <Button
             onClick={() => redirectToFuncionarioCreation()}
-            colorScheme="teal"
+            colorScheme="blue"
           >
             Criar
           </Button>
