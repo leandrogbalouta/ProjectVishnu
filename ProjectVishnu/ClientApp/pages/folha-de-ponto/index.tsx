@@ -42,7 +42,7 @@ export default function FolhasDePonto() {
     </div>
   );
 
-  // TODO folhasDePonto type
+  // TODO: folhasDePonto type
   function renderFolhasDePontoTable(folhasDePonto: any) {
     return (
       <div>

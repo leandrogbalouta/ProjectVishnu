@@ -103,9 +103,16 @@ namespace ProjectVishnu.ServerApp.App.Services.Concrete
 
         public void setValues(string obraID, string date, FolhaDePontoValuesInputModel values)
         {
+            
             string[] dateArr = date.Split("-");
-            string mes = dateArr[0];
-            string ano = dateArr[1];
+            string mes = dateArr[1];
+            string ano = dateArr[0];
+            FolhaDePonto folha = new FolhaDePonto {
+                Mes = mes,
+                Ano = ano,
+                Obra = obraID,
+                Mercado = _unitOfWork.Obras.Get(obraID).Mercado
+            };
             values.Values.ForEach(f => {
                 decimal valorFinal = 0;
                 f.Dias.ForEach(dia => {
@@ -128,8 +135,10 @@ namespace ProjectVishnu.ServerApp.App.Services.Concrete
                     Valorfinal = valorFinal
                 };
                 _unitOfWork.SalarioFinal.Add(salarioFinal);
+                folha.IdSalarios.Add(salarioFinal);
             });
-            throw new NotImplementedException();
+            _unitOfWork.FolhaDePontos.Add(folha);
+            _unitOfWork.Complete();
         }
 
         private FolhaDePontoValuesOutputModel GenerateFolhaDePontoValuesOutputModel(List<FolhaDePonto> folhasDePonto, string ano, string mes)

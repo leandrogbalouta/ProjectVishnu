@@ -52,7 +52,7 @@ namespace ProjectVishnu.ServerApp.App.Controllers
             string[] dateValues = date.Split('-');
             string ano = dateValues[0];
             string mes = dateValues[1];
-            var output = _folhadepontoServices.GetFromObra(obraID, ano, mes);
+            FolhaDePontoValuesOutputModel output = _folhadepontoServices.GetFromObra(obraID, ano, mes);
             return output == null ? NotFound() : Ok(output);
         }
 

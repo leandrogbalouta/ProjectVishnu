@@ -79,10 +79,10 @@ CREATE TABLE DIA_TRABALHO(
 		Funcionario varchar(15) references Funcionario(NIF),
         CodigoObra varchar(20)references Obra(CodigoInterno),
         Dia int NOT NULL,
-		Horas decimal(2, 1) NOT NULL,
+		Horas decimal(3, 1) NOT NULL,
         Mes varchar(9) NOT NULL, 
         Ano varchar(4) NOT NULL,
-        Valor decimal(5, 2) NOT NULL,
+        Valor decimal(8, 2) NOT NULL,
 		constraint chk_Mes CHECK(Mes IN('01', '02', 
         '03', '04', '05', '06', '07', '08', 
         '09', '10', '11', '12')),
@@ -94,8 +94,8 @@ CREATE TABLE SALARIO_FINAL(
 		Funcionario varchar(15) references Funcionario(NIF),
 		Mes varchar(9) NOT NULL, 
         Ano varchar(4) NOT NULL,
-        ValorFinal decimal(5, 2) NOT NULL,
-		ValorAPagar decimal(5, 2),
+        ValorFinal decimal(8, 2) NOT NULL,
+		ValorAPagar decimal(8, 2),
 		primary key(Funcionario, Mes, Ano)
 );
 
@@ -118,6 +118,7 @@ CREATE TABLE CONTA(
 		Username varchar(40) primary key,
 		Pwd varchar(64)
 );
+
 
 INSERT INTO CATEGORIAS_PROFISSIONAIS
 (codigo,nomenclatura) values

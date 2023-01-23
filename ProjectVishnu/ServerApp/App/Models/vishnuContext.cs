@@ -120,11 +120,11 @@ namespace ProjectVishnu.Models
                 entity.Property(e => e.Ano).HasColumnName("ano");
 
                 entity.Property(e => e.Horas)
-                    .HasPrecision(2, 1)
+                    .HasPrecision(3, 1)
                     .HasColumnName("horas");
 
                 entity.Property(e => e.Valor)
-                    .HasPrecision(5, 2)
+                    .HasPrecision(8, 2)
                     .HasColumnName("valor");
 
                 entity.HasOne(d => d.CodigoobraNavigation)
@@ -381,11 +381,11 @@ namespace ProjectVishnu.Models
                     .UseIdentityAlwaysColumn();
 
                 entity.Property(e => e.Valorapagar)
-                    .HasPrecision(5, 2)
+                    .HasPrecision(8, 2)
                     .HasColumnName("valorapagar");
 
                 entity.Property(e => e.Valorfinal)
-                    .HasPrecision(5, 2)
+                    .HasPrecision(8, 2)
                     .HasColumnName("valorfinal");
 
                 entity.HasOne(d => d.FuncionarioNavigation)

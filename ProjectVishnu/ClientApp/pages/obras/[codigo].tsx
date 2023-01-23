@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
-import { fetchObra, createFolhaDePonto } from "../../common/APICalls";
-import { Button, Input, Spinner } from "@chakra-ui/react";
+import { fetchObra, createFolhaDePonto, fetchFolhaDePontoAllByobra as fetchFolhaDePontoAllByObra } from "../../common/APICalls";
+import { Button, Input, Spinner, Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
 import IObraOutput from "../../common/Interfaces/Obra/IObraOutput";
 import { useRouter } from 'next/router';
 import IFolhaDePontoOutput from "../../common/Interfaces/FolhaDePonto/IFolhaDePontoOutput";
@@ -10,6 +10,7 @@ import IFolhaDePontoOutput from "../../common/Interfaces/FolhaDePonto/IFolhaDePo
 export default function Obra() {
   const router = useRouter();
   const [obra, setObra] = useState(null);
+  const [folhasDePonto, setFolhasDePonto] = useState(null);
   const codigo = router.query.codigo?.toString();
   const date = new Date();
   const [data, setData] = useState(
@@ -20,7 +21,7 @@ export default function Obra() {
     setData(event!.target!.value!);
   };
 
-  let contents = obra === null ? <Spinner/> : renderObra(obra);
+  let contents = obra === null ? <Spinner/> : renderObra(obra, folhasDePonto);
 
   // check this
   async function submitFolhaDePonto() {
@@ -39,20 +40,54 @@ export default function Obra() {
     router.push({pathname : result!, query : {info : JSON.stringify(respData)} }, result!);
   }
 
+  async function redirectToFolhaDePonto(folhaDePonto : any) {
+    router.push(`/obras/${codigo}/folha-de-ponto/${folhaDePonto.ano}-${folhaDePonto.mes}`);
+  }
+
   useEffect(() => {
     const populateObraData = async () => {
       const response = await fetchObra(codigo!);
       const data = await response.json();
       setObra(data);
     };
+    const populateFolhasDePontoData = async () => {
+      const response = await fetchFolhaDePontoAllByObra(codigo!);
+      const data = await response.json();
+      setFolhasDePonto(data);
+    };
     populateObraData();
+    populateFolhasDePontoData();
   }, []);
 
-  return <div>{contents}</div>;
+  return <div>
+    {contents}
+    </div>;
 
-  function renderObra(obra: IObraOutput) {
+  function renderObra(obra: IObraOutput, folhasDePonto : any) {
     return (
       <div>
+        <Table className="" aria-labelledby="tabelLabel">
+          <Thead>
+            <Tr>
+              <Th>Mes</Th>
+              <Th>Ano</Th>
+            </Tr>
+          </Thead>
+          <Tbody>
+            {/* TODO check folhasdeponto type */}
+            {folhasDePonto && folhasDePonto.map((folhaDePonto: any) => (
+              <Tr
+                className="hover:bg-gray-200 cursor-pointer"
+                onClick={() =>
+                  redirectToFolhaDePonto(folhaDePonto)
+                }
+              >
+                <Td>{folhaDePonto.mes}</Td>
+                <Td>{folhaDePonto.ano}</Td>
+              </Tr>
+            ))}
+          </Tbody>
+        </Table>
         <label htmlFor="date">Start date:</label>
         <Input
           type="month"
