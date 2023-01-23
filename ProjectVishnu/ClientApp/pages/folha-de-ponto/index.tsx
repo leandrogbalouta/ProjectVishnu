@@ -2,7 +2,9 @@ import { Spinner, Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { fetchFolhaDePontoAllByMercado } from "../../common/APICalls";
-import FilterBar  from "../../components/FilterBar";
+import FilterBar from '../../components/FilterBar';
+import IFolhaDePontoOutput from '../../common/Interfaces/FolhaDePonto/IFolhaDePontoOutput';
+import IFolhaDePontoInfoModel from '../../common/Interfaces/FolhaDePonto/IFolhaDePontoInfoModel';
 
 export default function FolhasDePonto() {
   const [folhasDePonto, setFolhasDePonto] = useState(null);
@@ -43,13 +45,12 @@ export default function FolhasDePonto() {
   );
 
   // TODO: folhasDePonto type
-  function renderFolhasDePontoTable(folhasDePonto: any) {
+  function renderFolhasDePontoTable(folhasDePonto: IFolhaDePontoInfoModel[]) {
     return (
       <div>
         <FilterBar
           setMercado={setMercado}
           setSearchString={undefined}
-          searchBar={undefined}
         />
         <Table className="" aria-labelledby="tabelLabel">
           <Thead>
@@ -60,10 +61,10 @@ export default function FolhasDePonto() {
             </Tr>
           </Thead>
           <Tbody>
-            {/* TODO check folhasdeponto type */}
-            {folhasDePonto.map((folhaDePonto: any) => (
+            {folhasDePonto.map((folhaDePonto, index) => (
               <Tr
                 className="hover:bg-gray-200 cursor-pointer"
+                key={index}
                 onClick={() =>
                   redirectToFolhaDePonto(
                     folhaDePonto.mes,

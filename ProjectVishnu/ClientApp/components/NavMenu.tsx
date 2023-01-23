@@ -7,60 +7,26 @@ import { BsFillMoonStarsFill, BsFillSunFill } from "react-icons/bs";
 
 export default function NavMenu() {
   const [toggleNav, setToggleNav] = useState<boolean>(false);
+  const [darkToggle, setDarkToggle] = useState<boolean>(false);
+  const router = useRouter();
   let toggleClass = toggleNav ? "block" : "hidden";
   function to() {
     setToggleNav(!toggleNav);
   }
-  useEffect(() => {
-    var themeToggleDarkIcon = document.getElementById("theme-toggle-dark-icon");
-    var themeToggleLightIcon = document.getElementById(
-      "theme-toggle-light-icon"
-    );
-
-    // Change the icons inside the button based on previous settings
-    if (
-      localStorage.getItem("color-theme") === "dark" ||
-      (!("color-theme" in localStorage) &&
-        window.matchMedia("(prefers-color-scheme: dark)").matches)
-    ) {
-      themeToggleLightIcon!.classList.remove("hidden");
-    } else {
-      themeToggleDarkIcon!.classList.remove("hidden");
-    }
-
-    var themeToggleBtn = document.getElementById("theme-toggle");
-
-    themeToggleBtn!.addEventListener("click", function () {
-      // toggle icons inside button
-      themeToggleDarkIcon!.classList.toggle("hidden");
-      themeToggleLightIcon!.classList.toggle("hidden");
-
-      // if set via local storage previously
-      if (localStorage.getItem("color-theme")) {
-        if (localStorage.getItem("color-theme") === "light") {
-          document.documentElement.classList.add("dark");
-          localStorage.setItem("color-theme", "dark");
-        } else {
-          document.documentElement.classList.remove("dark");
-          localStorage.setItem("color-theme", "light");
-        }
-
-        // if NOT set via local storage previously
-      } else {
-        if (document.documentElement.classList.contains("dark")) {
-          document.documentElement.classList.remove("dark");
-          localStorage.setItem("color-theme", "light");
-        } else {
-          document.documentElement.classList.add("dark");
-          localStorage.setItem("color-theme", "dark");
-        }
-      }
-    });
-  });
-  const router = useRouter();
+  function setDarkMode() {
+    setDarkToggle(!darkToggle);
+    // https://tailwindcss.com/docs/dark-mode
+    darkToggle
+      ? document.getElementsByTagName("html")[0].classList.add("dark")
+      : document.getElementsByTagName("html")[0].classList.remove("dark");
+  }
 
   return (
-    <header className="sticky top-0 !z-[1000] shadow-sm shadow-slate-600">
+    <header
+      className={
+        "sticky top-0 !z-[1000] shadow-sm shadow-slate-600"
+      }
+    >
       <nav className="bg-slate-900 border-gray-200 px-2 sm:px-4 py-2.5 rounded">
         <div className="container-fluid flex flex-wrap items-center">
           <span
@@ -72,17 +38,22 @@ export default function NavMenu() {
           <div id="nav-menu-button-container" className="flex flex-end">
             <button
               id="theme-toggle"
+              title="toggle-dark-mode-button"
               type="button"
               className="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 mr-1"
+              onClick={setDarkMode}
             >
-              <BsFillSunFill
-                id="theme-toggle-dark-icon"
-                className="hidden w-5 h-5"
-              />
-              <BsFillMoonStarsFill
-                id="theme-toggle-light-icon"
-                className="hidden w-5 h-5"
-              />
+              {darkToggle ? (
+                <BsFillSunFill
+                  id="theme-toggle-dark-icon"
+                  className="w-5 h-5"
+                />
+              ) : (
+                <BsFillMoonStarsFill
+                  id="theme-toggle-light-icon"
+                  className={"w-5 h-5"}
+                />
+              )}
             </button>
             <button
               type="button"
@@ -93,33 +64,33 @@ export default function NavMenu() {
               <RiMenu4Line className="text-2xl sm:text-3xl text-orange-400" />
             </button>
           </div>
-            <div
-              className={toggleClass + " w-full md:block md:w-auto"}
-              id="navbar-default"
-            >
-              <ul className="flex flex-col p-4 mt-4 border rounded-lg md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0  bg-slate-800 md:bg-slate-900 border-slate-700 !text-white dark:hover:!text-sky-400">
-                <li className="text-white">
-                  <CustomNavLink href="/" toggleNavBar={to}>
-                    Home
-                  </CustomNavLink>
-                </li>
-                <li>
-                  <CustomNavLink href="/funcionarios" toggleNavBar={to}>
-                    Funcionarios
-                  </CustomNavLink>
-                </li>
-                <li>
-                  <CustomNavLink href="/obras" toggleNavBar={to}>
-                    Obras
-                  </CustomNavLink>
-                </li>
-                <li>
-                  <CustomNavLink href="/folha-de-ponto" toggleNavBar={to}>
-                    Folhas de Ponto
-                  </CustomNavLink>
-                </li>
-              </ul>
-            </div>
+          <div
+            className={toggleClass + " w-full md:block md:w-auto"}
+            id="navbar-default"
+          >
+            <ul className="flex flex-col p-4 mt-4 border rounded-lg md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0  bg-slate-800 md:bg-slate-900 border-slate-700 !text-white dark:hover:!text-sky-400">
+              <li className="text-white">
+                <CustomNavLink href="/" toggleNavBar={to}>
+                  Home
+                </CustomNavLink>
+              </li>
+              <li>
+                <CustomNavLink href="/funcionarios" toggleNavBar={to}>
+                  Funcionarios
+                </CustomNavLink>
+              </li>
+              <li>
+                <CustomNavLink href="/obras" toggleNavBar={to}>
+                  Obras
+                </CustomNavLink>
+              </li>
+              <li>
+                <CustomNavLink href="/folha-de-ponto" toggleNavBar={to}>
+                  Folhas de Ponto
+                </CustomNavLink>
+              </li>
+            </ul>
+          </div>
         </div>
       </nav>
     </header>

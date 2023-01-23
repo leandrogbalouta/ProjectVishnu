@@ -15,7 +15,7 @@ import { fetchMercados } from "../common/APICalls";
 interface Params {
   setMercado: any;
   setSearchString: any;
-  searchBar: boolean;
+  searchBar?: boolean;
 }
 export default function FilterBar({
   setMercado,

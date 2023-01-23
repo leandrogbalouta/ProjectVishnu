@@ -14,7 +14,7 @@ export default function ObraCreation() {
 
     for (let i = 0; i < inputs.length; i++) {
       if (inputs[i].innerHTML === "") obra[inputs[i].id] = null;
-      else obra[inputs[i].id] = inputs[i].innerHTML;
+      else obra[inputs[i].id]  = inputs[i].innerHTML;
     }
 
     const resp = await CreateObra(obra);
@@ -40,18 +40,18 @@ export default function ObraCreation() {
         </thead>
         <tbody>
           <tr>
-            <td class="font-bold p-2.5">Designação</td>
+            <td className="font-bold p-2.5">Designação</td>
             <td contentEditable="true" id="designacao"></td>
-            <td class="font-bold p-2.5">Cliente</td>
+            <td className="font-bold p-2.5">Cliente</td>
             <td contentEditable="true" id="cliente"></td>
-            <td class="font-bold p-2.5">Data de Início</td>
+            <td className="font-bold p-2.5">Data de Início</td>
             <td contentEditable="true" id="datainicio"></td>
-            <td class="font-bold p-2.5">Mercado</td>
+            <td className="font-bold p-2.5">Mercado</td>
             <td contentEditable="true" id="mercado"></td>
           </tr>
           <button
             type="button"
-            class="btn btn-primary"
+            className="btn btn-primary"
             onClick={() => AddObra()}
           >
             Criar
