@@ -1,4 +1,7 @@
-﻿
+﻿CREATE TABLE TIPO_DOC(
+		Sigla varchar(5) PRIMARY KEY,
+		Designacao varchar(50)
+);
 
 CREATE TABLE CATEGORIAS_PROFISSIONAIS(
 		codigo varchar(7) PRIMARY KEY,
@@ -20,7 +23,7 @@ CREATE TABLE FUNCIONARIO(
 		ContactoEmergencia varchar(15) NOT NULL,
 		Nacionalidade varchar(20) NOT NULL,
 		Mercado varchar(40) references MERCADO(MercadoName),
-		TipoDocIdent varchar(30) NOT NULL,
+		TipoDocIdent varchar(5) references TIPO_DOC(Sigla) NOT NULL,
 		DocIdent varchar(20) NOT NULL,
 		Passaporte varchar(20),
 		ValidadeDocIdent date NOT NULL,

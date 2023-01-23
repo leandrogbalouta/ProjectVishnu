@@ -9,6 +9,7 @@ namespace ProjectVishnu.DataAccess
         IObraRepository Obras { get; }
         IDiaTrabalhoRepository DiasTrabalho { get; }
         ICategoriaProfRepository CategoriasProfissionais { get; }
+        ITipoDocRepository TiposDocInt { get;}
         IFuncionariosObraRepository FuncionariosObra { get; }
         IMercadoRepository Mercados { get; }
         ISalarioFinalRepository SalarioFinal { get; }

@@ -3,6 +3,7 @@ import {
   CreateFuncionario,
   fetchCategoriasProfissionais,
   fetchMercados,
+  fetchTiposDocumento,
 } from "../../common/APICalls";
 import {
   Input,
@@ -143,7 +144,11 @@ export default function FuncionarioCreation() {
   useEffect(() => {
       // TODO se calhar mudar a maneira como isto é executado..
       // Get Tipos de documento
-      // TODO
+      const populateTiposDocInt = async () => {
+        const response = await fetchTiposDocumento()
+        const data = await response.json()
+        setTiposDeDocumento(data)
+      }
       // Get Categorias profissionais
       const populateCategoriasProfissionais = async () => {
         const response = await fetchCategoriasProfissionais();
@@ -156,9 +161,11 @@ export default function FuncionarioCreation() {
         const data = await response.json();
         setMercados(data);
       };
+      
       // run 'em
       populateCategoriasProfissionais();
       populateMercados();
+      populateTiposDocInt()
   },[]);
   // Component
   async function AddFuncionario(funcionario: IFuncionarioInput) {
@@ -311,18 +318,17 @@ export default function FuncionarioCreation() {
               >
                 {tiposDeDocumento && (
                   <>
-                    {tiposDeDocumento.map((tipoDoc: any) => {
-                      <option value={tipoDoc} key={tipoDoc}>{tipoDoc}</option>;
-                    })}
+                    {tiposDeDocumento.map((tipoDoc: any) => (
+                      <option value={tipoDoc.sigla} key={tipoDoc.sigla}>{tipoDoc.designacao}</option>
+                    ))}
                   </>
                 )}
-                <option value="2">Teste 2</option>
               </Select>
             </InputGroup>
             <FormErrorMessage>{errors.tipodocident?.message}</FormErrorMessage>
           </FormControl>
           {/* Se tipo de documento for 'demontrar interesse' mostrat input passaporte */}
-          {tipodocidentState! == "2" && (
+          {tipodocidentState! == "MI" && (
             <>
               {/* passaporte field */}
               <FormControl className="mb-5">

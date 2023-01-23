@@ -18,7 +18,7 @@ namespace ProjectVishnu.ServerApp.App.DataAccess.Repository.Concrete
             get { return Context as vishnuContext; }
         }
 
-        public CategoriasProfissionai GetCatProf(int id)
+        public CategoriasProfissionai GetCatProf(string codigo)
         {
             throw new NotImplementedException();
         }

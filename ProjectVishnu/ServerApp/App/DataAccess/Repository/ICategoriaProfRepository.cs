@@ -5,7 +5,7 @@ namespace ProjectVishnu.ServerApp.App.DataAccess.Repository
 {
     public interface ICategoriaProfRepository : IRepository<CategoriasProfissionai>
     {
-        public CategoriasProfissionai GetCatProf(int id);
+        public CategoriasProfissionai GetCatProf(string codigo);
         public IEnumerable<CategoriasProfissionai> ListAlphabetically();
     }
 }

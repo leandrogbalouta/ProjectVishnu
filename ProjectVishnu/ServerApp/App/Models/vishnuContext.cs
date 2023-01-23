@@ -24,6 +24,7 @@ namespace ProjectVishnu.Models
             _connectionString = configuration.GetConnectionString("vishnu");
         }
 
+        public virtual DbSet<TipoDoc> TiposDoc { get; set;} = null;
         public virtual DbSet<CategoriasProfissionai> CategoriasProfissionais { get; set; } = null!;
         public virtual DbSet<Contum> Conta { get; set; } = null!;
         public virtual DbSet<DiaTrabalho> DiaTrabalhos { get; set; } = null!;
@@ -46,6 +47,23 @@ namespace ProjectVishnu.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+            modelBuilder.Entity<TipoDoc>(entity => 
+            {
+                entity.HasKey(e => e.Sigla)
+                    .HasName("tipo_doc_pkey");
+                
+                entity.ToTable("tipo_doc");
+
+                entity.Property(e => e.Sigla)
+                    .HasMaxLength(5)
+                    .HasColumnName("sigla");
+
+                entity.Property(e => e.Designacao)
+                    .HasMaxLength(50)
+                    .HasColumnName("designacao");
+            });
+
             modelBuilder.Entity<CategoriasProfissionai>(entity =>
             {
                 entity.HasKey(e => e.Codigo)
@@ -235,6 +253,11 @@ namespace ProjectVishnu.Models
                     .HasForeignKey(d => d.Catprof)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("funcionario_catprof_fkey");
+
+                entity.HasOne(d => d.TipoDocNavigation).WithMany(p => p.Funcionarios)
+                    .HasForeignKey(d => d.Tipodocident)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("funcionario_tipodocident_fkey");
 
                 entity.HasOne(d => d.MercadoNavigation).WithMany(p => p.Funcionarios)
                     .HasForeignKey(d => d.Mercado)

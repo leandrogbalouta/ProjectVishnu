@@ -23,6 +23,7 @@ namespace ProjectVishnu.DataAccess.Concrete
             Mercados = new MercadoRepository(_context);
             SalarioFinal = new SalarioFinalRepository(_context);
             FolhaDePontos = new FolhaDePontoRepository(_context);
+            TiposDocInt = new TipoDocRepository(_context);
         }
 
         public IFuncionarioRepository Funcionarios { get; private set; }
@@ -40,6 +41,8 @@ namespace ProjectVishnu.DataAccess.Concrete
         public ISalarioFinalRepository SalarioFinal { get; private set; }
 
         public IFolhaDePontoRepository FolhaDePontos { get; private set; }
+
+        public ITipoDocRepository TiposDocInt { get; private set; }
 
         public int Complete()
         {

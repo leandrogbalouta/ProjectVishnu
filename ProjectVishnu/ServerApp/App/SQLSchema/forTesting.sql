@@ -7,8 +7,13 @@ DROP TABLE IF EXISTS FUNCIONARIOS_OBRAS;
 DROP TABLE IF EXISTS OBRA;
 DROP TABLE IF EXISTS FUNCIONARIO;
 DROP TABLE IF EXISTS CATEGORIAS_PROFISSIONAIS;
+DROP TABLE IF EXISTS TIPO_DOC_INT;
 DROP TABLE IF EXISTS MERCADO;
 
+CREATE TABLE TIPO_DOC(
+		Sigla varchar(5) PRIMARY KEY,
+		Designacao varchar(50)
+);
 
 CREATE TABLE CATEGORIAS_PROFISSIONAIS(
 		codigo varchar(7) PRIMARY KEY,
@@ -30,7 +35,7 @@ CREATE TABLE FUNCIONARIO(
 		ContactoEmergencia varchar(15) NOT NULL,
 		Nacionalidade varchar(20) NOT NULL,
 		Mercado varchar(40) references MERCADO(MercadoName),
-		TipoDocIdent varchar(30) NOT NULL,
+		TipoDocIdent varchar(5) references TIPO_DOC(Sigla) NOT NULL,
 		DocIdent varchar(20) NOT NULL,
 		Passaporte varchar(20),
 		ValidadeDocIdent date NOT NULL,
@@ -114,12 +119,17 @@ CREATE TABLE CONTA(
 		Pwd varchar(64)
 );
 
-
-
 INSERT INTO CATEGORIAS_PROFISSIONAIS
 (codigo,nomenclatura) values
-('1234567','XXXXXXX'),
-('1243123','XXXXXXX');
+('CA1','Carpinteiro de primeira'),
+('CA2','Carpinteiro de segunda'),
+('PE1', 'Pedreiro de primeira');
+
+INSERT INTO TIPO_DOC
+(sigla, designacao) values
+('CC', 'Cartão de Cidadão'),
+('TR', 'Título de Residência'),
+('MI', 'Manifestação de Interesse');
 
 INSERT INTO MERCADO
 (mercadoName,sigla,dia_inicio,dia_fim) values
@@ -136,31 +146,31 @@ cartaconducao,iban, passaporte) values
 ('Francisco Martins','1999-03-20',
 '916705652','214439239','Portuguesa',
 'portugal','CC','14627570',
-'2025-09-19','1234567','255896379',
+'2025-09-19','CA1','255896379',
 '12345678910','Rua Leandro Bolota n420',
 '2021-03-09','2023-03-09',800.0,
 'fixo',800.0,null,true,
 '0000000000000000000000', null),
 ('Afonso Ramos','1999-05-30',
 '919929349','214456789','Portuguesa',
-'portugal','CC','13456234',
-'2027-08-29','1243123','234567899',
+'portugal','TR','13456234',
+'2027-08-29','CA2','234567899',
 '10987654321','Rua Antonio Silva n14 3Esq',
 '2020-05-30','2022-05-30',900.0,
 'fixo',900.0,null,true,
 '111111111111111111111', null),
 ('Joao Filipe','1985-06-07',
 '967899876','214498672','Espanhola',
-'espanha','CC','195345543',
-'2023-09-09','1243123','244555678',
+'espanha','MI','195345543',
+'2023-09-09','CA2','244555678',
 '12436587091','Rua Umberto Delgado n66',
 '2019-08-20','2022-12-31',900.0,
 'horario',900.0,null,true,
-'22222222222222222222', null),
+'22222222222222222222', 'BA03923'),
 ('Andre Ferro','1999-03-04',
 '914324322','214455444','Espanhola',
 'espanha','CC','123321111',
-'2025-03-03','1243123','321311322',
+'2025-03-03','PE1','321311322',
 '12333221222','Rua Joao Andrade 520',
 '2021-05-06','2023-05-06',900.0,
 'horario',900.0,null,false,

@@ -36,6 +36,7 @@ namespace ProjectVishnu.ServerApp
             builder.Services.AddScoped<IFolhaDePontoService, FolhaDePontoService>();
             builder.Services.AddScoped<IMercadosService, MercadosService>();
             builder.Services.AddScoped<ICategoriaProfService, CategoriaProfService>();
+            builder.Services.AddScoped<ITiposDocService, TiposDocService>();
 
             builder.Services.AddControllersWithViews();
 
