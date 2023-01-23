@@ -74,7 +74,7 @@ export default function Obras() {
           <Tbody>
             {Obras.map((obra) => (
                 <Tr
-                className="hover:bg-gray-200 cursor-pointer"
+                className="hover:bg-slate-200 dark:hover:bg-slate-700 cursor-pointer"
                 onClick={() => redirectToObra(obra.codigoInterno)}
                 key={obra.codigoInterno}
                 >

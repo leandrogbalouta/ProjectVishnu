@@ -191,7 +191,7 @@ namespace ProjectVishnu.Models
                     .HasMaxLength(15)
                     .HasColumnName("nif");
                 entity.Property(e => e.Calcado)
-                    .HasPrecision(2, 1)
+                    .HasPrecision(3, 1)
                     .HasColumnName("calcado");
                 entity.Property(e => e.Cartaconducao).HasColumnName("cartaconducao");
                 entity.Property(e => e.Catprof)
@@ -233,7 +233,7 @@ namespace ProjectVishnu.Models
                     .HasMaxLength(20)
                     .HasColumnName("passaporte");
                 entity.Property(e => e.Salarioreal)
-                    .HasPrecision(5, 2)
+                    .HasPrecision(8, 2)
                     .HasColumnName("salarioreal");
                 entity.Property(e => e.Telemovel)
                     .HasMaxLength(15)
@@ -246,7 +246,7 @@ namespace ProjectVishnu.Models
                     .HasColumnName("tiposalario");
                 entity.Property(e => e.Validadedocident).HasColumnName("validadedocident");
                 entity.Property(e => e.Vencimentobase)
-                    .HasPrecision(5, 2)
+                    .HasPrecision(8, 2)
                     .HasColumnName("vencimentobase");
 
                 entity.HasOne(d => d.CatprofNavigation).WithMany(p => p.Funcionarios)

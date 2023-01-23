@@ -5,7 +5,7 @@ namespace ProjectVishnu.ServerApp.App.Dtos
     public class FuncionarioInputModel
     {
         public string Nome { get; set; } = null!;
-        public DateTime? Dtnascimento { get; set; }
+        public DateOnly? Dtnascimento { get; set; }
         public string Telemovel { get; set; } = null!;
         public string Contactoemergencia { get; set; } = null!;
         public string Nacionalidade { get; set; } = null!;
@@ -13,13 +13,13 @@ namespace ProjectVishnu.ServerApp.App.Dtos
         public string Tipodocident { get; set; } = null!;
         public string Docident { get; set; } = null!;
         public string? Passaporte { get; set; }
-        public DateTime? Validadedocident { get; set; }
+        public DateOnly? Validadedocident { get; set; }
         public string Catprof { get; set; } = null!;
         public string Nif { get; set; } = null!;
         public string Niss { get; set; } = null!;
         public string Morada { get; set; } = null!;
-        public DateTime? Contratoinicio { get; set; }
-        public DateTime? Contratofim { get; set; }
+        public DateOnly? Contratoinicio { get; set; }
+        public DateOnly? Contratofim { get; set; }
         public decimal Vencimentobase { get; set; }
         public string Tiposalario { get; set; } = null!;
         public decimal Salarioreal { get; set; }

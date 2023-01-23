@@ -7,7 +7,7 @@ DROP TABLE IF EXISTS FUNCIONARIOS_OBRAS;
 DROP TABLE IF EXISTS OBRA;
 DROP TABLE IF EXISTS FUNCIONARIO;
 DROP TABLE IF EXISTS CATEGORIAS_PROFISSIONAIS;
-DROP TABLE IF EXISTS TIPO_DOC_INT;
+DROP TABLE IF EXISTS TIPO_DOC;
 DROP TABLE IF EXISTS MERCADO;
 
 CREATE TABLE TIPO_DOC(
@@ -45,10 +45,10 @@ CREATE TABLE FUNCIONARIO(
 		Morada varchar(200) NOT NULL,
 		ContratoInicio date NOT NULL,
 		ContratoFim date NOT NULL,
-		VencimentoBase decimal(5, 2) NOT NULL,
+		VencimentoBase decimal(8, 2) NOT NULL,
 		TipoSalario	varchar NOT NULL,
-		SalarioReal	decimal(5, 2) NOT NULL,
-		Calcado	decimal(2, 1),
+		SalarioReal	decimal(8, 2) NOT NULL,
+		Calcado	decimal(3, 1),
 		CartaConducao boolean NOT NULL,
 		IBAN varchar(30) NOT NULL,
 		deleted date default null,

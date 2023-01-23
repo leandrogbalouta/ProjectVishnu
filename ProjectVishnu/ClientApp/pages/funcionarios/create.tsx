@@ -43,6 +43,8 @@ import {
   FaUser,
   FaUserTie,
 } from "react-icons/fa";
+import parse from "date-fns/parse"
+
 export default function FuncionarioCreation() {
   // Hooks
   const router = useRouter();
@@ -51,10 +53,11 @@ export default function FuncionarioCreation() {
     .object({
       nome: yup.string().required("Por favor, introduza o nome."),
       dtnascimento: yup
-        .date()
+        .string()
+        .transform((value, originalValue) => value = originalValue)
         .nullable()
-        .notRequired()
-        .transform((value) => (isNaN(value) ? undefined : value)),
+        .notRequired(),
+        //.transform((value) => (isNaN(value) ? undefined : value)),
       telemovel: yup
         .string()
         .required("Por favor, introduza o número de telefone."),
@@ -72,10 +75,11 @@ export default function FuncionarioCreation() {
         .string()
         .required("Por favor, introduza o  número de identificação."),
       validadedocident: yup
-        .date()
+        .string()
+        .transform((value, originalValue) => value = originalValue)
         .nullable()
-        .notRequired()
-        .transform((value) => (isNaN(value) ? undefined : value)),
+        .notRequired(),
+        //.transform((value) => (isNaN(value) ? undefined : value)),
       catprof: yup
         .string()
         .required("Por favor, introduza a categoria profissional."),
@@ -85,15 +89,17 @@ export default function FuncionarioCreation() {
         .string()
         .required("Por favor, introduza o endereço de morada."),
       contratoinicio: yup
-        .date()
+        .string()
+        .transform((value, originalValue) => value = originalValue)
         .nullable()
-        .notRequired()
-        .transform((value) => (isNaN(value) ? undefined : value)),
+        .notRequired(),
+        //.transform((value) => (isNaN(value) ? undefined : value)),
       contratofim: yup
-        .date()
+        .string()
+        .transform((value, originalValue) => value = originalValue)
         .nullable()
-        .notRequired()
-        .transform((value) => (isNaN(value) ? undefined : value)),
+        .notRequired(),
+        //.transform((value) => (isNaN(value) ? undefined : value)),
       vencimentobase: yup
         .number()
         .transform((value) => (isNaN(value) ? undefined : value))
@@ -349,24 +355,6 @@ export default function FuncionarioCreation() {
               </FormControl>
             </>
           )}
-          {/* tiposalario field */}
-          <FormControl className="mb-5" isInvalid={!!errors.tiposalario}>
-            <FormLabel htmlFor="tiposalario">Tipo de salário</FormLabel>
-            <InputGroup>
-              <InputLeftElement
-                pointerEvents="none"
-                children={<FaMoneyBillAlt color="#000E31" />}
-              />
-              <Input
-                id="tiposalario"
-                type="text"
-                placeholder="Tipo de salário"
-                autoComplete="blank-tiposalario"
-                {...register("tiposalario", { required: true })}
-              />
-            </InputGroup>
-            <FormErrorMessage>{errors.tiposalario?.message}</FormErrorMessage>
-          </FormControl>
           {/* docident field */}
           <FormControl className="mb-5" isInvalid={!!errors.docident}>
             <FormLabel htmlFor="docident">
@@ -551,17 +539,25 @@ export default function FuncionarioCreation() {
           <FormControl className="mb-5" isInvalid={!!errors.tiposalario}>
             <FormLabel htmlFor="tiposalario">Tipo de salário</FormLabel>
             <InputGroup>
-              <InputLeftElement
-                pointerEvents="none"
-                children={<FaMoneyBillAlt color="#000E31" />}
-              />
-              <Input
-                id="tiposalario"
-                type="text"
-                placeholder="Tipo de salário"
-                autoComplete="blank-tiposalario"
-                {...register("tiposalario", { required: true })}
-              />
+              <RadioGroup defaultValue="horario">
+                <Stack spacing={5} direction="row">
+                  <Radio
+                    colorScheme="blue"
+                    value="horario"
+                    id="tiposalario"
+                    {...register("tiposalario", { required: true })}
+                  >
+                    Horário
+                  </Radio>
+                  <Radio
+                    colorScheme="blue"
+                    value="fixo"
+                    {...register("tiposalario", { required: true })}
+                  >
+                    Fixo
+                  </Radio>
+                </Stack>
+              </RadioGroup>
             </InputGroup>
             <FormErrorMessage>{errors.tiposalario?.message}</FormErrorMessage>
           </FormControl>

@@ -1,3 +1,4 @@
+import { DateLocale } from "yup/lib/locale";
 import IFuncionarioOutput from "./IFuncionarioOutput";
 
 export default interface IFuncionarioInput {
