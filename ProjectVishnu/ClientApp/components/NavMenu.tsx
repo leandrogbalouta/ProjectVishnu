@@ -8,7 +8,7 @@ import ThemeContext from './themeContext';
 
 export default function NavMenu() {
   const [toggleNav, setToggleNav] = useState<boolean>(false);
-  const imTired = useRef(false)
+  const theme = useRef(false)
   let router = useRouter();
   let toggleClass = toggleNav ? "block" : "hidden";
   function to() {
@@ -16,10 +16,10 @@ export default function NavMenu() {
   }
   function changeTheme() {
     changeCurrentTheme(currentTheme === 'light' ? 'dark' : 'light');
-    imTired.current = !imTired.current;
+    theme.current = !theme.current;
   }
   useEffect(() => {
-    imTired.current = localStorage.getItem("theme") === "dark";
+    theme.current = localStorage.getItem("theme") === "dark";
   },[])
   const { currentTheme, changeCurrentTheme } = useContext(ThemeContext)
   return (
@@ -40,7 +40,7 @@ export default function NavMenu() {
               className="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 mr-1"
               onClick={changeTheme}
             >
-              {imTired.current ? (
+              {theme.current ? (
                 <BsFillMoonStarsFill
                   id="theme-toggle-light-icon"
                   className={"w-5 h-5"}
