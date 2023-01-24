@@ -1,32 +1,29 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 import CustomNavLink from "./CustomNavLink";
 import { useState } from "react";
 import { RiMenu4Line } from "react-icons/ri";
 import { BsFillMoonStarsFill, BsFillSunFill } from "react-icons/bs";
+import ThemeContext from './themeContext';
 
 export default function NavMenu() {
   const [toggleNav, setToggleNav] = useState<boolean>(false);
-  const [darkToggle, setDarkToggle] = useState<boolean>(false);
-  const router = useRouter();
+  const imTired = useRef(false)
+  let router = useRouter();
   let toggleClass = toggleNav ? "block" : "hidden";
   function to() {
     setToggleNav(!toggleNav);
   }
-  function setDarkMode() {
-    setDarkToggle(!darkToggle);
-    // https://tailwindcss.com/docs/dark-mode
-    darkToggle
-      ? document.getElementsByTagName("html")[0].classList.add("dark")
-      : document.getElementsByTagName("html")[0].classList.remove("dark");
+  function changeTheme() {
+    changeCurrentTheme(currentTheme === 'light' ? 'dark' : 'light');
+    imTired.current = !imTired.current;
   }
-
+  useEffect(() => {
+    imTired.current = localStorage.getItem("theme") === "dark";
+  },[])
+  const { currentTheme, changeCurrentTheme } = useContext(ThemeContext)
   return (
-    <header
-      className={
-        "sticky top-0 !z-[1000] shadow-sm shadow-slate-600"
-      }
-    >
+    <header className={"sticky top-0 !z-[1000] shadow-sm shadow-slate-600"}>
       <nav className="bg-slate-900 border-gray-200 px-2 sm:px-4 py-2.5 rounded">
         <div className="container-fluid flex flex-wrap items-center">
           <span
@@ -41,17 +38,17 @@ export default function NavMenu() {
               title="toggle-dark-mode-button"
               type="button"
               className="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 mr-1"
-              onClick={setDarkMode}
+              onClick={changeTheme}
             >
-              {darkToggle ? (
-                <BsFillSunFill
-                  id="theme-toggle-dark-icon"
-                  className="w-5 h-5"
-                />
-              ) : (
+              {imTired.current ? (
                 <BsFillMoonStarsFill
                   id="theme-toggle-light-icon"
                   className={"w-5 h-5"}
+                />
+              ) : (
+                <BsFillSunFill
+                  id="theme-toggle-dark-icon"
+                  className="w-5 h-5"
                 />
               )}
             </button>

@@ -11,8 +11,8 @@ export default function Document() {
         />
         <meta name="theme-color" content="#000000" />
         <base href="%PUBLIC_URL%/" />
-        <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-        <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
+        <link rel="manifest" href="/manifest.json" />
+        <link rel="shortcut icon" href="/favicon.ico" />
       </Head>
       <body>
         <noscript>You need to enable JavaScript to run this app.</noscript>
