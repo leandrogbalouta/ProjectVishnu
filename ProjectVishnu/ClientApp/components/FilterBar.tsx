@@ -15,18 +15,19 @@ import { fetchMercados } from "../common/APICalls";
 interface Params {
   setMercado: any;
   setSearchString: any;
-  searchBar?: boolean;
+  searchBar?: true;
 }
 export default function FilterBar({
   setMercado,
   setSearchString,
-  searchBar = false,
+  searchBar,
 }: Params) {
   const [mercados, setMercados] = useState<string[]>([]);
   const [dropdownText, setDropdownText] = useState("Mercados");
   const [searchInputValue, setSearchInputValue] = useState<string>("");
   function onClickSearch() {
     setSearchString(searchInputValue);
+    console.log("asdasd");
   }
 
   function onClickDropDownItem(mercado: string | undefined) {
@@ -53,7 +54,7 @@ export default function FilterBar({
       return (
         <form className="flex w-full" role="search">
           <Input
-            className=""
+            className="!bg-slate-50"
             id="searchBar"
             type="search"
             placeholder="Procurar"

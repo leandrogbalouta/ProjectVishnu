@@ -3,11 +3,11 @@ import "../styles/site.css";
 import Layout from "../components/Layout";
 import { AppProps } from "next/app";
 import { ChakraProvider } from "@chakra-ui/react";
-import ThemeContextProvider from "../components/ThemeContextWrapper";
+import ThemeContextProvider from "../components/ThemeContextProvider";
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <ThemeContextProvider>
+    <ThemeContextProvider >
       <ChakraProvider>
         <Layout>
           <Component {...pageProps} />

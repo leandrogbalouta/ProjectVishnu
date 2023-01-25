@@ -67,7 +67,7 @@ export default function Funcionarios() {
         <div id="table-container" className="overflow-x-scroll">
           <Table className="table table-striped" aria-labelledby="tabelLabel">
             <Thead>
-              <Tr>
+              <Tr className="data-table-header">
                 <Th>Nome</Th>
                 <Th>Nif</Th>
                 <Th>Niss</Th>
@@ -77,7 +77,7 @@ export default function Funcionarios() {
             <Tbody>
               {funcionarios.map((funcionario) => (
                 <Tr
-                  className="hover:bg-slate-200 dark:hover:bg-slate-700 cursor-pointer"
+                  className="data-table-row"
                   onClick={() => redirectToFuncionario(funcionario.id)}
                   key={funcionario.nome}
                 >

@@ -6,7 +6,6 @@ const ThemeContextProvider: FC<{ children: ReactNode }> = ({ children }) => {
 
   const changeCurrentTheme = (newTheme: 'light' | 'dark') => {
     setTheme(newTheme)
-    localStorage.setItem('theme', newTheme)
   }
 
   useEffect(() => {

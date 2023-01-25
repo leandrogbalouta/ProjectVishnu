@@ -59,12 +59,12 @@ export default function Obras() {
           <FilterBar
             setMercado={setMercado}
             setSearchString={setSearchString}
-            searchBar={"searchBar"}
+            searchBar={true}
           />
         </div>
         <Table className="table table-striped" aria-labelledby="tabelLabel">
           <Thead>
-            <Tr>
+            <Tr className="data-table-header">
               <Th>Código interno</Th>
               <Th>Designação</Th>
               <Th>Cliente</Th>
@@ -74,7 +74,7 @@ export default function Obras() {
           <Tbody>
             {Obras.map((obra) => (
                 <Tr
-                className="hover:bg-slate-200 dark:hover:bg-slate-700 cursor-pointer"
+                className="data-table-row"
                 onClick={() => redirectToObra(obra.codigoInterno)}
                 key={obra.codigoInterno}
                 >

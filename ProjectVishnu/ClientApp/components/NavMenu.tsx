@@ -8,20 +8,23 @@ import ThemeContext from './themeContext';
 
 export default function NavMenu() {
   const [toggleNav, setToggleNav] = useState<boolean>(false);
-  const theme = useRef(false)
+  const darkTheme = useRef<boolean>()
   let router = useRouter();
   let toggleClass = toggleNav ? "block" : "hidden";
+  const { currentTheme, changeCurrentTheme } = useContext(ThemeContext)
   function to() {
     setToggleNav(!toggleNav);
   }
   function changeTheme() {
     changeCurrentTheme(currentTheme === 'light' ? 'dark' : 'light');
-    theme.current = !theme.current;
+    darkTheme.current = !darkTheme.current;
+    localStorage.setItem('theme', darkTheme.current ? 'dark' : 'light')
   }
   useEffect(() => {
-    theme.current = localStorage.getItem("theme") === "dark";
+    darkTheme.current = localStorage.getItem("theme") === "dark";
+    console.log(darkTheme.current);
+    changeCurrentTheme(darkTheme.current ? 'dark' : 'light');
   },[])
-  const { currentTheme, changeCurrentTheme } = useContext(ThemeContext)
   return (
     <header className={"sticky top-0 !z-[1000] shadow-sm shadow-slate-600"}>
       <nav className="bg-slate-900 border-gray-200 px-2 sm:px-4 py-2.5 rounded">
@@ -37,10 +40,10 @@ export default function NavMenu() {
               id="theme-toggle"
               title="toggle-dark-mode-button"
               type="button"
-              className="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 mr-1"
+              className="text-gray-500 dark:text-gray-400 hover:bg-gray-300 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 mr-1"
               onClick={changeTheme}
             >
-              {theme.current ? (
+              {darkTheme.current ? (
                 <BsFillMoonStarsFill
                   id="theme-toggle-light-icon"
                   className={"w-5 h-5"}
@@ -65,7 +68,7 @@ export default function NavMenu() {
             className={toggleClass + " w-full md:block md:w-auto"}
             id="navbar-default"
           >
-            <ul className="flex flex-col p-4 mt-4 border rounded-lg md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0  bg-slate-800 md:bg-slate-900 border-slate-700 !text-white dark:hover:!text-sky-400">
+            <ul className="flex flex-col p-4 mt-4 border rounded-lg md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 bg-slate-800 md:bg-slate-900 border-slate-700 !text-white dark:hover:!text-sky-400">
               <li className="text-white">
                 <CustomNavLink href="/" toggleNavBar={to}>
                   Home

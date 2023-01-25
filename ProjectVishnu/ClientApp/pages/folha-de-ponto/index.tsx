@@ -49,12 +49,13 @@ export default function FolhasDePonto() {
     return (
       <div>
         <FilterBar
+          searchBar
           setMercado={setMercado}
           setSearchString={undefined}
         />
         <Table className="" aria-labelledby="tabelLabel">
           <Thead>
-            <Tr>
+            <Tr className="data-table-header">
               <Th>Mes</Th>
               <Th>Ano</Th>
               <Th>Mercado</Th>
@@ -63,7 +64,7 @@ export default function FolhasDePonto() {
           <Tbody>
             {folhasDePonto.map((folhaDePonto, index) => (
               <Tr
-                className="hover:bg-gray-200 cursor-pointer"
+                className="data-table-row"
                 key={index}
                 onClick={() =>
                   redirectToFolhaDePonto(
