@@ -14,26 +14,20 @@ import {
   InputLeftElement,
   FormLabel,
   Divider,
-  Checkbox,
   Stack,
   Radio,
   RadioGroup,
-  InputRightAddon,
   Select,
-  InputLeftAddon,
 } from "@chakra-ui/react";
 import IFuncionarioInput from "../../common/Interfaces/Funcionario/IFuncionarioInput";
 import { useRouter } from "next/router";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { Spinner } from "@chakra-ui/react";
 import {
   FaCalendarAlt,
   FaCreditCard,
   FaGlobe,
-  FaGlobeEurope,
-  FaHome,
   FaIdCard,
   FaMapMarkerAlt,
   FaMoneyBillAlt,
@@ -41,12 +35,17 @@ import {
   FaPhoneAlt,
   FaShoePrints,
   FaUser,
-  FaUserTie,
 } from "react-icons/fa";
-import parse from "date-fns/parse"
 
 export default function FuncionarioCreation() {
   // Hooks
+  const [tipodocidentState, setTipodocidentState] = useState<string>(" ");
+  // Data from db
+  const [categoriasProfissionais, setCategoriasProfissionais] = useState<any[]>(
+    []
+  );
+  const [tiposDeDocumento, setTiposDeDocumento] = useState<any[]>([]);
+  const [mercados, setMercados] = useState<string[]>([]);
   const router = useRouter();
   // Form
   const schema = yup
@@ -54,10 +53,10 @@ export default function FuncionarioCreation() {
       nome: yup.string().required("Por favor, introduza o nome."),
       dtnascimento: yup
         .string()
-        .transform((value, originalValue) => value = originalValue)
+        .transform((value, originalValue) => (value = originalValue))
         .nullable()
         .notRequired(),
-        //.transform((value) => (isNaN(value) ? undefined : value)),
+      //.transform((value) => (isNaN(value) ? undefined : value)),
       telemovel: yup
         .string()
         .required("Por favor, introduza o número de telefone."),
@@ -76,30 +75,38 @@ export default function FuncionarioCreation() {
         .required("Por favor, introduza o  número de identificação."),
       validadedocident: yup
         .string()
-        .transform((value, originalValue) => value = originalValue)
+        .transform((value, originalValue) => (value = originalValue))
         .nullable()
         .notRequired(),
-        //.transform((value) => (isNaN(value) ? undefined : value)),
+      //.transform((value) => (isNaN(value) ? undefined : value)),
       catprof: yup
         .string()
         .required("Por favor, introduza a categoria profissional."),
-      nif: yup.string().required("Por favor, introduza o NIF."),
-      niss: yup.string().required("Por favor, introduza o NISS."),
+      nif: yup
+        .string()
+        .matches(/[0-9]+/, "NIF inválido")
+        .length(9, "NIF consiste em 9 dígitos.")
+        .required("Por favor, introduza o NIF."),
+      niss: yup
+        .string()
+        .matches(/[0-9]+/, "NISS inválido")
+        .length(11, "NISS consiste em 11 dígitos.")
+        .required("Por favor, introduza o NISS."),
       morada: yup
         .string()
         .required("Por favor, introduza o endereço de morada."),
       contratoinicio: yup
         .string()
-        .transform((value, originalValue) => value = originalValue)
+        .transform((value, originalValue) => (value = originalValue))
         .nullable()
         .notRequired(),
-        //.transform((value) => (isNaN(value) ? undefined : value)),
+      //.transform((value) => (isNaN(value) ? undefined : value)),
       contratofim: yup
         .string()
-        .transform((value, originalValue) => value = originalValue)
+        .transform((value, originalValue) => (value = originalValue))
         .nullable()
         .notRequired(),
-        //.transform((value) => (isNaN(value) ? undefined : value)),
+      //.transform((value) => (isNaN(value) ? undefined : value)),
       vencimentobase: yup
         .number()
         .transform((value) => (isNaN(value) ? undefined : value))
@@ -117,12 +124,27 @@ export default function FuncionarioCreation() {
         .required("Por favor, introduza o salário real."),
       calcado: yup
         .number()
-        .transform((value) => (isNaN(value) ? undefined : value))
+        .transform(value => (isNaN(value) ? undefined : value)) 
+        .typeError("Tamanho inválido")
         .min(20, "Mínimo 20")
-        .max(999999, "Máximo 50"),
+        .max(50, "Máximo 50"),
       cartaconducao: yup.boolean(),
-      iban: yup.string().required("Por favor, introduza o IBAN"),
-      passaporte: yup.string(),
+      // TODO remover depois de verificado
+      // https://www.gov.ie/en/publication/89bfcf-what-is-iban-an-bic/
+      // https://stackoverflow.com/questions/21928083/iban-validation-check
+      // https://bank.codes/iban/structure/
+      iban: yup
+        .string()
+        .min(16)
+        .max(34)
+        .matches(/^([A-Z]{2})(\d{2})([A-Z\d]+)$/)
+        .required("Por favor, introduza o IBAN"),
+      passaporte: yup.string().when("tipodocident"!, {
+        is: (tipodocident: string) => tipodocident === "MI",
+        then: yup
+          .string()
+          .required("I am required now that both checkboxes are checked"),
+      }),
     })
     .required();
 
@@ -133,46 +155,40 @@ export default function FuncionarioCreation() {
   } = useForm<IFuncionarioInput>({
     resolver: yupResolver<yup.AnyObjectSchema>(schema),
   });
-  const onSubmit: SubmitHandler<IFuncionarioInput> = async (data: any) => {
+  const onSubmit: SubmitHandler<IFuncionarioInput> = async (
+    data: IFuncionarioInput
+  ) => {
     try {
       AddFuncionario(data);
     } catch (error) {}
   };
-  // Hooks
-  const [tipodocidentState, setTipodocidentState] = useState<string>("");
-  // Data from db
-  const [categoriasProfissionais, setCategoriasProfissionais] = useState<any[]>(
-    []
-  );
-  const [tiposDeDocumento, setTiposDeDocumento] = useState<any[]>([]);
-  const [mercados, setMercados] = useState<string[]>([]);
   // UseEffect
   useEffect(() => {
-      // TODO se calhar mudar a maneira como isto é executado..
-      // Get Tipos de documento
-      const populateTiposDocInt = async () => {
-        const response = await fetchTiposDocumento()
-        const data = await response.json()
-        setTiposDeDocumento(data)
-      }
-      // Get Categorias profissionais
-      const populateCategoriasProfissionais = async () => {
-        const response = await fetchCategoriasProfissionais();
-        const data = await response.json();
-        setCategoriasProfissionais(data);
-      };
-      // Get Mercados
-      const populateMercados = async () => {
-        const response = await fetchMercados();
-        const data = await response.json();
-        setMercados(data);
-      };
-      
-      // run 'em
-      populateCategoriasProfissionais();
-      populateMercados();
-      populateTiposDocInt()
-  },[]);
+    // TODO se calhar mudar a maneira como isto é executado..
+    // Get Tipos de documento
+    const populateTiposDocInt = async () => {
+      const response = await fetchTiposDocumento();
+      const data = await response.json();
+      setTiposDeDocumento(data);
+    };
+    // Get Categorias profissionais
+    const populateCategoriasProfissionais = async () => {
+      const response = await fetchCategoriasProfissionais();
+      const data = await response.json();
+      setCategoriasProfissionais(data);
+    };
+    // Get Mercados
+    const populateMercados = async () => {
+      const response = await fetchMercados();
+      const data = await response.json();
+      setMercados(data);
+    };
+
+    // run 'em
+    populateCategoriasProfissionais();
+    populateMercados();
+    populateTiposDocInt();
+  }, []);
   // Component
   async function AddFuncionario(funcionario: IFuncionarioInput) {
     console.log(funcionario);
@@ -200,7 +216,9 @@ export default function FuncionarioCreation() {
           <FormControl className="mb-5 basis-2/5" isInvalid={!!errors.nome}>
             <FormLabel htmlFor="nome">Nome</FormLabel>
             <InputGroup>
-              <InputLeftElement pointerEvents="none" children={<FaUser />} />
+              <InputLeftElement pointerEvents="none">
+                <FaUser />
+              </InputLeftElement>
               <Input
                 id="nome"
                 type="text"
@@ -215,10 +233,9 @@ export default function FuncionarioCreation() {
           <FormControl className="mb-5" isInvalid={!!errors.dtnascimento}>
             <FormLabel htmlFor="dtnascimento">Data de Nascimento</FormLabel>
             <InputGroup>
-              <InputLeftElement
-                pointerEvents="none"
-                children={<FaCalendarAlt color="#000E31" />}
-              />
+              <InputLeftElement pointerEvents="none">
+                <FaCalendarAlt color="#000E31" />
+              </InputLeftElement>
               <Input
                 id="dtnascimento"
                 type="date"
@@ -233,10 +250,9 @@ export default function FuncionarioCreation() {
           <FormControl className="mb-5" isInvalid={!!errors.telemovel}>
             <FormLabel htmlFor="telemovel">Telemóvel</FormLabel>
             <InputGroup>
-              <InputLeftElement
-                pointerEvents="none"
-                children={<FaPhone color="#000E31" />}
-              />
+              <InputLeftElement pointerEvents="none">
+                <FaPhone color="#000E31" />
+              </InputLeftElement>
               <Input
                 id="telemovel"
                 type="text"
@@ -253,10 +269,9 @@ export default function FuncionarioCreation() {
               Contacto de emergência
             </FormLabel>
             <InputGroup>
-              <InputLeftElement
-                pointerEvents="none"
-                children={<FaPhoneAlt color="#000E31" />}
-              />
+              <InputLeftElement pointerEvents="none">
+                <FaPhoneAlt color="#000E31" />
+              </InputLeftElement>
               <Input
                 id="contactoemergencia"
                 type="text"
@@ -274,10 +289,9 @@ export default function FuncionarioCreation() {
           <FormControl className="mb-5" isInvalid={!!errors.nacionalidade}>
             <FormLabel htmlFor="nacionalidade">Nacionalidade</FormLabel>
             <InputGroup>
-              <InputLeftElement
-                pointerEvents="none"
-                children={<FaGlobe color="#000E31" />}
-              />
+              <InputLeftElement pointerEvents="none">
+                <FaGlobe color="#000E31" />{" "}
+              </InputLeftElement>
               <Input
                 id="nacionalidade"
                 type="text"
@@ -301,7 +315,9 @@ export default function FuncionarioCreation() {
                 {mercados && (
                   <>
                     {mercados.map((mercado: string) => (
-                      <option value={mercado} key={mercado}>{mercado}</option>
+                      <option value={mercado} key={mercado}>
+                        {mercado}
+                      </option>
                     ))}
                   </>
                 )}
@@ -325,7 +341,9 @@ export default function FuncionarioCreation() {
                 {tiposDeDocumento && (
                   <>
                     {tiposDeDocumento.map((tipoDoc: any) => (
-                      <option value={tipoDoc.sigla} key={tipoDoc.sigla}>{tipoDoc.designacao}</option>
+                      <option value={tipoDoc.sigla} key={tipoDoc.sigla}>
+                        {tipoDoc.designacao}
+                      </option>
                     ))}
                   </>
                 )}
@@ -334,16 +352,15 @@ export default function FuncionarioCreation() {
             <FormErrorMessage>{errors.tipodocident?.message}</FormErrorMessage>
           </FormControl>
           {/* Se tipo de documento for 'demontrar interesse' mostrat input passaporte */}
-          {tipodocidentState! == "MI" && (
+          {tipodocidentState! === "MI" && (
             <>
               {/* passaporte field */}
               <FormControl className="mb-5">
                 <FormLabel htmlFor="passaporte">Passaporte</FormLabel>
                 <InputGroup>
-                  <InputLeftElement
-                    pointerEvents="none"
-                    children={<FaMoneyBillAlt color="#000E31" />}
-                  />
+                  <InputLeftElement pointerEvents="none">
+                    <FaMoneyBillAlt color="#000E31" />
+                  </InputLeftElement>
                   <Input
                     id="passaporte"
                     type="text"
@@ -361,10 +378,9 @@ export default function FuncionarioCreation() {
               Número do documento de identificação
             </FormLabel>
             <InputGroup>
-              <InputLeftElement
-                pointerEvents="none"
-                children={<FaIdCard color="#000E31" />}
-              />
+              <InputLeftElement pointerEvents="none">
+                <FaIdCard color="#000E31" />
+              </InputLeftElement>
               <Input
                 id="docident"
                 type="text"
@@ -381,10 +397,9 @@ export default function FuncionarioCreation() {
               Validade do documento de identificação
             </FormLabel>
             <InputGroup>
-              <InputLeftElement
-                pointerEvents="none"
-                children={<FaCalendarAlt color="#000E31" />}
-              />
+              <InputLeftElement pointerEvents="none">
+                <FaCalendarAlt color="#000E31" />
+              </InputLeftElement>
               <Input
                 id="validadedocident"
                 type="date"
@@ -409,7 +424,9 @@ export default function FuncionarioCreation() {
                 {categoriasProfissionais && (
                   <>
                     {categoriasProfissionais.map((categoria: any) => (
-                      <option value={categoria.codigo} key={categoria.codigo}>{categoria.nomenclatura}</option>
+                      <option value={categoria.codigo} key={categoria.codigo}>
+                        {categoria.nomenclatura}
+                      </option>
                     ))}
                   </>
                 )}
@@ -423,10 +440,9 @@ export default function FuncionarioCreation() {
               Número de Identificação Fiscal (NIF)
             </FormLabel>
             <InputGroup>
-              <InputLeftElement
-                pointerEvents="none"
-                children={<FaIdCard color="#000E31" />}
-              />
+              <InputLeftElement pointerEvents="none">
+                <FaIdCard color="#000E31" />
+              </InputLeftElement>
               <Input
                 id="nif"
                 type="text"
@@ -443,10 +459,9 @@ export default function FuncionarioCreation() {
               Número de Identificação de Segurança Social (NISS)
             </FormLabel>
             <InputGroup>
-              <InputLeftElement
-                pointerEvents="none"
-                children={<FaIdCard color="#000E31" />}
-              />
+              <InputLeftElement pointerEvents="none">
+                <FaIdCard color="#000E31" />
+              </InputLeftElement>
               <Input
                 id="niss"
                 type="text"
@@ -461,10 +476,9 @@ export default function FuncionarioCreation() {
           <FormControl className="mb-5" isInvalid={!!errors.morada}>
             <FormLabel htmlFor="morada">Morada</FormLabel>
             <InputGroup>
-              <InputLeftElement
-                pointerEvents="none"
-                children={<FaMapMarkerAlt color="#000E31" />}
-              />
+              <InputLeftElement pointerEvents="none">
+                <FaMapMarkerAlt color="#000E31" />
+              </InputLeftElement>
               <Input
                 id="Morada"
                 type="text"
@@ -481,10 +495,9 @@ export default function FuncionarioCreation() {
               Data de ínicio de contrato
             </FormLabel>
             <InputGroup>
-              <InputLeftElement
-                pointerEvents="none"
-                children={<FaMapMarkerAlt color="#000E31" />}
-              />
+              <InputLeftElement pointerEvents="none">
+                <FaMapMarkerAlt color="#000E31" />
+              </InputLeftElement>
               <Input
                 id="contratoinicio"
                 type="date"
@@ -501,10 +514,9 @@ export default function FuncionarioCreation() {
           <FormControl className="mb-5" isInvalid={!!errors.contratofim}>
             <FormLabel htmlFor="contratofim">Data de fim de Contrato</FormLabel>
             <InputGroup>
-              <InputLeftElement
-                pointerEvents="none"
-                children={<FaCalendarAlt color="#000E31" />}
-              />
+              <InputLeftElement pointerEvents="none">
+                <FaCalendarAlt color="#000E31" />
+              </InputLeftElement>
               <Input
                 id="contratofim"
                 type="date"
@@ -519,10 +531,9 @@ export default function FuncionarioCreation() {
           <FormControl className="mb-5" isInvalid={!!errors.vencimentobase}>
             <FormLabel htmlFor="vencimentobase">Vencimento base</FormLabel>
             <InputGroup>
-              <InputLeftElement
-                pointerEvents="none"
-                children={<FaMoneyBillAlt color="#000E31" />}
-              />
+              <InputLeftElement pointerEvents="none">
+                <FaMoneyBillAlt color="#000E31" />
+              </InputLeftElement>
               <Input
                 id="vencimentobase"
                 type="text"
@@ -563,12 +574,13 @@ export default function FuncionarioCreation() {
           </FormControl>
           {/* salarioreal field */}
           <FormControl className="mb-5" isInvalid={!!errors.salarioreal}>
-            <FormLabel htmlFor="salarioreal" className="flex flex-col">Salário Real</FormLabel>
+            <FormLabel htmlFor="salarioreal" className="flex flex-col">
+              Salário Real
+            </FormLabel>
             <InputGroup>
-              <InputLeftElement
-                pointerEvents="none"
-                children={<FaMoneyBillAlt color="#000E31" />}
-              />
+              <InputLeftElement pointerEvents="none">
+                <FaMoneyBillAlt color="#000E31" />
+              </InputLeftElement>
               <Input
                 id="salarioreal"
                 type="text"
@@ -583,16 +595,15 @@ export default function FuncionarioCreation() {
           <FormControl className="mb-5" isInvalid={!!errors.calcado}>
             <FormLabel htmlFor="calcado">Calçado</FormLabel>
             <InputGroup>
-              <InputLeftElement
-                pointerEvents="none"
-                children={<FaShoePrints color="#000E31" />}
-              />
+              <InputLeftElement pointerEvents="none">
+                <FaShoePrints color="#000E31" />
+              </InputLeftElement>
               <Input
                 id="calcado"
                 type="text"
                 placeholder="Calçado"
                 autoComplete="blank-calcado"
-                {...register("calcado", { required: true })}
+                {...register("calcado")}
               />
             </InputGroup>
             <FormErrorMessage>{errors.calcado?.message}</FormErrorMessage>
@@ -628,10 +639,9 @@ export default function FuncionarioCreation() {
           <FormControl className="mb-5" isInvalid={!!errors.iban}>
             <FormLabel htmlFor="iban">IBAN</FormLabel>
             <InputGroup>
-              <InputLeftElement
-                pointerEvents="none"
-                children={<FaCreditCard color="#000E31" />}
-              />
+              <InputLeftElement pointerEvents="none">
+                <FaCreditCard color="#000E31" />
+              </InputLeftElement>
               <Input
                 id="iban"
                 type="text"

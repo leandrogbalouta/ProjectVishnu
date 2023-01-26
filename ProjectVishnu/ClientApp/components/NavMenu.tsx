@@ -22,7 +22,6 @@ export default function NavMenu() {
   }
   useEffect(() => {
     darkTheme.current = localStorage.getItem("theme") === "dark";
-    console.log(darkTheme.current);
     changeCurrentTheme(darkTheme.current ? 'dark' : 'light');
   },[])
   return (
