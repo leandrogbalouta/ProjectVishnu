@@ -1,3 +1,4 @@
+// TODO in case u need an IBAN - IE64IRCE92050112345678
 import React, { useState, useEffect } from "react";
 import {
   CreateFuncionario,
@@ -18,6 +19,7 @@ import {
   Radio,
   RadioGroup,
   Select,
+  useToast,
 } from "@chakra-ui/react";
 import IFuncionarioInput from "../../common/Interfaces/Funcionario/IFuncionarioInput";
 import { useRouter } from "next/router";
@@ -84,12 +86,12 @@ export default function FuncionarioCreation() {
         .required("Por favor, introduza a categoria profissional."),
       nif: yup
         .string()
-        .matches(/[0-9]+/, "NIF inválido")
+        .matches(/[0-9]+/, "NIF inválido.")
         .length(9, "NIF consiste em 9 dígitos.")
         .required("Por favor, introduza o NIF."),
       niss: yup
         .string()
-        .matches(/[0-9]+/, "NISS inválido")
+        .matches(/[0-9]+/, "NISS inválido.")
         .length(11, "NISS consiste em 11 dígitos.")
         .required("Por favor, introduza o NISS."),
       morada: yup
@@ -97,15 +99,12 @@ export default function FuncionarioCreation() {
         .required("Por favor, introduza o endereço de morada."),
       contratoinicio: yup
         .string()
-        .transform((value, originalValue) => (value = originalValue))
-        .nullable()
-        .notRequired(),
+        .transform((value, originalValue) => (value = originalValue)).required("Por favor, introduza a data de início."),
       //.transform((value) => (isNaN(value) ? undefined : value)),
       contratofim: yup
         .string()
         .transform((value, originalValue) => (value = originalValue))
-        .nullable()
-        .notRequired(),
+        .required("Por favor, introduza a data de término."),
       //.transform((value) => (isNaN(value) ? undefined : value)),
       vencimentobase: yup
         .number()
@@ -115,7 +114,7 @@ export default function FuncionarioCreation() {
         .required("Por favor, introduza o vencimento base."),
       tiposalario: yup
         .string()
-        .required("Por favor, introduza o tipo de salário"),
+        .required("Por favor, introduza o tipo de salário."),
       salarioreal: yup
         .number()
         .transform((value) => (isNaN(value) ? undefined : value))
@@ -124,8 +123,8 @@ export default function FuncionarioCreation() {
         .required("Por favor, introduza o salário real."),
       calcado: yup
         .number()
-        .transform(value => (isNaN(value) ? undefined : value)) 
-        .typeError("Tamanho inválido")
+        .transform((value) => (isNaN(value) ? undefined : value))
+        .typeError("Tamanho inválido.")
         .min(20, "Mínimo 20")
         .max(50, "Máximo 50"),
       cartaconducao: yup.boolean(),
@@ -138,13 +137,15 @@ export default function FuncionarioCreation() {
         .min(16)
         .max(34)
         .matches(/^([A-Z]{2})(\d{2})([A-Z\d]+)$/)
-        .required("Por favor, introduza o IBAN"),
-      passaporte: yup.string().when("tipodocident"!, {
-        is: (tipodocident: string) => tipodocident === "MI",
-        then: yup
-          .string()
-          .required("I am required now that both checkboxes are checked"),
-      }),
+        .required("Por favor, introduza o IBAN."),
+      passaporte: yup
+        .string()
+        .when("tipodocident", {
+          is: (tipodocident: string) => tipodocident === "MI",
+          then: yup
+            .string()
+            .required("Por favor introduza o número do seu passaporte."),
+        }),
     })
     .required();
 
@@ -191,13 +192,23 @@ export default function FuncionarioCreation() {
   }, []);
   // Component
   async function AddFuncionario(funcionario: IFuncionarioInput) {
-    console.log(funcionario);
     const resp = await CreateFuncionario(funcionario);
+    const toast = useToast();
     if (resp.status === 201) {
-      const location = resp!.headers!.get("location")!.toLowerCase();
-      const array = location.split("api");
-      const result = array.pop();
-      router.push(result!);
+      // router.push({
+      //   pathname: '/funcionarios',
+      //   query: { sucesso: true }
+      // }, '/funcionarios');
+      if (!toast.isActive('sucesso')) {
+        toast({
+          id: 'sucesso',
+          title: `Funcionário criado com sucesso.`,
+          position: 'bottom-right',
+          duration: 5000,
+          status: 'success',
+          isClosable: true,
+        })
+      }
     }
   }
 
@@ -355,7 +366,7 @@ export default function FuncionarioCreation() {
           {tipodocidentState! === "MI" && (
             <>
               {/* passaporte field */}
-              <FormControl className="mb-5">
+              <FormControl className="mb-5" isInvalid={!!errors.passaporte}>
                 <FormLabel htmlFor="passaporte">Passaporte</FormLabel>
                 <InputGroup>
                   <InputLeftElement pointerEvents="none">
@@ -369,6 +380,7 @@ export default function FuncionarioCreation() {
                     {...register("passaporte")}
                   />
                 </InputGroup>
+                <FormErrorMessage>{errors.passaporte?.message}</FormErrorMessage>
               </FormControl>
             </>
           )}

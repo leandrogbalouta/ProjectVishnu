@@ -4,7 +4,7 @@ import CustomNavLink from "./CustomNavLink";
 import { useState } from "react";
 import { RiMenu4Line } from "react-icons/ri";
 import { BsFillMoonStarsFill, BsFillSunFill } from "react-icons/bs";
-import ThemeContext from './themeContext';
+import ThemeContext from './contexts/Theme/themeContext';
 
 export default function NavMenu() {
   const [toggleNav, setToggleNav] = useState<boolean>(false);

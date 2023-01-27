@@ -46,7 +46,6 @@ namespace ProjectVishnu.Controllers
         {
             Funcionario result = _funcionariosService.Get(id);
             return result == null ? NotFound() : Ok(result.toOutputModel());
-            
         }
 
         [HttpPost]

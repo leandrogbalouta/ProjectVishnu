@@ -6,5 +6,4 @@ const defaultValue = {
 }
 
 const ThemeContext = createContext(defaultValue)
-
 export default ThemeContext
