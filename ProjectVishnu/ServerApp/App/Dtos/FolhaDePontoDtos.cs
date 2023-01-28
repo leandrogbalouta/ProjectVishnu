@@ -44,7 +44,7 @@ namespace ProjectVishnu.ServerApp.App.Dtos
         public FolhaDePontoInfoModel Info { get; set; }
         public Dictionary<string, Dictionary<int, decimal>> FuncWorkDays { get; set; }
         public Dictionary<string, decimal> FinalValue { get; set; }
-        public List<FuncionarioOutputModel> funcionariosOutputModel { get; set; }
+        public List<FuncionarioOutputModel> Funcionarios { get; set; }
         public List<int> Limits { get; set; }
         public List<int> Saturdays { get; set; }
         public List<int> Sundays { get; set; }

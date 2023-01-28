@@ -16,9 +16,9 @@ namespace ProjectVishnu.Models
         public string Mes { get; set; } = null!;
         public string Ano { get; set; }
         public string Obra { get; set; } = null!;
-        public string? Mercado { get; set; }
+        public string Mercado { get; set; }
 
-        public virtual Mercado? MercadoNavigation { get; set; }
+        public virtual Mercado MercadoNavigation { get; set; }
         public virtual Obra ObraNavigation { get; set; } = null!;
 
         public virtual ICollection<SalarioFinal> IdSalarios { get; set; }

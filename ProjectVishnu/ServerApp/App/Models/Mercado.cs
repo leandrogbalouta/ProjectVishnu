@@ -14,9 +14,9 @@ namespace ProjectVishnu.Models
         }
 
         public string Mercadoname { get; set; } = null!;
-        public string? Sigla { get; set; }
-        public int? DiaInicio { get; set; }
-        public int? DiaFim { get; set; }
+        public string Sigla { get; set; }
+        public int DiaInicio { get; set; }
+        public int DiaFim { get; set; }
 
         public virtual ICollection<FolhaDePonto> FolhaDePontos { get; set; }
         public virtual ICollection<Funcionario> Funcionarios { get; set; }

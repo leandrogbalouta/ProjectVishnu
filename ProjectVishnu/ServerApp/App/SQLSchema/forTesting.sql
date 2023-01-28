@@ -22,9 +22,9 @@ CREATE TABLE CATEGORIAS_PROFISSIONAIS(
 
 CREATE TABLE MERCADO(
 		MercadoName varchar(40) primary key,
-		Sigla varchar(2),
-		Dia_Inicio int,
-		Dia_Fim int
+		Sigla varchar(2) NOT NULL,
+		Dia_Inicio int NOT NULL,
+		Dia_Fim int NOT NULL
 );
 
 CREATE TABLE FUNCIONARIO(
@@ -86,7 +86,7 @@ CREATE TABLE DIA_TRABALHO(
 		constraint chk_Mes CHECK(Mes IN('01', '02', 
         '03', '04', '05', '06', '07', '08', 
         '09', '10', '11', '12')),
-		primary key(Funcionario, CodigoObra, Dia, Mes, Ano)
+		primary key(Funcionario, Dia, Mes, Ano)
 );
 
 CREATE TABLE SALARIO_FINAL(
@@ -103,8 +103,8 @@ CREATE TABLE FOLHA_DE_PONTO(
 		Id INT UNIQUE GENERATED ALWAYS AS IDENTITY,
 		Mes varchar(9) NOT NULL, 
         Ano varchar(4) NOT NULL,
-		Obra varchar(20) references Obra(CodigoInterno),
-		Mercado varchar(40) references MERCADO(mercadoName),
+		Obra varchar(20) references Obra(CodigoInterno) NOT NULL,
+		Mercado varchar(40) references MERCADO(mercadoName) NOT NULL,
 		primary key(Mes,Ano,Obra)
 );
 

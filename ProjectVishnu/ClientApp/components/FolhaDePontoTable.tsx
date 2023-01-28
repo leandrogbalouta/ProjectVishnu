@@ -12,7 +12,7 @@ import { fetchFolhaDePontoByMercado, submitFolhaDePontoValues } from "../common/
 import IFolhaDePontoOutput from "../common/Interfaces/FolhaDePonto/IFolhaDePontoOutput";
 import IFuncionarioOutput from "../common/Interfaces/Funcionario/IFuncionarioOutput";
 import FolhaDePontoValuesInput, { FuncDaysOfWorkInput } from "../common/Interfaces/FolhaDePonto/IFolhaDePontoInput";
-import IFuncionarioInput, { funcionarioOutputToInput } from "../common/Interfaces/Funcionario/IFuncionarioInput";
+import IFuncionarioInput from "../common/Interfaces/Funcionario/IFuncionarioInput";
 
 type FolhaDePontoTableProps = {
     folhaDePontoData : IFolhaDePontoOutput,
@@ -87,11 +87,15 @@ export function FolhaDePontoTable({ folhaDePontoData, submitValues } : FolhaDePo
                     </Thead>
                     <Tbody>
                         {funcRows.map(f => 
-                            <Tr key={f.func.id}>
-                                <Td className="border-collapse border-2 border-slate-300">{f.func.nome}</Td>
-                                {f.data}
-                                <Td className="border-collapse border-2 border-slate-300" id={`Val${f.func.id}`} contentEditable={submitValues !== undefined}></Td>
-                            </Tr>
+                            {
+                                return <Tr key={f.func.id}>
+                                    <Td className="border-collapse border-2 border-slate-300">{f.func.nome}</Td>
+                                    {f.data}
+                                    {!folhaDePontoData.finalValue && <Td className="border-collapse border-2 border-slate-300" id={`Val${f.func.id}`} contentEditable={submitValues !== undefined}></Td>}
+                                    {folhaDePontoData.finalValue && <Td className="border-collapse border-2 border-slate-300" id={`Val${f.func.id}`} contentEditable={submitValues !== undefined}>{folhaDePontoData.finalValue[f.func.nif as keyof Map<string, number>]}</Td>}
+
+                                </Tr>;
+                            }
                         )}
                     </Tbody>
                 </Table>
@@ -100,11 +104,11 @@ export function FolhaDePontoTable({ folhaDePontoData, submitValues } : FolhaDePo
         )
     }
 
-    function getFuncRows(data : IFolhaDePontoOutput, days : React.ReactElement[]) : {func : IFuncionarioOutput, data : React.ReactElement[]}[]{
+    function getFuncRows(folhaData : IFolhaDePontoOutput, days : React.ReactElement[]) : {func : IFuncionarioOutput, data : React.ReactElement[]}[]{
         const funcRows : {func : IFuncionarioOutput, data : React.ReactElement[]}[] = []
     
-        console.log(data)
-        data.funcionarios.forEach(func => {
+        console.log(folhaData)
+        folhaData.funcionarios.forEach(func => {
             funcRows.push(
                 {func : func, data : []}
             )
@@ -112,9 +116,21 @@ export function FolhaDePontoTable({ folhaDePontoData, submitValues } : FolhaDePo
     
         funcRows.forEach(row => {
             days.forEach(day => {
-                row.data.push(
-                    <Td contentEditable={submitValues !== undefined} id={`Func${row.func.id}Day${day.props.children}`} className={getClassName(data, day.props.children)}></Td>
-                )
+                let funcNif = row.func.nif as keyof Map<string, Map<number, number>>
+                let daysOfFunc = folhaData.funcWorkDays[funcNif].valueOf()
+                console.log(daysOfFunc)
+                let dayNumber = day.props.children as keyof Object
+                let hours = daysOfFunc[dayNumber] as unknown as number
+                if(hours != 0){
+                    row.data.push(
+                        <Td contentEditable={submitValues !== undefined} id={`Func${row.func.id}Day${day.props.children}`} className={getClassName(folhaData, day.props.children)}>{hours}</Td>
+                    )
+                }else{
+                    row.data.push(
+                        <Td contentEditable={submitValues !== undefined} id={`Func${row.func.id}Day${day.props.children}`} className={getClassName(folhaData, day.props.children)}></Td>
+                    )
+                }
+                
             })
         })
     

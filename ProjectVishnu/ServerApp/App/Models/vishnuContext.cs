@@ -98,7 +98,7 @@ namespace ProjectVishnu.Models
 
             modelBuilder.Entity<DiaTrabalho>(entity =>
             {
-                entity.HasKey(e => new { e.Funcionario, e.Codigoobra, e.Dia, e.Mes, e.Ano })
+                entity.HasKey(e => new { e.Funcionario, e.Dia, e.Mes, e.Ano })
                     .HasName("dia_trabalho_pkey");
 
                 entity.ToTable("dia_trabalho");
@@ -172,6 +172,7 @@ namespace ProjectVishnu.Models
                 entity.HasOne(d => d.MercadoNavigation)
                     .WithMany(p => p.FolhaDePontos)
                     .HasForeignKey(d => d.Mercado)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("folha_de_ponto_mercado_fkey");
 
                 entity.HasOne(d => d.ObraNavigation)
