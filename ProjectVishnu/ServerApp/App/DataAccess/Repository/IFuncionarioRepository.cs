@@ -6,6 +6,7 @@ namespace ProjectVishnu.DataAccess.Repository
     {
         IEnumerable<Funcionario> ListByMarket(string mercado);
         IEnumerable<Funcionario> ListAlphabetically();
+        public IEnumerable<Funcionario> ListByMarketAndName(string mercado, string nome);
 
         IEnumerable<Funcionario> SearchByName(string nome);
 

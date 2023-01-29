@@ -12,9 +12,8 @@ export default function FolhaDePontoObra(){
     const router = useRouter();
     const data = router.query.data!.toString();
     const codigo = router.query.codigo!.toString();
-    const infoState = router.query.info !== undefined ? JSON.parse(router.query.info) as IFolhaDePontoOutput : undefined
+    const infoState = router.query.info !== undefined ? JSON.parse(router.query.info.toString()) as IFolhaDePontoOutput : undefined
     
-
     useEffect(() => {
         if(infoState !== undefined){
             setInfo(infoState)

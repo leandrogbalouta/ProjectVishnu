@@ -1,9 +1,11 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
-import { fetchObra, createFolhaDePonto, fetchFolhaDePontoAllByobra as fetchFolhaDePontoAllByObra } from "../../common/APICalls";
+import { fetchObra, createFolhaDePonto, fetchFolhaDePontoAllByobra as fetchFolhaDePontoAllByObra } from "../../../common/APICalls";
 import { Button, Input, Spinner, Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
-import IObraOutput from "../../common/Interfaces/Obra/IObraOutput";
+import IObraOutput from "../../../common/Interfaces/Obra/IObraOutput";
 import { useRouter } from 'next/router';
-import IFolhaDePontoOutput from "../../common/Interfaces/FolhaDePonto/IFolhaDePontoOutput";
+import IFolhaDePontoOutput from "../../../common/Interfaces/FolhaDePonto/IFolhaDePontoOutput";
+import FolhaDePontoObra from './folha-de-ponto/[data]';
+import IFolhaDePontoInfoModel from '../../../common/Interfaces/FolhaDePonto/IFolhaDePontoInfoModel';
 
 
 //TODO: ADICIONAR LISTA DE FOLHAS DE PONTO JÁ CRIADAS
@@ -27,7 +29,6 @@ export default function Obra() {
   async function submitFolhaDePonto() {
     const monthInput = document.getElementById("date");
     const date = monthInput!.nodeValue!;
-    console.log(data)
     const [ano, mes] = data.split("-");
 
     const resp = await createFolhaDePonto(mes, ano, codigo!);
@@ -68,16 +69,17 @@ export default function Obra() {
       <div>
         <Table className="" aria-labelledby="tabelLabel">
           <Thead>
-            <Tr>
+            <Tr className="data-table-header">
               <Th>Mes</Th>
               <Th>Ano</Th>
             </Tr>
           </Thead>
           <Tbody>
             {/* TODO check folhasdeponto type */}
-            {folhasDePonto && folhasDePonto.map((folhaDePonto: any) => (
+            {folhasDePonto && folhasDePonto.map((folhaDePonto: IFolhaDePontoInfoModel) => (
               <Tr
-                className="hover:bg-gray-200 cursor-pointer"
+                className="data-table-row"
+                key={`${folhaDePonto.ano}${folhaDePonto.mes}`}
                 onClick={() =>
                   redirectToFolhaDePonto(folhaDePonto)
                 }
@@ -88,22 +90,28 @@ export default function Obra() {
             ))}
           </Tbody>
         </Table>
-        <label htmlFor="date">Start date:</label>
-        <Input
-          type="month"
-          id="date"
-          value={data}
-          min="2018-01"
-          max="2050-12"
-          onChange={handleChange}
-        />
-        <Button
-          type="button"
-          className="btn btn-primary"
-          onClick={() => submitFolhaDePonto()}
-        >
-          Criar Folha de Ponto
-        </Button>
+        <div id="create-folha-de-ponto-container">
+          <label htmlFor="date">Data de início:</label>
+          <div id="create-folha-de-ponto-inner-container" className="flex">
+            <Input
+              type="month"
+              id="date"
+              value={data}
+              min="2018-01"
+              max="2050-12"
+              onChange={handleChange}
+            />
+            <div id="button-container">
+              <Button
+                colorScheme="blue"
+                className="p-1"
+                onClick={() => submitFolhaDePonto()}
+              >
+                Criar Folha de Ponto
+              </Button>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

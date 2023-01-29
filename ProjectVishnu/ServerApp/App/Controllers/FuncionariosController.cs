@@ -26,7 +26,11 @@ namespace ProjectVishnu.Controllers
         public IActionResult List([FromQuery(Name = "mercado")] string? mercado, [FromQuery(Name = "nome")] string? nome)
         {
             IEnumerable<Funcionario> funcionariosList;
-            if (mercado != null)
+            if (mercado != null && nome != null)
+            {
+                funcionariosList = _funcionariosService.ListByMarketAndName(mercado, nome);
+            }
+            else if (mercado != null)
             {
                 funcionariosList = _funcionariosService.ListByMarket(mercado);
             }
@@ -34,7 +38,8 @@ namespace ProjectVishnu.Controllers
             {
                 funcionariosList = _funcionariosService.GetByName(nome);
             }
-            else if(!Request.QueryString.HasValue)
+            // TODO BREAKING CHANGES ao usar !Request.QueryString.HasValue,ao carregar funcionarios o valor é sempre true
+            else if (Request.QueryString.HasValue)
             {
                 funcionariosList = _funcionariosService.ListAlphabetically();
             }
@@ -78,7 +83,7 @@ namespace ProjectVishnu.Controllers
             {
                 string erroCode = ex.InnerException!.Data["SqlState"]!.ToString()!;
                 // 23505 significa primary key duplicada.
-                string errorMessage = (erroCode.Equals("23505")) ? "NIF duplicado." : "Ocoreu um erro, por favor tente novamente, se o erro persistir, entre em contacto connosco."; 
+                string errorMessage = (erroCode.Equals("23505")) ? "NIF duplicado." : "Ocoreu um erro, por favor tente novamente, se o erro persistir, entre em contacto connosco.";
                 return new JsonResult(errorMessage);
             }
         }
@@ -88,7 +93,7 @@ namespace ProjectVishnu.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult Edit(int id, [FromBody] FuncionarioInputModel funcionario) // levar um segundo parâmetro com os parâmetros necessários para editar um funcionário(possivelmente necessário criar um dto)
         {
-            if(Request.QueryString.HasValue) return BadRequest();
+            if (Request.QueryString.HasValue) return BadRequest();
             string result = _funcionariosService.Update(funcionario);
             return result == null ? BadRequest() : Ok(result);
         }

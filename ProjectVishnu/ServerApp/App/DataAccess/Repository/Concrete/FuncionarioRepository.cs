@@ -15,8 +15,12 @@ namespace ProjectVishnu.DataAccess.Repository.Concrete
         }
         public IEnumerable<Funcionario> ListByMarket(string mercado)
         {
-            return VishnuContext.Funcionarios.Where(FuncionarioExists).Where(func => func.Mercado.Contains(mercado)).OrderBy(func => func.Nome);
-
+            return VishnuContext.Funcionarios.Where(FuncionarioExists).Where(func => func.Mercado!.Contains(mercado)).OrderBy(func => func.Nome);
+        }
+        // Testin'
+        public IEnumerable<Funcionario> ListByMarketAndName(string mercado, string nome)
+        {
+            return VishnuContext.Funcionarios.Where(FuncionarioExists).Where(func => func.Mercado!.Contains(mercado) && func.Nome.Contains(nome)).OrderBy(func => func.Nome);
         }
 
         public IEnumerable<Funcionario> ListAlphabetically()

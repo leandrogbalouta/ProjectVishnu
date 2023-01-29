@@ -23,22 +23,22 @@ export default function Funcionarios() {
   // Se for redirect de /funcionario/create, a variavel abaixo será positiva.
   const isFuncionarioCriado = router.query.successo;
   // referente a funcionario/create
-  const toast = useToast()
+  const toast = useToast();
   useEffect(() => {
-    if(isFuncionarioCriado) {
-      if (!toast.isActive('sucesso')) {
+    console.log(isFuncionarioCriado);
+    if (isFuncionarioCriado) {
+      if (!toast.isActive("sucesso")) {
         toast({
-          id: 'sucesso',
+          id: "sucesso",
           title: `Funcionário criado com sucesso.`,
-          position: 'bottom-right',
+          position: "bottom-right",
           duration: 5000,
-          status: 'success',
+          status: "success",
           isClosable: true,
-        })
+        });
       }
     }
-  },[isFuncionarioCriado,toast]);
-
+  }, [isFuncionarioCriado, toast]);
 
   async function redirectToFuncionario(id: number) {
     router.push(`/funcionarios/${id}`);
@@ -48,8 +48,11 @@ export default function Funcionarios() {
     router.push("/funcionarios/create");
   }
 
-  let contents =
-    (!funcionarios) ? <Spinner /> : renderFuncionariosTable(funcionarios);
+  let contents = !funcionarios ? (
+    <Spinner />
+  ) : (
+    renderFuncionariosTable(funcionarios)
+  );
 
   useEffect(() => {
     const filters = Object.assign(
@@ -94,18 +97,19 @@ export default function Funcionarios() {
               </Tr>
             </Thead>
             <Tbody>
-              {funcionarios.map((funcionario) => (
-                <Tr
-                  className="data-table-row"
-                  onClick={() => redirectToFuncionario(funcionario.id)}
-                  key={funcionario.nif}
-                >
-                  <Td>{funcionario.nome}</Td>
-                  <Td>{funcionario.nif}</Td>
-                  <Td>{funcionario.niss}</Td>
-                  <Td className="capitalize">{funcionario.mercado}</Td>
-                </Tr>
-              ))}
+              {funcionarios &&
+                funcionarios.map((funcionario) => (
+                  <Tr
+                    className="data-table-row"
+                    onClick={() => redirectToFuncionario(funcionario.id)}
+                    key={funcionario.nif}
+                  >
+                    <Td>{funcionario.nome}</Td>
+                    <Td>{funcionario.nif}</Td>
+                    <Td>{funcionario.niss}</Td>
+                    <Td className="capitalize">{funcionario.mercado}</Td>
+                  </Tr>
+                ))}
             </Tbody>
           </Table>
         </div>

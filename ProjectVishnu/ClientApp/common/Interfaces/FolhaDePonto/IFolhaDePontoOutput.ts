@@ -2,9 +2,9 @@ import IFuncionarioOutput from "../Funcionario/IFuncionarioOutput"
 
 export default interface IFolhaDePontoOutput {
     info : FolhaDePontoInfo,
-    funcWorkDays : Map<string, Map<number, number>>,
+    funcWorkDays : Record<string, Record<number, number>>,
     funcionarios : IFuncionarioOutput[]
-    finalValue : Map<string, number>,
+    finalValue : Record<string, number>,
     limits : number[],
     saturdays : number[],
     sundays : number[],

@@ -80,8 +80,7 @@ export default function FuncionarioCreation() {
       validadedocident: yup
         .string()
         .transform((value, originalValue) => (value = originalValue))
-        .nullable()
-        .notRequired(),
+        .required("Por favor, introduza a data de expiração do documento de identificação"),
       //.transform((value) => (isNaN(value) ? undefined : value)),
       catprof: yup
         .string()
@@ -164,7 +163,6 @@ export default function FuncionarioCreation() {
   };
   // UseEffect
   useEffect(() => {
-    // TODO se calhar mudar a maneira como isto é executado..
     // Get Tipos de documento
     const populateTiposDocInt = async () => {
       const response = await fetchTiposDocumento();
@@ -202,16 +200,17 @@ export default function FuncionarioCreation() {
             },
             "/funcionarios"
           );
-          if (!toast.isActive("sucesso")) {
-            toast({
-              id: "sucesso",
-              title: `Funcionário criado com sucesso.`,
-              position: "bottom-right",
-              duration: 5000,
-              status: "success",
-              isClosable: true,
-            });
-          }
+          // TODO check if needed, flow should be create -> index -> toast
+          // if (!toast.isActive("sucesso")) {
+          //   toast({
+          //     id: "sucesso",
+          //     title: `Funcionário criado com sucesso.`,
+          //     position: "bottom-right",
+          //     duration: 5000,
+          //     status: "success",
+          //     isClosable: true,
+          //   });
+          // }
         } else {
           if (!toast.isActive("erro")) {
             toast({

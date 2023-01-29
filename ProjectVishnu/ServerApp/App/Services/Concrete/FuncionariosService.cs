@@ -23,6 +23,16 @@ namespace ProjectVishnu.Services
                 return null;
             }
         }
+        public IEnumerable<Funcionario> ListByMarketAndName(string mercado, string nome)
+        {
+            try
+            {
+                return _unitOfWork.Funcionarios.ListByMarketAndName(mercado, nome);
+            }catch(Exception e)
+            {
+                return null;
+            }
+        }
 
         public IEnumerable<Funcionario> ListAlphabetically()
         {
