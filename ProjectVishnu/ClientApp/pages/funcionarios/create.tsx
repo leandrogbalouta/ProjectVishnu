@@ -26,6 +26,7 @@ import { useRouter } from "next/router";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { useRef } from "react";
 import {
   FaCalendarAlt,
   FaCreditCard,
@@ -49,6 +50,7 @@ export default function FuncionarioCreation() {
   const [tiposDeDocumento, setTiposDeDocumento] = useState<any[]>([]);
   const [mercados, setMercados] = useState<string[]>([]);
   const router = useRouter();
+  const toast = useToast();
   // Form
   const schema = yup
     .object({
@@ -99,7 +101,8 @@ export default function FuncionarioCreation() {
         .required("Por favor, introduza o endereço de morada."),
       contratoinicio: yup
         .string()
-        .transform((value, originalValue) => (value = originalValue)).required("Por favor, introduza a data de início."),
+        .transform((value, originalValue) => (value = originalValue))
+        .required("Por favor, introduza a data de início."),
       //.transform((value) => (isNaN(value) ? undefined : value)),
       contratofim: yup
         .string()
@@ -138,14 +141,12 @@ export default function FuncionarioCreation() {
         .max(34)
         .matches(/^([A-Z]{2})(\d{2})([A-Z\d]+)$/)
         .required("Por favor, introduza o IBAN."),
-      passaporte: yup
-        .string()
-        .when("tipodocident", {
-          is: (tipodocident: string) => tipodocident === "MI",
-          then: yup
-            .string()
-            .required("Por favor introduza o número do seu passaporte."),
-        }),
+      passaporte: yup.string().when("tipodocident", {
+        is: (tipodocident: string) => tipodocident === "MI",
+        then: yup
+          .string()
+          .required("Por favor introduza o número do seu passaporte."),
+      }),
     })
     .required();
 
@@ -159,9 +160,7 @@ export default function FuncionarioCreation() {
   const onSubmit: SubmitHandler<IFuncionarioInput> = async (
     data: IFuncionarioInput
   ) => {
-    try {
-      AddFuncionario(data);
-    } catch (error) {}
+    AddFuncionario(data);
   };
   // UseEffect
   useEffect(() => {
@@ -192,24 +191,41 @@ export default function FuncionarioCreation() {
   }, []);
   // Component
   async function AddFuncionario(funcionario: IFuncionarioInput) {
-    const resp = await CreateFuncionario(funcionario);
-    const toast = useToast();
-    if (resp.status === 201) {
-      // router.push({
-      //   pathname: '/funcionarios',
-      //   query: { sucesso: true }
-      // }, '/funcionarios');
-      if (!toast.isActive('sucesso')) {
-        toast({
-          id: 'sucesso',
-          title: `Funcionário criado com sucesso.`,
-          position: 'bottom-right',
-          duration: 5000,
-          status: 'success',
-          isClosable: true,
-        })
-      }
-    }
+    await CreateFuncionario(funcionario)
+      .then((resp) => resp.json())
+      .then((resp) => {
+        if (resp.status === 201) {
+          router.push(
+            {
+              pathname: "/funcionarios",
+              query: { sucesso: true },
+            },
+            "/funcionarios"
+          );
+          if (!toast.isActive("sucesso")) {
+            toast({
+              id: "sucesso",
+              title: `Funcionário criado com sucesso.`,
+              position: "bottom-right",
+              duration: 5000,
+              status: "success",
+              isClosable: true,
+            });
+          }
+        } else {
+          if (!toast.isActive("erro")) {
+            toast({
+              id: "erro",
+              title: resp,
+              position: "bottom-right",
+              duration: 10000,
+              status: "error",
+              isClosable: true,
+            });
+          }
+        }
+      })
+      .catch((error) => {});
   }
 
   return (
@@ -380,7 +396,9 @@ export default function FuncionarioCreation() {
                     {...register("passaporte")}
                   />
                 </InputGroup>
-                <FormErrorMessage>{errors.passaporte?.message}</FormErrorMessage>
+                <FormErrorMessage>
+                  {errors.passaporte?.message}
+                </FormErrorMessage>
               </FormControl>
             </>
           )}

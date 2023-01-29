@@ -29,14 +29,14 @@ export async function fetchFuncionario(id: string) {
   return fetch(path);
 }
 
-export async function CreateFuncionario(functionario: IFuncionarioInput) {
+export async function CreateFuncionario(funcionario: IFuncionarioInput) {
   const path = "/api/funcionarios";
   return fetch(path, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(functionario),
+    body: JSON.stringify(funcionario),
   });
 }
 // Obra

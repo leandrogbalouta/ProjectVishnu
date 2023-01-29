@@ -2,6 +2,8 @@
 using ProjectVishnu.Models;
 using ProjectVishnu.Services;
 using ProjectVishnu.ServerApp.App.Dtos;
+using Npgsql;
+using Microsoft.EntityFrameworkCore;
 
 namespace ProjectVishnu.Controllers
 {
@@ -22,14 +24,14 @@ namespace ProjectVishnu.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult List([FromQuery(Name = "mercado")] string? mercado, [FromQuery(Name = "nome")] string? nome)
         {
-            IEnumerable<Funcionario > funcionariosList;
-            if (mercado != null )
+            IEnumerable<Funcionario> funcionariosList;
+            if (mercado != null)
             {
-                    funcionariosList = _funcionariosService.ListByMarket(mercado);
+                funcionariosList = _funcionariosService.ListByMarket(mercado);
             }
-            else if(nome != null)
+            else if (nome != null)
             {
-                    funcionariosList = _funcionariosService.GetByName(nome);
+                funcionariosList = _funcionariosService.GetByName(nome);
             }
             else
             {
@@ -51,16 +53,26 @@ namespace ProjectVishnu.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(string))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public IActionResult Create([FromBody] FuncionarioInputModel funcionarioInput) // levar um segundo parâmetro com os parâmetros necessários para editar um funcionário(possivelmente necessário criar um dto)
+        public IActionResult Create([FromBody] FuncionarioInputModel funcionarioInput) // TODO levar um segundo parâmetro com os parâmetros necessários para editar um funcionário(possivelmente necessário criar um dto)
         {
-            int result = _funcionariosService.Create(funcionarioInput);
-            var actionName = nameof(FuncionariosController.Get);
-            var routeValues = new
+            try
             {
-                id = result
-            };
-            ActionResult a = CreatedAtAction(actionName, routeValues, funcionarioInput);
-            return a;
+                int result = _funcionariosService.Create(funcionarioInput);
+                var actionName = nameof(FuncionariosController.Get);
+                var routeValues = new
+                {
+                    id = result
+                };
+                ActionResult a = CreatedAtAction(actionName, routeValues, funcionarioInput);
+                return a;
+            }
+            catch (Exception ex)
+            {
+                string erroCode = ex.InnerException!.Data["SqlState"]!.ToString()!;
+                // 23505 significa primary key duplicada.
+                string errorMessage = (erroCode.Equals("23505")) ? "NIF duplicado." : "Ocoreu um erro, por favor tente novamente, se o erro persistir, entre em contacto connosco."; 
+                return new JsonResult(errorMessage);
+            }
         }
 
         [HttpPut("{id}")]
@@ -80,8 +92,8 @@ namespace ProjectVishnu.Controllers
 
             string result = _funcionariosService.Delete(id);
             return result == null ? BadRequest() : Ok(result);
-            
-             
+
+
         }
     }
 }
