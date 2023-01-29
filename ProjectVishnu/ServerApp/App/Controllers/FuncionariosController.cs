@@ -22,6 +22,7 @@ namespace ProjectVishnu.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<FuncionarioOutputModel>))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult List([FromQuery(Name = "mercado")] string? mercado, [FromQuery(Name = "nome")] string? nome)
         {
             IEnumerable<Funcionario> funcionariosList;
@@ -33,9 +34,13 @@ namespace ProjectVishnu.Controllers
             {
                 funcionariosList = _funcionariosService.GetByName(nome);
             }
-            else
+            else if(!Request.QueryString.HasValue)
             {
                 funcionariosList = _funcionariosService.ListAlphabetically();
+            }
+            else
+            {
+                return BadRequest();
             }
             return funcionariosList == null ? NotFound() : Ok(funcionariosList.Select(x => x.toOutputModel()));
 
@@ -44,8 +49,10 @@ namespace ProjectVishnu.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(FuncionarioOutputModel))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult Get(int id)
         {
+            if (Request.QueryString.HasValue) return BadRequest();
             Funcionario result = _funcionariosService.Get(id);
             return result == null ? NotFound() : Ok(result.toOutputModel());
         }
@@ -55,6 +62,7 @@ namespace ProjectVishnu.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult Create([FromBody] FuncionarioInputModel funcionarioInput) // TODO levar um segundo parâmetro com os parâmetros necessários para editar um funcionário(possivelmente necessário criar um dto)
         {
+            if (Request.QueryString.HasValue) return BadRequest();
             try
             {
                 int result = _funcionariosService.Create(funcionarioInput);
@@ -80,6 +88,7 @@ namespace ProjectVishnu.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult Edit(int id, [FromBody] FuncionarioInputModel funcionario) // levar um segundo parâmetro com os parâmetros necessários para editar um funcionário(possivelmente necessário criar um dto)
         {
+            if(Request.QueryString.HasValue) return BadRequest();
             string result = _funcionariosService.Update(funcionario);
             return result == null ? BadRequest() : Ok(result);
         }
@@ -89,7 +98,7 @@ namespace ProjectVishnu.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult Delete(int id)
         {
-
+            if (Request.QueryString.HasValue) return BadRequest();
             string result = _funcionariosService.Delete(id);
             return result == null ? BadRequest() : Ok(result);
 

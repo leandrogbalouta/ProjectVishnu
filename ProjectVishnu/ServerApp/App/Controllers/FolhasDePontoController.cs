@@ -19,8 +19,10 @@ namespace ProjectVishnu.ServerApp.App.Controllers
         }
 
         [HttpPost("/obras/{obraID}/folha-de-ponto")]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult Create(string obraID, [FromBody] FolhaDePontoInfoModel info)
         {
+            if (Request.QueryString.HasValue) return BadRequest();
             FolhaDePontoEmptyOutputModel model = _folhadepontoServices.GenerateWithInfo(obraID, info);
             var actionName = nameof(FolhasDePontoController.GetByObra);
             var controllerName = "FolhasDePonto";
@@ -37,8 +39,10 @@ namespace ProjectVishnu.ServerApp.App.Controllers
         [HttpGet("/obras/{obraID}/folha-de-ponto")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<FolhaDePontoInfoModel>))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult GetAllByObra(string obraID)
         {
+            if (Request.QueryString.HasValue) return BadRequest();
             var result = _folhadepontoServices.GetAllFromObra(obraID);
             return result == null ? NotFound() : Ok(result);
             
@@ -47,8 +51,10 @@ namespace ProjectVishnu.ServerApp.App.Controllers
         [HttpGet("/obras/{obraID}/folha-de-ponto/{date}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(FolhaDePontoValuesOutputModel))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult GetByObra(string obraID, string date)
         {
+            if (Request.QueryString.HasValue) return BadRequest();
             string[] dateValues = date.Split('-');
             string ano = dateValues[0];
             string mes = dateValues[1];
@@ -59,8 +65,10 @@ namespace ProjectVishnu.ServerApp.App.Controllers
         [HttpGet("/folha-de-ponto/{mercado}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<FolhaDePontoInfoModel>))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult GetAllByMercado(string mercado)
         {
+            if (Request.QueryString.HasValue) return BadRequest();
             var result = _folhadepontoServices.GetAllFromMercado(mercado);
             return result == null ? NotFound() : Ok(result);   
         }
@@ -68,8 +76,10 @@ namespace ProjectVishnu.ServerApp.App.Controllers
         [HttpGet("/folha-de-ponto/{mercado}/{date}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(FolhaDePontoValuesOutputModel))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult GetByMercado(string mercado, string date)
         {
+            if (Request.QueryString.HasValue) return BadRequest();
             string[] dateValues = date.Split('-');
             string ano = dateValues[0];
             string mes = dateValues[1];
@@ -78,8 +88,10 @@ namespace ProjectVishnu.ServerApp.App.Controllers
         }
 
         [HttpPut("/obras/{obraID}/folha-de-ponto/{date}")]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult setValues(string obraID, string date, [FromBody] FolhaDePontoValuesInputModel values)
         {
+            if (Request.QueryString.HasValue) return BadRequest();
             _folhadepontoServices.setValues(obraID, date, values);
             return Ok();
         }

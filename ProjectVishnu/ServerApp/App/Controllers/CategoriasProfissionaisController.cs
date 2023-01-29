@@ -19,8 +19,10 @@ namespace ProjectVishnu.ServerApp.App.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<CatProfInputModel>))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult List()
         {
+            if (Request.QueryString.HasValue) return BadRequest();
             var result = _catProfServices.ListAlphabetically();
             return result == null ? NotFound() : Ok(result);
         }
