@@ -52,7 +52,7 @@ export default function FilterBar({
   function useSearchBar() {
     if (searchBar) {
       return (
-        <form className="flex w-full" role="search">
+        <div className="flex w-full">
           <Input
             className="!bg-slate-50"
             id="searchBar"
@@ -61,6 +61,7 @@ export default function FilterBar({
             aria-label="Procurar"
             value={searchInputValue}
             onChange={(e) => setSearchInputValue(e.target.value)}
+            onKeyDown={(e) => { (e.key === "Enter") && onClickSearch(); }}
           />
           <IconButton
             aria-label='Procurar'
@@ -69,7 +70,7 @@ export default function FilterBar({
             icon={<BsSearch />}
             onClick={() => onClickSearch()}
           />
-        </form>
+        </div>
       );
     }
   }

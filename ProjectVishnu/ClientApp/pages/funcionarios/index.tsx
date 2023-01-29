@@ -49,7 +49,7 @@ export default function Funcionarios() {
   }
 
   let contents =
-    funcionarios === null ? <Spinner /> : renderFuncionariosTable(funcionarios);
+    (!funcionarios) ? <Spinner /> : renderFuncionariosTable(funcionarios);
 
   useEffect(() => {
     const filters = Object.assign(
