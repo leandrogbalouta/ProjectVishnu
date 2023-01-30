@@ -2,16 +2,15 @@ import { Spinner, Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { fetchFolhaDePontoAllByMercado } from "../../common/APICalls";
-import FilterBar from '../../components/FilterBar';
-import IFolhaDePontoOutput from '../../common/Interfaces/FolhaDePonto/IFolhaDePontoOutput';
-import IFolhaDePontoInfoModel from '../../common/Interfaces/FolhaDePonto/IFolhaDePontoInfoModel';
+import FilterBar from "../../components/FilterBar";
+import IFolhaDePontoOutput from "../../common/Interfaces/FolhaDePonto/IFolhaDePontoOutput";
+import IFolhaDePontoInfoModel from "../../common/Interfaces/FolhaDePonto/IFolhaDePontoInfoModel";
 
 export default function FolhasDePonto() {
   const [folhasDePonto, setFolhasDePonto] = useState(null);
   const [mercado, setMercado] = useState<string | null>("portugal");
   const router = useRouter();
-  console.log(router.query)
-  
+  console.log(router.query);
 
   async function redirectToFolhaDePonto(
     mes: string,
@@ -23,7 +22,7 @@ export default function FolhasDePonto() {
 
   let contents =
     folhasDePonto === null ? (
-      <Spinner/>
+      <Spinner />
     ) : (
       renderFolhasDePontoTable(folhasDePonto)
     );
@@ -38,8 +37,13 @@ export default function FolhasDePonto() {
   }, [mercado]);
 
   return (
-    <div>
+    <div className="flex flex-col flex-1 h-full">
       <h1 className="text-center text-4xl mb-5">Folhas De Ponto</h1>
+      <FilterBar
+        searchBar
+        setMercado={setMercado}
+        setSearchString={undefined}
+      />
       {contents}
     </div>
   );
@@ -47,12 +51,7 @@ export default function FolhasDePonto() {
   // TODO: folhasDePonto type
   function renderFolhasDePontoTable(folhasDePonto: IFolhaDePontoInfoModel[]) {
     return (
-      <div>
-        <FilterBar
-          searchBar
-          setMercado={setMercado}
-          setSearchString={undefined}
-        />
+      <div id="table-container" className="overflow-x-scroll flex-1">
         <Table className="" aria-labelledby="tabelLabel">
           <Thead>
             <Tr className="data-table-header">

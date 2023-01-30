@@ -46,22 +46,26 @@ export default function Obras() {
   }, [mercado, searchString]);
 
   return (
-    <div>
+    <div className="flex flex-col flex-1 h-full">
       <h1 className="text-center text-4xl mb-5">Obras</h1>
+      <FilterBar
+        setMercado={setMercado}
+        setSearchString={setSearchString}
+        searchBar
+      />
+
       {contents}
+      <div id="button-container" className="flex justify-end mt-3">
+        <Button onClick={() => redirectToObraCreation()} colorScheme="blue">
+          Criar
+        </Button>
+      </div>
     </div>
   );
 
   function renderObrasTable(Obras: IObraOutput[]) {
     return (
-      <div className="flex flex-col">
-        <div id="filter-bar-container" className="flex ">
-          <FilterBar
-            setMercado={setMercado}
-            setSearchString={setSearchString}
-            searchBar={true}
-          />
-        </div>
+      <div id="table-container" className="overflow-x-scroll flex-1">
         <Table className="table table-striped" aria-labelledby="tabelLabel">
           <Thead>
             <Tr className="data-table-header">
@@ -73,11 +77,11 @@ export default function Obras() {
           </Thead>
           <Tbody>
             {Obras.map((obra) => (
-                <Tr
+              <Tr
                 className="data-table-row"
                 onClick={() => redirectToObra(obra.codigoInterno)}
                 key={obra.codigoInterno}
-                >
+              >
                 <Td>{obra.codigoInterno}</Td>
                 <Td>{obra.designacao}</Td>
                 <Td>{obra.cliente}</Td>
@@ -86,14 +90,6 @@ export default function Obras() {
             ))}
           </Tbody>
         </Table>
-        <div id="button-container" className="flex justify-end mt-3">
-          <Button
-            onClick={() => redirectToObraCreation()}
-            colorScheme="blue"
-          >
-            Criar
-          </Button>
-        </div>
       </div>
     );
   }
