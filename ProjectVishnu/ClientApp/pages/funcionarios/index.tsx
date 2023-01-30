@@ -17,8 +17,8 @@ import FilterBar from "../../components/FilterBar";
 
 export default function Funcionarios() {
   const [funcionarios, setFuncionarios] = useState([]);
-  const [mercado, setMercado] = useState("");
-  const [searchString, setSearchString] = useState("");
+  const [mercado, setMercado] = useState(null);
+  const [searchString, setSearchString] = useState(null);
   const router = useRouter();
   // Se for redirect de /funcionario/create, a variavel abaixo será positiva.
   const isFuncionarioCriado = router.query.successo;
@@ -57,10 +57,8 @@ export default function Funcionarios() {
   useEffect(() => {
     const filters = Object.assign(
       {},
-      // mercado === null ? null : { mercado: mercado },
-      // searchString === null ? null : { nome: searchString }
-      { mercado: mercado ?? null },
-      { nome: searchString ?? null }
+      mercado === null ? null : { mercado: mercado },
+      searchString === null ? null : { nome: searchString }
     );
 
     const populateFuncionariosData = async () => {

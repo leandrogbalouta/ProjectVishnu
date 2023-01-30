@@ -27,7 +27,6 @@ export default function FilterBar({
   const [searchInputValue, setSearchInputValue] = useState<string>("");
   function onClickSearch() {
     setSearchString(searchInputValue);
-    console.log("asdasd");
   }
 
   function onClickDropDownItem(mercado: string | undefined) {

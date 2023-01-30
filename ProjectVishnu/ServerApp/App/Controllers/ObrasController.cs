@@ -27,14 +27,10 @@ namespace ProjectVishnu.Controllers
             {
                 obraList = _obrasService.ListAlphabetically();
             }
-            else if(!Request.QueryString.HasValue)
+            else
             {
                 obraList = _obrasService.ListByMarket(mercado);
 
-            }
-            else
-            {
-                return BadRequest();
             }
             return obraList == null ? NotFound() : Ok(obraList.Select(obra => obra.toObraOutputModel()));
         }

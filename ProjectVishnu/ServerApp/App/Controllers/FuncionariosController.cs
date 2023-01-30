@@ -30,6 +30,10 @@ namespace ProjectVishnu.Controllers
             {
                 funcionariosList = _funcionariosService.ListByMarketAndName(mercado, nome);
             }
+            else if(mercado == null && nome == null)
+            {
+                funcionariosList = _funcionariosService.ListAlphabetically();
+            }
             else if (mercado != null)
             {
                 funcionariosList = _funcionariosService.ListByMarket(mercado);
@@ -37,16 +41,12 @@ namespace ProjectVishnu.Controllers
             else if (nome != null)
             {
                 funcionariosList = _funcionariosService.GetByName(nome);
-            }
-            // TODO BREAKING CHANGES ao usar !Request.QueryString.HasValue,ao carregar funcionarios o valor é sempre true
-            else if (Request.QueryString.HasValue)
-            {
-                funcionariosList = _funcionariosService.ListAlphabetically();
-            }
-            else
+            }else
             {
                 return BadRequest();
             }
+            // TODO BREAKING CHANGES ao usar !Request.QueryString.HasValue,ao carregar funcionarios o valor é sempre true
+            
             return funcionariosList == null ? NotFound() : Ok(funcionariosList.Select(x => x.toOutputModel()));
 
         }
