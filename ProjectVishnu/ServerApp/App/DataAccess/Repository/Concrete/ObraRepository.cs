@@ -9,25 +9,33 @@ namespace ProjectVishnu.DataAccess.Repository.Concrete
             : base(context)
         {
         }
+        public IEnumerable<Obra> Search(string procura)
+        {
+            return VishnuContext.Obras.Where(obra => obra.Codigointerno.Contains(procura) || obra.Designacao.Contains(procura));
+        }
 
         public IEnumerable<Obra> ListByMarket(string mercado)
         {
             return VishnuContext.Obras.Where(obra => obra.Mercado.Contains(mercado));
+        }
+        public IEnumerable<Obra> ListByMarketAndValue(string mercado, string valor)
+        {
+            return Search(valor).Where(obra => obra.Mercado.Contains(mercado));
         }
 
         public IEnumerable<Obra> ListAlphabetically()
         {
             return VishnuContext.Obras.OrderBy(obra => obra.Designacao);
         }
-
-        public Obra Get(string codigoInterno) => VishnuContext.Obras.Find(codigoInterno);
+        public Obra Get(string codigoInterno) 
+        => VishnuContext.Obras.Find(codigoInterno);
 
         public void Add(Obra entity)
         {
             VishnuContext.Obras.Add(entity);
         }
 
-        public void Update(string codigoInterno,Obra entity)
+        public void Update(string codigoInterno, Obra entity)
         {
             entity.Codigointerno = codigoInterno;
             VishnuContext.Obras.Update(entity);

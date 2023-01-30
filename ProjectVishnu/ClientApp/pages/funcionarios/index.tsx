@@ -51,7 +51,7 @@ export default function Funcionarios() {
   }, [mercado, searchString]);
 
   return (
-    <div>
+    <div id="outer-container">
       <h1 className="text-center text-4xl mb-5">Funcionarios</h1>
       {contents}
     </div>
@@ -59,7 +59,7 @@ export default function Funcionarios() {
 
   function renderFuncionariosTable(funcionarios: IFuncionarioOutput[]) {
     return (
-      <div className="flex flex-col">
+      <div className="flex flex-col flex-1">
         <FilterBar
           setMercado={setMercado}
           setSearchString={setSearchString}

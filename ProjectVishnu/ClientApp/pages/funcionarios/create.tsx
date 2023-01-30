@@ -199,7 +199,6 @@ export default function FuncionarioCreation() {
             },
             "/funcionarios"
           );
-          // TODO check if needed, flow should be create -> index -> toast
           if (!toast.isActive("sucesso")) {
             toast({
               id: "sucesso",

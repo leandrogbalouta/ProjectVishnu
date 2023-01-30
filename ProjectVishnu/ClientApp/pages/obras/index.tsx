@@ -34,7 +34,7 @@ export default function Obras() {
     const filters = Object.assign(
       {},
       mercado === null ? null : { mercado: mercado },
-      searchString === null ? null : { nome: searchString }
+      searchString === null ? null : { valor: searchString }
     );
 
     const populateObrasData = async () => {
