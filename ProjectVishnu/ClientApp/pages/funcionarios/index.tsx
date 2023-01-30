@@ -20,25 +20,6 @@ export default function Funcionarios() {
   const [mercado, setMercado] = useState("");
   const [searchString, setSearchString] = useState("");
   const router = useRouter();
-  // Se for redirect de /funcionario/create, a variavel abaixo será positiva.
-  const isFuncionarioCriado = router.query.successo;
-  // referente a funcionario/create
-  const toast = useToast();
-  useEffect(() => {
-    console.log(isFuncionarioCriado);
-    if (isFuncionarioCriado) {
-      if (!toast.isActive("sucesso")) {
-        toast({
-          id: "sucesso",
-          title: `Funcionário criado com sucesso.`,
-          position: "bottom-right",
-          duration: 5000,
-          status: "success",
-          isClosable: true,
-        });
-      }
-    }
-  }, [isFuncionarioCriado, toast]);
 
   async function redirectToFuncionario(id: number) {
     router.push(`/funcionarios/${id}`);

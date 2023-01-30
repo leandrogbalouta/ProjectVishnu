@@ -84,7 +84,7 @@ namespace ProjectVishnu.Controllers
                 string erroCode = ex.InnerException!.Data["SqlState"]!.ToString()!;
                 // 23505 significa primary key duplicada.
                 string errorMessage = (erroCode.Equals("23505")) ? "NIF duplicado." : "Ocoreu um erro, por favor tente novamente, se o erro persistir, entre em contacto connosco.";
-                return new JsonResult(errorMessage);
+                return Problem(statusCode: 400, title: errorMessage);
             }
         }
 

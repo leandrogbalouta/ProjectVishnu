@@ -190,7 +190,6 @@ export default function FuncionarioCreation() {
   // Component
   async function AddFuncionario(funcionario: IFuncionarioInput) {
     await CreateFuncionario(funcionario)
-      .then((resp) => resp.json())
       .then((resp) => {
         if (resp.status === 201) {
           router.push(
@@ -201,26 +200,28 @@ export default function FuncionarioCreation() {
             "/funcionarios"
           );
           // TODO check if needed, flow should be create -> index -> toast
-          // if (!toast.isActive("sucesso")) {
-          //   toast({
-          //     id: "sucesso",
-          //     title: `Funcionário criado com sucesso.`,
-          //     position: "bottom-right",
-          //     duration: 5000,
-          //     status: "success",
-          //     isClosable: true,
-          //   });
-          // }
-        } else {
-          if (!toast.isActive("erro")) {
+          if (!toast.isActive("sucesso")) {
             toast({
-              id: "erro",
-              title: resp,
+              id: "sucesso",
+              title: `Funcionário criado com sucesso.`,
               position: "bottom-right",
-              duration: 10000,
-              status: "error",
+              duration: 5000,
+              status: "success",
               isClosable: true,
             });
+          }
+        } else {
+          if (!toast.isActive("erro")) {
+            resp.json().then((res) => {
+              toast({
+                id: "erro",
+                title: res.title,
+                position: "bottom-right",
+                duration: 10000,
+                status: "error",
+                isClosable: true,
+              });
+            })
           }
         }
       })
