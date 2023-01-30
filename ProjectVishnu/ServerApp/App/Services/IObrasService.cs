@@ -6,8 +6,10 @@ namespace ProjectVishnu.Services
     public interface IObrasService
     {
         IEnumerable<Obra> ListByMarket(string mercado);
+        IEnumerable<Obra> ListByMarketAndValue(string mercado, string valor);
         IEnumerable<Obra> ListAlphabetically();
         Obra Get(string codigoInterno);
+        IEnumerable<Obra> Search(string procura);
 
         string Create(ObraInputModel obra);
 

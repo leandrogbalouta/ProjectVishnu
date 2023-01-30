@@ -5,7 +5,9 @@ namespace ProjectVishnu.DataAccess.Repository
     public interface IObraRepository : IRepository<Obra>
     {
         IEnumerable<Obra> ListByMarket(string mercado);
+        IEnumerable<Obra> ListByMarketAndValue(string mercado, string codigoInterno);
         IEnumerable<Obra> ListAlphabetically();
+        IEnumerable<Obra> Search(string procura);
         Obra Get(string codigoInterno);
         Mercado GetMercado(string codigoInterno);
 

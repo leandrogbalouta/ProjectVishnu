@@ -45,7 +45,6 @@ namespace ProjectVishnu.Controllers
             {
                 return BadRequest();
             }
-            // TODO BREAKING CHANGES ao usar !Request.QueryString.HasValue,ao carregar funcionarios o valor é sempre true
             
             return funcionariosList == null ? NotFound() : Ok(funcionariosList.Select(x => x.toOutputModel()));
 
@@ -82,9 +81,9 @@ namespace ProjectVishnu.Controllers
             catch (Exception ex)
             {
                 string erroCode = ex.InnerException!.Data["SqlState"]!.ToString()!;
-                // 23505 significa primary key duplicada.
+                // 23505 significa primary key duplicada (Postgres).
                 string errorMessage = (erroCode.Equals("23505")) ? "NIF duplicado." : "Ocoreu um erro, por favor tente novamente, se o erro persistir, entre em contacto connosco.";
-                return new JsonResult(errorMessage);
+                return Problem(statusCode: 400, title: errorMessage);
             }
         }
 

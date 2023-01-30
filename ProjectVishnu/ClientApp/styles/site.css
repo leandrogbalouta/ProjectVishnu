@@ -39,7 +39,7 @@ select,
     @apply !text-center;
   }
 .data-table-header th {
-  @apply !text-sky-500;
+  @apply !text-sky-500 sticky top-0 bg-white dark:bg-slate-800;
 }
   .data-table-header th:not(:first-child) {
     @apply !text-sky-500 !text-center;

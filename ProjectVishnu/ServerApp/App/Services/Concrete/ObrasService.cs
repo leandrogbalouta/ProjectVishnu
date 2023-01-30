@@ -26,11 +26,12 @@ namespace ProjectVishnu.Services.Concrete
                 _unitOfWork.Obras.Add(obraInput.ToObra());
                 _unitOfWork.Complete();
                 return obraInput.CodigoInterno;
-            } catch(Exception e)
+            }
+            catch (Exception e)
             {
                 return null;
             }
-            
+
         }
 
         public string Delete(string codigoInterno)
@@ -41,19 +42,31 @@ namespace ProjectVishnu.Services.Concrete
                 _unitOfWork.Complete();
                 return "Obra apagada com sucesso.";
 
-            }catch(Exception e)
+            }
+            catch (Exception e)
             {
                 return null;
             }
-            
-        }
 
+        }
+        public IEnumerable<Obra> Search(string procura)
+        {
+            try
+            {
+                return _unitOfWork.Obras.Search(procura);
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
         public Obra Get(string codigoInterno)
         {
             try
             {
                 return _unitOfWork.Obras.Get(codigoInterno);
-            }catch(Exception e)
+            }
+            catch (Exception e)
             {
                 return null;
             }
@@ -64,7 +77,19 @@ namespace ProjectVishnu.Services.Concrete
             try
             {
                 return _unitOfWork.Obras.ListAlphabetically();
-            }catch(Exception e)
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+        public IEnumerable<Obra> ListByMarketAndValue(string mercado, string codigoInterno)
+        {
+            try
+            {
+                return _unitOfWork.Obras.ListByMarketAndValue(mercado, codigoInterno);
+            }
+            catch (Exception e)
             {
                 return null;
             }
@@ -75,7 +100,8 @@ namespace ProjectVishnu.Services.Concrete
             try
             {
                 return _unitOfWork.Obras.ListByMarket(mercado);
-            }catch(Exception e)
+            }
+            catch (Exception e)
             {
                 return null;
             }
@@ -93,11 +119,12 @@ namespace ProjectVishnu.Services.Concrete
                 _unitOfWork.Obras.Update(codigoInterno, obraInput.ToObra());
                 _unitOfWork.Complete();
                 return "Obra atualizada com sucesso.";
-            }catch(Exception e)
+            }
+            catch (Exception e)
             {
                 return null;
             }
-            
+
         }
     }
 }

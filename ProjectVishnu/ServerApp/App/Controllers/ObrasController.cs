@@ -20,17 +20,27 @@ namespace ProjectVishnu.Controllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<ObraOutputModel>))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public IActionResult List([FromQuery(Name = "mercado")] string? mercado)
+        public IActionResult List([FromQuery(Name = "mercado")] string? mercado, [FromQuery(Name = "valor")] string? valor)
         {
             IEnumerable<Obra> obraList;
-            if (mercado == null)
+            if (mercado != null  && valor != null)
+            { 
+                obraList = _obrasService.ListByMarketAndValue(mercado, valor);
+            }
+            else if (mercado == null  && valor == null)
             {
                 obraList = _obrasService.ListAlphabetically();
             }
-            else
+            else if (mercado != null)
             {
                 obraList = _obrasService.ListByMarket(mercado);
-
+            }
+            else if (valor != null)
+            {
+                obraList = _obrasService.Search(valor);
+            }else
+            {
+                return BadRequest();
             }
             return obraList == null ? NotFound() : Ok(obraList.Select(obra => obra.toObraOutputModel()));
         }
@@ -44,13 +54,13 @@ namespace ProjectVishnu.Controllers
             if (Request.QueryString.HasValue) return BadRequest();
             Obra result = _obrasService.Get(codigoInterno);
             return result == null ? NotFound() : Ok(result.toObraOutputModel());
-            
+
         }
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(string))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public IActionResult Create([FromBody] ObraInputModel obraInput) 
+        public IActionResult Create([FromBody] ObraInputModel obraInput)
         {
             if (Request.QueryString.HasValue) return BadRequest();
             string codigoInterno = _obrasService.Create(obraInput);
@@ -66,10 +76,10 @@ namespace ProjectVishnu.Controllers
         [HttpPut("{codigoInterno}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(string))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public IActionResult Edit(string codigoInterno, [FromBody] ObraInputModel obraInput) 
+        public IActionResult Edit(string codigoInterno, [FromBody] ObraInputModel obraInput)
         {
             if (Request.QueryString.HasValue) return BadRequest();
-            string result = _obrasService.Update(codigoInterno,obraInput);
+            string result = _obrasService.Update(codigoInterno, obraInput);
             return result == null ? NotFound() : Ok(result);
         }
 
