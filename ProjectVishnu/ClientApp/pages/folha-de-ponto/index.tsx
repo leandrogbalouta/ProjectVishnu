@@ -21,7 +21,7 @@ export default function FolhasDePonto() {
   }
 
   let contents =
-    folhasDePonto === null ? (
+    !folhasDePonto ? (
       <Spinner />
     ) : (
       renderFolhasDePontoTable(folhasDePonto)

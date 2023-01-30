@@ -28,7 +28,7 @@ export default function Obras() {
     Router.push("/obras/create");
   }
 
-  let contents = obras === null ? <Spinner /> : renderObrasTable(obras);
+  let contents = !obras ? <Spinner /> : renderObrasTable(obras);
 
   useEffect(() => {
     const filters = Object.assign(
