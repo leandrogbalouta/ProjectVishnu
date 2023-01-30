@@ -19,6 +19,7 @@ namespace ProjectVishnu.ServerApp.App.Services.Concrete
 
         public FolhaDePontoEmptyOutputModel GenerateWithInfo(string obraID, FolhaDePontoInfoModel info)
         {
+
             FolhaDePontoEmptyOutputModel model = new FolhaDePontoEmptyOutputModel();
             model.Limits = new List<int>();
             List<int> saturdays;
@@ -49,6 +50,32 @@ namespace ProjectVishnu.ServerApp.App.Services.Concrete
             model.Sundays = sundays;
             model.Holidays = holidays;
             model.Info = info;
+
+            FolhaDePonto folha = new FolhaDePonto {
+                Mes = info.Mes,
+                Ano = info.Ano,
+                Obra = obraID,
+                Mercado = interval.Mercadoname
+            };
+
+            model.Funcionarios.ForEach(func => {
+                SalarioFinal salarioFunc = new SalarioFinal{
+                    Funcionario = func.Nif,
+                    Mes = folha.Mes,
+                    Ano = folha.Ano,
+                    Valorfinal = 0
+                };
+                folha.IdSalarios.Add(salarioFunc);
+            });
+
+            try{
+                _unitOfWork.FolhaDePontos.Add(folha);
+                _unitOfWork.Complete();
+            }catch(Exception e){
+                Console.WriteLine(e.StackTrace);
+                return null;
+            }
+            
 
             return model;
         }
@@ -95,14 +122,13 @@ namespace ProjectVishnu.ServerApp.App.Services.Concrete
         {
             try
             {
-                List<FolhaDePonto> folhaDePontoList = _unitOfWork.FolhaDePontos.GetFromObra(obraID, ano, mes);
+                FolhaDePonto folhaDePonto = _unitOfWork.FolhaDePontos.GetFromObra(obraID, ano, mes);
                 
                 FolhaDePontoInfoModel info = new FolhaDePontoInfoModel{
                     Ano = ano,
                     Mes = mes
                 };
 
-                FolhaDePonto folhaDePonto = folhaDePontoList.First();
 
                 Mercado mercado = folhaDePonto.MercadoNavigation;
 
@@ -167,19 +193,13 @@ namespace ProjectVishnu.ServerApp.App.Services.Concrete
 
         public void setValues(string obraID, string date, FolhaDePontoValuesInputModel values)
         {
-            
             string[] dateArr = date.Split("-");
             string mes = dateArr[1];
             string ano = dateArr[0];
 
-            Mercado mercado = _unitOfWork.Obras.Get(obraID).MercadoNavigation;
+            FolhaDePonto folha = _unitOfWork.FolhaDePontos.GetFromObra(obraID, ano, mes);
 
-            FolhaDePonto folha = new FolhaDePonto {
-                Mes = mes,
-                Ano = ano,
-                Obra = obraID,
-                Mercado = mercado.Mercadoname
-            };
+            Mercado mercado = _unitOfWork.Obras.Get(obraID).MercadoNavigation;
 
             int midLimit = CalendarUtils.GetMidLimit(ano, mes);
 
@@ -207,18 +227,12 @@ namespace ProjectVishnu.ServerApp.App.Services.Concrete
                         Ano = anoStr,
                         Valor = f.Func.Salarioreal
                     };
-                    _unitOfWork.DiasTrabalho.Add(diaTrabalho);
+                    _unitOfWork.DiasTrabalho.AddOrUpdate(diaTrabalho);
                 });
-                SalarioFinal salarioFinal = new SalarioFinal {
-                    Funcionario = f.Func.Nif,
-                    Mes = mes,
-                    Ano = ano,
-                    Valorfinal = valorFinal
-                };
-                _unitOfWork.SalarioFinal.Add(salarioFinal);
-                folha.IdSalarios.Add(salarioFinal);
+                SalarioFinal salarioFinal = folha.IdSalarios.Where(sf => sf.Funcionario == f.Func.Nif).First();
+                salarioFinal.Valorfinal = valorFinal;
+                _unitOfWork.SalarioFinal.AddOrUpdate(salarioFinal);
             });
-            _unitOfWork.FolhaDePontos.Add(folha);
             _unitOfWork.Complete();
         }
 

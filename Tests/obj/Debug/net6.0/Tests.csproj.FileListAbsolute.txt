@@ -238,3 +238,10 @@ C:\Users\Leandro\Desktop\DKM\ProjectVishnu\Tests\bin\Debug\net6.0\ProjectVishnu.
 C:\Users\Leandro\Desktop\DKM\ProjectVishnu\Tests\obj\Debug\net6.0\Tests.csproj.CopyComplete
 C:\Users\Leandro\Desktop\DKM\ProjectVishnu\Tests\obj\Debug\net6.0\Tests.genruntimeconfig.cache
 C:\Users\Leandro\Desktop\DKM\ProjectVishnu\Tests\obj\Debug\net6.0\ref\Tests.dll
+C:\Users\Leandro\Desktop\DKM\ProjectVishnu\Tests\bin\Debug\net6.0\package.json
+C:\Users\Leandro\Desktop\DKM\ProjectVishnu\Tests\bin\Debug\net6.0\appsettings.Development.json
+C:\Users\Leandro\Desktop\DKM\ProjectVishnu\Tests\bin\Debug\net6.0\ClientApp\.eslintrc.json
+C:\Users\Leandro\Desktop\DKM\ProjectVishnu\Tests\bin\Debug\net6.0\ClientApp\package-lock.json
+C:\Users\Leandro\Desktop\DKM\ProjectVishnu\Tests\bin\Debug\net6.0\ClientApp\package.json
+C:\Users\Leandro\Desktop\DKM\ProjectVishnu\Tests\bin\Debug\net6.0\ClientApp\tsconfig.json
+C:\Users\Leandro\Desktop\DKM\ProjectVishnu\Tests\bin\Debug\net6.0\package-lock.json

@@ -7,6 +7,7 @@ namespace ProjectVishnu.DataAccess.Repository
         IEnumerable<TEntity> GetAll();
         IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate);
 
+        void AddOrUpdate(TEntity entity);
         void Add(TEntity entity);
         void AddRange(IEnumerable<TEntity> entities);
 

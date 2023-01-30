@@ -10,7 +10,7 @@ namespace ProjectVishnu.ServerApp.App.DataAccess.Repository
 
         List<FolhaDePonto> GetFromMercado(string mercado, string ano, string mes);
 
-        List<FolhaDePonto> GetFromObra(string obraID, string ano, string mes);
+        FolhaDePonto GetFromObra(string obraID, string ano, string mes);
 
     }
 }

@@ -19,7 +19,7 @@ export default function CustomNavLink({
       className={router.route == href ? "active-nav-link" : "inactive-nav-link"}
     >
       <NavLink href={href} {...rest}>
-        <div className="w-full cursor-pointer" onClick={toggleNavBar}>
+        <div className="w-full cursor-pointer hover:text-orange-300" onClick={toggleNavBar}>
           {children}
         </div>
       </NavLink>

@@ -28,10 +28,10 @@ namespace ProjectVishnu.ServerApp.App.DataAccess.Repository.Concrete
                 Where(folhaDePonto => folhaDePonto.Ano == ano && folhaDePonto.Mercado == mercado && folhaDePonto.Mes == mes).ToList();
         }
 
-        public List<FolhaDePonto> GetFromObra(string obraID, string ano, string mes)
+        public FolhaDePonto GetFromObra(string obraID, string ano, string mes)
         {
             return VishnuContext.FolhaDePontos.
-                Where(folhaDePonto => folhaDePonto.Ano == ano && folhaDePonto.Obra == obraID && folhaDePonto.Mes == mes).ToList();
+                Where(folhaDePonto => folhaDePonto.Ano == ano && folhaDePonto.Obra == obraID && folhaDePonto.Mes == mes).ToList().First();
         }
 
 

@@ -15,7 +15,7 @@ namespace ProjectVishnu.ServerApp.App.DataAccess.Repository.Concrete
         {
             get { return Context as vishnuContext; }
         }
-
+        
         public List<DiaTrabalho> GetFuncDaysFromObraBetweenDates(string funcNif, string codigoObra, DateOnly start, DateOnly end){
             return VishnuContext.DiaTrabalhos.Where(dt => dt.Codigoobra == codigoObra && dt.Funcionario == funcNif).ToList().Where(dt => isBetweenInterval(dt, start, end)).ToList();
         }

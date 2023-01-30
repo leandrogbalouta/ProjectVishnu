@@ -152,11 +152,16 @@ export function FolhaDePontoTable({
 
     funcRows.forEach((row) => {
       days.forEach((day) => {
-        let funcNif = row.func.nif as keyof Record<string, Map<number, number>>;
-        let daysOfFunc = folhaData.funcWorkDays[funcNif].valueOf();
-        console.log(daysOfFunc);
-        let dayNumber = day.props.children as keyof Object;
-        let hours = daysOfFunc[dayNumber] as unknown as number;
+        let hours = 0
+        console.log(!folhaData.funcWorkDays)
+        if(folhaData.funcWorkDays){
+            let funcNif = row.func.nif as keyof Record<string, Map<number, number>>;
+            let daysOfFunc = folhaData.funcWorkDays[funcNif].valueOf();
+            let dayNumber = day.props.children as keyof Object;
+            hours = daysOfFunc[dayNumber] as unknown as number;
+        }
+        
+        
         if (hours != 0) {
           row.data.push(
             <Td
