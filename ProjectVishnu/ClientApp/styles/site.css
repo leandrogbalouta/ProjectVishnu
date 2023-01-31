@@ -44,3 +44,6 @@ select,
   .data-table-header th:not(:first-child) {
     @apply !text-sky-500 !text-center;
 }
+.page-header {
+  @apply text-center text-4xl mb-5;
+}

@@ -70,7 +70,7 @@ export default function FuncionarioCreation() {
       nacionalidade: yup
         .string()
         .required("Por favor, introduza a nacionalidade."),
-      mercado: yup.string().required("Por favor, introduza o mercado (país)."),
+      mercado: yup.string().required("Por favor, introduza o mercado."),
       tipodocident: yup
         .string()
         .required("Por favor, introduza o tipo de documento de identificação."),
@@ -229,7 +229,7 @@ export default function FuncionarioCreation() {
 
   return (
     <>
-      <h1 className="text-center text-4xl mb-5">Criar um Funcionário</h1>
+      <h1 className="page-header">Criar um Funcionário</h1>
       <form
         className="flex flex-col min-h-0 max-h-full"
         onSubmit={handleSubmit(onSubmit)}
