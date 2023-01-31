@@ -10,6 +10,7 @@ import {
   InputGroup,
   InputLeftElement,
   Select,
+  useToast,
 } from "@chakra-ui/react";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -20,6 +21,10 @@ import { FaUser, FaPen, FaCalendarDay } from "react-icons/fa";
 export default function ObraCreation() {
   // state
   const [mercados, setMercados] = useState<string[]>([]);
+  // Router
+  const router = useRouter();
+  // misc
+  const toast = useToast();
   // schema
   const schema = yup
     .object({
@@ -42,17 +47,32 @@ export default function ObraCreation() {
   };
   // end of form
   async function AddObra(obra: IObraOutput) {
-    const router = useRouter();
-
     const resp = await CreateObra(obra);
     if (resp.status === 201) {
-      const splitLocation = resp.headers.get("location")!.split("OB");
-      const location = splitLocation[0].toLowerCase() + "OB" + splitLocation[1];
-
-      const array = location.split("api");
-      const result = array.pop();
-
-      router.push(result!);
+      router.push("/obras");
+      if (!toast.isActive("sucesso")) {
+        toast({
+          id: "sucesso",
+          title: `Obra criada com sucesso.`,
+          position: "bottom-right",
+          duration: 5000,
+          status: "success",
+          isClosable: true,
+        });
+      }
+    } else {
+      if (!toast.isActive("erro")) {
+        resp.json().then((res) => {
+          toast({
+            id: "erro",
+            title: 'Ocorreu um erro ao criar uma nova obra.',
+            position: "bottom-right",
+            duration: 10000,
+            status: "error",
+            isClosable: true,
+          });
+        })
+      }
     }
   }
   useEffect(() => {
