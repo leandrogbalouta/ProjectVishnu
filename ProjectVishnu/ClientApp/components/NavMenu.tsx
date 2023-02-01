@@ -12,7 +12,7 @@ export default function NavMenu() {
   let router = useRouter();
   let toggleClass = toggleNav ? "block" : "hidden";
   const { currentTheme, changeCurrentTheme } = useContext(ThemeContext)
-  function to() {
+  function changeToggle() {
     setToggleNav(!toggleNav);
   }
   function changeTheme() {
@@ -23,9 +23,19 @@ export default function NavMenu() {
   useEffect(() => {
     darkTheme.current = localStorage.getItem("theme") === "dark";
     changeCurrentTheme(darkTheme.current ? 'dark' : 'light');
-  },[])
+    // Fechar NavMenu quando utilizador clicka fora da nav.
+    document.addEventListener("click", (e) => {
+      if (toggleNav) {
+        const target = e.target;
+        const navMenu = document.getElementById("navmenu")!;
+        if (!navMenu.contains(target as Node)) {
+          changeToggle();
+        }
+      }
+    });
+  },[changeCurrentTheme, changeToggle, toggleNav])
   return (
-    <header className={"sticky top-0 !z-[1000] shadow-sm shadow-slate-600"}>
+    <header id="navmenu" className={"sticky top-0 !z-[1000] shadow-sm shadow-slate-600"}>
       <nav className="bg-slate-900 border-gray-200 px-2 sm:px-4 py-2.5 rounded">
         <div className="container-fluid flex flex-wrap items-center">
           <span
@@ -57,7 +67,7 @@ export default function NavMenu() {
             <button
               type="button"
               className="inline-flex items-center p-2 ml-3 text-sm rounded-lg md:hidden hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:hover:bg-slate-800 dark:focus:ring-gray-600 hover:!text-slate-500"
-              onClick={to}
+              onClick={changeToggle}
             >
               <span className="sr-only">Open main menu</span>
               <RiMenu4Line className="text-2xl sm:text-3xl text-orange-400" />
@@ -69,22 +79,22 @@ export default function NavMenu() {
           >
             <ul className="flex flex-col p-4 mt-4 border rounded-lg md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 bg-slate-800 md:bg-slate-900 border-slate-700 !text-white dark:hover:!text-sky-400">
               <li className="text-white">
-                <CustomNavLink href="/" toggleNavBar={to}>
+                <CustomNavLink href="/" toggleNavBar={changeToggle}>
                   Home
                 </CustomNavLink>
               </li>
               <li>
-                <CustomNavLink href="/funcionarios" toggleNavBar={to}>
+                <CustomNavLink href="/funcionarios" toggleNavBar={changeToggle}>
                   Funcionarios
                 </CustomNavLink>
               </li>
               <li>
-                <CustomNavLink href="/obras" toggleNavBar={to}>
+                <CustomNavLink href="/obras" toggleNavBar={changeToggle}>
                   Obras
                 </CustomNavLink>
               </li>
               <li>
-                <CustomNavLink href="/folha-de-ponto" toggleNavBar={to}>
+                <CustomNavLink href="/folha-de-ponto" toggleNavBar={changeToggle}>
                   Folhas de Ponto
                 </CustomNavLink>
               </li>
