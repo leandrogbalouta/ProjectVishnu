@@ -23,11 +23,11 @@ namespace ProjectVishnu.Controllers
         public IActionResult List([FromQuery(Name = "mercado")] string? mercado, [FromQuery(Name = "valor")] string? valor)
         {
             IEnumerable<Obra> obraList;
-            if (mercado != null  && valor != null)
-            { 
+            if (mercado != null && valor != null)
+            {
                 obraList = _obrasService.ListByMarketAndValue(mercado, valor);
             }
-            else if (mercado == null  && valor == null)
+            else if (mercado == null && valor == null)
             {
                 obraList = _obrasService.ListAlphabetically();
             }
@@ -38,7 +38,8 @@ namespace ProjectVishnu.Controllers
             else if (valor != null)
             {
                 obraList = _obrasService.Search(valor);
-            }else
+            }
+            else
             {
                 return BadRequest();
             }
@@ -63,14 +64,26 @@ namespace ProjectVishnu.Controllers
         public IActionResult Create([FromBody] ObraInputModel obraInput)
         {
             if (Request.QueryString.HasValue) return BadRequest();
-            string codigoInterno = _obrasService.Create(obraInput);
-            var actionName = nameof(ObrasController.Get);
-            var routeValues = new
+
+            try
             {
-                codigoInterno = codigoInterno
-            };
-            ActionResult a = CreatedAtAction(actionName, routeValues, obraInput);
-            return a;
+                // TODO verificar se isto é 🍞 ou 💩
+                DateTime.TryParse(obraInput.Datainicio, out DateTime dt);
+                obraInput.Datainicio = dt.ToShortDateString();
+                // end 
+                string codigoInterno = _obrasService.Create(obraInput);
+                var actionName = nameof(ObrasController.Get);
+                var routeValues = new
+                {
+                    codigoInterno = codigoInterno
+                };
+                ActionResult a = CreatedAtAction(actionName, routeValues, obraInput);
+                return a;
+            }
+            catch (System.Exception)
+            {
+                return BadRequest();
+            }
         }
 
         [HttpPut("{codigoInterno}")]

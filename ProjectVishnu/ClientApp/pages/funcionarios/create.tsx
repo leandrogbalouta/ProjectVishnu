@@ -203,7 +203,7 @@ export default function FuncionarioCreation() {
             toast({
               id: "sucesso",
               title: `Funcionário criado com sucesso.`,
-              position: "bottom-right",
+              position: "top-right",
               duration: 5000,
               status: "success",
               isClosable: true,
@@ -215,7 +215,7 @@ export default function FuncionarioCreation() {
               toast({
                 id: "erro",
                 title: res.title,
-                position: "bottom-right",
+                position: "top-right",
                 duration: 10000,
                 status: "error",
                 isClosable: true,

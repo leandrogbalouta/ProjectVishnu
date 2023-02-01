@@ -54,7 +54,7 @@ export default function ObraCreation() {
         toast({
           id: "sucesso",
           title: `Obra criada com sucesso.`,
-          position: "bottom-right",
+          position: "top-right",
           duration: 5000,
           status: "success",
           isClosable: true,
@@ -66,7 +66,7 @@ export default function ObraCreation() {
           toast({
             id: "erro",
             title: 'Ocorreu um erro ao criar uma nova obra.',
-            position: "bottom-right",
+            position: "top-right",
             duration: 10000,
             status: "error",
             isClosable: true,
@@ -86,7 +86,7 @@ export default function ObraCreation() {
   }, []);
 
   return (
-    <div>
+    <div className="w-full sm:w-1/2 mx-auto">
       <p className="page-header">Criar uma Obra</p>
       <form
         className="flex flex-col min-h-0 max-h-full"
