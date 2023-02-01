@@ -25,7 +25,6 @@ namespace ProjectVishnu.ServerApp.App.Controllers
             if (Request.QueryString.HasValue) return BadRequest();
             FolhaDePontoEmptyOutputModel model = _folhadepontoServices.GenerateWithInfo(obraID, info);
             var actionName = nameof(FolhasDePontoController.GetByObra);
-            var controllerName = "FolhasDePonto";
             var routeValues = new
             {
                 obraID = obraID,

@@ -16,11 +16,11 @@ namespace ProjectVishnu.DataAccess.Repository.Concrete
 
         public IEnumerable<Obra> ListByMarket(string mercado)
         {
-            return VishnuContext.Obras.Where(obra => obra.Mercado.Contains(mercado));
+            return VishnuContext.Obras.Where(obra => obra.Mercado!.Contains(mercado));
         }
         public IEnumerable<Obra> ListByMarketAndValue(string mercado, string valor)
         {
-            return Search(valor).Where(obra => obra.Mercado.Contains(mercado));
+            return Search(valor).Where(obra => obra.Mercado!.Contains(mercado));
         }
 
         public IEnumerable<Obra> ListAlphabetically()

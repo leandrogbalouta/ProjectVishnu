@@ -1,28 +1,28 @@
-import React, { useContext, useEffect, useRef } from "react";
+import React, { useCallback, useContext, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 import CustomNavLink from "./CustomNavLink";
 import { useState } from "react";
 import { RiMenu4Line } from "react-icons/ri";
 import { BsFillMoonStarsFill, BsFillSunFill } from "react-icons/bs";
-import ThemeContext from './contexts/Theme/themeContext';
+import ThemeContext from "./contexts/Theme/themeContext";
 
 export default function NavMenu() {
   const [toggleNav, setToggleNav] = useState<boolean>(false);
-  const darkTheme = useRef<boolean>()
+  const darkTheme = useRef<boolean>();
   let router = useRouter();
   let toggleClass = toggleNav ? "block" : "hidden";
-  const { currentTheme, changeCurrentTheme } = useContext(ThemeContext)
-  function changeToggle() {
+  const { currentTheme, changeCurrentTheme } = useContext(ThemeContext);
+  const changeToggle = useCallback(() => {
     setToggleNav(!toggleNav);
-  }
+  }, [toggleNav]);
   function changeTheme() {
-    changeCurrentTheme(currentTheme === 'light' ? 'dark' : 'light');
+    changeCurrentTheme(currentTheme === "light" ? "dark" : "light");
     darkTheme.current = !darkTheme.current;
-    localStorage.setItem('theme', darkTheme.current ? 'dark' : 'light')
+    localStorage.setItem("theme", darkTheme.current ? "dark" : "light");
   }
   useEffect(() => {
     darkTheme.current = localStorage.getItem("theme") === "dark";
-    changeCurrentTheme(darkTheme.current ? 'dark' : 'light');
+    changeCurrentTheme(darkTheme.current ? "dark" : "light");
     // Fechar NavMenu quando utilizador clicka fora da nav.
     document.addEventListener("click", (e) => {
       if (toggleNav) {
@@ -33,9 +33,12 @@ export default function NavMenu() {
         }
       }
     });
-  },[changeCurrentTheme, changeToggle, toggleNav])
+  }, [changeCurrentTheme, changeToggle, toggleNav]);
   return (
-    <header id="navmenu" className={"sticky top-0 !z-[1000] shadow-sm shadow-slate-600"}>
+    <header
+      id="navmenu"
+      className={"sticky top-0 !z-[1000] shadow-sm shadow-slate-600"}
+    >
       <nav className="bg-slate-900 border-gray-200 px-2 sm:px-4 py-2.5 rounded">
         <div className="container-fluid flex flex-wrap items-center">
           <span
@@ -94,7 +97,10 @@ export default function NavMenu() {
                 </CustomNavLink>
               </li>
               <li>
-                <CustomNavLink href="/folha-de-ponto" toggleNavBar={changeToggle}>
+                <CustomNavLink
+                  href="/folha-de-ponto"
+                  toggleNavBar={changeToggle}
+                >
                   Folhas de Ponto
                 </CustomNavLink>
               </li>

@@ -13,7 +13,7 @@ namespace ProjectVishnu.ServerApp.App.DataAccess.Repository.Concrete
         {
         }
 
-        public vishnuContext VishnuContext
+        public vishnuContext? VishnuContext
         {
             get { return Context as vishnuContext; }
         }
@@ -25,7 +25,7 @@ namespace ProjectVishnu.ServerApp.App.DataAccess.Repository.Concrete
 
         public IEnumerable<CategoriasProfissionai> ListAlphabetically()
         {
-            return VishnuContext.CategoriasProfissionais.OrderBy(catprof => catprof.Nomenclatura).ToList();
+            return VishnuContext!.CategoriasProfissionais.OrderBy(catprof => catprof.Nomenclatura).ToList();
         }
     }
 }
