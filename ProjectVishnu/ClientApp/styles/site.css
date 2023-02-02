@@ -47,3 +47,6 @@ select,
 .page-header {
   @apply text-center text-4xl mb-5;
 }
+.obra-heading {
+  @apply text-lg font-bold text-cyan-400;
+}
