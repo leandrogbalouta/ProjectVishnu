@@ -22,13 +22,24 @@ namespace ProjectVishnu.DataAccess.Repository.Concrete
         {
             return Search(valor).Where(obra => obra.Mercado!.Contains(mercado));
         }
+        public IEnumerable<Obra> ListByFuncionario(int funcionarioId)
+        {
+            string con = "Host=localhost;Database=vishnu;Username=postgres;Password=postgres;Include Error Detail=true;";
+            using (var context = new vishnuContext(con))
+            {
+                return context.Obras
+                                    .Where(obra => obra.FuncionariosObras
+                                    .Any(funcionario => funcionario.FuncionarioNavigation.Id == funcionarioId))
+                                    .ToList();
+            }
+        }
 
         public IEnumerable<Obra> ListAlphabetically()
         {
             return VishnuContext.Obras.OrderBy(obra => obra.Designacao);
         }
-        public Obra Get(string codigoInterno) 
-        => VishnuContext.Obras.Find(codigoInterno);
+        public Obra Get(string codigoInterno)
+        => VishnuContext.Obras.Find(codigoInterno)!;
 
         public void Add(Obra entity)
         {

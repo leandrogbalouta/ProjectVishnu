@@ -83,7 +83,7 @@ namespace ProjectVishnu.Services.Concrete
                 return null;
             }
         }
-        public IEnumerable<Obra> ListByMarketAndValue(string mercado, string codigoInterno)
+        public IEnumerable<Obra>? ListByMarketAndValue(string mercado, string codigoInterno)
         {
             try
             {
@@ -95,7 +95,7 @@ namespace ProjectVishnu.Services.Concrete
             }
         }
 
-        public IEnumerable<Obra> ListByMarket(string mercado)
+        public IEnumerable<Obra>? ListByMarket(string mercado)
         {
             try
             {
@@ -106,6 +106,17 @@ namespace ProjectVishnu.Services.Concrete
                 return null;
             }
         }
+         public IEnumerable<Obra>? ListByFuncionario(int funcionarioId)
+         {
+             try
+            {
+                return _unitOfWork.Obras.ListByFuncionario(funcionarioId);
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+         }
 
         public void RemoveFuncFromObra(string codigoInterno, FuncionarioObraInputModel funcInput)
         {

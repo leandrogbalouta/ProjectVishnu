@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Proxies;
 using Microsoft.EntityFrameworkCore.Metadata;
 using ProjectVishnu.Models;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace ProjectVishnu.Models
 {
@@ -41,6 +42,7 @@ namespace ProjectVishnu.Models
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
                 optionsBuilder.UseLazyLoadingProxies(true).UseNpgsql(_connectionString);
+                optionsBuilder.ConfigureWarnings(warnings => warnings.Ignore(CoreEventId.LazyLoadOnDisposedContextWarning));
             }
         }
 

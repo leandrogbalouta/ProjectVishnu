@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.Mvc;
 using ProjectVishnu.Models;
 using ProjectVishnu.ServerApp.App.Dtos;
 using ProjectVishnu.Services;
@@ -45,6 +47,17 @@ namespace ProjectVishnu.Controllers
             }
             return obraList == null ? NotFound() : Ok(obraList.Select(obra => obra.toObraOutputModel()));
         }
+        // New
+        [HttpGet("funcionario/{funcionarioId}")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<ObraOutputModel>))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult ListByFuncionario(int funcionarioId)
+        {
+            if (Request.QueryString.HasValue) return BadRequest();
+            IEnumerable<Obra>? result = _obrasService.ListByFuncionario(funcionarioId);
+            return result == null ? NotFound() : Ok(result);
+        }
 
         [HttpGet("{codigoInterno}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ObraOutputModel))]
@@ -55,7 +68,6 @@ namespace ProjectVishnu.Controllers
             if (Request.QueryString.HasValue) return BadRequest();
             Obra result = _obrasService.Get(codigoInterno);
             return result == null ? NotFound() : Ok(result.toObraOutputModel());
-
         }
 
         [HttpPost]

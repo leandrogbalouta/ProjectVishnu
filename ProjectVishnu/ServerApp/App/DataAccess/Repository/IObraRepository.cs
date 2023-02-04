@@ -8,6 +8,7 @@ namespace ProjectVishnu.DataAccess.Repository
         IEnumerable<Obra> ListByMarketAndValue(string mercado, string codigoInterno);
         IEnumerable<Obra> ListAlphabetically();
         IEnumerable<Obra> Search(string procura);
+        IEnumerable<Obra> ListByFuncionario(int funcionarioId);
         Obra Get(string codigoInterno);
         Mercado GetMercado(string codigoInterno);
 

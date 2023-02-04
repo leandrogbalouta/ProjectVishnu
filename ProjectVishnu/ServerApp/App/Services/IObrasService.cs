@@ -10,9 +10,8 @@ namespace ProjectVishnu.Services
         IEnumerable<Obra> ListAlphabetically();
         Obra Get(string codigoInterno);
         IEnumerable<Obra> Search(string procura);
-
-        string Create(ObraInputModel obra);
-
+        IEnumerable<Obra>? ListByFuncionario(int funcionarioId);
+         string Create(ObraInputModel obra);
         string Delete(string codigoInterno);
 
         string Update(string codigoInterno, ObraInputModel obraInput);
