@@ -88,7 +88,7 @@ export default function Obra() {
           <p className="text-xl font-bold ml-3">Detalhes de obra:</p>
           <div className="flex justify-between m-3 flex-wrap gap-3">
             <div>
-              <p className="obra-heading">Código interno:</p>
+              <p className="obra-heading">Código interno</p>
               <p>{obra.codigoInterno}</p>
             </div>
             <div>
@@ -96,15 +96,15 @@ export default function Obra() {
               <p>{obra.designacao}</p>
             </div>
             <div>
-              <p className="obra-heading">Cliente:</p>
+              <p className="obra-heading">Cliente</p>
               <p>{obra.cliente}</p>
             </div>
             <div>
-              <p className="obra-heading">Data de inicio:</p>              
+              <p className="obra-heading">Data de inicio</p>              
               <p>{obra.datainicio}</p>
             </div>
             <div>
-              <p className="obra-heading">Mercado:</p>
+              <p className="obra-heading">Mercado</p>
               <p className="capitalize">{obra.mercado}</p>
             </div>
             </div>
