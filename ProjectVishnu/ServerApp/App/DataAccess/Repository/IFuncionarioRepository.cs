@@ -16,6 +16,10 @@ namespace ProjectVishnu.DataAccess.Repository
 
         Funcionario Get(int id);
 
+        int GetValidityWarningCount();
+
+        IEnumerable<Funcionario> GetValidityWarningList();
+
         int GetFuncId(string nif);
     }
 }

@@ -9,6 +9,7 @@ namespace ProjectVishnu.DataAccess.Repository.Concrete
     public class FuncionarioRepository : Repository<Funcionario>, IFuncionarioRepository
     {
 
+        int VALIDATY_WARNING_DAYS = 45;
         public FuncionarioRepository(vishnuContext context)
             : base(context)
         {
@@ -50,6 +51,12 @@ namespace ProjectVishnu.DataAccess.Repository.Concrete
             VishnuContext.Funcionarios.Update(funcionario).Property(func => func.Id).IsModified = false; 
         }
 
+        public int GetValidityWarningCount(){
+            DateOnly date = DateOnly.FromDateTime(DateTime.Today);
+            date.AddDays(VALIDATY_WARNING_DAYS);
+            return VishnuContext.Funcionarios.Where(func => date > func.Validadedocident).Count();
+        }
+
         public IEnumerable<Funcionario> Find(Expression<Func<Funcionario, bool>> predicate)
         {
             throw new NotImplementedException();
@@ -83,6 +90,13 @@ namespace ProjectVishnu.DataAccess.Repository.Concrete
         public int GetFuncId(string nif)
         {
             return VishnuContext.Funcionarios.Where(func => func.Nif == nif).First().Id;
+        }
+
+        public IEnumerable<Funcionario> GetValidityWarningList()
+        {
+            DateOnly date = DateOnly.FromDateTime(DateTime.Today);
+            date.AddDays(VALIDATY_WARNING_DAYS);
+            return VishnuContext.Funcionarios.Where(func => date > func.Validadedocident).ToList();
         }
 
         public vishnuContext VishnuContext

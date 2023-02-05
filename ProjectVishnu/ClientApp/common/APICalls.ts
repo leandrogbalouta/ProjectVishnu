@@ -39,6 +39,17 @@ export async function CreateFuncionario(funcionario: IFuncionarioInput) {
     body: JSON.stringify(funcionario),
   });
 }
+
+export async function GetFuncionariosValidityWarningCount(){
+  const path = "/api/funcionarios/validity/count"
+  return fetch(path);
+}
+
+export async function GetFuncionariosValidityWarningList(){
+  const path = "api/funcionarios/validity/list"
+  return fetch(path)
+}
+
 // Obra
 export async function CreateObra(obra: IObraOutput) {
   const path = "/api/obras";
@@ -123,6 +134,7 @@ export async function fetchFolhaDePontoAllByMercado(mercado: string) {
   console.log("pa: " + path);
   return fetch(path);
 }
+
 // Filtes
 function addFiltersToQuery(path: string, filters: Record<string, String>) {
   var size = Object.keys(filters).length;

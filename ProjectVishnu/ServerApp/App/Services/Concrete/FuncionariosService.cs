@@ -113,5 +113,15 @@ namespace ProjectVishnu.Services
             }
             
         }
+
+        public int GetValidityWarningCount()
+        {
+            return _unitOfWork.Funcionarios.GetValidityWarningCount();
+        }
+
+        public IEnumerable<Funcionario> GetValidityWarningList()
+        {
+            return _unitOfWork.Funcionarios.GetValidityWarningList();
+        }
     }
 }

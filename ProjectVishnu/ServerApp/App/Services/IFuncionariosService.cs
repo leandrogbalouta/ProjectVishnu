@@ -16,6 +16,10 @@ namespace ProjectVishnu.Services
 
         string Update(FuncionarioInputModel funcionarioDto);
 
+        int GetValidityWarningCount();
+
+        IEnumerable<Funcionario> GetValidityWarningList();
+
         int Create(FuncionarioInputModel funcionarioDto);
     }
 }

@@ -108,5 +108,23 @@ namespace ProjectVishnu.Controllers
 
 
         }
+
+        [HttpGet("/validity/count")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(int))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult GetDocValidityWarningCount()
+        {
+            return Ok(_funcionariosService.GetValidityWarningCount());
+        }
+
+        [HttpGet("/validity/list")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<FuncionarioOutputModel>))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult GetDocValidityWarningList()
+        {
+            return Ok(_funcionariosService.GetValidityWarningList().Select(f => f.toOutputModel()));
+        }
     }
 }
