@@ -31,7 +31,9 @@ export default function FolhaDePontoObra(){
 
     async function submitValues(values : FolhaDePontoValuesInput){
         const [ano, mes] = data.split("-")
-        submitFolhaDePontoValues(codigo, mes, ano, values)
+        const res = await submitFolhaDePontoValues(codigo, mes, ano, values)
+        const jsonInfo = await res.json()
+        setInfo(jsonInfo)
     }
 
 

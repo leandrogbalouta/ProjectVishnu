@@ -15,6 +15,11 @@ namespace ProjectVishnu.ServerApp.App.DataAccess.Repository.Concrete
         {
             get { return Context as vishnuContext; }
         }
+
+        public void AddOrUpdate(DiaTrabalho diaTrabalho){
+            if(VishnuContext.DiaTrabalhos.Where(dt => dt.Mes == diaTrabalho.Mes && dt.Ano == diaTrabalho.Ano && dt.Funcionario == diaTrabalho.Funcionario && dt.Dia == diaTrabalho.Dia).Count() != 0) VishnuContext.Update(diaTrabalho);
+            else VishnuContext.DiaTrabalhos.Add(diaTrabalho);
+        }
         
         public List<DiaTrabalho> GetFuncDaysFromObraBetweenDates(string funcNif, string codigoObra, DateOnly start, DateOnly end){
             return VishnuContext.DiaTrabalhos.Where(dt => dt.Codigoobra == codigoObra && dt.Funcionario == funcNif).ToList().Where(dt => isBetweenInterval(dt, start, end)).ToList();

@@ -87,12 +87,13 @@ namespace ProjectVishnu.ServerApp.App.Controllers
         }
 
         [HttpPut("/obras/{obraID}/folha-de-ponto/{date}")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(FolhaDePontoValuesOutputModel))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult setValues(string obraID, string date, [FromBody] FolhaDePontoValuesInputModel values)
         {
             if (Request.QueryString.HasValue) return BadRequest();
-            _folhadepontoServices.setValues(obraID, date, values);
-            return Ok();
+            FolhaDePontoValuesOutputModel folha = _folhadepontoServices.setValues(obraID, date, values);
+            return Ok(folha);
         }
     }
 }

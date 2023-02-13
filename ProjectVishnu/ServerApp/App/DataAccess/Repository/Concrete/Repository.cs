@@ -13,11 +13,10 @@ namespace ProjectVishnu.DataAccess.Repository.Concrete
             Context = context;
         }
 
-        public void AddOrUpdate(TEntity entity)
+        public void Update(TEntity entity)
         {
             Context.Set<TEntity>().Update(entity);
         }
-
         public void Add(TEntity entity)
         {
             Context.Set<TEntity>().Add(entity);

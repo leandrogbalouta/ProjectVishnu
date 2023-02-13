@@ -191,7 +191,7 @@ namespace ProjectVishnu.ServerApp.App.Services.Concrete
             
         }
 
-        public void setValues(string obraID, string date, FolhaDePontoValuesInputModel values)
+        public FolhaDePontoValuesOutputModel setValues(string obraID, string date, FolhaDePontoValuesInputModel values)
         {
             string[] dateArr = date.Split("-");
             string mes = dateArr[1];
@@ -206,6 +206,7 @@ namespace ProjectVishnu.ServerApp.App.Services.Concrete
             values.Values.ForEach(f => {
                 decimal valorFinal = 0;
                 f.Dias.ForEach(dia => {
+                    if(dia.Horas == 0) return;
                     valorFinal = valorFinal + ((decimal) dia.Horas) * f.Func.Salarioreal;
                     
                     string monthStr = mes;
@@ -231,72 +232,9 @@ namespace ProjectVishnu.ServerApp.App.Services.Concrete
                 });
                 SalarioFinal salarioFinal = folha.IdSalarios.Where(sf => sf.Funcionario == f.Func.Nif).First();
                 salarioFinal.Valorfinal = valorFinal;
-                _unitOfWork.SalarioFinal.AddOrUpdate(salarioFinal);
             });
             _unitOfWork.Complete();
+            return GetFromObra(obraID, ano, mes);
         }
-
-        // private FolhaDePontoValuesOutputModel GenerateFolhaDePontoValuesOutputModel(List<FolhaDePonto> folhasDePonto, string ano, string mes)
-        // {
-        //     FolhaDePontoValuesOutputModel model = new FolhaDePontoValuesOutputModel();
-
-        //     FolhaDePontoInfoModel info = new FolhaDePontoInfoModel();
-        //     info.Mes = mes;
-        //     info.Ano = ano;
-        //     model.Info = info;
-
-        //     Dictionary<string, Dictionary<int, decimal>> FuncWorkDays =
-        //         new Dictionary<string, Dictionary<int, decimal>>();
-
-        //     Dictionary<string, decimal> FinalValue = new Dictionary<string, decimal>();
-
-        //     List<FuncionarioOutputModel> funcionariosOutputModel = new List<FuncionarioOutputModel>();
-
-        //     foreach (FolhaDePonto folha in folhasDePonto)
-        //     {
-        //         foreach (SalarioFinal salario in folha.IdSalarios)
-        //         {
-
-        //             Funcionario funcionario = salario.FuncionarioNavigation;
-        //             FuncionarioOutputModel funcionarioOutputModel = funcionario.toOutputModel();
-
-        //             Dictionary<int, decimal> diasAReceber = new Dictionary<int, decimal>();
-
-        //             foreach (DiaTrabalho dia in funcionario.DiaTrabalhos)
-        //             {
-        //                 diasAReceber.Add(dia.Dia, dia.Valor);
-        //             }
-        //             funcionariosOutputModel.Add(funcionarioOutputModel);
-        //             FuncWorkDays.Add(funcionario.Nif, diasAReceber);
-        //             FinalValue.Add(funcionario.Nif, salario.Valorfinal);
-        //         }
-
-        //     }
-
-        //     model.FuncWorkDays = FuncWorkDays;
-        //     model.FinalValue = FinalValue;
-        //     model.funcionariosOutputModel = funcionariosOutputModel;
-
-        //     model.Limits = new List<int>();
-        //     List<int> saturdays;
-        //     List<int> sundays;
-        //     List<int> holidays;
-
-        //     Mercado interval = folhasDePonto[0].MercadoNavigation;
-
-        //     CalendarUtils.GetNonWorkDays(ano, mes, interval, out saturdays, out sundays, out holidays);
-
-
-        //     int midLimit = CalendarUtils.GetMidLimit(info.Ano, info.Mes);
-        //     model.Limits.Add((int)interval.DiaInicio);
-        //     model.Limits.Add(midLimit);
-        //     model.Limits.Add((int)interval.DiaFim);
-
-        //     model.Saturdays = saturdays;
-        //     model.Sundays = sundays;
-        //     model.Holidays = holidays;
-
-        //     return model;
-        // }
     }
 }

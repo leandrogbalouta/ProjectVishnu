@@ -9,6 +9,6 @@ namespace ProjectVishnu.ServerApp.App.Services
         List<FolhaDePontoInfoModel> GetAllFromObra(string obraID);
         FolhaDePontoValuesOutputModel GetFromMercado(string mercado, string ano, string mes);
         FolhaDePontoValuesOutputModel GetFromObra(string obraID, string ano, string mes);
-        void setValues(string obraID, string date, FolhaDePontoValuesInputModel values);
+        FolhaDePontoValuesOutputModel setValues(string obraID, string date, FolhaDePontoValuesInputModel values);
     }
 }
