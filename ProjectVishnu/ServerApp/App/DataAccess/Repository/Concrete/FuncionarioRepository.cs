@@ -53,8 +53,15 @@ namespace ProjectVishnu.DataAccess.Repository.Concrete
 
         public int GetValidityWarningCount(){
             DateOnly date = DateOnly.FromDateTime(DateTime.Today);
-            date.AddDays(VALIDATY_WARNING_DAYS);
+            date = date.AddDays(VALIDATY_WARNING_DAYS);
             return VishnuContext.Funcionarios.Where(func => date > func.Validadedocident).Count();
+        }
+        
+        public IEnumerable<Funcionario> GetValidityWarningList()
+        {
+            DateOnly date = DateOnly.FromDateTime(DateTime.Today);
+            date = date.AddDays(VALIDATY_WARNING_DAYS);
+            return VishnuContext.Funcionarios.Where(func => date > func.Validadedocident).ToList();
         }
 
         public IEnumerable<Funcionario> Find(Expression<Func<Funcionario, bool>> predicate)
@@ -92,12 +99,6 @@ namespace ProjectVishnu.DataAccess.Repository.Concrete
             return VishnuContext.Funcionarios.Where(func => func.Nif == nif).First().Id;
         }
 
-        public IEnumerable<Funcionario> GetValidityWarningList()
-        {
-            DateOnly date = DateOnly.FromDateTime(DateTime.Today);
-            date.AddDays(VALIDATY_WARNING_DAYS);
-            return VishnuContext.Funcionarios.Where(func => date > func.Validadedocident).ToList();
-        }
 
         public vishnuContext VishnuContext
         {

@@ -31,7 +31,7 @@ namespace ProjectVishnu.ServerApp.App.Dtos
     {
         public FuncionarioInputModel Func { get; set; }
         public List<WorkDaysInputModel> Dias { get; set; }
-        public int? ValorFinal { get; set; }
+        public decimal? ValorFinal { get; set; }
     }
 
     public class WorkDaysInputModel

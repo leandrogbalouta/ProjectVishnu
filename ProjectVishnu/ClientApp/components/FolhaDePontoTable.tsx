@@ -22,6 +22,7 @@ export function FolhaDePontoTable({
   folhaDePontoData,
   submitValues,
 }: FolhaDePontoTableProps) {
+
   async function formatValues() {
     const firstDay = folhaDePontoData.limits[0];
     const endOfMonth = folhaDePontoData.limits[1];
@@ -46,10 +47,27 @@ export function FolhaDePontoTable({
           horas: hours,
         });
       }
-      //console.log(document.getElementById(`Val${func.id}`).innerHTML === '')
+
+      let hours: string | number = document.getElementById(
+        `Func${func.id}Day${lastDay}`
+      )!.innerHTML;
+      if (hours === "") hours = 0;
+      else hours = Number(hours);
+      funcValues.dias.push({
+        dia: lastDay,
+        horas: hours,
+      });
+
       // VER SE SALARIO FINAL É DIFERENTE DO SALARIO FINAL RECEBIDO E SE FOR, ENVIAR ESSE VALOR
+      let finalValue : string | number = Number(document.getElementById(
+        `Val${func.id}`
+      )!.innerHTML)
+      if(finalValue != folhaDePontoData.finalValue[func.nif])
+      funcValues.valorFinal = finalValue
+
       values.values.push(funcValues);
     });
+    
     submitValues!(values);
   }
 

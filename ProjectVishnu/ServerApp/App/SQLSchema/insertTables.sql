@@ -25,7 +25,7 @@ cartaconducao,iban, passaporte) values
 ('Francisco Martins','1999-03-20',
 '916705652','214439239','Portuguesa',
 'portugal','CC','14627570',
-'2025-09-19','CA1','255896379',
+'2023-03-01','CA1','255896379',
 '12345678910','Rua Leandro Bolota n420',
 '2021-03-09','2023-03-09',12.0,
 'fixo',10.0,null,true,

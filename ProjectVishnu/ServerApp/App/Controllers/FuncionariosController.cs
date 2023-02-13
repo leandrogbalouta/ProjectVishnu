@@ -109,7 +109,7 @@ namespace ProjectVishnu.Controllers
 
         }
 
-        [HttpGet("/validity/count")]
+        [HttpGet("validity/count")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(int))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -118,7 +118,7 @@ namespace ProjectVishnu.Controllers
             return Ok(_funcionariosService.GetValidityWarningCount());
         }
 
-        [HttpGet("/validity/list")]
+        [HttpGet("validity/list")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<FuncionarioOutputModel>))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

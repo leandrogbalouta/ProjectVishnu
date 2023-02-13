@@ -231,7 +231,12 @@ namespace ProjectVishnu.ServerApp.App.Services.Concrete
                     _unitOfWork.DiasTrabalho.AddOrUpdate(diaTrabalho);
                 });
                 SalarioFinal salarioFinal = folha.IdSalarios.Where(sf => sf.Funcionario == f.Func.Nif).First();
-                salarioFinal.Valorfinal = valorFinal;
+                if(f.ValorFinal == null){
+                    salarioFinal.Valorfinal = valorFinal;
+                }else
+                {
+                    salarioFinal.Valorfinal = (decimal)f.ValorFinal;
+                }
             });
             _unitOfWork.Complete();
             return GetFromObra(obraID, ano, mes);
