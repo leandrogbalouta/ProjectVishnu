@@ -104,12 +104,76 @@ namespace ProjectVishnu.ServerApp.App.Services.Concrete
             }
         }
 
-        public FolhaDePontoValuesOutputModel GetFromMercado(string mercado, string ano, string mes)
+        public FolhaDePontoValuesOutputModel GetFromMercado(string mercadoName, string ano, string mes)
         {
             try
             {
-                List<FolhaDePonto> folhaDePontoList = _unitOfWork.FolhaDePontos.GetFromMercado(mercado, ano, mes);
-                return null;
+                List<FolhaDePonto> folhaDePontoList = _unitOfWork.FolhaDePontos.GetFromMercado(mercadoName, ano, mes);
+
+                FolhaDePontoInfoModel info = new FolhaDePontoInfoModel{
+                    Ano = ano,
+                    Mes = mes
+                };
+
+                Mercado mercado = _unitOfWork.Mercados.GetMercado(mercadoName);
+
+                int previousMonth = CalendarUtils.GetPreviousMonth(info.Mes);
+                string prevMonthStr = previousMonth >= 10 ? previousMonth.ToString() : "0" + previousMonth.ToString();
+                
+                string startAno = ano;
+                if(previousMonth == 12) startAno = (int.Parse(info.Ano)-1).ToString();
+
+                DateOnly startDate = DateOnly.Parse(String.Format("{0}-{1}-{2}", startAno, prevMonthStr, mercado.DiaInicio));
+                DateOnly endDate = DateOnly.Parse(String.Format("{0}-{1}-{2}", ano, info.Mes, mercado.DiaFim));
+
+                Dictionary<string, Dictionary<int, decimal>> FuncWorkDays =
+                new Dictionary<string, Dictionary<int, decimal>>();
+
+                Dictionary<string, decimal> FinalValue = new Dictionary<string, decimal>();
+
+                List<FuncionarioOutputModel> funcionariosOutputModel = new List<FuncionarioOutputModel>();
+
+                foreach(FolhaDePonto folhaDePonto in folhaDePontoList){
+                    foreach(SalarioFinal sf in folhaDePonto.IdSalarios){
+                        Dictionary<int, decimal> WorkDay = new Dictionary<int, decimal>();
+                        if(!FinalValue.ContainsKey(sf.Funcionario)){
+                            FinalValue.Add(sf.Funcionario, sf.Valorfinal);
+                        }else{
+                            FinalValue[sf.Funcionario] += sf.Valorfinal;
+                        }
+                        funcionariosOutputModel.Add(sf.FuncionarioNavigation.toOutputModel());
+                        List<DiaTrabalho> diasTrabalho = _unitOfWork.DiasTrabalho.GetFuncDaysFromMercadoBetweenDates(sf.Funcionario, mercadoName, startDate, endDate);
+                        diasTrabalho.ForEach( dt => {
+                            WorkDay.Add(dt.Dia, dt.Horas);
+                        });
+                        FuncWorkDays.Add(sf.Funcionario, WorkDay);
+                    }
+                }
+
+                List<int> Limits = new List<int>();
+                List<int> saturdays;
+                List<int> sundays;
+                List<int> holidays;
+
+                CalendarUtils.GetNonWorkDays(ano, mes, mercado, out saturdays, out sundays, out holidays);
+
+
+                int midLimit = CalendarUtils.GetMidLimit(info.Ano, info.Mes);
+                Limits.Add((int)mercado.DiaInicio);
+                Limits.Add(midLimit);
+                Limits.Add((int)mercado.DiaFim);
+
+                
+                return new FolhaDePontoValuesOutputModel{
+                    Info = info,
+                    FuncWorkDays = FuncWorkDays,
+                    FinalValue = FinalValue,
+                    Funcionarios = funcionariosOutputModel,
+                    Limits = Limits,
+                    Saturdays = saturdays,
+                    Sundays = sundays,
+                    Holidays = holidays
+                };
             }catch(Exception e)
             {
                 return null;

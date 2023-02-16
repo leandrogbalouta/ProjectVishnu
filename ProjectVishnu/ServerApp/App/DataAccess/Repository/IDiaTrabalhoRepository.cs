@@ -7,6 +7,6 @@ namespace ProjectVishnu.ServerApp.App.DataAccess.Repository
     {
         void AddOrUpdate(DiaTrabalho diaTrabalho);
         List<DiaTrabalho> GetFuncDaysFromObraBetweenDates(string funcNif, string codigoObra, DateOnly startDate, DateOnly endDate);
-        List<DiaTrabalho> GetFuncDaysBetweenDates(string funcNif, DateOnly startDate, DateOnly endDate);
+        List<DiaTrabalho> GetFuncDaysFromMercadoBetweenDates(string funcNif, string mercado, DateOnly start, DateOnly end);
     }
 }

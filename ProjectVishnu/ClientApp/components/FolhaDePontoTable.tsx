@@ -62,7 +62,7 @@ export function FolhaDePontoTable({
       let finalValue : string | number = Number(document.getElementById(
         `Val${func.id}`
       )!.innerHTML)
-      if(finalValue != folhaDePontoData.finalValue[func.nif])
+      if(folhaDePontoData.finalValue!! && finalValue != folhaDePontoData.finalValue[func.nif])
       funcValues.valorFinal = finalValue
 
       values.values.push(funcValues);

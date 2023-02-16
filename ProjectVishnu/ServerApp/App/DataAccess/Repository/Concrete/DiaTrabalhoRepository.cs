@@ -25,8 +25,8 @@ namespace ProjectVishnu.ServerApp.App.DataAccess.Repository.Concrete
             return VishnuContext.DiaTrabalhos.Where(dt => dt.Codigoobra == codigoObra && dt.Funcionario == funcNif).ToList().Where(dt => isBetweenInterval(dt, start, end)).ToList();
         }
 
-        public List<DiaTrabalho> GetFuncDaysBetweenDates(string funcNif, DateOnly start, DateOnly end){
-            return VishnuContext.DiaTrabalhos.Where(dt => dt.Funcionario == funcNif).ToList().Where(dt => isBetweenInterval(dt, start, end)).ToList();
+        public List<DiaTrabalho> GetFuncDaysFromMercadoBetweenDates(string funcNif, string mercado, DateOnly start, DateOnly end){
+            return VishnuContext.DiaTrabalhos.Where(dt => dt.CodigoobraNavigation.Mercado == mercado && dt.Funcionario == funcNif).ToList().Where(dt => isBetweenInterval(dt, start, end)).ToList();
         }
 
         private bool isBetweenInterval(DiaTrabalho dt, DateOnly start, DateOnly end){

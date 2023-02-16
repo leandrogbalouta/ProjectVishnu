@@ -58,7 +58,7 @@ namespace ProjectVishnu.ServerApp.App.DataAccess.Repository.Concrete
 
         Mercado IMercadoRepository.GetMercado(string mercado)
         {
-            throw new NotImplementedException();
+            return VishnuContext.Mercados.Where(m => m.Mercadoname == mercado).First();
         }
     }
 }

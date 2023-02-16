@@ -46,7 +46,7 @@ export async function GetFuncionariosValidityWarningCount(){
 }
 
 export async function GetFuncionariosValidityWarningList(){
-  const path = "api/funcionarios/validity/list"
+  const path = "/api/funcionarios/validity/list"
   return fetch(path)
 }
 
@@ -98,8 +98,8 @@ export async function fetchFolhaDePontoByObra(
 }
 export async function fetchFolhaDePontoByMercado(
   mercado: string,
-  mes: number,
-  ano: number
+  mes: string,
+  ano: string
 ) {
   const path = `/api/folha-de-ponto/${mercado}/${ano}-${mes}`;
   return fetch(path);
