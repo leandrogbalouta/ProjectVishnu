@@ -174,9 +174,11 @@ export function FolhaDePontoTable({
         console.log(!folhaData.funcWorkDays)
         if(folhaData.funcWorkDays){
             let funcNif = row.func.nif as keyof Record<string, Map<number, number>>;
-            let daysOfFunc = folhaData.funcWorkDays[funcNif].valueOf();
+            let daysOfFunc = folhaData.funcWorkDays[funcNif];
             let dayNumber = day.props.children as keyof Object;
-            hours = daysOfFunc[dayNumber] as unknown as number;
+            if(daysOfFunc === undefined) hours = 0
+            else hours = daysOfFunc[dayNumber] as unknown as number;
+            
         }
         
         

@@ -113,6 +113,23 @@ namespace ProjectVishnu.Services
             }
             
         }
+        
+        public int AddFuncToObra(int id, string codigoObra, string date)
+        {
+            try{
+                // Funcionario func = _unitOfWork.Funcionarios.Get(id);
+
+                // if(func.FuncionariosObras.Any(fo => fo.Datafim != null)) return 0; // retornar erro a dizer que o funcionário já se encontra numa obra
+                
+                // func.
+
+                return 1;
+            }
+            catch(Exception e)
+            {
+                return 0;
+            }
+        }
 
         public int GetValidityWarningCount()
         {
@@ -123,5 +140,6 @@ namespace ProjectVishnu.Services
         {
             return _unitOfWork.Funcionarios.GetValidityWarningList();
         }
+
     }
 }

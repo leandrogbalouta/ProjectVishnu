@@ -29,13 +29,10 @@ namespace ProjectVishnu.ServerApp.App.Services.Concrete
 
             Mercado interval = _unitOfWork.Obras.GetMercado(obraID); // TODO: MUDAR ISTO
 
-            int previousMonth = CalendarUtils.GetPreviousMonth(info.Mes);
-            string prevMonthStr = previousMonth >= 10 ? previousMonth.ToString() : "0" + previousMonth.ToString();
-            string startAno = info.Ano;
-            if(previousMonth == 12) startAno = (int.Parse(info.Ano)-1).ToString();
+            DateOnly startDate;
+            DateOnly endDate;
 
-            DateOnly startDate = DateOnly.Parse(String.Format("{0}-{1}-{2}", startAno, prevMonthStr, interval.DiaInicio));
-            DateOnly endDate = DateOnly.Parse(String.Format("{0}-{1}-{2}", info.Ano, info.Mes, interval.DiaFim));
+            CalendarUtils.GetStartAndEndDates(interval, info.Ano, info.Mes, out startDate, out endDate);
 
             model.Funcionarios = _unitOfWork.FuncionariosObra.GetFuncsDuringInterval(obraID, startDate, endDate).Select(func => func.toOutputModel()).ToList();
 
@@ -117,21 +114,17 @@ namespace ProjectVishnu.ServerApp.App.Services.Concrete
 
                 Mercado mercado = _unitOfWork.Mercados.GetMercado(mercadoName);
 
-                int previousMonth = CalendarUtils.GetPreviousMonth(info.Mes);
-                string prevMonthStr = previousMonth >= 10 ? previousMonth.ToString() : "0" + previousMonth.ToString();
-                
-                string startAno = ano;
-                if(previousMonth == 12) startAno = (int.Parse(info.Ano)-1).ToString();
+                DateOnly startDate;
+                DateOnly endDate;
 
-                DateOnly startDate = DateOnly.Parse(String.Format("{0}-{1}-{2}", startAno, prevMonthStr, mercado.DiaInicio));
-                DateOnly endDate = DateOnly.Parse(String.Format("{0}-{1}-{2}", ano, info.Mes, mercado.DiaFim));
+                CalendarUtils.GetStartAndEndDates(mercado, ano, mes, out startDate, out endDate);
 
                 Dictionary<string, Dictionary<int, decimal>> FuncWorkDays =
                 new Dictionary<string, Dictionary<int, decimal>>();
 
                 Dictionary<string, decimal> FinalValue = new Dictionary<string, decimal>();
 
-                List<FuncionarioOutputModel> funcionariosOutputModel = new List<FuncionarioOutputModel>();
+                List<FuncionarioOutputModel> funcionariosOutputModel = _unitOfWork.Funcionarios.ListByMarket(mercadoName).Select(f => f.toOutputModel()).ToList();
 
                 foreach(FolhaDePonto folhaDePonto in folhaDePontoList){
                     foreach(SalarioFinal sf in folhaDePonto.IdSalarios){
@@ -141,7 +134,6 @@ namespace ProjectVishnu.ServerApp.App.Services.Concrete
                         }else{
                             FinalValue[sf.Funcionario] += sf.Valorfinal;
                         }
-                        funcionariosOutputModel.Add(sf.FuncionarioNavigation.toOutputModel());
                         List<DiaTrabalho> diasTrabalho = _unitOfWork.DiasTrabalho.GetFuncDaysFromMercadoBetweenDates(sf.Funcionario, mercadoName, startDate, endDate);
                         diasTrabalho.ForEach( dt => {
                             WorkDay.Add(dt.Dia, dt.Horas);
@@ -196,14 +188,10 @@ namespace ProjectVishnu.ServerApp.App.Services.Concrete
 
                 Mercado mercado = folhaDePonto.MercadoNavigation;
 
-                int previousMonth = CalendarUtils.GetPreviousMonth(info.Mes);
-                string prevMonthStr = previousMonth >= 10 ? previousMonth.ToString() : "0" + previousMonth.ToString();
-                
-                string startAno = ano;
-                if(previousMonth == 12) startAno = (int.Parse(info.Ano)-1).ToString();
+                DateOnly startDate;
+                DateOnly endDate;
 
-                DateOnly startDate = DateOnly.Parse(String.Format("{0}-{1}-{2}", startAno, prevMonthStr, mercado.DiaInicio));
-                DateOnly endDate = DateOnly.Parse(String.Format("{0}-{1}-{2}", ano, info.Mes, mercado.DiaFim));
+                CalendarUtils.GetStartAndEndDates(mercado, ano, mes, out startDate, out endDate);
 
                 Dictionary<string, Dictionary<int, decimal>> FuncWorkDays =
                 new Dictionary<string, Dictionary<int, decimal>>();
@@ -268,13 +256,8 @@ namespace ProjectVishnu.ServerApp.App.Services.Concrete
             int midLimit = CalendarUtils.GetMidLimit(ano, mes);
 
             values.Values.ForEach(f => {
-                decimal valorFinal = 0;
                 f.Dias.ForEach(dia => {
-                    if(dia.Horas == 0) return;
-                    valorFinal = valorFinal + ((decimal) dia.Horas) * f.Func.Salarioreal;
-                    
                     string monthStr = mes;
-                
                     string anoStr = ano;
 
                     if(dia.Dia >= mercado.DiaInicio && dia.Dia <= midLimit){
@@ -295,15 +278,35 @@ namespace ProjectVishnu.ServerApp.App.Services.Concrete
                     _unitOfWork.DiasTrabalho.AddOrUpdate(diaTrabalho);
                 });
                 SalarioFinal salarioFinal = folha.IdSalarios.Where(sf => sf.Funcionario == f.Func.Nif).First();
-                if(f.ValorFinal == null){
+                if(f.ValorFinal == null)
+                {
+                    decimal valorFinal = CalculateSalario(f.Func.Nif, mercado, ano, mes);
                     salarioFinal.Valorfinal = valorFinal;
-                }else
+                }
+                else
                 {
                     salarioFinal.Valorfinal = (decimal)f.ValorFinal;
                 }
             });
             _unitOfWork.Complete();
             return GetFromObra(obraID, ano, mes);
+        }
+
+        private decimal CalculateSalario(string nif, Mercado mercado, string ano, string mes)
+        {
+            DateOnly startDate;
+            DateOnly endDate;
+
+            CalendarUtils.GetStartAndEndDates(mercado, ano, mes, out startDate, out endDate);
+
+            IEnumerable<DiaTrabalho> dtList = _unitOfWork.DiasTrabalho.GetFuncDaysFromMercadoBetweenDates(nif, mercado.Mercadoname, startDate, endDate);
+            
+            decimal valorFinal = 0;
+            foreach(DiaTrabalho diaTrabalho in dtList)
+            {
+                valorFinal += diaTrabalho.Valor * diaTrabalho.Horas;
+            }
+            return valorFinal;
         }
     }
 }

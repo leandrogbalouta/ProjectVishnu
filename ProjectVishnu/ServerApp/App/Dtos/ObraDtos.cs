@@ -65,7 +65,7 @@ namespace ProjectVishnu.ServerApp.App.Dtos
 
     public class FuncionarioObraInputModel
     {
-        public int Id { get; set; }
+        public string CodigoInterno { get; set; }
         public string Date { get; set; }
     }
 }

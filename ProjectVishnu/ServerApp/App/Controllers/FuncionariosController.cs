@@ -82,7 +82,7 @@ namespace ProjectVishnu.Controllers
             {
                 string erroCode = ex.InnerException!.Data["SqlState"]!.ToString()!;
                 // 23505 significa primary key duplicada (Postgres).
-                string errorMessage = (erroCode.Equals("23505")) ? "NIF duplicado." : "Ocoreu um erro, por favor tente novamente, se o erro persistir, entre em contacto connosco.";
+                string errorMessage = (erroCode.Equals("23505")) ? "NIF duplicado." : "Ocorreu um erro, por favor tente novamente, se o erro persistir, entre em contacto connosco.";
                 return Problem(statusCode: 400, title: errorMessage);
             }
         }
@@ -107,6 +107,12 @@ namespace ProjectVishnu.Controllers
             return result == null ? BadRequest() : Ok(result);
 
 
+        }
+
+        [HttpPost("{id}")]
+        public IActionResult AddFuncToObra(int id, [FromBody] FuncionarioObraInputModel obraInput){
+            int result = _funcionariosService.AddFuncToObra(id, obraInput.CodigoInterno, obraInput.Date);
+            return result == 0 ? BadRequest() : Ok();
         }
 
         [HttpGet("validity/count")]

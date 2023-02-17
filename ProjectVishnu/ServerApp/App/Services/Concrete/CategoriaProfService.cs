@@ -13,13 +13,53 @@ namespace ProjectVishnu.ServerApp.App.Services.Concrete
             _unitOfWork = unitOfWork;
         }
 
-        public IEnumerable<CatProfInputModel> ListAlphabetically()
+        public CategoriasProfissionai Create(string Codigo, string Nomenclatura)
+        {
+            try
+            {
+                CategoriasProfissionai catProf = new CategoriasProfissionai{Codigo = Codigo, Nomenclatura = Nomenclatura};
+                _unitOfWork.CategoriasProfissionais.Add(catProf);
+                return catProf;
+            }
+            catch(Exception e)
+            {
+                return null;
+            }
+        }
+
+        public CategoriasProfissionai Delete(string Codigo)
+        {
+            try
+            {
+                CategoriasProfissionai catProf =_unitOfWork.CategoriasProfissionais.GetCatProf(Codigo);
+                _unitOfWork.CategoriasProfissionais.Remove(catProf);
+                return catProf;
+            }
+            catch(Exception e)
+            {
+                return null;
+            }
+        }
+
+        public CategoriasProfissionai Get(string Codigo)
+        {
+            try
+            {
+                return _unitOfWork.CategoriasProfissionais.GetCatProf(Codigo);
+            }
+            catch(Exception e)
+            {
+                return null;
+            }
+        }
+
+        public IEnumerable<CatProfDto> ListAlphabetically()
         {
            try
             {
                 return _unitOfWork.CategoriasProfissionais.ListAlphabetically()
                     .Select(catprof => 
-                        new CatProfInputModel
+                        new CatProfDto
                         {
                             Codigo = catprof.Codigo,
                             Nomenclatura = catprof.Nomenclatura

@@ -13,6 +13,17 @@ namespace ProjectVishnu.ServerApp.App.Utils
             return MonthsArray[(previousMonth-1) % 13].GetNumberOfDays(int.Parse(ano));
         }
 
+        public static void GetStartAndEndDates(Mercado mercado, string ano, string mes, out DateOnly startDate, out DateOnly endDate)
+        {
+            int previousMonth = CalendarUtils.GetPreviousMonth(mes);
+            string prevMonthStr = previousMonth >= 10 ? previousMonth.ToString() : "0" + previousMonth.ToString();
+            
+            string startAno = ano;
+            if(previousMonth == 12) startAno = (int.Parse(ano)-1).ToString();
+            startDate = DateOnly.Parse(String.Format("{0}-{1}-{2}", startAno, prevMonthStr, mercado.DiaInicio));
+            endDate = DateOnly.Parse(String.Format("{0}-{1}-{2}", ano, mes, mercado.DiaFim));
+        }
+
         public static void GetWeekends(string ano, string mes, string startDay, string endDay, out List<int> saturdays, out List<int> sundays)
         {
             saturdays = new List<int>();
