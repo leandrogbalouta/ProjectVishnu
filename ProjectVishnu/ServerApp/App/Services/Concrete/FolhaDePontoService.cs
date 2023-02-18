@@ -280,7 +280,7 @@ namespace ProjectVishnu.ServerApp.App.Services.Concrete
                 SalarioFinal salarioFinal = folha.IdSalarios.Where(sf => sf.Funcionario == f.Func.Nif).First();
                 if(f.ValorFinal == null)
                 {
-                    decimal valorFinal = CalculateSalario(f.Func.Nif, mercado, ano, mes);
+                    decimal valorFinal = CalculateSalario(f.Func.ToFuncionario(), mercado, ano, mes);
                     salarioFinal.Valorfinal = valorFinal;
                 }
                 else
@@ -292,20 +292,42 @@ namespace ProjectVishnu.ServerApp.App.Services.Concrete
             return GetFromObra(obraID, ano, mes);
         }
 
-        private decimal CalculateSalario(string nif, Mercado mercado, string ano, string mes)
+        private decimal CalculateSalario(Funcionario func, Mercado mercado, string ano, string mes)
         {
             DateOnly startDate;
             DateOnly endDate;
 
             CalendarUtils.GetStartAndEndDates(mercado, ano, mes, out startDate, out endDate);
 
-            IEnumerable<DiaTrabalho> dtList = _unitOfWork.DiasTrabalho.GetFuncDaysFromMercadoBetweenDates(nif, mercado.Mercadoname, startDate, endDate);
-            
+            IEnumerable<DiaTrabalho> dtList = _unitOfWork.DiasTrabalho.GetFuncDaysFromMercadoBetweenDates(func.Nif, mercado.Mercadoname, startDate, endDate);
+
             decimal valorFinal = 0;
-            foreach(DiaTrabalho diaTrabalho in dtList)
+            
+            if(func.Tiposalario == "horario")
             {
-                valorFinal += diaTrabalho.Valor * diaTrabalho.Horas;
+
+                foreach(DiaTrabalho diaTrabalho in dtList)
+                {
+                    valorFinal += diaTrabalho.Valor * diaTrabalho.Horas;
+                }
             }
+            else
+            {
+                int nonWorkDays = CalendarUtils.GetNonWorkDays(ano, mes, mercado, out _, out _, out _);
+                int totalDays = endDate.DayNumber - startDate.DayNumber + 1;
+                int workDays = totalDays - nonWorkDays;
+
+                decimal funcWorkedDays = 0;
+                foreach(DiaTrabalho diaTrabalho in dtList)
+                {
+                    if(diaTrabalho.Horas >= 5) funcWorkedDays += 1;
+                    else if(diaTrabalho.Horas < 2) continue;
+                    else funcWorkedDays = funcWorkedDays + 0.5M;
+                }
+
+                valorFinal = funcWorkedDays * func.Salarioreal / workDays;
+            }
+           
             return valorFinal;
         }
     }

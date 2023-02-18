@@ -22,7 +22,6 @@ import IFolhaDePontoOutput from "../../../common/Interfaces/FolhaDePonto/IFolhaD
 import FolhaDePontoObra from "./folha-de-ponto/[data]";
 import IFolhaDePontoInfoModel from "../../../common/Interfaces/FolhaDePonto/IFolhaDePontoInfoModel";
 
-//TODO: ADICIONAR LISTA DE FOLHAS DE PONTO JÁ CRIADAS
 export default function Obra() {
   const router = useRouter();
   const [obra, setObra] = useState(null);

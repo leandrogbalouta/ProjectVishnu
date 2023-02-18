@@ -24,8 +24,10 @@ namespace ProjectVishnu.ServerApp.App.Utils
             endDate = DateOnly.Parse(String.Format("{0}-{1}-{2}", ano, mes, mercado.DiaFim));
         }
 
-        public static void GetWeekends(string ano, string mes, string startDay, string endDay, out List<int> saturdays, out List<int> sundays)
+        public static int GetWeekends(string ano, string mes, string startDay, string endDay, out List<int> saturdays, out List<int> sundays)
         {
+            int count = 0;
+
             saturdays = new List<int>();
             sundays = new List<int>();
             int previousMonth = CalendarUtils.GetPreviousMonth(mes);
@@ -43,11 +45,20 @@ namespace ProjectVishnu.ServerApp.App.Utils
             DateTime currentDay = firstDay;
             while(currentDay <= lastDay)
             {
-                if (currentDay.DayOfWeek == DayOfWeek.Saturday) saturdays.Add(currentDay.Day);
-                else if (currentDay.DayOfWeek == DayOfWeek.Sunday) sundays.Add(currentDay.Day);
+                if (currentDay.DayOfWeek == DayOfWeek.Saturday)
+                {
+                    saturdays.Add(currentDay.Day);
+                    count++;
+                } 
+                else if (currentDay.DayOfWeek == DayOfWeek.Sunday)
+                {
+                    sundays.Add(currentDay.Day);
+                    count++;
+                } 
 
                 currentDay = currentDay.AddDays(1);
             }
+            return count;
         }
 
         public static List<int> GetHolidays(string ano, string mes, string mercado)
@@ -57,10 +68,13 @@ namespace ProjectVishnu.ServerApp.App.Utils
             return new List<int>();
         }
 
-        public static void GetNonWorkDays(string ano, string mes, Mercado interval, out List<int> saturdays, out List<int> sundays, out List<int> holidays)
+        public static int GetNonWorkDays(string ano, string mes, Mercado interval, out List<int>? saturdays, out List<int>? sundays, out List<int>? holidays)
         {
             holidays = GetHolidays(ano, mes, interval.Mercadoname);
-            GetWeekends(ano, mes, interval.DiaInicio.ToString(), interval.DiaFim.ToString(), out saturdays, out sundays);
+
+            int weekends = GetWeekends(ano, mes, interval.DiaInicio.ToString(), interval.DiaFim.ToString(), out saturdays, out sundays);
+
+            return holidays.Count() + weekends;
         }
 
         public static int GetPreviousMonth(string mes){

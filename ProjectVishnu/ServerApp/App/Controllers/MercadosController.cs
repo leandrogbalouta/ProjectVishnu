@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ProjectVishnu.Models;
+using ProjectVishnu.ServerApp.App.Dtos;
 using ProjectVishnu.ServerApp.App.Services;
 
 namespace ProjectVishnu.ServerApp.App.Controllers
@@ -23,6 +25,30 @@ namespace ProjectVishnu.ServerApp.App.Controllers
             if (Request.QueryString.HasValue) return BadRequest();
             var result = _mercadosService.ListAlphabetically();
             return result == null ? NotFound() : Ok(result);
+        }
+
+        [HttpGet("{name}")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Mercado))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult Get(string name)
+        {
+            var result = _mercadosService.GetMercado(name);
+            return result == null ? NotFound() : Ok();
+        }
+
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(Mercado))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult Create([FromBody] MercadoDto mercado)
+        {
+            var result = _mercadosService.CreateMercado(mercado);
+            var actionName = nameof(MercadosController.Get);
+            var routeValues = new 
+            {
+                name = result.Mercadoname
+            };
+            return result == null ? BadRequest() : CreatedAtAction(actionName, routeValues, result);
         }
     }
 }

@@ -48,11 +48,14 @@ CREATE TABLE OBRA (
 		CodigoInterno varchar(20) primary key,
         Designacao varchar(20) NOT NULL,
         Cliente varchar(20) NOT NULL,
-        DataInicio date NOT NULL,
+        DataInicio date,
         DataFim date,
+		Estado varchar(15) NOT NULL,
         Mercado varchar(40) references MERCADO(MercadoName),
         AutosDeMedicao varchar(100) NOT NULL,
-		deleted date default null
+		deleted date default null,
+
+		constraint chk_Estado CHECK(Estado IN('Completada', 'Em curso', 'Por começar'))
 );
 
 CREATE TABLE FUNCIONARIOS_OBRAS(

@@ -17,8 +17,9 @@ namespace ProjectVishnu.Models
         public string Codigointerno { get; set; } = null!;
         public string Designacao { get; set; } = null!;
         public string Cliente { get; set; } = null!;
-        public DateOnly Datainicio { get; set; }
+        public DateOnly? Datainicio { get; set; }
         public DateOnly? Datafim { get; set; }
+        public string Estado { get; set; } = null!; 
         public string? Mercado { get; set; }
         public string Autosdemedicao { get; set; } = null!;
         public DateOnly? Deleted { get; set; }
@@ -35,7 +36,7 @@ namespace ProjectVishnu.Models
                 CodigoInterno = Codigointerno,
                 Designacao = Designacao,
                 Cliente = Cliente,
-                Datainicio = Datainicio.ToShortDateString(),
+                Datainicio = Datainicio?.ToShortDateString(),
                 Mercado = Mercado
             };
     }

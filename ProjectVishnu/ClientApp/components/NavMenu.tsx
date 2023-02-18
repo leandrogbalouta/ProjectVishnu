@@ -2,7 +2,7 @@ import React, { useCallback, useContext, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 import CustomNavLink from "./CustomNavLink";
 import { useState } from "react";
-import { RiMenu4Line } from "react-icons/ri";
+import { RiFileSettingsFill, RiMenu4Line, RiMenu5Fill, RiSettings5Fill, RiSettings5Line, RiSettings6Fill, RiSettings6Line, RiUserSettingsFill } from "react-icons/ri";
 import { BsFillMoonStarsFill, BsFillSunFill } from "react-icons/bs";
 import ThemeContext from "./contexts/Theme/themeContext";
 
@@ -41,6 +41,17 @@ export default function NavMenu() {
     >
       <nav className="bg-slate-900 border-gray-200 px-2 sm:px-4 py-2.5 rounded">
         <div className="container-fluid flex flex-wrap items-center">
+          <div id="nav-menu-button-container" className="flex flex-end">
+            <button
+              id="settings"
+              title="open-settings"
+              type="button"
+              className="text-gray-500 dark:text-gray-400 hover:bg-gray-300 dark:hover:bg-gray-700 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 mr-1"
+              onClick={() => {}} // TODO: ir para uma página de administração (por criar)
+            >
+              <RiSettings5Line></RiSettings5Line>
+            </button>
+          </div>
           <span
             className="self-center text-xl font-semibold whitespace-nowrap !text-white cursor-pointer mr-auto"
             onClick={() => router.push("/")}

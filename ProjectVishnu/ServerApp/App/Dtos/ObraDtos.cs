@@ -9,6 +9,7 @@ namespace ProjectVishnu.ServerApp.App.Dtos
         public string Designacao { get; set; } = null!;
         public string Cliente { get; set; } = null!;
         public string? Datainicio { get; set; }
+        public string Estado { get; set; } = null!;
         public string Mercado { get; set; } = null!;
 
         public Obra ToObra() 
@@ -19,6 +20,7 @@ namespace ProjectVishnu.ServerApp.App.Dtos
                 Designacao = Designacao,
                 Cliente = Cliente,
                 Datainicio = DateOnly.Parse(Datainicio),
+                Estado = Estado,
                 Mercado = Mercado,
                 Autosdemedicao = "HARDCODED"
             };
@@ -59,6 +61,7 @@ namespace ProjectVishnu.ServerApp.App.Dtos
         public string Designacao { get; set; } = null!;
         public string Cliente { get; set; } = null!;
         public string? Datainicio { get; set; }
+        public string Estado { get; set; } = null!;
         public string Mercado { get; set; } = null!;
         public string Autosdemedicao { get; set; } = null!;
     }

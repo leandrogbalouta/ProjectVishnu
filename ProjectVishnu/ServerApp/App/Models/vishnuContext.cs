@@ -342,6 +342,10 @@ namespace ProjectVishnu.Models
 
                 entity.Property(e => e.Datainicio).HasColumnName("datainicio");
 
+                entity.Property(e => e.Estado)
+                .HasMaxLength(15)
+                .HasColumnName("estado");
+
                 entity.Property(e => e.Deleted).HasColumnName("deleted");
 
                 entity.Property(e => e.Designacao)
