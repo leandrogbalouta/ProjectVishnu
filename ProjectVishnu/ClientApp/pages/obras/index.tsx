@@ -16,6 +16,7 @@ import {
 
 export default function Obras() {
   const [obras, setObras] = useState(null);
+  const [state, setState] = useState("todas")
   const [mercado, setMercado] = useState(null);
   const [searchString, setSearchString] = useState(null);
 
@@ -33,6 +34,7 @@ export default function Obras() {
   useEffect(() => {
     const filters = Object.assign(
       {},
+      state === "todas" ? null : { state : state},
       mercado === null ? null : { mercado: mercado },
       searchString === null ? null : { valor: searchString }
     );
@@ -43,11 +45,28 @@ export default function Obras() {
       setObras(data);
     };
     populateObrasData();
-  }, [mercado, searchString]);
+  }, [mercado, searchString, state]);
 
   return (
     <div className="flex flex-col flex-1 h-full">
       <h1 className="text-center text-4xl mb-5">Obras</h1>
+      <div className="flex justify-center align-middle">
+        <ul className="flex p-4 mt-4 border rounded-lg md:flex-row md:space-x-8 md:mt-0 md:text-md md:font-medium md:border-0 ">
+          <li className={state === "todas" ? "active-obra-state" : "inactive-obra-state"} onClick={ () => setState("todas")}>
+            Todas
+          </li>
+          <li className={state === "em-curso" ? "active-obra-state" : "inactive-obra-state"} onClick={ () => setState("em-curso")}>
+            Em curso
+          </li>
+          <li className={state === "completadas" ? "active-obra-state" : "inactive-obra-state"} onClick={ () => setState("completadas")}>
+            Completadas
+          </li>
+          <li className={state === "por-comecar" ? "active-obra-state" : "inactive-obra-state"} onClick={ () => setState("por-comecar")}>
+            Por começar
+          </li>
+        </ul>
+      </div>
+      
       <FilterBar
         setMercado={setMercado}
         setSearchString={setSearchString}

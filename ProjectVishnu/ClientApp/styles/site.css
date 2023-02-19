@@ -21,6 +21,12 @@ body,
 .inactive-nav-link {
   @apply block py-2 pl-3 pr-4 !text-white rounded hover:bg-slate-600 md:hover:bg-transparent md:border-0 md:hover:text-slate-700 md:p-0 md:dark:hover:text-white dark:hover:bg-slate-700 md:dark:hover:bg-transparent;
 }
+.active-obra-state{
+ @apply text-sky-700 dark:text-sky-400 hover:text-sky-700 dark:hover:!text-sky-400 cursor-pointer
+}
+.inactive-obra-state{
+  @apply hover:text-sky-700 dark:hover:!text-sky-400 cursor-pointer
+}
 /* Radio buttons */
 .chakra-radio__control {
   @apply !text-white;

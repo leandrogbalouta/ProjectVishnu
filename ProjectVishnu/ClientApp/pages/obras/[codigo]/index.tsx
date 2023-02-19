@@ -106,6 +106,10 @@ export default function Obra() {
               <p className="obra-heading">Mercado</p>
               <p className="capitalize">{obra.mercado}</p>
             </div>
+            <div>
+              <p className="obra-heading">Estado</p>
+              <p className="capitalize">{obra.estado}</p>
+            </div>
             </div>
 
         </div>

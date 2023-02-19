@@ -57,21 +57,21 @@ cartaconducao,iban, passaporte) values
 
 INSERT INTO OBRA
 (codigointerno,designacao,cliente,
-datainicio,datafim,mercado,autosdemedicao) values
+datainicio,datafim,estado,mercado,autosdemedicao) values
 ('OB22ES01','Obra em Espanha','FCBarcelona',
-'2022-08-09','2026-09-08','espanha',
+'2022-08-09','2023-01-05','Completada','espanha',
 'Autos de medicao'),
 ('OB22PT01','Obra de um edificio','ISEL',
-'2022-05-09','2025-05-09','portugal',
+'2022-05-09',null,'Em curso','portugal',
 'Autos de medicao'),
 ('OB21PT01','Obra de uma escola','ESEL',
-'2021-06-30','2024-06-30','portugal',
+null,null,'Por começar','portugal',
 'Autos de medicao'),
 ('OB22ES02','Obra de um estadio','Real Madrid',
-'2022-07-09','2026-09-08','espanha',
+'2022-07-09',null,'Em curso','espanha',
 'Autos de medicao'),
 ('OB22FR01','Obra de um estadio','PSG',
-'2022-07-09','2026-09-08','franca',
+'2022-07-09',null,'Em curso','franca',
 'Autos de medicao');
 
 INSERT INTO FUNCIONARIOS_OBRAS

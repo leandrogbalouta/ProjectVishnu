@@ -37,7 +37,8 @@ namespace ProjectVishnu.Models
                 Designacao = Designacao,
                 Cliente = Cliente,
                 Datainicio = Datainicio?.ToShortDateString(),
-                Mercado = Mercado
+                Mercado = Mercado,
+                Estado = Estado
             };
     }
     }
