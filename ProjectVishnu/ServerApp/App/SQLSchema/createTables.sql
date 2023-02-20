@@ -55,7 +55,7 @@ CREATE TABLE OBRA (
         AutosDeMedicao varchar(100) NOT NULL,
 		deleted date default null,
 
-		constraint chk_Estado CHECK(Estado IN('Completada', 'Em curso', 'Por começar'))
+		constraint chk_Estado CHECK(Estado IN('completada', 'em-curso', 'por-comecar'))
 );
 
 CREATE TABLE FUNCIONARIOS_OBRAS(

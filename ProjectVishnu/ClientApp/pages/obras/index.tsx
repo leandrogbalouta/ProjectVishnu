@@ -34,7 +34,7 @@ export default function Obras() {
   useEffect(() => {
     const filters = Object.assign(
       {},
-      state === "todas" ? null : { state : state},
+      state === "todas" ? null : { estado : state},
       mercado === null ? null : { mercado: mercado },
       searchString === null ? null : { valor: searchString }
     );
@@ -58,7 +58,7 @@ export default function Obras() {
           <li className={state === "em-curso" ? "active-obra-state" : "inactive-obra-state"} onClick={ () => setState("em-curso")}>
             Em curso
           </li>
-          <li className={state === "completadas" ? "active-obra-state" : "inactive-obra-state"} onClick={ () => setState("completadas")}>
+          <li className={state === "completada" ? "active-obra-state" : "inactive-obra-state"} onClick={ () => setState("completada")}>
             Completadas
           </li>
           <li className={state === "por-comecar" ? "active-obra-state" : "inactive-obra-state"} onClick={ () => setState("por-comecar")}>

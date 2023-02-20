@@ -115,7 +115,9 @@ namespace ProjectVishnu.Controllers
             return result == 0 ? BadRequest() : Ok();
         }
 
-        [HttpGet("validity/count")]
+
+
+        [HttpGet("validity")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(int))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

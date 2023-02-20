@@ -88,5 +88,10 @@ namespace ProjectVishnu.ServerApp.App.Dtos
 
     }
 
+    public class ValidityWarningOutputModel{
+        public int Count {get; set;}
+        public IEnumerable<FuncionarioOutputModel>? funcList {get; set;}
+    }
+
    
 }

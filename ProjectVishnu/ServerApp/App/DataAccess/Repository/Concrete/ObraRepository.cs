@@ -9,34 +9,23 @@ namespace ProjectVishnu.DataAccess.Repository.Concrete
             : base(context)
         {
         }
-        public IEnumerable<Obra> Search(string procura)
-        {
-            return VishnuContext.Obras.Where(obra => obra.Codigointerno.Contains(procura) || obra.Designacao.Contains(procura));
-        }
 
-        public IEnumerable<Obra> ListByMarket(string mercado)
-        {
-            return VishnuContext.Obras.Where(obra => obra.Mercado!.Contains(mercado));
-        }
-        public IEnumerable<Obra> ListByMarketAndValue(string mercado, string valor)
-        {
-            return Search(valor).Where(obra => obra.Mercado!.Contains(mercado));
-        }
         public IEnumerable<Obra> ListByFuncionario(int funcionarioId)
         {
-            string con = "Host=localhost;Database=vishnu;Username=postgres;Password=postgres;Include Error Detail=true;";
-            using (var context = new vishnuContext(con))
-            {
-                return context.Obras
-                                    .Where(obra => obra.FuncionariosObras
-                                    .Any(funcionario => funcionario.FuncionarioNavigation.Id == funcionarioId))
-                                    .ToList();
-            }
+            return VishnuContext.Obras
+                                .Where(obra => obra.FuncionariosObras
+                                .Any(funcionario => funcionario.FuncionarioNavigation.Id == funcionarioId))
+                                .ToList();
+        }
+
+        public IEnumerable<Obra> ListByFilters(string? estado, string? mercado, string? valor)
+        {
+            return VishnuContext.Obras.ToList().Where(obra => Filter(obra, estado, mercado, valor)).ToList();
         }
 
         public IEnumerable<Obra> ListAlphabetically()
         {
-            return VishnuContext.Obras.OrderBy(obra => obra.Designacao);
+            return VishnuContext.Obras.OrderBy(obra => obra.Codigointerno);
         }
         public Obra Get(string codigoInterno)
         => VishnuContext.Obras.Find(codigoInterno)!;
@@ -97,6 +86,15 @@ namespace ProjectVishnu.DataAccess.Repository.Concrete
             Obra o = Get(codigoInterno);
             return o.MercadoNavigation;
         }
+
+        bool Filter(Obra obra, string? estado, string? mercado, string? valor){
+            bool estadoCondition = estado == null ? true : obra.Estado == estado;
+            bool mercadoCondition = mercado == null ? true : obra.Mercado.Contains(mercado);
+            bool valorCondition = valor == null ? true : obra.Codigointerno.Contains(valor) || obra.Designacao.Contains(valor);
+
+            return estadoCondition && mercadoCondition && valorCondition;
+        }
+
 
         public vishnuContext VishnuContext
         {

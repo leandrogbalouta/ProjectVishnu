@@ -22,29 +22,17 @@ namespace ProjectVishnu.Controllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<ObraOutputModel>))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public IActionResult List([FromQuery(Name = "mercado")] string? mercado, [FromQuery(Name = "valor")] string? valor)
+        public IActionResult List([FromQuery()] string? estado, [FromQuery(Name = "mercado")] string? mercado, [FromQuery(Name = "valor")] string? valor)
         {
             IEnumerable<Obra> obraList;
-            if (mercado != null && valor != null)
-            {
-                obraList = _obrasService.ListByMarketAndValue(mercado, valor);
-            }
-            else if (mercado == null && valor == null)
-            {
+            if(estado == null && mercado == null && valor == null){
                 obraList = _obrasService.ListAlphabetically();
-            }
-            else if (mercado != null)
-            {
-                obraList = _obrasService.ListByMarket(mercado);
-            }
-            else if (valor != null)
-            {
-                obraList = _obrasService.Search(valor);
             }
             else
             {
-                return BadRequest();
+                obraList = _obrasService.ListWithFilters(estado, mercado, valor);
             }
+
             return obraList == null ? NotFound() : Ok(obraList.Select(obra => obra.toObraOutputModel()));
         }
         // New

@@ -49,17 +49,6 @@ namespace ProjectVishnu.Services.Concrete
             }
 
         }
-        public IEnumerable<Obra> Search(string procura)
-        {
-            try
-            {
-                return _unitOfWork.Obras.Search(procura);
-            }
-            catch (Exception e)
-            {
-                return null;
-            }
-        }
         public Obra Get(string codigoInterno)
         {
             try
@@ -83,29 +72,19 @@ namespace ProjectVishnu.Services.Concrete
                 return null;
             }
         }
-        public IEnumerable<Obra>? ListByMarketAndValue(string mercado, string codigoInterno)
+        
+        public IEnumerable<Obra> ListWithFilters(string? estado = null, string? mercado = null, string? valor = null)
         {
             try
             {
-                return _unitOfWork.Obras.ListByMarketAndValue(mercado, codigoInterno);
+                return _unitOfWork.Obras.ListByFilters(estado, mercado, valor);
             }
-            catch (Exception e)
+            catch(Exception e)
             {
                 return null;
             }
         }
 
-        public IEnumerable<Obra>? ListByMarket(string mercado)
-        {
-            try
-            {
-                return _unitOfWork.Obras.ListByMarket(mercado);
-            }
-            catch (Exception e)
-            {
-                return null;
-            }
-        }
          public IEnumerable<Obra>? ListByFuncionario(int funcionarioId)
          {
              try

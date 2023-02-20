@@ -67,7 +67,7 @@ CREATE TABLE OBRA (
         AutosDeMedicao varchar(100) NOT NULL,
 		deleted date default null,
 
-		constraint chk_Estado CHECK(Estado IN('Completada', 'Em curso', 'Por começar'))
+		constraint chk_Estado CHECK(Estado IN('completada', 'em-curso', 'por-comecar'))
 );
 
 CREATE TABLE FUNCIONARIOS_OBRAS(
@@ -183,19 +183,19 @@ INSERT INTO OBRA
 (codigointerno,designacao,cliente,
 datainicio,datafim,estado,mercado,autosdemedicao) values
 ('OB22ES01','Obra em Espanha','FCBarcelona',
-'2022-08-09','2023-01-05','Completada','espanha',
+'2022-08-09','2023-01-05','completada','espanha',
 'Autos de medicao'),
 ('OB22PT01','Obra de um edificio','ISEL',
-'2022-05-09',null,'Em curso','portugal',
+'2022-05-09',null,'em-curso','portugal',
 'Autos de medicao'),
 ('OB21PT01','Obra de uma escola','ESEL',
-null,null,'Por começar','portugal',
+null,null,'por-comecar','portugal',
 'Autos de medicao'),
 ('OB22ES02','Obra de um estadio','Real Madrid',
-'2022-07-09',null,'Em curso','espanha',
+'2022-07-09',null,'em-curso','espanha',
 'Autos de medicao'),
 ('OB22FR01','Obra de um estadio','PSG',
-'2022-07-09',null,'Em curso','franca',
+'2022-07-09',null,'em-curso','franca',
 'Autos de medicao');
 
 INSERT INTO FUNCIONARIOS_OBRAS
