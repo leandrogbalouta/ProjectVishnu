@@ -4,5 +4,6 @@ export default interface IObraOutput {
     cliente: string;
     datainicio: string | undefined;
     estado: string;
+    datafim: string | undefined;
     mercado: string;
 }

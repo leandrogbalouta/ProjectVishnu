@@ -68,10 +68,20 @@ namespace ProjectVishnu.Controllers
             try
             {
                 // TODO verificar se isto é 🍞 ou 💩
-                DateTime.TryParse(obraInput.Datainicio, out DateTime dt);
-                obraInput.Datainicio = dt.ToShortDateString();
+                if(obraInput.Datainicio != null)
+                {
+                    DateTime.TryParse(obraInput.Datainicio, out DateTime dt);
+                    obraInput.Datainicio = dt.ToShortDateString();
+                }
+
+                if(obraInput.Datafim != null)
+                {
+                    DateTime.TryParse(obraInput.Datainicio, out DateTime dt);
+                    obraInput.Datafim = dt.ToShortDateString();
+                }
                 // end 
                 string codigoInterno = _obrasService.Create(obraInput);
+
                 var actionName = nameof(ObrasController.Get);
                 var routeValues = new
                 {

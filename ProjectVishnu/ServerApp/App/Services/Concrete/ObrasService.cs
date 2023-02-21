@@ -1,6 +1,7 @@
 ﻿using ProjectVishnu.DataAccess;
 using ProjectVishnu.Models;
 using ProjectVishnu.ServerApp.App.Dtos;
+using static ProjectVishnu.ServerApp.App.Dtos.ObraInputModel;
 
 namespace ProjectVishnu.Services.Concrete
 {
@@ -21,11 +22,10 @@ namespace ProjectVishnu.Services.Concrete
         {
             try
             {
-                obraInput.generateInternalCode(
-                _unitOfWork.Obras.SearchByCodeNumber(obraInput.generateInternalCodeFirstPart()) + 1);
-                _unitOfWork.Obras.Add(obraInput.ToObra());
+                string CodigoInterno = generateInternalCode(obraInput);
+                _unitOfWork.Obras.Add(obraInput.ToObra(CodigoInterno));
                 _unitOfWork.Complete();
-                return obraInput.CodigoInterno;
+                return CodigoInterno;
             }
             catch (Exception e)
             {
@@ -106,7 +106,7 @@ namespace ProjectVishnu.Services.Concrete
         {
             try
             {
-                _unitOfWork.Obras.Update(codigoInterno, obraInput.ToObra());
+                _unitOfWork.Obras.Update(codigoInterno, obraInput.ToObra(codigoInterno));
                 _unitOfWork.Complete();
                 return "Obra atualizada com sucesso.";
             }
@@ -115,6 +115,37 @@ namespace ProjectVishnu.Services.Concrete
                 return null;
             }
 
+        }
+
+        private string generateInternalCodeFirstPart(ObraInputModel obraInput)
+        {
+            string code = "OB";
+            string year;
+
+            if(obraInput.Datainicio != null)
+            {
+                year = obraInput.Datainicio.Split("/")[0].Substring(2); // Obter os dois ultimos digitos do ano
+            }
+            else
+            {
+                year = DateTime.Today.Year.ToString().Substring(2);
+            }
+
+            Mercado mercado = _unitOfWork.Mercados.GetMercado(obraInput.Mercado);
+            string siglaMercado = mercado.Sigla;
+            
+            return code+year+ siglaMercado;
+        }
+
+        private string generateInternalCode(ObraInputModel obraInput)
+        {
+            string CodigoInterno = generateInternalCodeFirstPart(obraInput);
+            int count = _unitOfWork.Obras.CountCodigoOccurrences(CodigoInterno) +1;
+            if (count < 10)
+            {
+                return CodigoInterno + "0" + count;
+            }
+            return CodigoInterno + "" + count;
         }
     }
 }

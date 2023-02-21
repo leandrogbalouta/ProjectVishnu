@@ -1,5 +1,6 @@
 ﻿using ProjectVishnu.Models;
 using ProjectVishnu.ServerApp.App.Dtos;
+using static ProjectVishnu.ServerApp.App.Dtos.ObraInputModel;
 
 namespace ProjectVishnu.Services
 {

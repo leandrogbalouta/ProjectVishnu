@@ -21,6 +21,7 @@ import { FaUser, FaPen, FaCalendarDay } from "react-icons/fa";
 export default function ObraCreation() {
   // state
   const [mercados, setMercados] = useState<string[]>([]);
+  const [estado, setEstado] = useState<string | undefined>(undefined)
   // Router
   const router = useRouter();
   // misc
@@ -30,7 +31,9 @@ export default function ObraCreation() {
     .object({
       designacao: yup.string().required("Por favor, introduza a designação."),
       cliente: yup.string().required("Por favor, introduza o nome do cliente."),
-      datainicio: yup.date().typeError("Por favor introduza uma data válida.").required("Por favor, introduza a data de início."),
+      estado: yup.string().required("Por favor, introduza um estado da obra"),
+      datainicio: yup.date().typeError("Por favor introduza uma data válida."),
+      datafim: yup.date().typeError("Por favor introduza uma data válida"),
       mercado: yup.string().required("Por favor, introduza o mercado."),
     })
     .required();
@@ -111,7 +114,7 @@ export default function ObraCreation() {
         </FormControl>
         {/* Cliente field */}
         <FormControl className="mb-5 basis-2/5" isInvalid={!!errors.cliente}>
-          <FormLabel htmlFor="designacao">Cliente</FormLabel>
+          <FormLabel htmlFor="cliente">Cliente</FormLabel>
           <InputGroup>
             <InputLeftElement pointerEvents="none">
               <FaUser />
@@ -126,23 +129,68 @@ export default function ObraCreation() {
           </InputGroup>
           <FormErrorMessage>{errors.cliente?.message}</FormErrorMessage>
         </FormControl>
+        {/* Estado field */}
+        <FormControl className="mb-5" isInvalid={!!errors.estado}>
+            <FormLabel htmlFor="estado">Estado</FormLabel>
+            <InputGroup>
+              <Select
+                id="estado"
+                placeholder="Estado"
+                {...register("estado", { required: true })}
+                onChange={(e) => setEstado(e.target.value)}
+              >
+                <option value="em-curso">
+                  Em curso
+                </option>
+                <option value="completada">
+                  Completada
+                </option>
+                <option value="por-comecar">
+                  Por começar
+                </option>
+              </Select>
+            </InputGroup>
+            <FormErrorMessage>{errors.mercado?.message}</FormErrorMessage>
+          </FormControl>
         {/* Data de Início field */}
-        <FormControl className="mb-5" isInvalid={!!errors.datainicio}>
-          <FormLabel htmlFor="datainicio">Data de Início</FormLabel>
-          <InputGroup>
-            <InputLeftElement pointerEvents="none">
-              <FaCalendarDay color="#000E31" />
-            </InputLeftElement>
-            <Input
-              id="datainicio"
-              type="date"
-              placeholder="Data de ínicio de contrato"
-              autoComplete="blank-datainicio"
-              {...register("datainicio", { required: true })}
-            />
-          </InputGroup>
-          <FormErrorMessage>{errors.datainicio?.message}</FormErrorMessage>
-        </FormControl>
+        {(estado == "em-curso" || estado == "completada") &&
+          <FormControl className="mb-5" isInvalid={!!errors.datainicio}>
+            <FormLabel htmlFor="datainicio">Data de Início</FormLabel>
+            <InputGroup>
+              <InputLeftElement pointerEvents="none">
+                <FaCalendarDay color="#000E31" />
+              </InputLeftElement>
+              <Input
+                id="datainicio"
+                type="date"
+                placeholder="Data de ínicio de obra"
+                autoComplete="blank-datainicio"
+                {...register("datainicio", { required: false })}
+              />
+            </InputGroup>
+            <FormErrorMessage>{errors.datainicio?.message}</FormErrorMessage>
+          </FormControl>
+        }
+        
+        {/* Data de fim field */}
+        {estado == "completada" &&
+          <FormControl className="mb-5" isInvalid={!!errors.datafim}>
+            <FormLabel htmlFor="datafim">Data de Fim</FormLabel>
+            <InputGroup>
+              <InputLeftElement pointerEvents="none">
+                <FaCalendarDay color="#000E31" />
+              </InputLeftElement>
+              <Input
+                id="datafim"
+                type="date"
+                placeholder="Data de fim de obra"
+                autoComplete="blank-datafim"
+                {...register("datafim", { required: false })}
+              />
+            </InputGroup>
+            <FormErrorMessage>{errors.datafim?.message}</FormErrorMessage>
+          </FormControl>
+        }
         {/* mercado field */}
         <FormControl className="mb-5" isInvalid={!!errors.mercado}>
           <FormLabel htmlFor="mercado">Mercado</FormLabel>

@@ -46,7 +46,7 @@ namespace ProjectVishnu.DataAccess.Repository.Concrete
             VishnuContext.Obras.Where(ObraExists).Where(obra => obra.Codigointerno == codigo).First().Deleted = DateOnly.FromDateTime(DateTime.Now);
         }
 
-        public int SearchByCodeNumber(string code)
+        public int CountCodigoOccurrences(string code)
         {
             return VishnuContext.Obras.Where(obra => obra.Codigointerno.Contains(code)).Count();
         }

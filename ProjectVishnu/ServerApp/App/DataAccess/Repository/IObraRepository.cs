@@ -16,6 +16,6 @@ namespace ProjectVishnu.DataAccess.Repository
 
         public void Delete(string codigo);
 
-        public int SearchByCodeNumber(string code);
+        public int CountCodigoOccurrences(string code);
     }
 }
