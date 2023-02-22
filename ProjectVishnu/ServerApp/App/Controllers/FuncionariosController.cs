@@ -117,7 +117,7 @@ namespace ProjectVishnu.Controllers
 
 
 
-        [HttpGet("validity")]
+        [HttpGet("validity/count")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(int))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

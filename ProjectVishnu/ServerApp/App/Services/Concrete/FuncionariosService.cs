@@ -121,9 +121,9 @@ namespace ProjectVishnu.Services
 
                 if(func.FuncionariosObras.Any(fo => fo.Datafim != null)) return 0; // retornar erro a dizer que o funcionário já se encontra numa obra
 
-                string ano = date.Split()[0];
-                string mes = date.Split()[1];
-                string dia = date.Split()[2];
+                string ano = date.Split("-")[0];
+                string mes = date.Split("-")[1];
+                string dia = date.Split("-")[2];
 
                 DateOnly startDate = DateOnly.Parse(String.Format("{0}-{1}-{2}", ano, mes, dia));
                 
@@ -134,6 +134,8 @@ namespace ProjectVishnu.Services
                     Datacomeco = startDate
                 };
                 func.FuncionariosObras.Add(fo);
+
+                _unitOfWork.Complete();
 
                 return 1;
             }

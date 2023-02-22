@@ -40,6 +40,20 @@ export async function CreateFuncionario(funcionario: IFuncionarioInput) {
   });
 }
 
+export async function AddFuncionarioToObra(funcID : number, codigoInterno : string, date: string){
+  const path = `/api/funcionarios/${funcID}`;
+  return fetch(path, {
+    method: 'POST',
+    headers: {
+      "Content-Type" : "application/json"
+    },
+    body: JSON.stringify({
+      codigoInterno : codigoInterno,
+      date : date
+    })
+  })
+}
+
 export async function GetFuncionariosValidityWarningCount(){
   const path = "/api/funcionarios/validity/count"
   return fetch(path);

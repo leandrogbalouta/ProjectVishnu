@@ -13,17 +13,19 @@ import { fetchMercados } from "../common/APICalls";
 
 // TODO check parameters
 interface Params {
+  mercado?: string;
   setMercado: any;
   setSearchString: any;
   searchBar?: true;
 }
 export default function FilterBar({
+  mercado = "Mercados",
   setMercado,
   setSearchString,
   searchBar,
 }: Params) {
   const [mercados, setMercados] = useState<string[]>([]);
-  const [dropdownText, setDropdownText] = useState("Mercados");
+  const [dropdownText, setDropdownText] = useState(mercado);
   const [searchInputValue, setSearchInputValue] = useState<string>("");
   function onClickSearch() {
     setSearchString(searchInputValue);
