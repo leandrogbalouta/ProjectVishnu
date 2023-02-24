@@ -97,7 +97,7 @@ namespace ProjectVishnu.ServerApp.App.Services.Concrete
             Dictionary<string, Dictionary<int, decimal>> FuncWorkDays =
             new Dictionary<string, Dictionary<int, decimal>>();
             Dictionary<string, decimal> FinalValue = new Dictionary<string, decimal>();
-            List<FuncionarioOutputModel> funcionariosOutputModel = _unitOfWork.Funcionarios.ListByMarket(mercadoName).Select(f => f.toOutputModel()).ToList();
+            List<FuncionarioOutputModel> funcionariosOutputModel = _unitOfWork.Funcionarios.ListWithFilters(mercadoName).Select(f => f.toOutputModel()).ToList();
             foreach(FolhaDePonto folhaDePonto in folhaDePontoList){
                 foreach(SalarioFinal sf in folhaDePonto.IdSalarios){
                     Dictionary<int, decimal> WorkDay = new Dictionary<int, decimal>();

@@ -13,23 +13,15 @@ namespace ProjectVishnu.Services
         {
             _unitOfWork = unitOfWork;
         }
-        public IEnumerable<Funcionario> ListByMarket(string mercado)
-        {
-            return _unitOfWork.Funcionarios.ListByMarket(mercado);
-        }
-        public IEnumerable<Funcionario> ListByMarketAndName(string mercado, string nome)
-        {
-            return _unitOfWork.Funcionarios.ListByMarketAndName(mercado, nome);
-        }
 
         public IEnumerable<Funcionario> ListAlphabetically()
         {
             return _unitOfWork.Funcionarios.ListAlphabetically();
         }
 
-        public IEnumerable<Funcionario> GetByName(string nome)
+        public IEnumerable<Funcionario> ListWithFilters(string? mercado, string? nome)
         {
-            return _unitOfWork.Funcionarios.SearchByName(nome);
+           return _unitOfWork.Funcionarios.ListWithFilters(mercado, nome);
         }
 
         public Funcionario Get(int id)

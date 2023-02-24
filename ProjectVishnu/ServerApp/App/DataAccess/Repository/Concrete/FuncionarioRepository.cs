@@ -14,24 +14,14 @@ namespace ProjectVishnu.DataAccess.Repository.Concrete
             : base(context)
         {
         }
-        public IEnumerable<Funcionario> ListByMarket(string mercado)
-        {
-            return VishnuContext.Funcionarios.Where(FuncionarioExists).Where(func => func.Mercado!.Contains(mercado)).OrderBy(func => func.Nome);
-        }
-        // Testin'
-        public IEnumerable<Funcionario> ListByMarketAndName(string mercado, string nome)
-        {
-            return VishnuContext.Funcionarios.Where(FuncionarioExists).Where(func => func.Mercado!.Contains(mercado) && func.Nome.Contains(nome)).OrderBy(func => func.Nome);
-        }
-
         public IEnumerable<Funcionario> ListAlphabetically()
         {
             return VishnuContext.Funcionarios.Where(FuncionarioExists).OrderBy(func => func.Nome);
         }
 
-        public IEnumerable<Funcionario> SearchByName(string nome)
+        public IEnumerable<Funcionario> ListWithFilters(string? mercado = null, string? nome = null)
         {
-            return VishnuContext.Funcionarios.Where(FuncionarioExists).Where(func => func.Nome.Contains(nome));
+            return VishnuContext.Funcionarios.Where(FuncionarioExists).Where(func => Filter(func, mercado, nome)).OrderBy(func => func.Nome);
         }
 
         public Funcionario Get(int id) => VishnuContext.Funcionarios.Single(func => func.Id == id);
@@ -102,6 +92,13 @@ namespace ProjectVishnu.DataAccess.Repository.Concrete
         public FuncionariosObra GetCurrentObra(int id)
         {
             return Get(id).FuncionariosObras.Where(fo => fo.Datafim == null).Single();
+        }
+
+        bool Filter(Funcionario func, string? mercado, string? valor){
+            bool mercadoCondition = mercado == null ? true : func.Mercado.Contains(mercado);
+            bool valorCondition = valor == null ? true : func.Nome.Contains(valor);
+
+            return mercadoCondition && valorCondition;
         }
 
         public vishnuContext VishnuContext

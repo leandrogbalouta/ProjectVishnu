@@ -4,12 +4,8 @@ namespace ProjectVishnu.DataAccess.Repository
 {
     public interface IFuncionarioRepository : IRepository<Funcionario>
     {
-        IEnumerable<Funcionario> ListByMarket(string mercado);
         IEnumerable<Funcionario> ListAlphabetically();
-        public IEnumerable<Funcionario> ListByMarketAndName(string mercado, string nome);
-
-        IEnumerable<Funcionario> SearchByName(string nome);
-
+        IEnumerable<Funcionario> ListWithFilters(string? mercado = null, string? nome = null);
         void Delete(int id);
 
         void Update(Funcionario funcionario);

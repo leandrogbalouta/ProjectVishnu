@@ -5,13 +5,11 @@ namespace ProjectVishnu.Services
 {
     public interface IFuncionariosService
     {
-        IEnumerable<Funcionario> ListByMarket(string mercado);
-        public IEnumerable<Funcionario> ListByMarketAndName(string mercado, string nome);
         IEnumerable<Funcionario> ListAlphabetically();
+        IEnumerable<Funcionario> ListWithFilters(string? mercado, string? nome);
         Funcionario Get(int id);
 
         int Create(FuncionarioInputModel funcionarioDto);
-        IEnumerable<Funcionario> GetByName(string nome);
 
         string Delete(int id);
 

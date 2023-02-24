@@ -28,24 +28,13 @@ namespace ProjectVishnu.Controllers
             try
             {
                 IEnumerable<Funcionario> funcionariosList;
-                if (mercado != null && nome != null)
-                {
-                    funcionariosList = _funcionariosService.ListByMarketAndName(mercado, nome);
-                }
-                else if(mercado == null && nome == null)
+                if(mercado == null && nome == null)
                 {
                     funcionariosList = _funcionariosService.ListAlphabetically();
                 }
-                else if (mercado != null)
+                else
                 {
-                    funcionariosList = _funcionariosService.ListByMarket(mercado);
-                }
-                else if (nome != null)
-                {
-                    funcionariosList = _funcionariosService.GetByName(nome);
-                }else
-                {
-                    return BadRequest();
+                    funcionariosList = _funcionariosService.ListWithFilters(mercado, nome);
                 }
                 
                 return Ok(funcionariosList.Select(x => x.toOutputModel()));
