@@ -65,14 +65,8 @@ namespace ProjectVishnu.ServerApp.App.Services.Concrete
                 folha.IdSalarios.Add(salarioFunc);
             });
 
-            try{
-                _unitOfWork.FolhaDePontos.Add(folha);
-                _unitOfWork.Complete();
-            }catch(Exception e){
-                Console.WriteLine(e.StackTrace);
-                return null;
-            }
-            
+            _unitOfWork.FolhaDePontos.Add(folha);
+            _unitOfWork.Complete();
 
             return model;
         }
@@ -81,166 +75,113 @@ namespace ProjectVishnu.ServerApp.App.Services.Concrete
 
         public List<FolhaDePontoInfoModel> GetAllFromMercado(string mercado)
         {
-            try
-            {
-                return _unitOfWork.FolhaDePontos.GetAllFromMercado(mercado).Select(x => x.toFolhaDePontoInfoModel()).ToList();
-            }catch(Exception e)
-            {
-                return null;
-            }
+            return _unitOfWork.FolhaDePontos.GetAllFromMercado(mercado).Select(x => x.toFolhaDePontoInfoModel()).ToList();
         }
 
         public List<FolhaDePontoInfoModel> GetAllFromObra(string obraID)
         {
-            try
-            {
-                return _unitOfWork.FolhaDePontos.GetAllFromObra(obraID).Select(x => x.toFolhaDePontoInfoModel()).ToList();
-            }catch(Exception e)
-            {
-                return null;
-            }
+            return _unitOfWork.FolhaDePontos.GetAllFromObra(obraID).Select(x => x.toFolhaDePontoInfoModel()).ToList();
         }
 
         public FolhaDePontoValuesOutputModel GetFromMercado(string mercadoName, string ano, string mes)
         {
-            try
-            {
-                List<FolhaDePonto> folhaDePontoList = _unitOfWork.FolhaDePontos.GetFromMercado(mercadoName, ano, mes);
-
-                FolhaDePontoInfoModel info = new FolhaDePontoInfoModel{
-                    Ano = ano,
-                    Mes = mes
-                };
-
-                Mercado mercado = _unitOfWork.Mercados.GetMercado(mercadoName);
-
-                DateOnly startDate;
-                DateOnly endDate;
-
-                CalendarUtils.GetStartAndEndDates(mercado, ano, mes, out startDate, out endDate);
-
-                Dictionary<string, Dictionary<int, decimal>> FuncWorkDays =
-                new Dictionary<string, Dictionary<int, decimal>>();
-
-                Dictionary<string, decimal> FinalValue = new Dictionary<string, decimal>();
-
-                List<FuncionarioOutputModel> funcionariosOutputModel = _unitOfWork.Funcionarios.ListByMarket(mercadoName).Select(f => f.toOutputModel()).ToList();
-
-                foreach(FolhaDePonto folhaDePonto in folhaDePontoList){
-                    foreach(SalarioFinal sf in folhaDePonto.IdSalarios){
-                        Dictionary<int, decimal> WorkDay = new Dictionary<int, decimal>();
-                        if(!FinalValue.ContainsKey(sf.Funcionario)){
-                            FinalValue.Add(sf.Funcionario, sf.Valorfinal);
-                        }else{
-                            FinalValue[sf.Funcionario] += sf.Valorfinal;
-                        }
-                        List<DiaTrabalho> diasTrabalho = _unitOfWork.DiasTrabalho.GetFuncDaysFromMercadoBetweenDates(sf.Funcionario, mercadoName, startDate, endDate);
-                        diasTrabalho.ForEach( dt => {
-                            WorkDay.Add(dt.Dia, dt.Horas);
-                        });
-                        FuncWorkDays.Add(sf.Funcionario, WorkDay);
-                    }
-                }
-
-                List<int> Limits = new List<int>();
-                List<int> saturdays;
-                List<int> sundays;
-                List<int> holidays;
-
-                CalendarUtils.GetNonWorkDays(ano, mes, mercado, out saturdays, out sundays, out holidays);
-
-
-                int midLimit = CalendarUtils.GetMidLimit(info.Ano, info.Mes);
-                Limits.Add((int)mercado.DiaInicio);
-                Limits.Add(midLimit);
-                Limits.Add((int)mercado.DiaFim);
-
-                
-                return new FolhaDePontoValuesOutputModel{
-                    Info = info,
-                    FuncWorkDays = FuncWorkDays,
-                    FinalValue = FinalValue,
-                    Funcionarios = funcionariosOutputModel,
-                    Limits = Limits,
-                    Saturdays = saturdays,
-                    Sundays = sundays,
-                    Holidays = holidays
-                };
-            }catch(Exception e)
-            {
-                return null;
-            }
-            
-            
-        }
-
-        public FolhaDePontoValuesOutputModel GetFromObra(string obraID, string ano, string mes)
-        {
-            try
-            {
-                FolhaDePonto folhaDePonto = _unitOfWork.FolhaDePontos.GetFromObra(obraID, ano, mes);
-                
-                FolhaDePontoInfoModel info = new FolhaDePontoInfoModel{
-                    Ano = ano,
-                    Mes = mes
-                };
-
-
-                Mercado mercado = folhaDePonto.MercadoNavigation;
-
-                DateOnly startDate;
-                DateOnly endDate;
-
-                CalendarUtils.GetStartAndEndDates(mercado, ano, mes, out startDate, out endDate);
-
-                Dictionary<string, Dictionary<int, decimal>> FuncWorkDays =
-                new Dictionary<string, Dictionary<int, decimal>>();
-
-                Dictionary<string, decimal> FinalValue = new Dictionary<string, decimal>();
-
-                List<FuncionarioOutputModel> funcionariosOutputModel = new List<FuncionarioOutputModel>();
-
+            List<FolhaDePonto> folhaDePontoList = _unitOfWork.FolhaDePontos.GetFromMercado(mercadoName, ano, mes);
+            FolhaDePontoInfoModel info = new FolhaDePontoInfoModel{
+                Ano = ano,
+                Mes = mes
+            };
+            Mercado mercado = _unitOfWork.Mercados.GetMercado(mercadoName);
+            DateOnly startDate;
+            DateOnly endDate;
+            CalendarUtils.GetStartAndEndDates(mercado, ano, mes, out startDate, out endDate);
+            Dictionary<string, Dictionary<int, decimal>> FuncWorkDays =
+            new Dictionary<string, Dictionary<int, decimal>>();
+            Dictionary<string, decimal> FinalValue = new Dictionary<string, decimal>();
+            List<FuncionarioOutputModel> funcionariosOutputModel = _unitOfWork.Funcionarios.ListByMarket(mercadoName).Select(f => f.toOutputModel()).ToList();
+            foreach(FolhaDePonto folhaDePonto in folhaDePontoList){
                 foreach(SalarioFinal sf in folhaDePonto.IdSalarios){
                     Dictionary<int, decimal> WorkDay = new Dictionary<int, decimal>();
-                    FinalValue.Add(sf.Funcionario, sf.Valorfinal);
-                    funcionariosOutputModel.Add(sf.FuncionarioNavigation.toOutputModel());
-                    List<DiaTrabalho> diasTrabalho = _unitOfWork.DiasTrabalho.GetFuncDaysFromObraBetweenDates(sf.Funcionario, obraID, startDate, endDate);
+                    if(!FinalValue.ContainsKey(sf.Funcionario)){
+                        FinalValue.Add(sf.Funcionario, sf.Valorfinal);
+                    }else{
+                        FinalValue[sf.Funcionario] += sf.Valorfinal;
+                    }
+                    List<DiaTrabalho> diasTrabalho = _unitOfWork.DiasTrabalho.GetFuncDaysFromMercadoBetweenDates(sf.Funcionario, mercadoName, startDate, endDate);
                     diasTrabalho.ForEach( dt => {
                         WorkDay.Add(dt.Dia, dt.Horas);
                     });
                     FuncWorkDays.Add(sf.Funcionario, WorkDay);
                 }
-                
-                List<int> Limits = new List<int>();
-                List<int> saturdays;
-                List<int> sundays;
-                List<int> holidays;
+            }
+            List<int> Limits = new List<int>();
+            List<int> saturdays;
+            List<int> sundays;
+            List<int> holidays;
+            CalendarUtils.GetNonWorkDays(ano, mes, mercado, out saturdays, out sundays, out holidays);
+            int midLimit = CalendarUtils.GetMidLimit(info.Ano, info.Mes);
+            Limits.Add((int)mercado.DiaInicio);
+            Limits.Add(midLimit);
+            Limits.Add((int)mercado.DiaFim);
+            
+            return new FolhaDePontoValuesOutputModel{
+                Info = info,
+                FuncWorkDays = FuncWorkDays,
+                FinalValue = FinalValue,
+                Funcionarios = funcionariosOutputModel,
+                Limits = Limits,
+                Saturdays = saturdays,
+                Sundays = sundays,
+                Holidays = holidays
+            };      
+        }
 
-                CalendarUtils.GetNonWorkDays(ano, mes, mercado, out saturdays, out sundays, out holidays);
-
-
-                int midLimit = CalendarUtils.GetMidLimit(info.Ano, info.Mes);
-                Limits.Add((int)mercado.DiaInicio);
-                Limits.Add(midLimit);
-                Limits.Add((int)mercado.DiaFim);
-
-                
-                return new FolhaDePontoValuesOutputModel{
-                    Info = info,
-                    FuncWorkDays = FuncWorkDays,
-                    FinalValue = FinalValue,
-                    Funcionarios = funcionariosOutputModel,
-                    Limits = Limits,
-                    Saturdays = saturdays,
-                    Sundays = sundays,
-                    Holidays = holidays
-                };
-
-            }catch(Exception e)
-            {
-                return null;
+        public FolhaDePontoValuesOutputModel GetFromObra(string obraID, string ano, string mes)
+        {
+            FolhaDePonto folhaDePonto = _unitOfWork.FolhaDePontos.GetFromObra(obraID, ano, mes);
+            
+            FolhaDePontoInfoModel info = new FolhaDePontoInfoModel{
+                Ano = ano,
+                Mes = mes
+            };
+            Mercado mercado = folhaDePonto.MercadoNavigation;
+            DateOnly startDate;
+            DateOnly endDate;
+            CalendarUtils.GetStartAndEndDates(mercado, ano, mes, out startDate, out endDate);
+            Dictionary<string, Dictionary<int, decimal>> FuncWorkDays =
+            new Dictionary<string, Dictionary<int, decimal>>();
+            Dictionary<string, decimal> FinalValue = new Dictionary<string, decimal>();
+            List<FuncionarioOutputModel> funcionariosOutputModel = new List<FuncionarioOutputModel>();
+            foreach(SalarioFinal sf in folhaDePonto.IdSalarios){
+                Dictionary<int, decimal> WorkDay = new Dictionary<int, decimal>();
+                FinalValue.Add(sf.Funcionario, sf.Valorfinal);
+                funcionariosOutputModel.Add(sf.FuncionarioNavigation.toOutputModel());
+                List<DiaTrabalho> diasTrabalho = _unitOfWork.DiasTrabalho.GetFuncDaysFromObraBetweenDates(sf.Funcionario, obraID, startDate, endDate);
+                diasTrabalho.ForEach( dt => {
+                    WorkDay.Add(dt.Dia, dt.Horas);
+                });
+                FuncWorkDays.Add(sf.Funcionario, WorkDay);
             }
             
+            List<int> Limits = new List<int>();
+            List<int> saturdays;
+            List<int> sundays;
+            List<int> holidays;
+            CalendarUtils.GetNonWorkDays(ano, mes, mercado, out saturdays, out sundays, out holidays);
+            int midLimit = CalendarUtils.GetMidLimit(info.Ano, info.Mes);
+            Limits.Add((int)mercado.DiaInicio);
+            Limits.Add(midLimit);
+            Limits.Add((int)mercado.DiaFim);
+            
+            return new FolhaDePontoValuesOutputModel{
+                Info = info,
+                FuncWorkDays = FuncWorkDays,
+                FinalValue = FinalValue,
+                Funcionarios = funcionariosOutputModel,
+                Limits = Limits,
+                Saturdays = saturdays,
+                Sundays = sundays,
+                Holidays = holidays
+            };            
         }
 
         public FolhaDePontoValuesOutputModel setValues(string obraID, string date, FolhaDePontoValuesInputModel values)

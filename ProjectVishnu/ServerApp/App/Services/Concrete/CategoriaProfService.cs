@@ -15,60 +15,36 @@ namespace ProjectVishnu.ServerApp.App.Services.Concrete
 
         public CategoriasProfissionai Create(string Codigo, string Nomenclatura)
         {
-            try
-            {
-                CategoriasProfissionai catProf = new CategoriasProfissionai{Codigo = Codigo, Nomenclatura = Nomenclatura};
-                _unitOfWork.CategoriasProfissionais.Add(catProf);
-                return catProf;
-            }
-            catch(Exception e)
-            {
-                return null;
-            }
+               
+            CategoriasProfissionai catProf = new CategoriasProfissionai{Codigo = Codigo, Nomenclatura = Nomenclatura};
+  
+            _unitOfWork.CategoriasProfissionais.Add(catProf);
+                
+            return catProf;
+
         }
 
         public CategoriasProfissionai Delete(string Codigo)
         {
-            try
-            {
-                CategoriasProfissionai catProf =_unitOfWork.CategoriasProfissionais.GetCatProf(Codigo);
-                _unitOfWork.CategoriasProfissionais.Remove(catProf);
-                return catProf;
-            }
-            catch(Exception e)
-            {
-                return null;
-            }
+            CategoriasProfissionai catProf =_unitOfWork.CategoriasProfissionais.GetCatProf(Codigo);
+            _unitOfWork.CategoriasProfissionais.Remove(catProf);
+            return catProf;
         }
 
         public CategoriasProfissionai Get(string Codigo)
         {
-            try
-            {
-                return _unitOfWork.CategoriasProfissionais.GetCatProf(Codigo);
-            }
-            catch(Exception e)
-            {
-                return null;
-            }
+            return _unitOfWork.CategoriasProfissionais.GetCatProf(Codigo);    
         }
 
         public IEnumerable<CatProfDto> ListAlphabetically()
         {
-           try
-            {
-                return _unitOfWork.CategoriasProfissionais.ListAlphabetically()
-                    .Select(catprof => 
-                        new CatProfDto
-                        {
-                            Codigo = catprof.Codigo,
-                            Nomenclatura = catprof.Nomenclatura
-                        });
-
-            }catch(Exception e)
-            {
-                return null;
-            }
+            return _unitOfWork.CategoriasProfissionais.ListAlphabetically()
+                .Select(catprof => 
+                    new CatProfDto
+                    {
+                        Codigo = catprof.Codigo,
+                        Nomenclatura = catprof.Nomenclatura
+                    });
         }
     }
 }

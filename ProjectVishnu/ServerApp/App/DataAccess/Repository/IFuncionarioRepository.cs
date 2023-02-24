@@ -21,5 +21,6 @@ namespace ProjectVishnu.DataAccess.Repository
         IEnumerable<Funcionario> GetValidityWarningList();
 
         int GetFuncId(string nif);
+        FuncionariosObra GetCurrentObra(int id);
     }
 }

@@ -24,6 +24,14 @@ namespace ProjectVishnu.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult List([FromQuery()] string? estado, [FromQuery(Name = "mercado")] string? mercado, [FromQuery(Name = "valor")] string? valor)
         {
+            try
+            {
+
+            }
+            catch(Exception e)
+            {
+                return Problem(statusCode: 500, title: "Erro inesperado");
+            }
             IEnumerable<Obra> obraList;
             if(estado == null && mercado == null && valor == null){
                 obraList = _obrasService.ListAlphabetically();
@@ -34,6 +42,8 @@ namespace ProjectVishnu.Controllers
             }
 
             return obraList == null ? NotFound() : Ok(obraList.Select(obra => obra.toObraOutputModel()));
+
+            
         }
         // New
         [HttpGet("funcionario/{funcionarioId}")]
@@ -42,9 +52,18 @@ namespace ProjectVishnu.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult ListByFuncionario(int funcionarioId)
         {
+            try
+            {
+
+            }
+            catch(Exception e)
+            {
+                return Problem(statusCode: 500, title: "Erro inesperado");
+            }
             if (Request.QueryString.HasValue) return BadRequest();
             IEnumerable<Obra>? result = _obrasService.ListByFuncionario(funcionarioId);
             return result == null ? NotFound() : Ok(result);
+
         }
 
         [HttpGet("{codigoInterno}")]
@@ -53,6 +72,14 @@ namespace ProjectVishnu.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult Get(string codigoInterno)
         {
+            try
+            {
+
+            }
+            catch(Exception e)
+            {
+                return Problem(statusCode: 500, title: "Erro inesperado");
+            }
             if (Request.QueryString.HasValue) return BadRequest();
             Obra result = _obrasService.Get(codigoInterno);
             return result == null ? NotFound() : Ok(result.toObraOutputModel());
@@ -90,9 +117,9 @@ namespace ProjectVishnu.Controllers
                 ActionResult a = CreatedAtAction(actionName, routeValues, obraInput);
                 return a;
             }
-            catch (System.Exception)
+            catch (Exception e)
             {
-                return BadRequest();
+                return Problem(statusCode: 500, title: "Erro inesperado");
             }
         }
 
@@ -101,9 +128,16 @@ namespace ProjectVishnu.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult Edit(string codigoInterno, [FromBody] ObraInputModel obraInput)
         {
-            if (Request.QueryString.HasValue) return BadRequest();
-            string result = _obrasService.Update(codigoInterno, obraInput);
-            return result == null ? NotFound() : Ok(result);
+            try
+            {
+                if (Request.QueryString.HasValue) return BadRequest();
+                string result = _obrasService.Update(codigoInterno, obraInput);
+                return Ok(result);
+            }
+            catch(Exception e)
+            {
+                return Problem(statusCode: 500, title: "Erro inesperado");
+            }
         }
 
         [HttpDelete("{codigoInterno}")]
@@ -111,23 +145,44 @@ namespace ProjectVishnu.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult Delete(string codigoInterno)
         {
-            if (Request.QueryString.HasValue) return BadRequest();
-            string result = _obrasService.Delete(codigoInterno);
-            return result == null ? NotFound() : Ok(result);
+            try
+            {
+                if (Request.QueryString.HasValue) return BadRequest();
+                string result = _obrasService.Delete(codigoInterno);
+                return Ok(result);
+            }
+            catch(Exception e)
+            {
+                return Problem(statusCode: 500, title: "Erro inesperado");
+            }
         }
 
         [HttpPost("{codigoInterno}/add")]
-        public string AddFuncionario(string codigoInterno, [FromBody] FuncionarioObraInputModel funcInput)
+        public IActionResult AddFuncionario(string codigoInterno, [FromBody] FuncionarioObraInputModel funcInput)
         {
-            _obrasService.AddFuncToObra(codigoInterno, funcInput);
-            return "";
+            try
+            {
+                _obrasService.AddFuncToObra(codigoInterno, funcInput);
+                return Ok();
+            }
+            catch(Exception e)
+            {
+                return Problem(statusCode: 500, title: "Erro inesperado");
+            }
         }
 
         [HttpPut("{codigoInterno}/remove")]
-        public string RemoveFuncionario(string codigoInterno, [FromBody] FuncionarioObraInputModel funcInput)
+        public IActionResult RemoveFuncionario(string codigoInterno, [FromBody] FuncionarioObraInputModel funcInput)
         {
-            _obrasService.RemoveFuncFromObra(codigoInterno, funcInput);
-            return "";
+            try
+            {
+                _obrasService.RemoveFuncFromObra(codigoInterno, funcInput);
+                return Ok();
+            }
+            catch(Exception e)
+            {
+                return Problem(statusCode: 500, title: "Erro inesperado");
+            }          
         }
     }
 }

@@ -20,81 +20,37 @@ namespace ProjectVishnu.Services.Concrete
 
         public string Create(ObraInputModel obraInput)
         {
-            try
-            {
-                string CodigoInterno = generateInternalCode(obraInput);
-                _unitOfWork.Obras.Add(obraInput.ToObra(CodigoInterno));
-                _unitOfWork.Complete();
-                return CodigoInterno;
-            }
-            catch (Exception e)
-            {
-                return null;
-            }
+            string CodigoInterno = generateInternalCode(obraInput);
+            _unitOfWork.Obras.Add(obraInput.ToObra(CodigoInterno));
+            _unitOfWork.Complete();
+            return CodigoInterno;
 
         }
 
         public string Delete(string codigoInterno)
         {
-            try
-            {
-                _unitOfWork.Obras.Delete(codigoInterno);
-                _unitOfWork.Complete();
-                return "Obra apagada com sucesso.";
-
-            }
-            catch (Exception e)
-            {
-                return null;
-            }
-
+            _unitOfWork.Obras.Delete(codigoInterno);
+            _unitOfWork.Complete();
+            return "Obra apagada com sucesso.";
         }
         public Obra Get(string codigoInterno)
         {
-            try
-            {
-                return _unitOfWork.Obras.Get(codigoInterno);
-            }
-            catch (Exception e)
-            {
-                return null;
-            }
+            return _unitOfWork.Obras.Get(codigoInterno);
         }
 
         public IEnumerable<Obra> ListAlphabetically()
         {
-            try
-            {
-                return _unitOfWork.Obras.ListAlphabetically();
-            }
-            catch (Exception e)
-            {
-                return null;
-            }
+            return _unitOfWork.Obras.ListAlphabetically();
         }
         
         public IEnumerable<Obra> ListWithFilters(string? estado = null, string? mercado = null, string? valor = null)
         {
-            try
-            {
-                return _unitOfWork.Obras.ListByFilters(estado, mercado, valor);
-            }
-            catch(Exception e)
-            {
-                return null;
-            }
+            return _unitOfWork.Obras.ListByFilters(estado, mercado, valor);
         }
 
          public IEnumerable<Obra>? ListByFuncionario(int funcionarioId)
          {
-             try
-            {
-                return _unitOfWork.Obras.ListByFuncionario(funcionarioId);
-            }
-            catch (Exception e)
-            {
-                return null;
-            }
+            return _unitOfWork.Obras.ListByFuncionario(funcionarioId);
          }
 
         public void RemoveFuncFromObra(string codigoInterno, FuncionarioObraInputModel funcInput)
@@ -104,17 +60,9 @@ namespace ProjectVishnu.Services.Concrete
 
         public string Update(string codigoInterno, ObraInputModel obraInput)
         {
-            try
-            {
-                _unitOfWork.Obras.Update(codigoInterno, obraInput.ToObra(codigoInterno));
-                _unitOfWork.Complete();
-                return "Obra atualizada com sucesso.";
-            }
-            catch (Exception e)
-            {
-                return null;
-            }
-
+            _unitOfWork.Obras.Update(codigoInterno, obraInput.ToObra(codigoInterno));
+            _unitOfWork.Complete();
+            return "Obra atualizada com sucesso.";
         }
 
         private string generateInternalCodeFirstPart(ObraInputModel obraInput)

@@ -22,17 +22,24 @@ namespace ProjectVishnu.ServerApp.App.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult Create(string obraID, [FromBody] FolhaDePontoInfoModel info)
         {
-            if (Request.QueryString.HasValue) return BadRequest();
-            FolhaDePontoEmptyOutputModel model = _folhadepontoServices.GenerateWithInfo(obraID, info);
-            var actionName = nameof(FolhasDePontoController.GetByObra);
-            var routeValues = new
+            try
             {
-                obraID = obraID,
-                date = "" + info.Ano + "-" + info.Mes
-            };
-            ActionResult a = CreatedAtAction(actionName, routeValues, model);
-            
-            return a;
+                if (Request.QueryString.HasValue) return BadRequest();
+                FolhaDePontoEmptyOutputModel model = _folhadepontoServices.GenerateWithInfo(obraID, info);
+                var actionName = nameof(FolhasDePontoController.GetByObra);
+                var routeValues = new
+                {
+                    obraID = obraID,
+                    date = "" + info.Ano + "-" + info.Mes
+                };
+                ActionResult a = CreatedAtAction(actionName, routeValues, model);
+                
+                return a;
+            }
+            catch(Exception e)
+            {
+                return Problem(statusCode: 500, title: "Erro inesperado");
+            }  
         }
 
         [HttpGet("/obras/{obraID}/folha-de-ponto")]
@@ -41,9 +48,16 @@ namespace ProjectVishnu.ServerApp.App.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult GetAllByObra(string obraID)
         {
-            if (Request.QueryString.HasValue) return BadRequest();
-            var result = _folhadepontoServices.GetAllFromObra(obraID);
-            return result == null ? NotFound() : Ok(result);
+            try
+            {
+                 if (Request.QueryString.HasValue) return BadRequest();
+                var result = _folhadepontoServices.GetAllFromObra(obraID);
+                return Ok(result);
+            }
+            catch(Exception e)
+            {
+                return Problem(statusCode: 500, title: "Erro inesperado");
+            }
             
         }
 
@@ -53,12 +67,20 @@ namespace ProjectVishnu.ServerApp.App.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult GetByObra(string obraID, string date)
         {
-            if (Request.QueryString.HasValue) return BadRequest();
-            string[] dateValues = date.Split('-');
-            string ano = dateValues[0];
-            string mes = dateValues[1];
-            FolhaDePontoValuesOutputModel output = _folhadepontoServices.GetFromObra(obraID, ano, mes);
-            return output == null ? NotFound() : Ok(output);
+            try
+            {
+                if (Request.QueryString.HasValue) return BadRequest();
+                string[] dateValues = date.Split('-');
+                string ano = dateValues[0];
+                string mes = dateValues[1];
+                FolhaDePontoValuesOutputModel output = _folhadepontoServices.GetFromObra(obraID, ano, mes);
+                return Ok(output);
+            }
+            catch(Exception e)
+            {
+                return Problem(statusCode: 500, title: "Erro inesperado");
+            }
+           
         }
 
         [HttpGet("/folha-de-ponto/{mercado}")]
@@ -67,9 +89,17 @@ namespace ProjectVishnu.ServerApp.App.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult GetAllByMercado(string mercado)
         {
-            if (Request.QueryString.HasValue) return BadRequest();
-            var result = _folhadepontoServices.GetAllFromMercado(mercado);
-            return result == null ? NotFound() : Ok(result);   
+            try
+            {
+                if (Request.QueryString.HasValue) return BadRequest();
+                var result = _folhadepontoServices.GetAllFromMercado(mercado);
+                return Ok(result);   
+            }
+            catch(Exception e)
+            {
+                return Problem(statusCode: 500, title: "Erro inesperado");
+            }
+            
         }
 
         [HttpGet("/folha-de-ponto/{mercado}/{date}")]
@@ -78,12 +108,20 @@ namespace ProjectVishnu.ServerApp.App.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult GetByMercado(string mercado, string date)
         {
-            if (Request.QueryString.HasValue) return BadRequest();
-            string[] dateValues = date.Split('-');
-            string ano = dateValues[0];
-            string mes = dateValues[1];
-            var output = _folhadepontoServices.GetFromMercado(mercado, ano, mes);
-            return output == null ? NotFound() : Ok(output);
+            try
+            {
+                if (Request.QueryString.HasValue) return BadRequest();
+                string[] dateValues = date.Split('-');
+                string ano = dateValues[0];
+                string mes = dateValues[1];
+                var output = _folhadepontoServices.GetFromMercado(mercado, ano, mes);
+                return Ok(output);
+            }
+            catch(Exception e)
+            {
+                return Problem(statusCode: 500, title: "Erro inesperado");
+            }
+            
         }
 
         [HttpPut("/obras/{obraID}/folha-de-ponto/{date}")]
@@ -91,9 +129,16 @@ namespace ProjectVishnu.ServerApp.App.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult setValues(string obraID, string date, [FromBody] FolhaDePontoValuesInputModel values)
         {
-            if (Request.QueryString.HasValue) return BadRequest();
-            FolhaDePontoValuesOutputModel folha = _folhadepontoServices.setValues(obraID, date, values);
-            return Ok(folha);
+            try
+            {
+                if (Request.QueryString.HasValue) return BadRequest();
+                FolhaDePontoValuesOutputModel folha = _folhadepontoServices.setValues(obraID, date, values);
+                return Ok(folha);
+            }
+            catch(Exception e)
+            {
+                return Problem(statusCode: 500, title: "Erro inesperado");
+            }
         }
     }
 }

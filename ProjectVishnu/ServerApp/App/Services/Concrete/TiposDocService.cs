@@ -15,20 +15,13 @@ namespace ProjectVishnu.ServerApp.App.Services.Concrete
 
         public IEnumerable<TiposDocInputModel> ListAlphabetically()
         {
-           try
-            {
-                return _unitOfWork.TiposDocInt.ListAlphabetically()
-                    .Select(tipodocint => 
-                        new TiposDocInputModel
-                        {
-                            Sigla = tipodocint.Sigla,
-                            Designacao = tipodocint.Designacao
-                        });
-
-            }catch(Exception e)
-            {
-                return null;
-            }
+            return _unitOfWork.TiposDocInt.ListAlphabetically()
+                .Select(tipodocint => 
+                    new TiposDocInputModel
+                    {
+                        Sigla = tipodocint.Sigla,
+                        Designacao = tipodocint.Designacao
+                    });
         }
     }
 }

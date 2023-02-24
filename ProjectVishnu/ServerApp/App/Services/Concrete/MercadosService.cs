@@ -15,39 +15,22 @@ namespace ProjectVishnu.ServerApp.App.Services.Concrete
 
         public Mercado CreateMercado(MercadoDto mercado)
         {
-            try {
-                Mercado m = mercado.ToMercado();
-                _unitOfWork.Mercados.Add(m);
-                return m;
-            }
-            catch(Exception e)
-            {
-                return null;
-            }
+                
+            Mercado m = mercado.ToMercado();
+                
+            _unitOfWork.Mercados.Add(m);
+                
+            return m;
         }
 
         public Mercado GetMercado(string name)
         {
-            try
-            {
-                return _unitOfWork.Mercados.GetMercado(name);
-            }
-            catch(Exception e)
-            {
-                return null;
-            }
+            return _unitOfWork.Mercados.GetMercado(name);
         }
 
         public IEnumerable<string> ListAlphabetically()
         {
-            try
-            {
-                return _unitOfWork.Mercados.ListAlphabetically().Select(mercado => mercado.Mercadoname);
-
-            }catch(Exception e)
-            {
-                return null;
-            }
+            return _unitOfWork.Mercados.ListAlphabetically().Select(mercado => mercado.Mercadoname);
         }
     }
 }

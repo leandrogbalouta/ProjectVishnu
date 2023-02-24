@@ -22,9 +22,16 @@ namespace ProjectVishnu.ServerApp.App.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult List()
         {
-            if (Request.QueryString.HasValue) return BadRequest();
-            var result = _tiposDocServices.ListAlphabetically();
-            return result == null ? NotFound() : Ok(result);
+            try
+            {
+                if (Request.QueryString.HasValue) return BadRequest();
+                var result = _tiposDocServices.ListAlphabetically();
+                return result == null ? NotFound() : Ok(result);
+            }
+            catch(Exception e)
+            {
+                return Problem(statusCode: 500, title: "Erro inesperado");
+            }
         }
     }
 }

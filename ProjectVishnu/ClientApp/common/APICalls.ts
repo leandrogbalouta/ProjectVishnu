@@ -41,7 +41,7 @@ export async function CreateFuncionario(funcionario: IFuncionarioInput) {
 }
 
 export async function AddFuncionarioToObra(funcID : number, codigoInterno : string, date: string){
-  const path = `/api/funcionarios/${funcID}`;
+  const path = `/api/funcionarios/${funcID}/obra`;
   return fetch(path, {
     method: 'POST',
     headers: {

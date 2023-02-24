@@ -22,9 +22,17 @@ namespace ProjectVishnu.ServerApp.App.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult List()
         {
-            if (Request.QueryString.HasValue) return BadRequest();
-            var result = _mercadosService.ListAlphabetically();
-            return result == null ? NotFound() : Ok(result);
+            try
+            {
+                if (Request.QueryString.HasValue) return BadRequest();
+                var result = _mercadosService.ListAlphabetically();
+                return Ok(result);
+            }
+            catch(Exception e)
+            {
+                return Problem(statusCode: 500, title: "Erro inesperado");
+            }
+            
         }
 
         [HttpGet("{name}")]
@@ -33,8 +41,16 @@ namespace ProjectVishnu.ServerApp.App.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult Get(string name)
         {
-            var result = _mercadosService.GetMercado(name);
-            return result == null ? NotFound() : Ok();
+            try
+            {
+                var result = _mercadosService.GetMercado(name);
+                return Ok();
+            }
+            catch(Exception e)
+            {
+                return Problem(statusCode: 500, title: "Erro inesperado");
+            }
+            
         }
 
         [HttpPost]
@@ -42,13 +58,20 @@ namespace ProjectVishnu.ServerApp.App.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult Create([FromBody] MercadoDto mercado)
         {
-            var result = _mercadosService.CreateMercado(mercado);
-            var actionName = nameof(MercadosController.Get);
-            var routeValues = new 
+            try
             {
-                name = result.Mercadoname
-            };
-            return result == null ? BadRequest() : CreatedAtAction(actionName, routeValues, result);
+                var result = _mercadosService.CreateMercado(mercado);
+                var actionName = nameof(MercadosController.Get);
+                var routeValues = new 
+                {
+                    name = result.Mercadoname
+                };
+                return CreatedAtAction(actionName, routeValues, result);
+            }
+            catch(Exception e)
+            {
+                return Problem(statusCode: 500, title: "Erro inesperado");
+            }
         }
     }
 }

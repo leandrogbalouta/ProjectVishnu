@@ -10,6 +10,7 @@ namespace ProjectVishnu.Services
         IEnumerable<Funcionario> ListAlphabetically();
         Funcionario Get(int id);
 
+        int Create(FuncionarioInputModel funcionarioDto);
         IEnumerable<Funcionario> GetByName(string nome);
 
         string Delete(int id);
@@ -17,11 +18,11 @@ namespace ProjectVishnu.Services
         string Update(FuncionarioInputModel funcionarioDto);
 
         int AddFuncToObra(int id, string codigoObra, string date);
+        
+        int RemoveFuncFromObra(int id, string date);
 
         int GetValidityWarningCount();
 
         IEnumerable<Funcionario> GetValidityWarningList();
-
-        int Create(FuncionarioInputModel funcionarioDto);
     }
 }

@@ -22,30 +22,52 @@ namespace ProjectVishnu.ServerApp.App.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult List()
         {
-            if (Request.QueryString.HasValue) return BadRequest();
-            var result = _catProfServices.ListAlphabetically();
-            return result == null ? NotFound() : Ok(result);
+            try
+            {
+                if (Request.QueryString.HasValue) return BadRequest();
+                var result = _catProfServices.ListAlphabetically();
+                return Ok(result);
+            }
+            catch(Exception e)
+            {
+                return Problem(statusCode: 500, title: "Erro inesperado");
+            }
+            
         }
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         public IActionResult Create([FromBody] CatProfDto catProf)
         {
-            var result = _catProfServices.Create(catProf.Codigo, catProf.Nomenclatura);
-            var actionName = nameof(CategoriasProfissionaisController.Get);
-            var routeValues = new
+            try
             {
-                codigo = result.Codigo
-            };
-            return result == null ? BadRequest() : CreatedAtAction(actionName, routeValues, result);
+                var result = _catProfServices.Create(catProf.Codigo, catProf.Nomenclatura);
+                var actionName = nameof(CategoriasProfissionaisController.Get);
+                var routeValues = new
+                {
+                    codigo = result.Codigo
+                };
+                return CreatedAtAction(actionName, routeValues, result);
+            }
+            catch(Exception e)
+            {
+                return Problem(statusCode: 500, title: "Erro inesperado");
+            }
         }
 
         [HttpGet("{codigo}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(CatProfDto))]
         public IActionResult Get(string codigo)
         {
-            var result = _catProfServices.Get(codigo);
-            return result == null ? NotFound() : Ok(result);
+            try
+            {
+                var result = _catProfServices.Get(codigo);
+                return Ok(result);
+            }
+            catch(Exception e)
+            {
+                return Problem(statusCode: 500, title: "Erro inesperado");
+            }
         }
     }
 }

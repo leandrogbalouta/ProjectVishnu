@@ -25,29 +25,35 @@ namespace ProjectVishnu.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult List([FromQuery(Name = "mercado")] string? mercado, [FromQuery(Name = "nome")] string? nome)
         {
-            IEnumerable<Funcionario> funcionariosList;
-            if (mercado != null && nome != null)
+            try
             {
-                funcionariosList = _funcionariosService.ListByMarketAndName(mercado, nome);
+                IEnumerable<Funcionario> funcionariosList;
+                if (mercado != null && nome != null)
+                {
+                    funcionariosList = _funcionariosService.ListByMarketAndName(mercado, nome);
+                }
+                else if(mercado == null && nome == null)
+                {
+                    funcionariosList = _funcionariosService.ListAlphabetically();
+                }
+                else if (mercado != null)
+                {
+                    funcionariosList = _funcionariosService.ListByMarket(mercado);
+                }
+                else if (nome != null)
+                {
+                    funcionariosList = _funcionariosService.GetByName(nome);
+                }else
+                {
+                    return BadRequest();
+                }
+                
+                return Ok(funcionariosList.Select(x => x.toOutputModel()));
             }
-            else if(mercado == null && nome == null)
+            catch(Exception e)
             {
-                funcionariosList = _funcionariosService.ListAlphabetically();
+                return Problem(statusCode: 500, title: "Erro inesperado");
             }
-            else if (mercado != null)
-            {
-                funcionariosList = _funcionariosService.ListByMarket(mercado);
-            }
-            else if (nome != null)
-            {
-                funcionariosList = _funcionariosService.GetByName(nome);
-            }else
-            {
-                return BadRequest();
-            }
-            
-            return funcionariosList == null ? NotFound() : Ok(funcionariosList.Select(x => x.toOutputModel()));
-
         }
 
         [HttpGet("{id}")]
@@ -57,8 +63,16 @@ namespace ProjectVishnu.Controllers
         public IActionResult Get(int id)
         {
             if (Request.QueryString.HasValue) return BadRequest();
-            Funcionario result = _funcionariosService.Get(id);
-            return result == null ? NotFound() : Ok(result.toOutputModel());
+            try
+            {
+                Funcionario result = _funcionariosService.Get(id);
+                return Ok(result.toOutputModel());
+            }
+            catch(Exception e)
+            {
+                return Problem(statusCode: 500, title: "Erro inesperado");
+            }
+            
         }
 
         [HttpPost]
@@ -83,7 +97,7 @@ namespace ProjectVishnu.Controllers
                 string erroCode = ex.InnerException!.Data["SqlState"]!.ToString()!;
                 // 23505 significa primary key duplicada (Postgres).
                 string errorMessage = (erroCode.Equals("23505")) ? "NIF duplicado." : "Ocorreu um erro, por favor tente novamente, se o erro persistir, entre em contacto connosco.";
-                return Problem(statusCode: 400, title: errorMessage);
+                return Problem(statusCode: 409, title: errorMessage);
             }
         }
 
@@ -92,9 +106,17 @@ namespace ProjectVishnu.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult Edit(int id, [FromBody] FuncionarioInputModel funcionario) // levar um segundo parâmetro com os parâmetros necessários para editar um funcionário(possivelmente necessário criar um dto)
         {
-            if (Request.QueryString.HasValue) return BadRequest();
-            string result = _funcionariosService.Update(funcionario);
-            return result == null ? BadRequest() : Ok(result);
+            try
+            {
+                if (Request.QueryString.HasValue) return BadRequest();
+                string result = _funcionariosService.Update(funcionario);
+                return Ok(result);
+            }
+            catch(Exception e)
+            {
+                return Problem(statusCode: 500, title: "Erro inesperado");
+            }
+            
         }
 
         [HttpDelete("{id}")]
@@ -102,20 +124,46 @@ namespace ProjectVishnu.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult Delete(int id)
         {
-            if (Request.QueryString.HasValue) return BadRequest();
-            string result = _funcionariosService.Delete(id);
-            return result == null ? BadRequest() : Ok(result);
-
-
+            try
+            {
+                if (Request.QueryString.HasValue) return BadRequest();
+                string result = _funcionariosService.Delete(id);
+                return Ok(result);
+            }
+            catch(Exception e)
+            {
+                return Problem(statusCode: 500, title: "Erro inesperado");
+            }
         }
 
-        [HttpPost("{id}")]
-        public IActionResult AddFuncToObra(int id, [FromBody] FuncionarioObraInputModel obraInput){
-            int result = _funcionariosService.AddFuncToObra(id, obraInput.CodigoInterno, obraInput.Date);
-            return result == 0 ? BadRequest() : Ok();
+        [HttpPost("{id}/obra")]
+        public IActionResult AddFuncToObra(int id, [FromBody] FuncionarioObraInputModel obraInput)
+        {
+            try
+            {
+                int result = _funcionariosService.AddFuncToObra(id, obraInput.CodigoInterno, obraInput.Date);
+                return Ok();
+            }
+            catch(Exception e)
+            {
+                return Problem(statusCode: 500, title: "Erro inesperado");
+            }
         }
 
-
+        [HttpPut("{id}/obra")]
+        public IActionResult RemoveFuncFromCurrentObra(int id, [FromBody] string date)
+        {
+            try 
+            {
+                int result = _funcionariosService.RemoveFuncFromObra(id, date);
+                return Ok();
+            }
+            catch(Exception e)
+            {
+                return Problem(statusCode: 500, title: "Erro inesperado");
+            }
+            
+        }
 
         [HttpGet("validity/count")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(int))]
@@ -123,7 +171,14 @@ namespace ProjectVishnu.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult GetDocValidityWarningCount()
         {
-            return Ok(_funcionariosService.GetValidityWarningCount());
+            try
+            {
+                return Ok(_funcionariosService.GetValidityWarningCount());
+            }
+            catch(Exception e)
+            {
+                return Problem(statusCode: 500, title: "Erro inesperado");
+            }
         }
 
         [HttpGet("validity/list")]
@@ -132,7 +187,14 @@ namespace ProjectVishnu.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult GetDocValidityWarningList()
         {
-            return Ok(_funcionariosService.GetValidityWarningList().Select(f => f.toOutputModel()));
+            try
+            {
+                return Ok(_funcionariosService.GetValidityWarningList().Select(f => f.toOutputModel()));
+            }
+            catch(Exception e)
+            {
+                return Problem(statusCode: 500, title: "Erro inesperado");
+            }
         }
     }
 }
