@@ -93,5 +93,10 @@ namespace ProjectVishnu.ServerApp.App.Dtos
         public IEnumerable<FuncionarioOutputModel>? funcList {get; set;}
     }
 
+    public class ObraFuncionarioOutputModel{
+        public ObraOutputModel Obra {get; set;}
+        public DateOnly? DataInicio {get; set;}
+        public DateOnly? DataFim {get; set;}
+    }
    
 }

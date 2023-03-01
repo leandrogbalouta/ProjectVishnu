@@ -48,10 +48,22 @@ namespace ProjectVishnu.Services.Concrete
             return _unitOfWork.Obras.ListByFilters(estado, mercado, valor);
         }
 
-         public IEnumerable<Obra>? ListByFuncionario(int funcionarioId)
-         {
-            return _unitOfWork.Obras.ListByFuncionario(funcionarioId);
-         }
+        public IEnumerable<Obra>? ListByFuncionario(int funcionarioId)
+        {
+           return _unitOfWork.Obras.ListByFuncionario(funcionarioId);
+        }
+
+        public IEnumerable<FuncionarioObraOutputModel> GetCurrentFuncs(string codigoInterno)
+        {
+            IEnumerable<FuncionariosObra> fo = _unitOfWork.Obras.GetCurrentFuncs(codigoInterno);
+            return fo.Select(fo => fo.toObraOutputModel());
+        }
+
+        public IEnumerable<FuncionarioObraOutputModel> GetPastFuncs(string codigoInterno)
+        {
+            IEnumerable<FuncionariosObra> fo = _unitOfWork.Obras.GetPastFuncs(codigoInterno);
+            return fo.Select(fo => fo.toObraOutputModel());
+        }
 
         public void RemoveFuncFromObra(string codigoInterno, FuncionarioObraInputModel funcInput)
         {
@@ -95,5 +107,6 @@ namespace ProjectVishnu.Services.Concrete
             }
             return CodigoInterno + "" + count;
         }
+
     }
 }

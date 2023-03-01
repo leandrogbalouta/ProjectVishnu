@@ -125,7 +125,37 @@ namespace ProjectVishnu.Controllers
             }
         }
 
-        [HttpPost("{id}/obra")]
+        [HttpGet("{id}/obras/current")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ObraFuncionarioOutputModel))]
+        public IActionResult GetCurrentObra(int id)
+        {
+            try
+            {
+                ObraFuncionarioOutputModel currentObra = _funcionariosService.GetCurrentObra(id);
+                return Ok(currentObra);
+            }
+            catch(Exception e)
+            {
+                return Problem(statusCode: 500, title: "Erro inesperado");
+            }
+        }
+
+        [HttpGet("{id}/obras/past")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<ObraFuncionarioOutputModel>))]
+        public IActionResult GetPastObras(int id)
+        {
+            try
+            {
+                IEnumerable<ObraFuncionarioOutputModel> pastObras = _funcionariosService.GetPastObras(id);
+                return Ok(pastObras);
+            }
+            catch(Exception e)
+            {
+                return Problem(statusCode: 500, title: "Erro inesperado");
+            }
+        }
+
+        [HttpPost("{id}/obras")]
         public IActionResult AddFuncToObra(int id, [FromBody] FuncionarioObraInputModel obraInput)
         {
             try
@@ -139,7 +169,7 @@ namespace ProjectVishnu.Controllers
             }
         }
 
-        [HttpPut("{id}/obra")]
+        [HttpPut("{id}/obras")]
         public IActionResult RemoveFuncFromCurrentObra(int id, [FromBody] string date)
         {
             try 

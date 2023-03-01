@@ -22,5 +22,7 @@ namespace ProjectVishnu.Services
         int GetValidityWarningCount();
 
         IEnumerable<Funcionario> GetValidityWarningList();
+        ObraFuncionarioOutputModel GetCurrentObra(int id);
+        IEnumerable<ObraFuncionarioOutputModel> GetPastObras(int id);
     }
 }

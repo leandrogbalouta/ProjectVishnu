@@ -18,5 +18,7 @@ namespace ProjectVishnu.DataAccess.Repository
 
         int GetFuncId(string nif);
         FuncionariosObra GetCurrentObra(int id);
+
+        IEnumerable<FuncionariosObra> GetPastObras(int id);
     }
 }

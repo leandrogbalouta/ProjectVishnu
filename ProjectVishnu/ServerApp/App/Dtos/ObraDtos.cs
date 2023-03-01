@@ -46,4 +46,9 @@ namespace ProjectVishnu.ServerApp.App.Dtos
         public string Date { get; set; }
     }
 
+    public class FuncionarioObraOutputModel{
+        public FuncionarioOutputModel Funcionario {get; set;}
+        public DateOnly? DataInicio {get; set;}
+        public DateOnly? DataFim {get; set;}
+    }
 }

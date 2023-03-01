@@ -17,5 +17,7 @@ namespace ProjectVishnu.DataAccess.Repository
         public void Delete(string codigo);
 
         public int CountCodigoOccurrences(string code);
+        IEnumerable<FuncionariosObra> GetCurrentFuncs(string codigoInterno);
+        IEnumerable<FuncionariosObra> GetPastFuncs(string codigoInterno);
     }
 }

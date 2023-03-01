@@ -54,6 +54,17 @@ namespace ProjectVishnu.DataAccess.Repository.Concrete
             return VishnuContext.Funcionarios.Where(func => date > func.Validadedocident).ToList();
         }
 
+         public FuncionariosObra GetCurrentObra(int id)
+        {
+            return Get(id).FuncionariosObras.Where(fo => fo.Datafim == null).Single();
+        }
+
+        public IEnumerable<FuncionariosObra> GetPastObras(int id)
+        {
+            return Get(id).FuncionariosObras.Where(fo => fo.Datafim != null).ToList();
+        }
+
+
         public IEnumerable<Funcionario> Find(Expression<Func<Funcionario, bool>> predicate)
         {
             throw new NotImplementedException();
@@ -89,10 +100,7 @@ namespace ProjectVishnu.DataAccess.Repository.Concrete
             return VishnuContext.Funcionarios.Where(func => func.Nif == nif).First().Id;
         }
 
-        public FuncionariosObra GetCurrentObra(int id)
-        {
-            return Get(id).FuncionariosObras.Where(fo => fo.Datafim == null).Single();
-        }
+       
 
         bool Filter(Funcionario func, string? mercado, string? valor){
             bool mercadoCondition = mercado == null ? true : func.Mercado.Contains(mercado);

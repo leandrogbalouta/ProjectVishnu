@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using ProjectVishnu.ServerApp.App.Dtos;
 
 namespace ProjectVishnu.Models
 {
@@ -12,5 +13,25 @@ namespace ProjectVishnu.Models
 
         public virtual Funcionario FuncionarioNavigation { get; set; } = null!;
         public virtual Obra ObraNavigation { get; set; } = null!;
+
+        public FuncionarioObraOutputModel toObraOutputModel()
+        {
+            return new FuncionarioObraOutputModel
+            {
+                Funcionario = FuncionarioNavigation.toOutputModel(),
+                DataInicio = Datacomeco,
+                DataFim = Datafim
+            };
+        }
+
+        public ObraFuncionarioOutputModel toFuncionarioOutputModel()
+        {
+            return new ObraFuncionarioOutputModel
+            {
+                Obra = ObraNavigation.toObraOutputModel(),
+                DataInicio = Datacomeco,
+                DataFim = Datafim
+            };
+        }
     }
 }

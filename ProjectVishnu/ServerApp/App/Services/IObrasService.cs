@@ -16,5 +16,7 @@ namespace ProjectVishnu.Services
         string Update(string codigoInterno, ObraInputModel obraInput);
         void AddFuncToObra(string codigoInterno, FuncionarioObraInputModel funcID);
         void RemoveFuncFromObra(string codigoInterno, FuncionarioObraInputModel funcInput);
+        IEnumerable<FuncionarioObraOutputModel> GetCurrentFuncs(string codigoInterno);
+        IEnumerable<FuncionarioObraOutputModel> GetPastFuncs(string codigoInterno);
     }
 }

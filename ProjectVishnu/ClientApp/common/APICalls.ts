@@ -41,7 +41,7 @@ export async function CreateFuncionario(funcionario: IFuncionarioInput) {
 }
 
 export async function AddFuncionarioToObra(funcID : number, codigoInterno : string, date: string){
-  const path = `/api/funcionarios/${funcID}/obra`;
+  const path = `/api/funcionarios/${funcID}/obras`;
   return fetch(path, {
     method: 'POST',
     headers: {
@@ -53,6 +53,7 @@ export async function AddFuncionarioToObra(funcID : number, codigoInterno : stri
     })
   })
 }
+/*TODO: criar função para remover funcionario de uma obra*/
 
 export async function GetFuncionariosValidityWarningCount(){
   const path = "/api/funcionarios/validity/count"

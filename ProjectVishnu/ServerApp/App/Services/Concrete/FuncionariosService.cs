@@ -51,6 +51,18 @@ namespace ProjectVishnu.Services
             return "Funcionário atualizado com sucesso.";  
         }
 
+         public ObraFuncionarioOutputModel GetCurrentObra(int id)
+        {
+            FuncionariosObra fo = _unitOfWork.Funcionarios.GetCurrentObra(id);
+            return fo.toFuncionarioOutputModel();
+        }
+
+        public IEnumerable<ObraFuncionarioOutputModel> GetPastObras(int id)
+        {
+            IEnumerable<FuncionariosObra> fo = _unitOfWork.Funcionarios.GetPastObras(id);
+            return fo.Select(fo => fo.toFuncionarioOutputModel());
+        }
+
         public int AddFuncToObra(int id, string codigoObra, string date)
         {
             Funcionario func = _unitOfWork.Funcionarios.Get(id);
@@ -96,6 +108,5 @@ namespace ProjectVishnu.Services
         {
             return _unitOfWork.Funcionarios.GetValidityWarningList();
         }
-
     }
 }

@@ -45,6 +45,15 @@ namespace ProjectVishnu.DataAccess.Repository.Concrete
         {
             VishnuContext.Obras.Where(ObraExists).Where(obra => obra.Codigointerno == codigo).First().Deleted = DateOnly.FromDateTime(DateTime.Now);
         }
+        public IEnumerable<FuncionariosObra> GetCurrentFuncs(string codigoInterno)
+        {
+            return VishnuContext.FuncionariosObras.Where(fo => fo.Obra == codigoInterno && fo.Datafim == null).ToList();
+        }
+
+        public IEnumerable<FuncionariosObra> GetPastFuncs(string codigoInterno)
+        {
+            return VishnuContext.FuncionariosObras.Where(fo => fo.Obra == codigoInterno && fo.Datafim != null).ToList();
+        }
 
         public int CountCodigoOccurrences(string code)
         {
