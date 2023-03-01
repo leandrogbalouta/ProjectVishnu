@@ -20,6 +20,7 @@ import {
   RadioGroup,
   Select,
   useToast,
+  Switch,
 } from "@chakra-ui/react";
 import IFuncionarioInput from "../../common/Interfaces/Funcionario/IFuncionarioInput";
 import { useRouter } from "next/router";
@@ -80,7 +81,9 @@ export default function FuncionarioCreation() {
       validadedocident: yup
         .string()
         .transform((value, originalValue) => (value = originalValue))
-        .required("Por favor, introduza a data de expiração do documento de identificação"),
+        .required(
+          "Por favor, introduza a data de expiração do documento de identificação"
+        ),
       //.transform((value) => (isNaN(value) ? undefined : value)),
       catprof: yup
         .string()
@@ -220,7 +223,7 @@ export default function FuncionarioCreation() {
                 status: "error",
                 isClosable: true,
               });
-            })
+            });
           }
         }
       })
@@ -641,26 +644,12 @@ export default function FuncionarioCreation() {
           <FormControl className="mb-5" isInvalid={!!errors.cartaconducao}>
             <FormLabel htmlFor="cartaconducao">Carta de condução</FormLabel>
 
-            <InputGroup>
-              <RadioGroup defaultValue="0">
-                <Stack spacing={5} direction="row">
-                  <Radio
-                    colorScheme="blue"
-                    value="1"
-                    id="cartaconducao"
-                    {...register("cartaconducao", { required: true })}
-                  >
-                    Sim
-                  </Radio>
-                  <Radio
-                    colorScheme="red"
-                    value="0"
-                    {...register("cartaconducao", { required: true })}
-                  >
-                    Não
-                  </Radio>
-                </Stack>
-              </RadioGroup>
+            <InputGroup className="flex flex-col">
+              <Switch
+                id="cartaconducao"
+                size="lg"
+                {...register("cartaconducao", { required: true })}
+              />
             </InputGroup>
             <FormErrorMessage>{errors.cartaconducao?.message}</FormErrorMessage>
           </FormControl>
