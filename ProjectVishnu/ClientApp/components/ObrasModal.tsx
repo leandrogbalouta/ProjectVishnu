@@ -59,7 +59,7 @@ export default function ObrasModal(funcionario : IFuncionarioOutput){
 
         <Modal closeOnOverlayClick={false} isOpen={isOpen} size={"full"} onClose={onClose}>
           <ModalOverlay />
-          <ModalContent>
+          <ModalContent  className="dark:!bg-slate-800 dark:text-white">
             <ModalHeader>Escolha uma obra</ModalHeader>
             <ModalCloseButton />
             <ModalBody pb={6}>
@@ -76,7 +76,7 @@ export default function ObrasModal(funcionario : IFuncionarioOutput){
               <Button colorScheme='blue' mr={3}>
                 Save
               </Button>
-              <Button onClick={onClose}>Cancel</Button>
+              <Button onClick={onClose} className="text-slate-800">Cancel</Button>
             </ModalFooter>
           </ModalContent>
         </Modal>
