@@ -10,7 +10,11 @@ import {
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import { GetFuncionariosValidityWarningCount, GetFuncionariosValidityWarningList, fetchFuncionarios } from "../../common/APICalls";
+import {
+  GetFuncionariosValidityWarningCount,
+  GetFuncionariosValidityWarningList,
+  fetchFuncionarios,
+} from "../../common/APICalls";
 import IFuncionarioOutput from "../../common/Interfaces/Funcionario/IFuncionarioOutput";
 import FilterBar from "../../components/FilterBar";
 
@@ -19,8 +23,9 @@ export default function Funcionarios() {
   const [mercado, setMercado] = useState(null);
   const [searchString, setSearchString] = useState(null);
   const [warningCount, setWarningCount] = useState(0);
-  const [isWarningList, setWarningList] = useState<boolean>(false)
+  const [isWarningList, setWarningList] = useState<boolean>(false);
   const router = useRouter();
+  const funcionarioString = warningCount === 1 ? "funcionário" : 'funcionários'
 
   async function redirectToFuncionario(id: number) {
     router.push(`/funcionarios/${id}`);
@@ -37,10 +42,10 @@ export default function Funcionarios() {
   );
 
   useEffect(() => {
-    populateData()
+    populateData();
   }, [mercado, searchString]);
 
-  async function populateData(){
+  async function populateData() {
     const filters = Object.assign(
       {},
       mercado === null ? null : { mercado: mercado },
@@ -48,7 +53,7 @@ export default function Funcionarios() {
     );
 
     populateFuncionariosData(filters);
-    GetWarningCount()
+    GetWarningCount();
   }
 
   return (
@@ -59,12 +64,31 @@ export default function Funcionarios() {
         setSearchString={setSearchString}
         searchBar
       />
-      {warningCount > 0 && !isWarningList && <div className="flex justify-center mt-2 mb-2 rounded-lg border-4 border-red-900 bg-red-300 text-black text-2xl font-bold hover:bg-red-400 cursor-pointer " onClick={()=>{GetWarningList()}}>
-        Foram encontrados {warningCount} funcionários com documento de identificação prestes a expirar, clique aqui de modo a ver uma lista com esses funcionários.
-        </div>}
-      {isWarningList && <div className="flex justify-center mt-2 mb-2 rounded-lg border-4 border-blue-900 bg-slate-300 text-black text-2xl font-bold hover:bg-slate-500 cursor-pointer " onClick={()=>{setWarningList(false);populateData()}}>
-        Voltar à listagem global de funcionários
-        </div>}
+      {warningCount > 0 && !isWarningList && (
+        <div
+          className="select-none flex flex-col p-3 my-3 justify-center rounded-lg border-4 border-red-900 bg-red-300 text-black text-2xl font-bold hover:bg-red-400 cursor-pointer text-center"
+          onClick={() => {
+            GetWarningList();
+          }}
+        >
+          <p>
+            Foram encontrados {warningCount} {funcionarioString} com documento de
+            identificação prestes a expirar.
+          </p>
+          <p>Clique aqui de modo a ver uma lista com esses funcionários.</p>
+        </div>
+      )}
+      {isWarningList && (
+        <div
+          className="select-none flex justify-center p-3 my-3 rounded-lg border-4 border-blue-900 bg-slate-300 text-black text-2xl font-bold hover:bg-slate-400  cursor-pointer "
+          onClick={() => {
+            setWarningList(false);
+            populateData();
+          }}
+        >
+          Voltar à listagem global de funcionários
+        </div>
+      )}
       {contents}
       <div id="button-container" className="flex justify-end mt-3">
         <Button
@@ -109,19 +133,23 @@ export default function Funcionarios() {
     );
   }
 
-  async function populateFuncionariosData(filters : Record<string, string>){
-    const response = await fetchFuncionarios(filters).then(res => res.json());
+  async function populateFuncionariosData(filters: Record<string, string>) {
+    const response = await fetchFuncionarios(filters).then((res) => res.json());
     setFuncionarios(response);
-  };
-  
-  async function GetWarningCount() {
-    const response = await GetFuncionariosValidityWarningCount().then(res => res.json())
-    setWarningCount(response)
   }
 
-  async function GetWarningList(){
-    const response = await GetFuncionariosValidityWarningList().then(res => res.json());
+  async function GetWarningCount() {
+    const response = await GetFuncionariosValidityWarningCount().then((res) =>
+      res.json()
+    );
+    setWarningCount(response);
+  }
+
+  async function GetWarningList() {
+    const response = await GetFuncionariosValidityWarningList().then((res) =>
+      res.json()
+    );
     setFuncionarios(response);
-    setWarningList(true)
+    setWarningList(true);
   }
 }
