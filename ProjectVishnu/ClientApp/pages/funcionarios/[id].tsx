@@ -35,8 +35,8 @@ export default function Funcionario() {
       <div className="h-full flex flex-1">
         {!funcionario && <p>Não foi possível encontrar o funcionario</p>}
         {funcionario && (
-          <>
-            <div className="p-3 mb-3 bg-slate-800 text-cyan-100 rounded-xl flex flex-col overflow-auto">
+          <div className="flex flex-col w-full">
+            <div className="w-1/3 p-3 mb-3 bg-slate-800 text-cyan-100 rounded-xl flex flex-col overflow-auto">
               <p className="text-xl font-bold ml-3">Detalhes do Funcionário:</p>
               <div className="flex flex-1 flex-col m-3 gap-3 overflow-auto">
                 <div>
@@ -145,8 +145,10 @@ export default function Funcionario() {
                 </div>
               </div>
             </div>
-            <ObrasModal {...funcionario}></ObrasModal>
-          </>
+            <div id="button-container" className="flex justify-end">
+              <ObrasModal {...funcionario}></ObrasModal>
+            </div>
+          </div>
         )}
       </div>
     );
