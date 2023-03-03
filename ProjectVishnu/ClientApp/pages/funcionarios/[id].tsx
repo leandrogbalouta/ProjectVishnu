@@ -36,15 +36,15 @@ export default function Funcionario() {
         {!funcionario && <p>Não foi possível encontrar o funcionario</p>}
         {funcionario && (
           <div className="h-full w-full flex flex-col">
-            <div className="flex flex-1 flex-row h-full w-full gap-3">
+            <div className="flex flex-col sm:flex-row h-[95%] w-full gap-1 sm:gap-3">
               <div
                 id="detalhes-de-funcionario-container"
-                className="w-1/3 p-3 mb-3 bg-slate-800 text-cyan-100 rounded-xl flex flex-col overflow-auto"
+                className="flex-1 p-3 mb-3 bg-slate-800 text-cyan-100 rounded-xl flex flex-col overflow-auto"
               >
                 <p className="text-xl font-bold ml-3">
                   Detalhes do Funcionário:
                 </p>
-                <div className="flex flex-1 flex-col m-3 gap-3 overflow-auto">
+                <div className="flex  flex-col m-3 gap-3 overflow-auto">
                   <div>
                     <p className="obra-heading">ID</p>
                     <p>{funcionario.id}</p>
@@ -153,10 +153,10 @@ export default function Funcionario() {
               </div>
               <div
                 id="obras-de-funcionario-container"
-                className="w-1/3 p-3 mb-3 bg-slate-700 text-cyan-100 rounded-xl flex flex-col overflow-auto"
+                className="flex-1 p-3 mb-3 bg-slate-700 text-cyan-100 rounded-xl flex flex-col overflow-auto"
               >
                 <p className="text-xl font-bold ml-3">Obras:</p>
-                <div className="flex flex-1 flex-col m-3 gap-3 overflow-auto">
+                <div className="flex  flex-col m-3 gap-3 overflow-auto">
                   <div>
                     <p className="obra-heading">ID</p>
                     <p>{funcionario.id}</p>
