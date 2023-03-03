@@ -13,6 +13,7 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
+import ObrasTable from "../../components/ObrasTable";
 
 export default function Obras() {
   const [obras, setObras] = useState(null);
@@ -20,8 +21,8 @@ export default function Obras() {
   const [mercado, setMercado] = useState(null);
   const [searchString, setSearchString] = useState(null);
 
-  async function redirectToObra(codigo: string) {
-    Router.push(`/obras/${codigo}`);
+  async function redirectToObra(codigoInterno: string) {
+    Router.push(`/obras/${codigoInterno}`);
   }
 
   async function redirectToObraCreation() {
@@ -29,7 +30,7 @@ export default function Obras() {
     Router.push("/obras/create");
   }
 
-  let contents = !obras ? <Spinner /> : renderObrasTable(obras);
+  let contents = !obras ? <Spinner /> : <ObrasTable obras={obras} dataOnRowClick={redirectToObra} />;
 
   useEffect(() => {
     const filters = Object.assign(
@@ -81,35 +82,4 @@ export default function Obras() {
       </div>
     </div>
   );
-
-  function renderObrasTable(Obras: IObraOutput[]) {
-    return (
-      <div id="table-container" className="overflow-x-scroll flex-1">
-        <Table className="table table-striped" aria-labelledby="tabelLabel">
-          <Thead>
-            <Tr className="data-table-header">
-              <Th>Código interno</Th>
-              <Th>Designação</Th>
-              <Th>Cliente</Th>
-              <Th>Mercado</Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            {Obras.map((obra) => (
-              <Tr
-                className="data-table-row"
-                onClick={() => redirectToObra(obra.codigoInterno)}
-                key={obra.codigoInterno}
-              >
-                <Td>{obra.codigoInterno}</Td>
-                <Td>{obra.designacao}</Td>
-                <Td>{obra.cliente}</Td>
-                <Td className="capitalize">{obra.mercado}</Td>
-              </Tr>
-            ))}
-          </Tbody>
-        </Table>
-      </div>
-    );
-  }
 }

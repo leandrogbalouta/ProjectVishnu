@@ -85,6 +85,9 @@ export async function fetchObra(codigo: string) {
   const path = `/api/obras/${codigo}`;
   return fetch(path);
 }
+export async function AddObraToFunc() {
+  throw new Error("Implementa-me 😢")
+}
 // Folha de ponto
 export async function createFolhaDePonto(
   mes: string,
