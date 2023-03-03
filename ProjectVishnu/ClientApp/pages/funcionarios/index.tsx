@@ -25,7 +25,6 @@ export default function Funcionarios() {
   const [warningCount, setWarningCount] = useState(0);
   const [isWarningList, setWarningList] = useState<boolean>(false);
   const router = useRouter();
-  const funcionarioString = warningCount === 1 ? "funcionário" : 'funcionários'
 
   async function redirectToFuncionario(id: number) {
     router.push(`/funcionarios/${id}`);
@@ -72,10 +71,12 @@ export default function Funcionarios() {
           }}
         >
           <p>
-            Foram encontrados {warningCount} {funcionarioString} com documento de
-            identificação prestes a expirar.
+            {warningCount === 1
+              ? `Foi encontrado ${warningCount} funcionario `
+              : `Foram encontrados ${warningCount} funcionarios `}
+            com documentos de identificação prestes a expirar.
           </p>
-          <p>Clique aqui de modo a ver uma lista com esses funcionários.</p>
+          <p> Clique aqui para ver a lista.</p>
         </div>
       )}
       {isWarningList && (
