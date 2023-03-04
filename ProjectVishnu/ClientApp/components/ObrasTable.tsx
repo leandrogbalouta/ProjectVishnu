@@ -4,7 +4,7 @@ import IObraOutput from "../common/Interfaces/Obra/IObraOutput";
 
 interface Props {
     obras: IObraOutput[];
-    dataOnRowClick: (codigoInterno: string) => void;
+    dataOnRowClick?: (codigoInterno: string) => void;
   }
 export default function ObrasTable({ obras, dataOnRowClick }: Props) {
   return (
@@ -22,7 +22,7 @@ export default function ObrasTable({ obras, dataOnRowClick }: Props) {
           {obras.map((obra) => (
             <Tr
               className="data-table-row"
-              onClick={() => dataOnRowClick(obra.codigoInterno)}
+              onClick={() => dataOnRowClick && dataOnRowClick(obra.codigoInterno)}
               key={obra.codigoInterno}
             >
               <Td>{obra.codigoInterno}</Td>

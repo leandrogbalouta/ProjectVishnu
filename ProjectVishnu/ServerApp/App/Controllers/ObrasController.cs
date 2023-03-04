@@ -55,7 +55,17 @@ namespace ProjectVishnu.Controllers
             try
             {
                 if (Request.QueryString.HasValue) return BadRequest();
-                IEnumerable<Obra>? result = _obrasService.ListByFuncionario(funcionarioId);
+                IEnumerable<ObraInputModel>? result = _obrasService.ListByFuncionario(funcionarioId)
+                .Select(o => new ObraInputModel
+                {
+                    CodigoInterno = o.Codigointerno,
+                    Designacao = o.Designacao,
+                    Cliente = o.Cliente,
+                    Datainicio = o.Datainicio?.ToString(),
+                    Datafim = o.Datafim?.ToString(),
+                    Estado = o.Estado,
+                    Mercado = o.Mercado ?? ""
+                });
                 return Ok(result);
             }
             catch(Exception e)
