@@ -15,7 +15,6 @@ export default function Funcionario() {
   const [funcionario, setFuncionario] = useState(undefined);
   const [state, setState] = useState("todas");
   const [obras, setObras] = useState<IObraOutput[]>([]);
-  const [filteredObras, setFilteredObras] = useState<IObraOutput[]>([]);
   const router = useRouter();
   const id = router.query.id ? router.query.id!.toString() : undefined;
 
@@ -38,7 +37,6 @@ export default function Funcionario() {
       if (response.status == 200) {
         const data = await response.json();
         setObras(data);
-        setFilteredObras(data);
       } else if (response.status == 204) {
       } else {
       }
@@ -47,11 +45,6 @@ export default function Funcionario() {
     populateFuncionarioData();
     populateObrasData();
   }, [id]);
-  // When state changes
-  useEffect(() => {
-    if (state !== "todas") setFilteredObras([...obras.filter((obra) => obra.estado == state)]);
-    else setFilteredObras(obras);
-  }, [state]);
 
   return <div className="h-full w-full">{contents}</div>;
 
@@ -183,7 +176,7 @@ export default function Funcionario() {
                 <p className="text-xl font-bold ml-3 text-cyan-100">Obras:</p>
                 <div className="flex flex-1 flex-col m-3 gap-3 overflow-auto bg-white rounded">
                   <ObraStateFilter state={state} setState={setState} />
-                  <ObrasTable obras={filteredObras} />
+                  <ObrasTable obras={(state !== "todas") ? [...obras.filter((obra) => obra.estado == state)] : obras} />
                 </div>
               </div>
             </div>
