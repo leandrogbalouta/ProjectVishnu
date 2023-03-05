@@ -1,13 +1,17 @@
 import { Table, Thead, Tr, Th, Tbody, Td } from "@chakra-ui/react";
+import { useRouter } from 'next/router';
 import { AddFuncionarioToObra } from "../common/APICalls";
 import IObraOutput from "../common/Interfaces/Obra/IObraOutput";
 
 interface Props {
   obras: IObraOutput[];
-  dataOnRowClick?: (codigoInterno: string) => void;
+  // dataOnRowClick?: (codigoInterno: string) => void;
 }
-export default function ObrasTable({ obras, dataOnRowClick }: Props) {
-console.log();
+export default function ObrasTable({ obras }: Props) {
+  const router = useRouter();
+  async function redirectToObra(codigoInterno: string) {
+    router.push(`/obras/${codigoInterno}`);
+  }
   function TdState({ state }: { state: string }) {
     let estado = '';
     let classe = '';
@@ -46,7 +50,7 @@ console.log();
             <Tr
               className="data-table-row"
               onClick={() =>
-                dataOnRowClick && dataOnRowClick(obra.codigoInterno)
+                redirectToObra(obra.codigoInterno)
               }
               key={obra.codigoInterno}
             >
