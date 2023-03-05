@@ -1,4 +1,12 @@
-import { Button, Spinner, useDisclosure } from "@chakra-ui/react";
+import {
+  Accordion,
+  AccordionButton,
+  AccordionIcon,
+  AccordionItem,
+  AccordionPanel,
+  Box,
+  Spinner,
+} from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import {
   fetchFuncionario,
@@ -9,14 +17,14 @@ import { useRouter } from "next/router";
 import ObrasModal from "../../components/ObrasModal";
 import ObrasTable from "../../components/ObrasTable";
 import IObraOutput from "../../common/Interfaces/Obra/IObraOutput";
-import ObraStateFilter from "../../components/ObraStateFilter";
 
 export default function Funcionario() {
   const [funcionario, setFuncionario] = useState(undefined);
-  const [state, setState] = useState("todas");
-  const [obras, setObras] = useState<IObraOutput[]>([]);
   const router = useRouter();
   const id = router.query.id ? router.query.id!.toString() : undefined;
+  const [obras, setObras] = useState<IObraOutput[]>([]);
+  const obrasEmCurso = obras.filter((obra) => obra.estado == "em-curso");
+  const obrasCompletadas = obras.filter((obra) => obra.estado == "completada");
 
   let contents =
     funcionario === undefined ? <Spinner /> : renderFuncionario(funcionario);
@@ -45,9 +53,26 @@ export default function Funcionario() {
     populateFuncionarioData();
     populateObrasData();
   }, [id]);
-
-  return <div className="h-full w-full">{contents}</div>;
-
+  // TODO test me
+  function ObrasCompletadasAccordion() {
+    return obrasCompletadas.length > 0 && (
+      <Accordion allowToggle>
+        <AccordionItem>
+          <h2>
+            <AccordionButton>
+              <Box as="span" flex="1" textAlign="left">
+                Obras Completadas
+              </Box>
+              <AccordionIcon />
+            </AccordionButton>
+          </h2>
+          <AccordionPanel pb={4}>
+            <ObrasTable obras={obrasCompletadas} />
+          </AccordionPanel>
+        </AccordionItem>
+      </Accordion>
+    );
+  }
   function renderFuncionario(funcionario: IFuncionarioOutput) {
     return (
       <>
@@ -175,17 +200,19 @@ export default function Funcionario() {
               >
                 <p className="text-xl font-bold ml-3 text-cyan-100">Obras:</p>
                 <div className="flex flex-1 flex-col m-3 gap-3 overflow-auto bg-white rounded">
-                  <ObraStateFilter state={state} setState={setState} />
-                  <ObrasTable obras={(state !== "todas") ? [...obras.filter((obra) => obra.estado == state)] : obras} />
+                  <ObrasTable obras={obrasEmCurso} />
+                  <ObrasCompletadasAccordion />
                 </div>
               </div>
             </div>
             <div id="button-container" className="flex justify-end">
-              <ObrasModal funcionario={funcionario}/>
+              <ObrasModal funcionario={funcionario} />
             </div>
           </div>
         )}
       </>
     );
   }
+
+  return <div className="h-full w-full">{contents}</div>;
 }
