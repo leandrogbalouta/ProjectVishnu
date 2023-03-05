@@ -55,7 +55,7 @@ export default function Funcionario() {
   }, [id]);
   // TODO test me
   function ObrasCompletadasAccordion() {
-    return obrasCompletadas.length > 0 && (
+    return obrasCompletadas.length > 0 ? (
       <Accordion allowToggle>
         <AccordionItem>
           <h2>
@@ -71,7 +71,7 @@ export default function Funcionario() {
           </AccordionPanel>
         </AccordionItem>
       </Accordion>
-    );
+    ): <></>;
   }
   function renderFuncionario(funcionario: IFuncionarioOutput) {
     return (
