@@ -76,9 +76,9 @@ export async function CreateObra(obra: IObraOutput) {
     body: JSON.stringify(obra),
   });
 }
-export async function fetchObras(filters: Record<string, string>) {
+export async function fetchObras(filters?: Record<string, string>) {
   var path = "/api/obras";
-  path = addFiltersToQuery(path, filters);
+  if(filters) path = addFiltersToQuery(path, filters);
   return fetch(path);
 }
 export async function fetchObra(codigo: string) {

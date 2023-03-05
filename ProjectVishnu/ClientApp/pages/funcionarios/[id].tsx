@@ -181,7 +181,7 @@ export default function Funcionario() {
               </div>
             </div>
             <div id="button-container" className="flex justify-end">
-              <ObrasModal {...funcionario}></ObrasModal>
+              <ObrasModal funcionario={funcionario}/>
             </div>
           </div>
         )}

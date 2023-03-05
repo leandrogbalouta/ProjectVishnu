@@ -17,7 +17,7 @@ import ObrasTable from "../../components/ObrasTable";
 import ObraStateFilter from "../../components/ObraStateFilter";
 
 export default function Obras() {
-  const [obras, setObras] = useState(null);
+  const [obras, setObras] = useState<IObraOutput[]>([]);
   const [state, setState] = useState("todas")
   const [mercado, setMercado] = useState(null);
   const [searchString, setSearchString] = useState(null);
@@ -31,18 +31,11 @@ export default function Obras() {
     Router.push("/obras/create");
   }
 
-  let contents = !obras ? <Spinner /> : <ObrasTable obras={obras} dataOnRowClick={redirectToObra} />;
+  let contents = obras ? <ObrasTable obras={(state !== "todas") ? [...obras.filter((obra) => obra.estado == state)] : obras} /> :<Spinner />
 
   useEffect(() => {
-    const filters = Object.assign(
-      {},
-      state === "todas" ? null : { estado : state},
-      mercado === null ? null : { mercado: mercado },
-      searchString === null ? null : { valor: searchString }
-    );
-
     const populateObrasData = async () => {
-      const response = await fetchObras(filters);
+      const response = await fetchObras();
       const data = await response.json();
       setObras(data);
     };

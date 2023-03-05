@@ -19,7 +19,7 @@ import {
 } from "@chakra-ui/react";
 import IFuncionarioOutput from "../common/Interfaces/Funcionario/IFuncionarioOutput";
 import FilterBar from "./FilterBar";
-import IObraOutput from '../common/Interfaces/Obra/IObraOutput';
+import IObraOutput from "../common/Interfaces/Obra/IObraOutput";
 import {
   AddFuncionarioToObra,
   AddObraToFunc,
@@ -29,7 +29,11 @@ import ObrasTable from "./ObrasTable";
 
 //TODO: tornar todo o código da tabela das obras universal de maneira a que isto não se repita aqui (e no index das obras)
 
-export default function ObrasModal(funcionario: IFuncionarioOutput) {
+export default function ObrasModal({
+  funcionario,
+}: {
+  funcionario: IFuncionarioOutput;
+}) {
   // State
   const [obras, setObras] = useState(null);
   const [mercado, setMercado] = useState(funcionario.mercado);
