@@ -1,8 +1,7 @@
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import {
-  fetchFolhaDePontoByMercado,
-  submitFolhaDePontoValues,
+  fetchFolhaDePontoByMercado
 } from "../../../common/APICalls";
 import IFolhaDePontoOutput from "../../../common/Interfaces/FolhaDePonto/IFolhaDePontoOutput";
 import { FolhaDePontoTable } from "../../../components/FolhaDePontoTable";
@@ -10,8 +9,8 @@ import { FolhaDePontoTable } from "../../../components/FolhaDePontoTable";
 export default function FolhaDePonto() {
   const [info, setInfo] = useState<IFolhaDePontoOutput | undefined>(undefined)
   const router = useRouter();
-  const data = router.query.data!.toString();;
-  const mercado = router.query.mercado!.toString();;
+  const data = router.query.data! + '';
+  const mercado = router.query.mercado! + "";
 
   useEffect(() => {
     const fetchDataByMercado = async () => {

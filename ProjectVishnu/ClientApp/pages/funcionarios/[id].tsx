@@ -21,7 +21,7 @@ import IObraOutput from "../../common/Interfaces/Obra/IObraOutput";
 export default function Funcionario() {
   const [funcionario, setFuncionario] = useState(undefined);
   const router = useRouter();
-  const id = router.query.id ? router.query.id!.toString() : undefined;
+  const id = router.query.id ? router.query.id! + "" : undefined;
   const [obras, setObras] = useState<IObraOutput[]>([]);
   const obrasEmCurso = obras.filter((obra) => obra.estado == "em-curso");
   const obrasCompletadas = obras.filter((obra) => obra.estado == "completada");

@@ -10,9 +10,9 @@ import FolhaDePontoValuesInput from "../../../../common/Interfaces/FolhaDePonto/
 export default function FolhaDePontoObra(){
     const [info, setInfo] = useState<IFolhaDePontoOutput | undefined>(undefined)
     const router = useRouter();
-    const data = router.query.data!.toString();
-    const codigo = router.query.codigo!.toString();
-    const infoState = router.query.info !== undefined ? JSON.parse(router.query.info.toString()) as IFolhaDePontoOutput : undefined
+    const data = router.query.data! + "";
+    const codigo = router.query.codigo! + "";
+    const infoState = router.query.info !== undefined ? JSON.parse(router.query.info + "") as IFolhaDePontoOutput : undefined
     
     useEffect(() => {
         if(infoState !== undefined){

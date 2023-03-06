@@ -26,7 +26,7 @@ export default function Obra() {
   const router = useRouter();
   const [obra, setObra] = useState(null);
   const [folhasDePonto, setFolhasDePonto] = useState(null);
-  const codigo = router.query.codigo?.toString();
+  const codigo = router.query.codigo + "";
   const date = new Date();
   const [data, setData] = useState(
     `${date.getFullYear()}-${date.getMonth() + 1}`

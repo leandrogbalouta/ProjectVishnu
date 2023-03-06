@@ -18,7 +18,7 @@ namespace ProjectVishnu.DataAccess.Repository.Concrete
                                 .ToList();
         }
 
-        public IEnumerable<Obra> ListByFilters(string? estado, string? mercado, string? valor)
+        public IEnumerable<Obra> ListByFilters(string? estado = null, string? mercado = null, string? valor = null)
         {
             return VishnuContext.Obras.ToList().Where(obra => Filter(obra, estado, mercado, valor)).ToList();
         }

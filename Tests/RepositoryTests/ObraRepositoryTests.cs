@@ -28,16 +28,16 @@ namespace Tests.RepositoryTests
         [Test]
         public void ListByMarket()
         {
-            IEnumerable<Obra> returnedObras = obraRepository.ListByMarket("albânia");
+            IEnumerable<Obra> returnedObras = obraRepository.ListByFilters(mercado:"albânia");
             Assert.That(returnedObras.Count(), Is.EqualTo(0));
 
-            returnedObras = obraRepository.ListByMarket("frança");
+            returnedObras = obraRepository.ListByFilters(mercado:"frança");
             Assert.That(returnedObras.Count(), Is.EqualTo(0));
 
-            returnedObras = obraRepository.ListByMarket("espanha");
+            returnedObras = obraRepository.ListByFilters(mercado:"espanha");
             Assert.That(returnedObras.Count(), Is.EqualTo(1));
 
-            returnedObras = obraRepository.ListByMarket("portugal");
+            returnedObras = obraRepository.ListByFilters(mercado:"portugal");
             Assert.That(returnedObras.Count(), Is.EqualTo(1));
 
             Obra obra1 = returnedObras.First();
@@ -83,13 +83,13 @@ namespace Tests.RepositoryTests
         [Test]
         public void SearchByCodeNumber()
         {
-            int codeNumberPt = obraRepository.SearchByCodeNumber("OB22PT");
+            int codeNumberPt = obraRepository.CountCodigoOccurrences("OB22PT");
             Assert.That(codeNumberPt == 1);
 
-            int codeNumberEs = obraRepository.SearchByCodeNumber("OB22ES");
+            int codeNumberEs = obraRepository.CountCodigoOccurrences("OB22ES");
             Assert.That(codeNumberEs == 1);
 
-            int codeNumberFr = obraRepository.SearchByCodeNumber("OB22FR");
+            int codeNumberFr = obraRepository.CountCodigoOccurrences("OB22FR");
             Assert.That(codeNumberFr == 0);
         }
 
