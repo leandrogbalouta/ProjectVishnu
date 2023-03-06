@@ -20,10 +20,18 @@ namespace ProjectVishnu.ServerApp
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            
+
             // Add services to the container.
-            builder.Services.AddDbContext<vishnuContext>(options =>
-                        options.UseLazyLoadingProxies().UseNpgsql(builder.Configuration.GetConnectionString("vishnu")));
+            // test db azure
+            string isAzure = builder.Configuration.GetSection("Azure").Value ?? "false";
+            if(isAzure.Equals("true")) {
+                builder.Services.AddDbContext<vishnuContext>(options =>
+                        options.UseLazyLoadingProxies().UseSqlServer(builder.Configuration.GetConnectionString("vishnuAzure") ?? ""));
+            }
+            else {
+                builder.Services.AddDbContext<vishnuContext>(options =>
+                            options.UseLazyLoadingProxies().UseNpgsql(builder.Configuration.GetConnectionString("vishnu")));
+            }
             builder.Services.AddScoped<DbContext, vishnuContext>();
             builder.Services.AddSingleton(provider => builder.Configuration);
             builder.Services.AddScoped<IFuncionarioRepository, FuncionarioRepository>();
