@@ -68,7 +68,7 @@ export default function ObrasModal({
   const contents = !obras ? (
     <Spinner />
   ) : (
-    <ObrasTable obras={obras} dataOnRowClick={addObraToFunc} />
+    <ObrasTable obras={obras} />
   );
   return (
     <>
