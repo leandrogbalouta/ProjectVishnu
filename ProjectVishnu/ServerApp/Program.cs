@@ -24,7 +24,7 @@ namespace ProjectVishnu.ServerApp
             // Add services to the container.
             // test db azure
             string isAzure = builder.Configuration.GetSection("Azure").Value ?? "false";
-            if(isAzure.Equals("true")) {
+            if(isAzure.Equals("True")) {
                 builder.Services.AddDbContext<vishnuContext>(options =>
                         options.UseLazyLoadingProxies().UseSqlServer(builder.Configuration.GetConnectionString("vishnuAzure") ?? ""));
             }

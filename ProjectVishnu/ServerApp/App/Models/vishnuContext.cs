@@ -13,6 +13,7 @@ namespace ProjectVishnu.Models
     {
         private readonly IConfiguration _configuration;
         private string _connectionString;
+        private bool _isAzure;
         public vishnuContext(string connectionString)
         {
             _connectionString = connectionString;
@@ -22,7 +23,9 @@ namespace ProjectVishnu.Models
             : base(options)
         {
             _configuration = configuration;
-            _connectionString = configuration.GetConnectionString("vishnu");
+            _isAzure = (configuration.GetSection("Azure").Value ?? "false").Equals("true");
+            _connectionString = _isAzure ? configuration.GetConnectionString("vishnuAzure") : configuration.GetConnectionString("vishnu");
+
         }
 
         public virtual DbSet<TipoDoc> TiposDoc { get; set;} = null;
@@ -38,10 +41,16 @@ namespace ProjectVishnu.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseLazyLoadingProxies(true).UseNpgsql(_connectionString);
+                if(_isAzure) {
+                    optionsBuilder.UseLazyLoadingProxies(true).UseSqlServer(_connectionString);
+                }
+                else {
+                    optionsBuilder.UseLazyLoadingProxies(true).UseNpgsql(_connectionString);
+                }
                 optionsBuilder.ConfigureWarnings(warnings => warnings.Ignore(CoreEventId.LazyLoadOnDisposedContextWarning));
             }
         }
