@@ -6,6 +6,8 @@ using Microsoft.EntityFrameworkCore.Proxies;
 using Microsoft.EntityFrameworkCore.Metadata;
 using ProjectVishnu.Models;
 using Microsoft.EntityFrameworkCore.Diagnostics;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using System.Linq.Expressions;
 
 namespace ProjectVishnu.Models
 {
@@ -23,9 +25,25 @@ namespace ProjectVishnu.Models
             : base(options)
         {
             _configuration = configuration;
-            _isAzure = (configuration.GetSection("Azure").Value ?? "false").Equals("true");
-            _connectionString = _isAzure ? configuration.GetConnectionString("vishnuAzure") : configuration.GetConnectionString("vishnu");
+            // _isAzure = (configuration.GetSection("Azure").Value ?? "false").Equals("true");
+            // _connectionString = _isAzure ? configuration.GetConnectionString("vishnuAzure") : configuration.GetConnectionString("vishnu");
+            _connectionString = configuration.GetConnectionString("vishnuAzure");
+        }
 
+        protected override void ConfigureConventions(ModelConfigurationBuilder builder)
+        {
+            builder.Properties<DateOnly>()
+                .HaveConversion<DateOnlyConverter>()
+                .HaveColumnType("date");
+        }
+
+        public class DateOnlyConverter : ValueConverter<DateOnly, DateTime>
+        {
+            public DateOnlyConverter() : base(
+                d => d.ToDateTime(TimeOnly.MinValue),
+                d => DateOnly.FromDateTime(d)
+            )
+            { }
         }
 
         public virtual DbSet<TipoDoc> TiposDoc { get; set;} = null;
@@ -58,7 +76,6 @@ namespace ProjectVishnu.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
             modelBuilder.Entity<TipoDoc>(entity => 
             {
                 entity.HasKey(e => e.Sigla)
