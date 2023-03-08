@@ -199,7 +199,7 @@ export default function Funcionario() {
                 className="flex-1 p-3 mb-3 bg-slate-800 rounded-xl flex flex-col overflow-auto"
               >
                 <p className="text-xl font-bold ml-3 text-cyan-100">Obras:</p>
-                <div className="flex flex-1 flex-col m-3 gap-3 overflow-auto bg-white rounded">
+                <div className="flex flex-1 flex-col m-3 gap-3 overflow-auto bg-white dark:bg-slate-800 rounded">
                   <ObrasTable obras={obrasEmCurso} />
                   <ObrasCompletadasAccordion />
                 </div>

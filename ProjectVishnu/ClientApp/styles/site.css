@@ -39,7 +39,7 @@ select,
   @apply dark:!bg-slate-50 !text-slate-900;
 }
 .data-table-row {
-  @apply hover:bg-slate-200 dark:hover:bg-slate-700 cursor-pointer;
+  @apply hover:bg-slate-200 dark:hover:bg-slate-600 dark:bg-slate-700 cursor-pointer text-slate-900 dark:text-white;
 }
   .data-table-row td:not(:first-child) {
     @apply !text-center;
