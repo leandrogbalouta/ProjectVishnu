@@ -18379,6 +18379,16 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "/Users/lmartins/Documents/Projects/ProjectVishnu/ProjectVishnu/ProjectVishnu/ServerApp/App/Pages/_ViewImports.cshtml",
+      "TargetPath": "ProjectVishnu\\ServerApp\\App\\Pages\\_ViewImports.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "/Users/lmartins/Documents/Projects/ProjectVishnu/ProjectVishnu/ProjectVishnu/ServerApp/App/Pages/Error.cshtml",
+      "TargetPath": "ProjectVishnu\\ServerApp\\App\\Pages\\Error.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "/Users/lmartins/Documents/Projects/ProjectVishnu/ProjectVishnu/ServerApp/App/Pages/Error.cshtml",
       "TargetPath": "ServerApp\\App\\Pages\\Error.cshtml",
       "FileKind": "mvc"

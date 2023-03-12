@@ -16,6 +16,14 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = /Users/lmartins/Documents/Projects/ProjectVishnu/ProjectVishnu
 build_property._RazorSourceGeneratorDebug = 
 
+[/Users/lmartins/Documents/Projects/ProjectVishnu/ProjectVishnu/ProjectVishnu/ServerApp/App/Pages/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UHJvamVjdFZpc2hudS9TZXJ2ZXJBcHAvQXBwL1BhZ2VzL0Vycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/lmartins/Documents/Projects/ProjectVishnu/ProjectVishnu/ProjectVishnu/ServerApp/App/Pages/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UHJvamVjdFZpc2hudS9TZXJ2ZXJBcHAvQXBwL1BhZ2VzL19WaWV3SW1wb3J0cy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [/Users/lmartins/Documents/Projects/ProjectVishnu/ProjectVishnu/ServerApp/App/Pages/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = U2VydmVyQXBwL0FwcC9QYWdlcy9FcnJvci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
