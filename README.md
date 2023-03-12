@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 Ao atualizar a base de dados, de maneira a atualizar também a pasta models, correr o comando :
 
 `Scaffold-DbContext “Host=localhost;Database=DBName;Username=DBUsername;Password=DBPassword” Npgsql.EntityFrameworkCore.PostgreSQL -OutputDir Models -force`
@@ -28,4 +26,3 @@ No meu caso para forçar no backend é:
       "applicationUrl": "http://localhost:4000",
 
 Ao rodar a app, se o front-end não rodar automaticamente, 'npm run dev' dentro da pasta ClientApp e ter os 2 serviços a rodar em simultâneo.
->>>>>>> c4139bfeeb570f8254825ca0212a1e30af421efb
