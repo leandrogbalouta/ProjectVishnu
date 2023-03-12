@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/lmartins/Documents/Projects/ProjectVishnu/ProjectVishnu/ProjectVishnu.csproj": {}
+    "/Users/lmartins/Documents/Projects/temp/ProjectVishnu/ProjectVishnu/ProjectVishnu.csproj": {}
   },
   "projects": {
-    "/Users/lmartins/Documents/Projects/ProjectVishnu/ProjectVishnu/ProjectVishnu.csproj": {
+    "/Users/lmartins/Documents/Projects/temp/ProjectVishnu/ProjectVishnu/ProjectVishnu.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/lmartins/Documents/Projects/ProjectVishnu/ProjectVishnu/ProjectVishnu.csproj",
+        "projectUniqueName": "/Users/lmartins/Documents/Projects/temp/ProjectVishnu/ProjectVishnu/ProjectVishnu.csproj",
         "projectName": "ProjectVishnu",
-        "projectPath": "/Users/lmartins/Documents/Projects/ProjectVishnu/ProjectVishnu/ProjectVishnu.csproj",
+        "projectPath": "/Users/lmartins/Documents/Projects/temp/ProjectVishnu/ProjectVishnu/ProjectVishnu.csproj",
         "packagesPath": "/Users/lmartins/.nuget/packages/",
-        "outputPath": "/Users/lmartins/Documents/Projects/ProjectVishnu/ProjectVishnu/obj/",
+        "outputPath": "/Users/lmartins/Documents/Projects/temp/ProjectVishnu/ProjectVishnu/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/lmartins/.nuget/NuGet/NuGet.Config"
