@@ -8,7 +8,6 @@ using ProjectVishnu.Services;
 namespace ProjectVishnu.ServerApp.App.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
     public class FolhasDePontoController : ControllerBase
     {
 
@@ -19,7 +18,7 @@ namespace ProjectVishnu.ServerApp.App.Controllers
             this._folhadepontoServices = folhadepontoServices;
         }
 
-        [HttpPost("/obras/{obraID}/folha-de-ponto")]
+        [HttpPost("/api/obras/{obraID}/folha-de-ponto")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult Create(string obraID, [FromBody] FolhaDePontoInfoModel info)
         {
@@ -43,7 +42,7 @@ namespace ProjectVishnu.ServerApp.App.Controllers
             }  
         }
 
-        [HttpGet("/obras/{obraID}/folha-de-ponto")]
+        [HttpGet("/api/obras/{obraID}/folha-de-ponto")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<FolhaDePontoInfoModel>))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -62,7 +61,7 @@ namespace ProjectVishnu.ServerApp.App.Controllers
             
         }
 
-        [HttpGet("/obras/{obraID}/folha-de-ponto/{date}")]
+        [HttpGet("/api/obras/{obraID}/folha-de-ponto/{date}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(FolhaDePontoValuesOutputModel))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -84,7 +83,7 @@ namespace ProjectVishnu.ServerApp.App.Controllers
            
         }
 
-        [HttpGet("/folha-de-ponto/{mercado}")]
+        [HttpGet("/api/folha-de-ponto/{mercado}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<FolhaDePontoInfoModel>))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -103,7 +102,7 @@ namespace ProjectVishnu.ServerApp.App.Controllers
             
         }
 
-        [HttpGet("/folha-de-ponto/{mercado}/{date}")]
+        [HttpGet("/api/folha-de-ponto/{mercado}/{date}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(FolhaDePontoValuesOutputModel))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -125,7 +124,7 @@ namespace ProjectVishnu.ServerApp.App.Controllers
             
         }
 
-        [HttpPut("/obras/{obraID}/folha-de-ponto/{date}")]
+        [HttpPut("/api/obras/{obraID}/folha-de-ponto/{date}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(FolhaDePontoValuesOutputModel))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult setValues(string obraID, string date, [FromBody] FolhaDePontoValuesInputModel values)

@@ -5,9 +5,9 @@ import { submitFolhaDePontoValues, fetchFolhaDePontoByMercado } from "../../../c
 
 export function FolhaDePonto() {
   return <></>;
-//     const [info, setInfo] = useState()
-//     const { codigo, mercado, data } = useParams()
-//   const { state } = useLocation();
+    const [info, setInfo] = useState()
+    const { codigo, mercado, data } = useParams()
+  const { state } = useLocation();
 
 //     let contents = info != null ?
 //         renderTable() :

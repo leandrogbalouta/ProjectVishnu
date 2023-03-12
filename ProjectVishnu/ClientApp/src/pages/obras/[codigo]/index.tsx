@@ -47,14 +47,9 @@ export default function Obra() {
     const resp = await createFolhaDePonto(mes, ano, codigo!);
     const respData = await resp.json();
     const location = resp.headers.get("location");
-    const array = location!.split("4000"); //FIXME: fix this somehow???
-    const result = array.pop();
-    console.log(result);
-    // double check this workin
-    navigate(
-      // { pathname: result!, query: { info: JSON.stringify(respData) } },
-      result!
-    );
+    const result = location?.split(`${codigo}/`)[1]
+    console.log(`Location here ${result}`)
+    navigate(result!, {state : respData});
   }
 
   async function redirectToFolhaDePonto(folhaDePonto: any) {

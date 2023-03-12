@@ -12,8 +12,6 @@ export default function CustomNavLink({
   toggleNavBar,
   ...rest
 }: Params & React.HTMLAttributes<HTMLSpanElement>) {
-  console.log("href " + href);
-  console.log("location " + location);
   return (
     <div
       className={window.location.pathname == href ? "active-nav-link" : "inactive-nav-link"}
