@@ -5,7 +5,7 @@ using ProjectVishnu.ServerApp.App.Services;
 namespace ProjectVishnu.ServerApp.App.Controllers
 {
     [ApiController]
-    [Route("categorias-profissionais")]
+    [Route("api/categorias-profissionais")]
     public class CategoriasProfissionaisController : ControllerBase
     {
 

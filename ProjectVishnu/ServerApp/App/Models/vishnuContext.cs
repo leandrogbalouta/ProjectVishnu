@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Common;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Proxies;
-using Microsoft.EntityFrameworkCore.Metadata;
-using ProjectVishnu.Models;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using System.Linq.Expressions;
 
 namespace ProjectVishnu.Models
 {

@@ -8,6 +8,7 @@ using ProjectVishnu.Services;
 namespace ProjectVishnu.ServerApp.App.Controllers
 {
     [ApiController]
+    [Route("api/[controller]")]
     public class FolhasDePontoController : ControllerBase
     {
 

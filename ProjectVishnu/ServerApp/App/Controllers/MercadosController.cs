@@ -5,7 +5,7 @@ using ProjectVishnu.ServerApp.App.Services;
 
 namespace ProjectVishnu.ServerApp.App.Controllers
 {
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class MercadosController : ControllerBase
     {
