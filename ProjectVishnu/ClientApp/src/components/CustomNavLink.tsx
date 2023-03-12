@@ -16,7 +16,7 @@ export default function CustomNavLink({
       className={window.location.pathname == href ? "active-nav-link" : "inactive-nav-link"}
     >
       <p onClick={() => AppRoutes.navigate(href)} {...rest}>
-        <div className="w-full cursor-pointer hover:text-orange-300" onClick={toggleNavBar}>
+        <div className="w-full cursor-pointer" onClick={toggleNavBar}>
           {children}
         </div>
       </p>

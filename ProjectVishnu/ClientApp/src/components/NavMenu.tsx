@@ -45,17 +45,17 @@ export default function NavMenu() {
             
           </div>
           <span
-            className="self-center text-xl font-semibold whitespace-nowrap !text-white cursor-pointer mr-auto"
+            id="nav-title"
             onClick={() => AppRoutes.navigate("/")}
           >
-            ProjectVishnu
+            DKM
           </span>
           <div id="nav-menu-button-container" className="flex flex-end">
             <button
               id="theme-toggle"
               title="toggle-dark-mode-button"
               type="button"
-              className="text-gray-500 dark:text-gray-400 hover:bg-gray-300 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 mr-1"
+              className="text-gray-500 hover:text-orange-400 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 mr-1"
               onClick={changeTheme}
             >
               {darkTheme.current ? (
@@ -74,7 +74,7 @@ export default function NavMenu() {
                   id="settings"
                   title="open-settings"
                   type="button"
-                  className="text-gray-500 dark:text-gray-400 hover:bg-gray-300 dark:hover:bg-gray-700 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 mr-1"
+                  className="text-gray-500 hover:text-orange-400 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 mr-1"
                   onClick={() => {}} // TODO: ir para uma página de administração (por criar)
                 >
                   <RiSettings5Line className="h-5 w-5"/>

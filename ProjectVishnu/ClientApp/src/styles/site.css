@@ -1,5 +1,5 @@
 /* Provide sufficient contrast against white background */
-@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@500&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Dosis:wght@500&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -16,16 +16,16 @@ body,
   @apply w-full h-full;
 }
 .active-nav-link {
-  @apply block py-2 pl-3 pr-4 bg-slate-700 rounded md:bg-transparent md:p-0 !text-sky-400;
-}   
+  @apply block py-2 pl-3 pr-4 bg-slate-700 rounded md:bg-transparent md:p-0 !text-sky-400 ;
+}
 .inactive-nav-link {
-  @apply block py-2 pl-3 pr-4 !text-white rounded hover:bg-slate-600 md:hover:bg-transparent md:border-0 md:hover:text-slate-700 md:p-0 md:dark:hover:text-white dark:hover:bg-slate-700 md:dark:hover:bg-transparent;
+  @apply block py-2 pl-3 pr-4 text-white hover:!text-orange-400 rounded hover:bg-slate-600 md:hover:bg-transparent md:border-0 md:hover:text-slate-700 md:p-0 md:dark:hover:text-white dark:hover:bg-slate-700 md:dark:hover:bg-transparent;
 }
-.active-obra-state{
- @apply text-sky-700 dark:text-sky-400 hover:text-sky-700 dark:hover:!text-sky-400 cursor-pointer
+.active-obra-state {
+  @apply text-sky-700 dark:text-sky-400 hover:text-sky-700 dark:hover:!text-sky-400 cursor-pointer;
 }
-.inactive-obra-state{
-  @apply hover:text-orange-300 dark:hover:text-orange-300 cursor-pointer
+.inactive-obra-state {
+  @apply hover:text-orange-400 dark:hover:text-orange-400 cursor-pointer;
 }
 /* Radio buttons */
 .chakra-radio__control {
@@ -41,18 +41,34 @@ select,
 .data-table-row {
   @apply hover:bg-slate-200 dark:hover:bg-slate-600 dark:bg-slate-700 cursor-pointer text-slate-900 dark:text-white;
 }
-  .data-table-row td:not(:first-child) {
-    @apply !text-center;
-  }
+.data-table-row td:not(:first-child) {
+  @apply !text-center;
+}
 .data-table-header th {
   @apply !text-sky-500 sticky top-0 bg-white dark:bg-slate-800;
 }
-  .data-table-header th:not(:first-child) {
-    @apply !text-sky-500 !text-center;
+.data-table-header th:not(:first-child) {
+  @apply !text-sky-500 !text-center;
 }
 .page-header {
   @apply text-center text-4xl mb-5;
 }
 .obra-heading {
   @apply text-lg font-bold text-cyan-400;
+}
+#nav-title {
+  @apply self-center text-3xl font-semibold whitespace-nowrap bg-gradient-to-r from-orange-300 to-orange-500 bg-clip-text text-transparent bg-[length:100px_500px] cursor-pointer mr-auto animate-aurora underline underline-offset-8
+}
+@keyframes aurora {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
 }
