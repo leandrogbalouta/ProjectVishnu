@@ -7,7 +7,7 @@ using ProjectVishnu.Services;
 
 namespace ProjectVishnu.Controllers
 {
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class ObrasController : ControllerBase
     {
@@ -41,9 +41,6 @@ namespace ProjectVishnu.Controllers
             {
                 return Problem(statusCode: 500, title: "Erro inesperado");
             }
-            
-
-            
         }
         // New
         [HttpGet("funcionario/{funcionarioId}")]

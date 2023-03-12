@@ -2,12 +2,10 @@
 using ProjectVishnu.Models;
 using ProjectVishnu.Services;
 using ProjectVishnu.ServerApp.App.Dtos;
-using Npgsql;
-using Microsoft.EntityFrameworkCore;
 
 namespace ProjectVishnu.Controllers
 {
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class FuncionariosController : ControllerBase
     {

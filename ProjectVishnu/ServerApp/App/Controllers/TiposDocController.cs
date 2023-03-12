@@ -5,7 +5,7 @@ using ProjectVishnu.ServerApp.App.Services;
 namespace ProjectVishnu.ServerApp.App.Controllers
 {
     [ApiController]
-    [Route("tiposdoc")]
+    [Route("api/tiposdoc")]
     public class TiposDocIntController : ControllerBase
     {
 
