@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "MZd+Fg5m6HlH12AubM3Lo+dDDIoO+l2+HQB6oyukzvx81z1YuUD65jNtTw5NDz1Tly1XRXomh8HvSdzCmPwOQw==",
+  "dgSpecHash": "ttRJwpMg7Ybdo9zEnxyUOgRC28nrpACnfAtXcPOeiFVgSTCqnp/i9nnb0e33Ig15hFmVWaHKPt5tjNNqAvGReQ==",
   "success": true,
-  "projectFilePath": "/Users/lmartins/Documents/Projects/temp/ProjectVishnu/ProjectVishnu/ProjectVishnu.csproj",
+  "projectFilePath": "/Users/lmartins/Documents/Projects/ProjectVishnu/ProjectVishnu/ProjectVishnu.csproj",
   "expectedPackageFiles": [
     "/Users/lmartins/.nuget/packages/azure.core/1.25.0/azure.core.1.25.0.nupkg.sha512",
     "/Users/lmartins/.nuget/packages/azure.identity/1.7.0/azure.identity.1.7.0.nupkg.sha512",

@@ -1,6 +1,5 @@
 import { ReactNode } from "react";
-import { Link } from 'react-router-dom';
-
+import AppRoutes from "../common/AppRoutes";
 interface Params {
   href: string;
   children: ReactNode;
@@ -12,17 +11,15 @@ export default function CustomNavLink({
   toggleNavBar,
   ...rest
 }: Params & React.HTMLAttributes<HTMLSpanElement>) {
-  console.log("href " + href);
-  console.log("location " + location);
   return (
     <div
       className={window.location.pathname == href ? "active-nav-link" : "inactive-nav-link"}
     >
-      <a href={href} {...rest}>
+      <p onClick={() => AppRoutes.navigate(href)} {...rest}>
         <div className="w-full cursor-pointer hover:text-orange-300" onClick={toggleNavBar}>
           {children}
         </div>
-      </a>
+      </p>
     </div>
   );
 }
