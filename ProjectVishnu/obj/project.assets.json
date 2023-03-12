@@ -4603,11 +4603,19 @@
   "project": {
     "version": "1.0.0",
     "restore": {
+<<<<<<< HEAD
       "projectUniqueName": "C:\\Users\\landr\\Desktop\\DKM\\ProjectVishnu\\ProjectVishnu\\ProjectVishnu.csproj",
       "projectName": "ProjectVishnu",
       "projectPath": "C:\\Users\\landr\\Desktop\\DKM\\ProjectVishnu\\ProjectVishnu\\ProjectVishnu.csproj",
       "packagesPath": "C:\\Users\\landr\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\landr\\Desktop\\DKM\\ProjectVishnu\\ProjectVishnu\\obj\\",
+=======
+      "projectUniqueName": "/Users/lmartins/Documents/Projects/ProjectVishnu/ProjectVishnu/ProjectVishnu.csproj",
+      "projectName": "ProjectVishnu",
+      "projectPath": "/Users/lmartins/Documents/Projects/ProjectVishnu/ProjectVishnu/ProjectVishnu.csproj",
+      "packagesPath": "/Users/lmartins/.nuget/packages/",
+      "outputPath": "/Users/lmartins/Documents/Projects/ProjectVishnu/ProjectVishnu/obj/",
+>>>>>>> 7f69391ead1f75a9e09feec29ab91c54bc037053
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\landr\\AppData\\Roaming\\NuGet\\NuGet.Config",
