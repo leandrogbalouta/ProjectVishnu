@@ -212,7 +212,6 @@ C:/Users/landr/Desktop/DKM/ProjectVishnu/ProjectVishnu/obj/Debug/net6.0/ProjectV
 C:/Users/landr/Desktop/DKM/ProjectVishnu/ProjectVishnu/obj/Debug/net6.0/ProjectVishnu.genruntimeconfig.cache
 C:/Users/landr/Desktop/DKM/ProjectVishnu/ProjectVishnu/obj/Debug/net6.0/ref/ProjectVishnu.dll
 =======
-/Users/lmartins/Documents/Projects/ProjectVishnu/ProjectVishnu/bin/Debug/net6.0/appsettings.json
 /Users/lmartins/Documents/Projects/ProjectVishnu/ProjectVishnu/bin/Debug/net6.0/spa.proxy.json
 /Users/lmartins/Documents/Projects/ProjectVishnu/ProjectVishnu/bin/Debug/net6.0/ProjectVishnu
 /Users/lmartins/Documents/Projects/ProjectVishnu/ProjectVishnu/bin/Debug/net6.0/ProjectVishnu.deps.json
@@ -318,5 +317,4 @@ C:/Users/landr/Desktop/DKM/ProjectVishnu/ProjectVishnu/obj/Debug/net6.0/ref/Proj
 /Users/lmartins/Documents/Projects/ProjectVishnu/ProjectVishnu/obj/Debug/net6.0/ProjectVishnu.genruntimeconfig.cache
 /Users/lmartins/Documents/Projects/ProjectVishnu/ProjectVishnu/obj/Debug/net6.0/ref/ProjectVishnu.dll
 >>>>>>> 7f69391ead1f75a9e09feec29ab91c54bc037053
-/Users/lmartins/Documents/Projects/ProjectVishnu/ProjectVishnu/bin/Debug/net6.0/appsettings.Development.json
 /Users/lmartins/Documents/Projects/ProjectVishnu/ProjectVishnu/bin/Debug/net6.0/package-lock.json
