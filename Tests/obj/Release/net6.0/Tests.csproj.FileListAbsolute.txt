@@ -175,7 +175,6 @@ C:/Users/landr/Desktop/DKM/ProjectVishnu/Tests/bin/Release/net6.0/Microsoft.SqlS
 /Users/lmartins/Documents/Projects/ProjectVishnu/Tests/bin/Release/net6.0/CoverletSourceRootsMapping
 /Users/lmartins/Documents/Projects/ProjectVishnu/Tests/bin/Release/net6.0/appsettings.Development.json
 /Users/lmartins/Documents/Projects/ProjectVishnu/Tests/bin/Release/net6.0/package-lock.json
-/Users/lmartins/Documents/Projects/ProjectVishnu/Tests/bin/Release/net6.0/package.json
 /Users/lmartins/Documents/Projects/ProjectVishnu/Tests/bin/Release/net6.0/NUnit3.TestAdapter.dll
 /Users/lmartins/Documents/Projects/ProjectVishnu/Tests/bin/Release/net6.0/NUnit3.TestAdapter.pdb
 /Users/lmartins/Documents/Projects/ProjectVishnu/Tests/bin/Release/net6.0/nunit.engine.dll
@@ -346,3 +345,6 @@ C:/Users/landr/Desktop/DKM/ProjectVishnu/Tests/bin/Release/net6.0/Microsoft.SqlS
 /Users/lmartins/Documents/Projects/ProjectVishnu/Tests/obj/Release/net6.0/Tests.pdb
 /Users/lmartins/Documents/Projects/ProjectVishnu/Tests/obj/Release/net6.0/Tests.genruntimeconfig.cache
 /Users/lmartins/Documents/Projects/ProjectVishnu/Tests/obj/Release/net6.0/ref/Tests.dll
+/Users/lmartins/Documents/Projects/ProjectVishnu/Tests/bin/Release/net6.0/spa.proxy.json
+/Users/lmartins/Documents/Projects/ProjectVishnu/Tests/bin/Release/net6.0/Microsoft.AspNetCore.SpaProxy.dll
+/Users/lmartins/Documents/Projects/ProjectVishnu/Tests/bin/Release/net6.0/ProjectVishnu.xml
