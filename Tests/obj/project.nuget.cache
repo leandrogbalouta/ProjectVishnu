@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "v9Nb6WUUcMBke9a0evimAJAVjxpzs0EvfGG8G4i2l8eDglS6CkEMXAsAHq+aJx/sKvTspyd5VXgxj84GSX8FUw==",
+  "dgSpecHash": "cuGTGD7lkrbNP0C5NXYKfUV8P/9n+dmyUBiLxAH/ziknf7dRsN6ExloS4b4lpmQ3LggiDJaeCDnLsjeS932rWA==",
   "success": true,
   "projectFilePath": "/Users/lmartins/Documents/Projects/ProjectVishnu/Tests/Tests.csproj",
   "expectedPackageFiles": [
@@ -8,6 +8,7 @@
     "/Users/lmartins/.nuget/packages/azure.identity/1.7.0/azure.identity.1.7.0.nupkg.sha512",
     "/Users/lmartins/.nuget/packages/castle.core/5.1.0/castle.core.5.1.0.nupkg.sha512",
     "/Users/lmartins/.nuget/packages/coverlet.collector/3.2.0/coverlet.collector.3.2.0.nupkg.sha512",
+    "/Users/lmartins/.nuget/packages/microsoft.aspnetcore.spaproxy/6.0.14/microsoft.aspnetcore.spaproxy.6.0.14.nupkg.sha512",
     "/Users/lmartins/.nuget/packages/microsoft.bcl.asyncinterfaces/1.1.1/microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
     "/Users/lmartins/.nuget/packages/microsoft.codecoverage/17.4.0/microsoft.codecoverage.17.4.0.nupkg.sha512",
     "/Users/lmartins/.nuget/packages/microsoft.csharp/4.5.0/microsoft.csharp.4.5.0.nupkg.sha512",

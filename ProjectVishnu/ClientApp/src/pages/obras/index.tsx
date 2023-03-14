@@ -34,8 +34,13 @@ export default function Obras() {
   let contents = obras ? <ObrasTable obras={(state !== "todas") ? [...obras.filter((obra) => obra.estado == state)] : obras} /> :<Spinner />
 
   useEffect(() => {
+    const filters = Object.assign(
+      {},
+      mercado === null ? null : { mercado: mercado },
+      searchString === null ? null : { nome: searchString }
+    );
     const populateObrasData = async () => {
-      const response = await fetchObras();
+      const response = await fetchObras(filters);
       const data = await response.json();
       setObras(data);
     };

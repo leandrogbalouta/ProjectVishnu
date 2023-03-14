@@ -138,7 +138,7 @@ export function FolhaDePontoTable({
             </Tbody>
           </Table>
         </div>
-        <div id="button-container" className="flex flex-col sm:flex-row sm:justify-end">
+        {submitValues! && <div id="button-container" className="flex flex-col sm:flex-row sm:justify-end">
           <Button
             type="button"
             colorScheme="blue"
@@ -146,7 +146,7 @@ export function FolhaDePontoTable({
           >
             Submeter
           </Button>
-        </div>
+        </div>}
       </div>
     );
   }

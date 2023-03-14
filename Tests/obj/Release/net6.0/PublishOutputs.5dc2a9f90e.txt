@@ -3,7 +3,6 @@
 /Users/lmartins/Documents/Projects/ProjectVishnu/Tests/bin/Release/net6.0/publish/appsettings.Development.json
 /Users/lmartins/Documents/Projects/ProjectVishnu/Tests/bin/Release/net6.0/publish/appsettings.json
 /Users/lmartins/Documents/Projects/ProjectVishnu/Tests/bin/Release/net6.0/publish/package-lock.json
-/Users/lmartins/Documents/Projects/ProjectVishnu/Tests/bin/Release/net6.0/publish/package.json
 /Users/lmartins/Documents/Projects/ProjectVishnu/Tests/bin/Release/net6.0/publish/NUnit3.TestAdapter.dll
 /Users/lmartins/Documents/Projects/ProjectVishnu/Tests/bin/Release/net6.0/publish/NUnit3.TestAdapter.pdb
 /Users/lmartins/Documents/Projects/ProjectVishnu/Tests/bin/Release/net6.0/publish/nunit.engine.dll
@@ -16,6 +15,7 @@
 /Users/lmartins/Documents/Projects/ProjectVishnu/Tests/bin/Release/net6.0/publish/Azure.Core.dll
 /Users/lmartins/Documents/Projects/ProjectVishnu/Tests/bin/Release/net6.0/publish/Azure.Identity.dll
 /Users/lmartins/Documents/Projects/ProjectVishnu/Tests/bin/Release/net6.0/publish/Castle.Core.dll
+/Users/lmartins/Documents/Projects/ProjectVishnu/Tests/bin/Release/net6.0/publish/Microsoft.AspNetCore.SpaProxy.dll
 /Users/lmartins/Documents/Projects/ProjectVishnu/Tests/bin/Release/net6.0/publish/Microsoft.Bcl.AsyncInterfaces.dll
 /Users/lmartins/Documents/Projects/ProjectVishnu/Tests/bin/Release/net6.0/publish/Microsoft.VisualStudio.CodeCoverage.Shim.dll
 /Users/lmartins/Documents/Projects/ProjectVishnu/Tests/bin/Release/net6.0/publish/Microsoft.Data.SqlClient.dll
@@ -159,4 +159,5 @@
 /Users/lmartins/Documents/Projects/ProjectVishnu/Tests/bin/Release/net6.0/publish/runtimes/win/lib/netcoreapp3.0/System.Windows.Extensions.dll
 /Users/lmartins/Documents/Projects/ProjectVishnu/Tests/bin/Release/net6.0/publish/ProjectVishnu.dll
 /Users/lmartins/Documents/Projects/ProjectVishnu/Tests/bin/Release/net6.0/publish/ProjectVishnu.pdb
+/Users/lmartins/Documents/Projects/ProjectVishnu/Tests/bin/Release/net6.0/publish/ProjectVishnu.xml
 /Users/lmartins/Documents/Projects/ProjectVishnu/Tests/bin/Release/net6.0/publish/Tests.deps.json

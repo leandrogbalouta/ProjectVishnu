@@ -45,14 +45,15 @@ export default function FolhaDePonto(){
 
     async function fetchDataByMercado(){
         const [ano, mes] = data!.split("-")
-        const res = await fetchFolhaDePontoByMercado(mercado!, ano, mes)
+        const res = await fetchFolhaDePontoByMercado(mercado!, mes, ano)
         const jsonInfo = await res.json()
         setInfo(jsonInfo)
     }
 
     return(
         <div>
-            {info && <FolhaDePontoTable folhaDePontoData={info} submitValues={submitValues}/>}
+            {info && codigo && <FolhaDePontoTable folhaDePontoData={info} submitValues={submitValues}/>}
+            {info && mercado && <FolhaDePontoTable folhaDePontoData={info}/>}
         </div>
     )
 }
