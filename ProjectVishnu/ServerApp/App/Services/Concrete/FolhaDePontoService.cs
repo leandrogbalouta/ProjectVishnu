@@ -48,11 +48,14 @@ namespace ProjectVishnu.ServerApp.App.Services.Concrete
             model.Holidays = holidays;
             model.Info = info;
 
+            if(info.WorkDays <= 0 && info.WorkDays > 31){} //TODO: THROW ERROR
+
             FolhaDePonto folha = new FolhaDePonto {
                 Mes = info.Mes,
                 Ano = info.Ano,
                 Obra = obraID,
-                Mercado = interval.Mercadoname
+                Mercado = interval.Mercadoname,
+                WorkDays = info.WorkDays
             };
 
             model.Funcionarios.ForEach(func => {

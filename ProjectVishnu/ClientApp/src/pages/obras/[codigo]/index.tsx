@@ -31,20 +31,25 @@ export default function Obra() {
   const [data, setData] = useState(
     `${date.getFullYear()}-${date.getMonth() + 1}`
   );
+  const [workDays, setWorkDays] = useState(1)
   // TODO: check this
-  const handleChange = (event: any) => {
+  const handleDateChange = (event: any) => {
     setData(event!.target!.value!);
   };
+  const handleWorkDaysChange = (event: any) => {
+    setWorkDays(event!.target!.value!);
+  }
 
   let contents = obra === null ? <Spinner /> : renderObra(obra, folhasDePonto);
 
   // check this
   async function submitFolhaDePonto() {
+    if(workDays < 1 || workDays > 31){} //TODO: THROW ALERT
     const monthInput = document.getElementById("date");
     const date = monthInput!.nodeValue!;
     const [ano, mes] = data.split("-");
 
-    const resp = await createFolhaDePonto(mes, ano, codigo!);
+    const resp = await createFolhaDePonto(mes, ano, workDays, codigo!);
     const respData = await resp.json();
     const location = resp.headers.get("location");
     const result = location?.split(`${codigo}/`)[1]
@@ -141,7 +146,15 @@ export default function Obra() {
               value={data}
               min="2018-01"
               max="2050-12"
-              onChange={handleChange}
+              onChange={handleDateChange}
+            />
+            <Input
+              type="number"
+              id="workDays"
+              value={workDays}
+              min="1"
+              max="31"
+              onChange={handleWorkDaysChange}
             />
             <div id="button-container">
               <Button

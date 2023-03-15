@@ -96,6 +96,7 @@ export async function fetchObrasForFuncionario(funcionarioId: string) {
 export async function createFolhaDePonto(
   mes: string,
   ano: string,
+  workDays: number,
   codigo: string
 ) {
   const path = `/api/obras/${codigo}/folha-de-ponto`;
@@ -107,6 +108,7 @@ export async function createFolhaDePonto(
     body: JSON.stringify({
       mes: mes,
       ano: ano,
+      workDays: workDays
     }),
   });
 }

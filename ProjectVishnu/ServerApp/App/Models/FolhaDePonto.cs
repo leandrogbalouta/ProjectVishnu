@@ -17,6 +17,7 @@ namespace ProjectVishnu.Models
         public string Ano { get; set; }
         public string Obra { get; set; } = null!;
         public string Mercado { get; set; }
+        public int WorkDays { get; set; }
 
         public virtual Mercado MercadoNavigation { get; set; }
         public virtual Obra ObraNavigation { get; set; } = null!;

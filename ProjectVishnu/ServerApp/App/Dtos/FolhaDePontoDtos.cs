@@ -9,6 +9,7 @@ namespace ProjectVishnu.ServerApp.App.Dtos
     {
         public string Mes { get; set; }
         public string Ano { get; set; }
+        public int WorkDays { get; set; }
     }
 
     public class FolhaDePontoEmptyOutputModel

@@ -190,6 +190,9 @@ namespace ProjectVishnu.Models
                     .HasMaxLength(40)
                     .HasColumnName("mercado");
 
+                entity.Property(e => e.WorkDays)
+                    .HasColumnName("WorkDays");
+
                 entity.HasOne(d => d.MercadoNavigation)
                     .WithMany(p => p.FolhaDePontos)
                     .HasForeignKey(d => d.Mercado)
