@@ -196,9 +196,13 @@ export default function Funcionario() {
                 id="obras-de-funcionario-container"
                 className="flex-1 p-3 mb-3 bg-slate-800 rounded-xl flex flex-col overflow-auto"
               >
-                <p className="text-xl font-bold ml-3 text-cyan-100">Obras:</p>
+                <p className="text-lg font-bold ml-3 text-cyan-100">Obra em curso:</p>
+                <div className="flex flex-col m-3 gap-3 overflow-auto bg-white dark:bg-slate-800 rounded">
+                <ObrasTable obras={obrasEmCurso} />
+                </div>
+                <p className="text-lg font-bold ml-3 text-cyan-100">Obras Completadas:</p>
                 <div className="flex flex-1 flex-col m-3 gap-3 overflow-auto bg-white dark:bg-slate-800 rounded">
-                  <ObrasTable obras={obrasEmCurso} />
+                  <ObrasTable obras={obrasCompletadas} />
                   <ObrasCompletadasAccordion />
                 </div>
               </div>

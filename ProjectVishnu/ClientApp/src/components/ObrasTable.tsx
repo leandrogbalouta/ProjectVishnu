@@ -46,7 +46,7 @@ export default function ObrasTable({ obras }: Props) {
           </Tr>
         </Thead>
         <Tbody>
-          {obras.map((obra) => (
+          {obras && obras.length > 0 ? obras.map((obra) => (
             <Tr
               className="data-table-row"
               onClick={() =>
@@ -60,7 +60,9 @@ export default function ObrasTable({ obras }: Props) {
               <Td className="capitalize">{obra.mercado}</Td>
               <TdState state={obra.estado} />
             </Tr>
-          ))}
+          )) : <Tr>
+          <td colSpan={5} className="text-center pt-3 text-xl">Sem dados.</td>
+          </Tr>}
         </Tbody>
       </Table>
     </div>
