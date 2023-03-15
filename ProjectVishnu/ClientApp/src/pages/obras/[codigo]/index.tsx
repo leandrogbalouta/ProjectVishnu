@@ -4,6 +4,7 @@ import {
   createFolhaDePonto,
   fetchFolhaDePontoAllByobra as fetchFolhaDePontoAllByObra,
   fetchMercados,
+  fetchFuncionariosForObra,
 } from "../../../common/APICalls";
 import {
   Button,
@@ -20,13 +21,19 @@ import IObraOutput from "../../../common/Interfaces/Obra/IObraOutput";
 import IFolhaDePontoOutput from "../../../common/Interfaces/FolhaDePonto/IFolhaDePontoOutput";
 import FolhaDePontoObra from "./folha-de-ponto/[data]";
 import IFolhaDePontoInfoModel from "../../../common/Interfaces/FolhaDePonto/IFolhaDePontoInfoModel";
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from "react-router-dom";
+import FuncionariosTable from "../../../components/FuncionariosTable";
+import IFuncionarioObraOutputModel from "../../../common/Interfaces/Funcionario/IFuncionarioObraOutputModel";
+import FuncionariosPorObraTable from "../../../components/FuncionariosPorObraTable";
 
 export default function Obra() {
   const navigate = useNavigate();
   const [obra, setObra] = useState(null);
   const [folhasDePonto, setFolhasDePonto] = useState(null);
-  const {codigo} = useParams();
+  const [funcionarios, setFuncionarios] = useState<
+    IFuncionarioObraOutputModel[]
+  >([]);
+  const { codigo } = useParams();
   const date = new Date();
   const [data, setData] = useState(
     `${date.getFullYear()}-${date.getMonth() + 1}`
@@ -52,9 +59,9 @@ export default function Obra() {
     const resp = await createFolhaDePonto(mes, ano, workDays, codigo!);
     const respData = await resp.json();
     const location = resp.headers.get("location");
-    const result = location?.split(`${codigo}/`)[1]
-    console.log(`Location here ${result}`)
-    navigate(result!, {state : respData});
+    const result = location?.split(`${codigo}/`)[1];
+    console.log(`Location here ${result}`);
+    navigate(result!, { state: respData });
   }
 
   async function redirectToFolhaDePonto(folhaDePonto: any) {
@@ -64,18 +71,26 @@ export default function Obra() {
   }
 
   useEffect(() => {
-    const populateObraData = async () => {
-      const response = await fetchObra(codigo!);
-      const data = await response.json();
-      setObra(data);
-    };
-    const populateFolhasDePontoData = async () => {
-      const response = await fetchFolhaDePontoAllByObra(codigo!);
-      const data = await response.json();
-      setFolhasDePonto(data);
-    };
-    populateObraData();
-    populateFolhasDePontoData();
+    (async () => {
+      const populateObraData = async () => {
+        const response = await fetchObra(codigo!);
+        const data = await response.json();
+        setObra(data);
+      };
+      const populateFolhasDePontoData = async () => {
+        const response = await fetchFolhaDePontoAllByObra(codigo!);
+        const data = await response.json();
+        setFolhasDePonto(data);
+      };
+      const populateFuncionarios = async () => {
+        const response = await fetchFuncionariosForObra(codigo!);
+        const data = await response.json();
+        setFuncionarios(data);
+      };
+      await populateObraData();
+      await populateFuncionarios();
+      await populateFolhasDePontoData();
+    })();
   }, [codigo]);
 
   return <div className="flex h-full w-full">{contents}</div>;
@@ -83,9 +98,9 @@ export default function Obra() {
   function renderObra(obra: IObraOutput, folhasDePonto: any) {
     return (
       <div className="flex flex-col h-full w-full">
-        <div className="p-3 mb-3 bg-slate-800 text-cyan-100 rounded-xl">
-          <p className="text-xl font-bold ml-3">Detalhes de obra:</p>
-          <div className="flex justify-between m-3 flex-wrap gap-3">
+        <div className="p-6 mb-3 bg-slate-800 text-cyan-100 rounded-xl">
+          <p className="text-xl font-bold ">Detalhes de obra:</p>
+          <div className="flex justify-between flex-wrap gap-3">
             <div>
               <p className="obra-heading">Código interno</p>
               <p>{obra.codigoInterno}</p>
@@ -99,7 +114,7 @@ export default function Obra() {
               <p>{obra.cliente}</p>
             </div>
             <div>
-              <p className="obra-heading">Data de inicio</p>              
+              <p className="obra-heading">Data de inicio</p>
               <p>{obra.datainicio}</p>
             </div>
             <div>
@@ -110,33 +125,52 @@ export default function Obra() {
               <p className="obra-heading">Estado</p>
               <p className="capitalize">{obra.estado}</p>
             </div>
-            </div>
-
+          </div>
         </div>
-        <div id="table-container" className="flex-1 overflow-scroll">
-          <Table className="overflow-scroll" aria-labelledby="tabelLabel">
-            <Thead>
-              <Tr className="data-table-header">
-                <Th>Mes</Th>
-                <Th>Ano</Th>
-              </Tr>
-            </Thead>
-            <Tbody>
-              {/* TODO check folhasdeponto type */}
-              {folhasDePonto &&
-                folhasDePonto.map((folhaDePonto: IFolhaDePontoInfoModel) => (
-                  <Tr
-                    className="data-table-row"
-                    key={`${folhaDePonto.ano}${folhaDePonto.mes}`}
-                    onClick={() => redirectToFolhaDePonto(folhaDePonto)}
-                  >
-                    <Td>{folhaDePonto.mes}</Td>
-                    <Td>{folhaDePonto.ano}</Td>
+        <div className="flex flex-row flex-1 gap-3">
+          <div
+            id="table-container"
+            className="flex-1 gap-6 p-6 mb-3 bg-slate-800 rounded-xl flex flex-col overflow-auto"
+          >
+            <p className="text-lg font-bold text-cyan-100">Folhas de ponto:</p>
+            <div className="flex-1 bg-white dark:bg-inherit">
+              <Table className="overflow-scroll" aria-labelledby="tabelLabel">
+                <Thead>
+                  <Tr className="data-table-header">
+                    <Th>Mes</Th>
+                    <Th>Ano</Th>
                   </Tr>
-                ))}
-            </Tbody>
-          </Table>
+                </Thead>
+                <Tbody>
+                  {/* TODO check folhasdeponto type */}
+                  {folhasDePonto &&
+                    folhasDePonto.map(
+                      (folhaDePonto: IFolhaDePontoInfoModel) => (
+                        <Tr
+                          className="data-table-row"
+                          key={`${folhaDePonto.ano}${folhaDePonto.mes}`}
+                          onClick={() => redirectToFolhaDePonto(folhaDePonto)}
+                        >
+                          <Td>{folhaDePonto.mes}</Td>
+                          <Td>{folhaDePonto.ano}</Td>
+                        </Tr>
+                      )
+                    )}
+                </Tbody>
+              </Table>
+            </div>
+          </div>
+          <div
+            id="table-container"
+            className="flex-3 gap-6 p-6 mb-3 bg-slate-800 rounded-xl flex flex-col overflow-auto"
+          >
+            <p className="text-lg font-bold text-cyan-100">Funcionarios:</p>
+            <div className="flex-1 bg-white dark:bg-inherit">
+              <FuncionariosPorObraTable funcionarios={funcionarios} />
+            </div>
+          </div>
         </div>
+
         <div id="create-folha-de-ponto-container">
           <label htmlFor="date">Data de início:</label>
           <div id="create-folha-de-ponto-inner-container" className="flex">
