@@ -37,8 +37,8 @@ export default function FuncionariosTable({ funcionarios }: Props) {
         </Table>
     </div>
   );
-}
-async function redirectToFuncionario(id: number) {
-  AppRoutes.navigate(`/funcionarios/${id}`);
+  async function redirectToFuncionario(id: number) {
+    navigate(`/funcionarios/${id}`);
+  }
 }
 

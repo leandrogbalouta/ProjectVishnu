@@ -7,6 +7,7 @@ interface Props {
   funcionarios: IFuncionarioObraOutputModel[];
 }
 export default function FuncionariosPorObraTable({ funcionarios }: Props) {
+  const navigate = useNavigate();
   return (
     <div id="table-container" className="overflow-x-scroll flex-1">
       <Table className="table table-striped" aria-labelledby="tabelLabel">
@@ -39,7 +40,7 @@ export default function FuncionariosPorObraTable({ funcionarios }: Props) {
     </div>
   );
   async function redirectToFuncionario(id: number) {
-    AppRoutes.navigate(`/funcionarios/${id}`);
+    navigate(`/funcionarios/${id}`);
   }
 }
 
