@@ -15,11 +15,11 @@ export default function CustomNavLink({
     <div
       className={window.location.pathname == href ? "active-nav-link" : "inactive-nav-link"}
     >
-      <p onClick={() => AppRoutes.navigate(href)} {...rest}>
+      <div onClick={() => AppRoutes.navigate(href)} {...rest}>
         <div className="w-full cursor-pointer" onClick={toggleNavBar}>
           {children}
         </div>
-      </p>
+      </div>
     </div>
   );
 }

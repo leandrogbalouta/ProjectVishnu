@@ -17,6 +17,7 @@ import {
 } from "../../common/APICalls";
 import IFuncionarioOutput from "../../common/Interfaces/Funcionario/IFuncionarioOutput";
 import FilterBar from "../../components/FilterBar";
+import FuncionariosTable from "../../components/FuncionariosTable";
 
 export default function Funcionarios() {
   const [funcionarios, setFuncionarios] = useState([]);
@@ -26,10 +27,6 @@ export default function Funcionarios() {
   const [isWarningList, setWarningList] = useState<boolean>(false);
   const navigate = useNavigate();
 
-  async function redirectToFuncionario(id: number) {
-    navigate(`/funcionarios/${id}`);
-  }
-
   async function redirectToFuncionarioCreation() {
     navigate("/funcionarios/create");
   }
@@ -37,7 +34,7 @@ export default function Funcionarios() {
   let contents = !funcionarios ? (
     <Spinner />
   ) : (
-    renderFuncionariosTable(funcionarios)
+    <FuncionariosTable funcionarios={funcionarios}/>
   );
 
   useEffect(() => {
@@ -101,39 +98,6 @@ export default function Funcionarios() {
       </div>
     </div>
   );
-
-  function renderFuncionariosTable(funcionarios: IFuncionarioOutput[]) {
-    return (
-      <div id="table-container" className="overflow-x-scroll flex-1">
-        <Table className="table table-striped" aria-labelledby="tabelLabel">
-          <Thead>
-            <Tr className="data-table-header">
-              <Th>Nome</Th>
-              <Th>Nif</Th>
-              <Th>Niss</Th>
-              <Th>Mercado</Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            {funcionarios &&
-              funcionarios.map((funcionario) => (
-                <Tr
-                  className="data-table-row"
-                  onClick={() => redirectToFuncionario(funcionario.id)}
-                  key={funcionario.nif}
-                >
-                  <Td>{funcionario.nome}</Td>
-                  <Td>{funcionario.nif}</Td>
-                  <Td>{funcionario.niss}</Td>
-                  <Td className="capitalize">{funcionario.mercado}</Td>
-                </Tr>
-              ))}
-          </Tbody>
-        </Table>
-      </div>
-    );
-  }
-
   async function populateFuncionariosData(filters: Record<string, string>) {
     const response = await fetchFuncionarios(filters).then((res) => res.json());
     setFuncionarios(response);

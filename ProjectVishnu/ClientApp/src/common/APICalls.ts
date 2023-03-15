@@ -92,6 +92,10 @@ export async function fetchObrasForFuncionario(funcionarioId: string) {
   const path = `/api/obras/funcionario/${funcionarioId}`;
   return fetch(path);
 }
+export async function fetchFuncionariosForObra(codigo: string) {
+  const path = `/api/obras/${codigo}/funcionarios/current`;
+  return fetch(path);
+}
 // Folha de ponto
 export async function createFolhaDePonto(
   mes: string,
@@ -133,8 +137,6 @@ export async function submitFolhaDePontoValues(
   values: IFolhaDePontoInput
 ) {
   const path = `/api/obras/${codigo}/folha-de-ponto/${ano}-${mes}`;
-
-  console.log(values);
   return fetch(path, {
     method: "PUT",
     headers: {
@@ -153,7 +155,6 @@ export async function fetchFolhaDePontoAllByobra(codigo: string) {
 
 export async function fetchFolhaDePontoAllByMercado(mercado: string) {
   const path = `/api/folha-de-ponto/${mercado ?? ''}`;
-  console.log("pa: " + path);
   return fetch(path);
 }
 

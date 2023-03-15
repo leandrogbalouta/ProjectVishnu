@@ -4,6 +4,7 @@ import {
   createFolhaDePonto,
   fetchFolhaDePontoAllByobra as fetchFolhaDePontoAllByObra,
   fetchMercados,
+  fetchFuncionariosForObra,
 } from "../../../common/APICalls";
 import {
   Button,
@@ -21,11 +22,15 @@ import IFolhaDePontoOutput from "../../../common/Interfaces/FolhaDePonto/IFolhaD
 import FolhaDePontoObra from "./folha-de-ponto/[data]";
 import IFolhaDePontoInfoModel from "../../../common/Interfaces/FolhaDePonto/IFolhaDePontoInfoModel";
 import { useNavigate, useParams } from 'react-router-dom';
+import FuncionariosTable from "../../../components/FuncionariosTable";
+import IFuncionarioObraOutputModel from "../../../common/Interfaces/Funcionario/IFuncionarioObraOutputModel";
+import FuncionariosPorObraTable from "../../../components/FuncionariosPorObraTable";
 
 export default function Obra() {
   const navigate = useNavigate();
   const [obra, setObra] = useState(null);
   const [folhasDePonto, setFolhasDePonto] = useState(null);
+  const [funcionarios, setFuncionarios] = useState<IFuncionarioObraOutputModel[]>([]);
   const {codigo} = useParams();
   const date = new Date();
   const [data, setData] = useState(
@@ -59,18 +64,26 @@ export default function Obra() {
   }
 
   useEffect(() => {
-    const populateObraData = async () => {
-      const response = await fetchObra(codigo!);
-      const data = await response.json();
-      setObra(data);
-    };
-    const populateFolhasDePontoData = async () => {
-      const response = await fetchFolhaDePontoAllByObra(codigo!);
-      const data = await response.json();
-      setFolhasDePonto(data);
-    };
-    populateObraData();
-    populateFolhasDePontoData();
+    (async () => {
+      const populateObraData = async () => {
+        const response = await fetchObra(codigo!);
+        const data = await response.json();
+        setObra(data);
+      };
+      const populateFolhasDePontoData = async () => {
+        const response = await fetchFolhaDePontoAllByObra(codigo!);
+        const data = await response.json();
+        setFolhasDePonto(data);
+      };
+      const populateFuncionarios = async () => {
+        const response = await fetchFuncionariosForObra(codigo!);
+        const data = await response.json();
+        setFuncionarios(data);
+      }
+      await populateObraData();
+      await populateFuncionarios();
+      await populateFolhasDePontoData();
+    })()
   }, [codigo]);
 
   return <div className="flex h-full w-full">{contents}</div>;
@@ -108,6 +121,7 @@ export default function Obra() {
             </div>
 
         </div>
+        <div className="flex flex-row flex-1">
         <div id="table-container" className="flex-1 overflow-scroll">
           <Table className="overflow-scroll" aria-labelledby="tabelLabel">
             <Thead>
@@ -132,6 +146,9 @@ export default function Obra() {
             </Tbody>
           </Table>
         </div>
+        <FuncionariosPorObraTable funcionarios={funcionarios} />
+        </div>
+        
         <div id="create-folha-de-ponto-container">
           <label htmlFor="date">Data de início:</label>
           <div id="create-folha-de-ponto-inner-container" className="flex">
