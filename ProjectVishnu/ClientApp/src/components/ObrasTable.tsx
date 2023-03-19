@@ -2,6 +2,7 @@ import { Table, Thead, Tr, Th, Tbody, Td } from "@chakra-ui/react";
 import { AddFuncionarioToObra } from "../common/APICalls";
 import IObraOutput from "../common/Interfaces/Obra/IObraOutput";
 import { useNavigate } from 'react-router-dom';
+import SemDadosRow from './SemDadosRow';
 
 interface Props {
   obras: IObraOutput[];
@@ -60,9 +61,7 @@ export default function ObrasTable({ obras }: Props) {
               <Td className="capitalize">{obra.mercado}</Td>
               <TdState state={obra.estado} />
             </Tr>
-          )) : <Tr>
-          <td colSpan={5} className="text-center pt-3 text-xl">Sem dados.</td>
-          </Tr>}
+          )) : <SemDadosRow />}
         </Tbody>
       </Table>
     </div>

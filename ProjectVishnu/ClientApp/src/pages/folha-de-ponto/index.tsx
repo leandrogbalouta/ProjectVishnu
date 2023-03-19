@@ -6,6 +6,7 @@ import FilterBar from "../../components/FilterBar";
 import IFolhaDePontoOutput from "../../common/Interfaces/FolhaDePonto/IFolhaDePontoOutput";
 import IFolhaDePontoInfoModel from "../../common/Interfaces/FolhaDePonto/IFolhaDePontoInfoModel";
 import { useNavigate } from "react-router-dom";
+import SemDadosRow from "../../components/SemDadosRow";
 
 export default function FolhasDePonto() {
   const [folhasDePonto, setFolhasDePonto] = useState(null);
@@ -61,7 +62,8 @@ export default function FolhasDePonto() {
             </Tr>
           </Thead>
           <Tbody>
-            {folhasDePonto.map((folhaDePonto, index) => (
+            {folhasDePonto && folhasDePonto.length > 0 ?
+              folhasDePonto.map((folhaDePonto, index) => (
               <Tr
                 className="data-table-row"
                 key={index}
@@ -77,7 +79,7 @@ export default function FolhasDePonto() {
                 <Td>{folhaDePonto.ano}</Td>
                 <Td className="capitalize">{mercado}</Td>
               </Tr>
-            ))}
+            )): <SemDadosRow />}
           </Tbody>
         </Table>
       </div>

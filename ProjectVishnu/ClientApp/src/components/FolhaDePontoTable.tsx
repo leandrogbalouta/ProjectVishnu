@@ -6,6 +6,7 @@ import FolhaDePontoValuesInput, {
   FuncDaysOfWorkInput,
 } from "../common/Interfaces/FolhaDePonto/IFolhaDePontoInput";
 import IFuncionarioInput from "../common/Interfaces/Funcionario/IFuncionarioInput";
+import SemDadosRow from "./SemDadosRow";
 
 type FolhaDePontoTableProps = {
   folhaDePontoData: IFolhaDePontoOutput;
@@ -107,7 +108,8 @@ export function FolhaDePontoTable({
               </Tr>
             </Thead>
             <Tbody>
-              {Object.entries(funcRows!).map((f) => (
+            {funcRows && funcRows.length > 0 ?
+              Object.entries(funcRows!).map((f) => (
                 <Tr key={f[1].func.id}>
                   <Td className="dark:bg-slate-800 bg-white ring-1 ring-slate-300  border-slate-300 sticky left-0">
                     {f[1].func.nome}
@@ -134,7 +136,7 @@ export function FolhaDePontoTable({
                     </Td>
                   )}
                 </Tr>
-              ))}
+              )): <SemDadosRow />}
             </Tbody>
           </Table>
         </div>

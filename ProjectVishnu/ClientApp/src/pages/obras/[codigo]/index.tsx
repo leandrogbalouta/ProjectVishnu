@@ -1,9 +1,8 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   fetchObra,
   createFolhaDePonto,
   fetchFolhaDePontoAllByobra as fetchFolhaDePontoAllByObra,
-  fetchMercados,
   fetchFuncionariosForObra,
 } from "../../../common/APICalls";
 import {
@@ -18,13 +17,11 @@ import {
   Tr,
 } from "@chakra-ui/react";
 import IObraOutput from "../../../common/Interfaces/Obra/IObraOutput";
-import IFolhaDePontoOutput from "../../../common/Interfaces/FolhaDePonto/IFolhaDePontoOutput";
-import FolhaDePontoObra from "./folha-de-ponto/[data]";
 import IFolhaDePontoInfoModel from "../../../common/Interfaces/FolhaDePonto/IFolhaDePontoInfoModel";
 import { useNavigate, useParams } from "react-router-dom";
-import FuncionariosTable from "../../../components/FuncionariosTable";
 import IFuncionarioObraOutputModel from "../../../common/Interfaces/Funcionario/IFuncionarioObraOutputModel";
 import FuncionariosPorObraTable from "../../../components/FuncionariosPorObraTable";
+import SemDadosRow from "../../../components/SemDadosRow";
 
 export default function Obra() {
   const navigate = useNavigate();
@@ -143,7 +140,7 @@ export default function Obra() {
                 </Thead>
                 <Tbody>
                   {/* TODO check folhasdeponto type */}
-                  {folhasDePonto &&
+                  {folhasDePonto && folhasDePonto.length > 0 ?
                     folhasDePonto.map(
                       (folhaDePonto: IFolhaDePontoInfoModel) => (
                         <Tr
@@ -155,7 +152,7 @@ export default function Obra() {
                           <Td>{folhaDePonto.ano}</Td>
                         </Tr>
                       )
-                    )}
+                    ): <SemDadosRow />}
                 </Tbody>
               </Table>
             </div>
