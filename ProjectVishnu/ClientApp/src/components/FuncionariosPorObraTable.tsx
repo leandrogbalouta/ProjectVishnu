@@ -1,6 +1,5 @@
 import { Table, Thead, Tr, Th, Tbody, Td } from "@chakra-ui/react";
-import { Navigate, useNavigate } from "react-router-dom";
-import AppRoutes from "../common/AppRoutes";
+import { useNavigate } from "react-router-dom";
 import IFuncionarioObraOutputModel from "../common/Interfaces/Funcionario/IFuncionarioObraOutputModel";
 import SemDadosRow from "./SemDadosRow";
 

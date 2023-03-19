@@ -97,7 +97,7 @@ export default function Obra() {
   function renderObra(obra: IObraOutput, folhasDePonto: any) {
     return (
       <div className="flex flex-col h-full w-full">
-        <div className="p-6 mb-3 bg-slate-800 text-cyan-100 rounded-xl">
+        <div className="p-3 mb-3 bg-slate-800 text-cyan-100 rounded-xl">
           <p className="text-xl font-bold ">Detalhes de obra:</p>
           <div className="flex justify-between flex-wrap gap-3 ">
             <div>
@@ -128,11 +128,11 @@ export default function Obra() {
         </div>
         <div
           id="tables-container"
-          className="flex flex-col sm:flex-row flex-1 gap-3"
+          className="flex flex-col lg:flex-row flex-1 gap-3"
         >
           <div
             id="table-container"
-            className="flex-1 gap-6 p-6 mb-3 bg-slate-800 rounded-xl flex flex-col overflow-auto"
+            className="flex-1 gap-3 p-3 bg-slate-800 rounded-xl flex flex-col overflow-auto"
           >
             <p className="text-lg font-bold text-cyan-100">Folhas de ponto:</p>
             <div className="flex-1 bg-white dark:bg-inherit">
@@ -167,7 +167,7 @@ export default function Obra() {
           </div>
           <div
             id="table-container"
-            className="flex-3 gap-6 p-6 mb-3 bg-slate-800 rounded-xl flex flex-col overflow-auto"
+            className="flex-3 gap-3 p-3 bg-slate-800 rounded-xl flex flex-col overflow-auto"
           >
             <p className="text-lg font-bold text-cyan-100">Funcionarios:</p>
             <div className="flex-1 bg-white dark:bg-inherit">
