@@ -17,7 +17,7 @@ import {
 } from "../../common/APICalls";
 import IFuncionarioOutput from "../../common/Interfaces/Funcionario/IFuncionarioOutput";
 import FilterBar from "../../components/FilterBar";
-import FuncionariosTable from "../../components/FuncionariosTable";
+import FuncionariosTable from "../../components/tables/FuncionariosTable";
 
 export default function Funcionarios() {
   const [funcionarios, setFuncionarios] = useState([]);
@@ -36,10 +36,11 @@ export default function Funcionarios() {
   ) : (
     <FuncionariosTable funcionarios={funcionarios}/>
   );
-
   useEffect(() => {
-    populateData();
-  }, [mercado, searchString]);
+    (async () => [
+      populateData()  
+    ])()
+  },[mercado, searchString]);
 
   async function populateData() {
     const filters = Object.assign(

@@ -13,10 +13,11 @@ import {
   fetchObrasForFuncionario,
 } from "../../common/APICalls";
 import IFuncionarioOutput from "../../common/Interfaces/Funcionario/IFuncionarioOutput";
-import ObrasModal from "../../components/ObrasModal";
-import ObrasTable from "../../components/ObrasTable";
+import ObrasModal from "../../components/modals/ObrasModal";
+import ObrasTable from "../../components/tables/ObrasTable";
 import IObraOutput from "../../common/Interfaces/Obra/IObraOutput";
 import { useParams } from "react-router-dom";
+import RemoverFuncionarioDeObraModal from "../../components/modals/RemoverFuncionarioDeObraModal";
 
 export default function Funcionario() {
   const [funcionario, setFuncionario] = useState(undefined);
@@ -204,6 +205,9 @@ export default function Funcionario() {
                 <div className="flex flex-col gap-3 overflow-auto bg-white dark:bg-slate-800 rounded">
                   <ObrasTable obras={obrasEmCurso} />
                 </div>
+                <div id="remover-funcionario-button-container" className="flex justify-end">
+                <RemoverFuncionarioDeObraModal funcionario={funcionario} />
+                </div>
                 <p className="text-lg font-bold text-cyan-100">
                   Obras Completadas:
                 </p>
@@ -211,7 +215,7 @@ export default function Funcionario() {
                   <ObrasTable obras={obrasCompletadas} />
                   <ObrasCompletadasAccordion />
                 </div>
-                <div id="button-container" className="flex justify-end">
+                <div id="add-funcionario-button-container" className="flex justify-end">
                   <ObrasModal funcionario={funcionario} />
                 </div>
               </div>

@@ -20,9 +20,9 @@ import IObraOutput from "../../../common/Interfaces/Obra/IObraOutput";
 import IFolhaDePontoInfoModel from "../../../common/Interfaces/FolhaDePonto/IFolhaDePontoInfoModel";
 import { useNavigate, useParams } from "react-router-dom";
 import IFuncionarioObraOutputModel from "../../../common/Interfaces/Funcionario/IFuncionarioObraOutputModel";
-import FuncionariosPorObraTable from "../../../components/FuncionariosPorObraTable";
+import FuncionariosPorObraTable from "../../../components/tables/FuncionariosPorObraTable";
 import SemDadosRow from "../../../components/SemDadosRow";
-import FuncionariosModal from "../../../components/FuncionariosModal";
+import FuncionariosModal from "../../../components/modals/FuncionariosModal";
 
 export default function Obra() {
   const navigate = useNavigate();

@@ -1,6 +1,6 @@
 import { Spinner } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import { FolhaDePontoTable } from "../../../../components/FolhaDePontoTable";
+import { FolhaDePontoTable } from "../../../../components/tables/FolhaDePontoTable";
 import { fetchFolhaDePontoByMercado, fetchFolhaDePontoByObra, submitFolhaDePontoValues } from "../../../../common/APICalls";
 import IFolhaDePontoOutput from "../../../../common/Interfaces/FolhaDePonto/IFolhaDePontoOutput";
 import FolhaDePontoValuesInput from "../../../../common/Interfaces/FolhaDePonto/IFolhaDePontoInput";
