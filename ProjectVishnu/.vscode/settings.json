@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/c774e90b-a8ad-45c0-9e54-a2f297278f2c/resourceGroups/dkm_group/providers/Microsoft.Web/sites/dkm",
+    "appService.deploySubpath": "bin\\Release\\net6.0\\publish"
+}

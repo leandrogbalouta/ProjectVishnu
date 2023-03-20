@@ -224,7 +224,7 @@ namespace ProjectVishnu.ServerApp.App.Services.Concrete
                 SalarioFinal salarioFinal = folha.IdSalarios.Where(sf => sf.Funcionario == f.Func.Nif).First();
                 if(f.ValorFinal == null)
                 {
-                    decimal valorFinal = CalculateSalario(f.Func.ToFuncionario(), mercado, ano, mes);
+                    decimal valorFinal = CalculateSalario(f.Func.ToFuncionario(), mercado, ano, mes, folha.WorkDays);
                     salarioFinal.Valorfinal = valorFinal;
                 }
                 else
@@ -236,7 +236,7 @@ namespace ProjectVishnu.ServerApp.App.Services.Concrete
             return GetFromObra(obraID, ano, mes);
         }
 
-        private decimal CalculateSalario(Funcionario func, Mercado mercado, string ano, string mes)
+        private decimal CalculateSalario(Funcionario func, Mercado mercado, string ano, string mes, int workDays)
         {
             DateOnly startDate;
             DateOnly endDate;
@@ -257,10 +257,6 @@ namespace ProjectVishnu.ServerApp.App.Services.Concrete
             }
             else
             {
-                int nonWorkDays = CalendarUtils.GetNonWorkDays(ano, mes, mercado, out _, out _, out _);
-                int totalDays = endDate.DayNumber - startDate.DayNumber + 1;
-                int workDays = totalDays - nonWorkDays;
-
                 decimal funcWorkedDays = 0;
                 foreach(DiaTrabalho diaTrabalho in dtList)
                 {
