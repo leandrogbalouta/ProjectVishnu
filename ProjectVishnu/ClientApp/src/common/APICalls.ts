@@ -1,12 +1,11 @@
-
 import IFolhaDePontoInput from "./Interfaces/FolhaDePonto/IFolhaDePontoInput";
 import IFuncionarioInput from "./Interfaces/Funcionario/IFuncionarioInput";
 import IObraOutput from "./Interfaces/Obra/IObraOutput";
 
 // Tipos de documento
-export async function fetchTiposDocumento(): Promise<Response>{
-  let path = "/api/tiposdoc"
-  return fetch(path)
+export async function fetchTiposDocumento(): Promise<Response> {
+  let path = "/api/tiposdoc";
+  return fetch(path);
 }
 // Mercados
 export async function fetchMercados(): Promise<Response> {
@@ -19,7 +18,9 @@ export async function fetchCategoriasProfissionais(): Promise<Response> {
   return fetch(path);
 }
 // Funcionario
-export async function fetchFuncionarios(filters: Record<string, string>): Promise<Response> {
+export async function fetchFuncionarios(
+  filters: Record<string, string>
+): Promise<Response> {
   let path = "/api/funcionarios";
   path = addFiltersToQuery(path, filters);
   return fetch(path);
@@ -29,7 +30,9 @@ export async function fetchFuncionario(id: string): Promise<Response> {
   return fetch(path);
 }
 
-export async function CreateFuncionario(funcionario: IFuncionarioInput): Promise<Response> {
+export async function CreateFuncionario(
+  funcionario: IFuncionarioInput
+): Promise<Response> {
   const path = "/api/funcionarios";
   return fetch(path, {
     method: "POST",
@@ -40,29 +43,32 @@ export async function CreateFuncionario(funcionario: IFuncionarioInput): Promise
   });
 }
 
-export async function AddFuncionarioToObra(funcID : number, codigoInterno : string, date: string): Promise<Response>{
+export async function AddFuncionarioToObra(
+  funcID: number,
+  codigoInterno: string,
+  date: string
+): Promise<Response> {
   const path = `/api/funcionarios/${funcID}/obras`;
   return fetch(path, {
-    method: 'POST',
+    method: "POST",
     headers: {
-      "Content-Type" : "application/json"
+      "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      codigoInterno : codigoInterno,
-      date : date
-    })
-  })
+      codigoInterno: codigoInterno,
+      date: date,
+    }),
+  });
 }
-/*TODO: criar função para remover funcionario de uma obra*/
 
-export async function GetFuncionariosValidityWarningCount(): Promise<Response>{
-  const path = "/api/funcionarios/validity/count"
+export async function GetFuncionariosValidityWarningCount(): Promise<Response> {
+  const path = "/api/funcionarios/validity/count";
   return fetch(path);
 }
 
-export async function GetFuncionariosValidityWarningList(): Promise<Response>{
-  const path = "/api/funcionarios/validity/list"
-  return fetch(path)
+export async function GetFuncionariosValidityWarningList(): Promise<Response> {
+  const path = "/api/funcionarios/validity/list";
+  return fetch(path);
 }
 
 // Obra
@@ -76,9 +82,11 @@ export async function CreateObra(obra: IObraOutput): Promise<Response> {
     body: JSON.stringify(obra),
   });
 }
-export async function fetchObras(filters?: Record<string, string>): Promise<Response> {
+export async function fetchObras(
+  filters?: Record<string, string>
+): Promise<Response> {
   let path = "/api/obras";
-  if(filters) path = addFiltersToQuery(path, filters);
+  if (filters) path = addFiltersToQuery(path, filters);
   return fetch(path);
 }
 export async function fetchObra(codigo: string): Promise<Response> {
@@ -86,15 +94,29 @@ export async function fetchObra(codigo: string): Promise<Response> {
   return fetch(path);
 }
 export async function AddObraToFunc(): Promise<Response> {
-  throw new Error("Implementa-me 😢")
+  throw new Error("Implementa-me 😢");
 }
-export async function fetchObrasForFuncionario(funcionarioId: string): Promise<Response> {
+export async function fetchObrasForFuncionario(
+  funcionarioId: string
+): Promise<Response> {
   const path = `/api/obras/funcionario/${funcionarioId}`;
   return fetch(path);
 }
-export async function fetchFuncionariosForObra(codigo: string): Promise<Response> {
+export async function fetchFuncionariosForObra(
+  codigo: string
+): Promise<Response> {
   const path = `/api/obras/${codigo}/funcionarios/current`;
   return fetch(path);
+}
+export async function removeFuncionarioDeObra(id: number, dataDefim: string): Promise<Response> {
+  const path = `/api/funcionarios/${id}/obras`;
+  return fetch(path, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(dataDefim),
+  });
 }
 // Folha de ponto
 export async function createFolhaDePonto(
@@ -112,7 +134,7 @@ export async function createFolhaDePonto(
     body: JSON.stringify({
       mes: mes,
       ano: ano,
-      workDays: workDays
+      workDays: workDays,
     }),
   });
 }
@@ -120,7 +142,7 @@ export async function fetchFolhaDePontoByObra(
   codigo: string,
   mes: string,
   ano: string
-) : Promise<Response>{
+): Promise<Response> {
   const path = `/api/obras/${codigo}/folha-de-ponto/${ano}-${mes}`;
   return fetch(path);
 }
@@ -145,23 +167,30 @@ export async function submitFolhaDePontoValues(
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      values : values.values,
+      values: values.values,
     }),
   });
 }
 
-export async function fetchFolhaDePontoAllByobra(codigo: string): Promise<Response> {
+export async function fetchFolhaDePontoAllByobra(
+  codigo: string
+): Promise<Response> {
   const path = `/api/obras/${codigo}/folha-de-ponto`;
   return fetch(path);
 }
 
-export async function fetchFolhaDePontoAllByMercado(mercado: string): Promise<Response> {
-  const path = `/api/folha-de-ponto/${mercado ?? ''}`;
+export async function fetchFolhaDePontoAllByMercado(
+  mercado: string
+): Promise<Response> {
+  const path = `/api/folha-de-ponto/${mercado ?? ""}`;
   return fetch(path);
 }
 
 // Filtes
-function addFiltersToQuery(path: string, filters: Record<string, String>): string {
+function addFiltersToQuery(
+  path: string,
+  filters: Record<string, String>
+): string {
   let size = Object.keys(filters).length;
   if (size > 0) {
     let i = 1;
