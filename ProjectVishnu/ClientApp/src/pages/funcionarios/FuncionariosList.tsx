@@ -1,26 +1,16 @@
-import {
-  Button,
-  Spinner,
-  Table,
-  Tbody,
-  Td,
-  Th,
-  Thead,
-  Tr,
-} from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import { Button, Spinner } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   GetFuncionariosValidityWarningCount,
   GetFuncionariosValidityWarningList,
   fetchFuncionarios,
 } from "../../common/APICalls";
-import IFuncionarioOutput from "../../common/Interfaces/Funcionario/IFuncionarioOutput";
 import FilterBar from "../../components/FilterBar";
 import FuncionariosTable from "../../components/tables/FuncionariosTable";
 
 export default function Funcionarios() {
-  const [funcionarios, setFuncionarios] = useState([]);
+  const [funcionarios, setFuncionarios] = useState();
   const [mercado, setMercado] = useState(null);
   const [searchString, setSearchString] = useState(null);
   const [warningCount, setWarningCount] = useState(0);
@@ -32,15 +22,13 @@ export default function Funcionarios() {
   }
 
   let contents = !funcionarios ? (
-    <Spinner />
+    <Spinner size="xl" className="m-auto" />
   ) : (
-    <FuncionariosTable funcionarios={funcionarios}/>
+    <FuncionariosTable funcionarios={funcionarios} />
   );
   useEffect(() => {
-    (async () => [
-      populateData()  
-    ])()
-  },[mercado, searchString]);
+    (async () => [populateData()])();
+  }, [mercado, searchString]);
 
   async function populateData() {
     const filters = Object.assign(

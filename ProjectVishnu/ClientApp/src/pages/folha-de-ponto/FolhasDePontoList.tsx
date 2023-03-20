@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 import SemDadosRow from "../../components/SemDadosRow";
 
 export default function FolhasDePonto() {
-  const [folhasDePonto, setFolhasDePonto] = useState(null);
+  const [folhasDePonto, setFolhasDePonto] = useState();
   const [mercado, setMercado] = useState<string | null>("portugal");
   const navigate = useNavigate();
 
@@ -23,7 +23,7 @@ export default function FolhasDePonto() {
 
   let contents =
     !folhasDePonto ? (
-      <Spinner />
+      <Spinner size="xl" className="m-auto"/>
     ) : (
       renderFolhasDePontoTable(folhasDePonto)
     );
