@@ -12,7 +12,7 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
-import ObrasTable from "../../components/ObrasTable";
+import ObrasTable from "../../components/tables/ObrasTable";
 import ObraStateFilter from "../../components/ObraStateFilter";
 import { useNavigate } from 'react-router-dom';
 

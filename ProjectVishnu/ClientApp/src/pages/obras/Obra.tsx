@@ -1,9 +1,8 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   fetchObra,
   createFolhaDePonto,
   fetchFolhaDePontoAllByobra as fetchFolhaDePontoAllByObra,
-  fetchMercados,
   fetchFuncionariosForObra,
 } from "../../common/APICalls";
 import {
@@ -18,13 +17,12 @@ import {
   Tr,
 } from "@chakra-ui/react";
 import IObraOutput from "../../common/Interfaces/Obra/IObraOutput";
-import IFolhaDePontoOutput from "../../common/Interfaces/FolhaDePonto/IFolhaDePontoOutput";
-import FolhaDePontoObra from "../folha-de-ponto/FolhaDePonto";
 import IFolhaDePontoInfoModel from "../../common/Interfaces/FolhaDePonto/IFolhaDePontoInfoModel";
 import { useNavigate, useParams } from "react-router-dom";
-import FuncionariosTable from "../../components/FuncionariosTable";
 import IFuncionarioObraOutputModel from "../../common/Interfaces/Funcionario/IFuncionarioObraOutputModel";
-import FuncionariosPorObraTable from "../../components/FuncionariosPorObraTable";
+import FuncionariosPorObraTable from "../../components/tables/FuncionariosPorObraTable";
+import SemDadosRow from "../../components/SemDadosRow";
+import FuncionariosModal from "../../components/modals/FuncionariosModal";
 
 export default function Obra() {
   const navigate = useNavigate();
@@ -38,20 +36,21 @@ export default function Obra() {
   const [data, setData] = useState(
     `${date.getFullYear()}-${date.getMonth() + 1}`
   );
-  const [workDays, setWorkDays] = useState(1)
+  const [workDays, setWorkDays] = useState(1);
   // TODO: check this
   const handleDateChange = (event: any) => {
     setData(event!.target!.value!);
   };
   const handleWorkDaysChange = (event: any) => {
     setWorkDays(event!.target!.value!);
-  }
+  };
 
   let contents = obra === null ? <Spinner /> : renderObra(obra, folhasDePonto);
 
   // check this
   async function submitFolhaDePonto() {
-    if(workDays < 1 || workDays > 31){} //TODO: THROW ALERT
+    if (workDays < 1 || workDays > 31) {
+    } //TODO: THROW ALERT
     const monthInput = document.getElementById("date");
     const date = monthInput!.nodeValue!;
     const [ano, mes] = data.split("-");
@@ -98,9 +97,9 @@ export default function Obra() {
   function renderObra(obra: IObraOutput, folhasDePonto: any) {
     return (
       <div className="flex flex-col h-full w-full">
-        <div className="p-6 mb-3 bg-slate-800 text-cyan-100 rounded-xl">
+        <div className="p-3 mb-3 bg-slate-800 text-cyan-100 rounded-xl">
           <p className="text-xl font-bold ">Detalhes de obra:</p>
-          <div className="flex justify-between flex-wrap gap-3">
+          <div className="flex justify-between flex-wrap gap-3 ">
             <div>
               <p className="obra-heading">Código interno</p>
               <p>{obra.codigoInterno}</p>
@@ -127,10 +126,13 @@ export default function Obra() {
             </div>
           </div>
         </div>
-        <div className="flex flex-row flex-1 gap-3">
+        <div
+          id="tables-container"
+          className="flex flex-col lg:flex-row flex-1 gap-3"
+        >
           <div
             id="table-container"
-            className="flex-1 gap-6 p-6 mb-3 bg-slate-800 rounded-xl flex flex-col overflow-auto"
+            className="flex-1 gap-3 p-3 bg-slate-800 rounded-xl flex flex-col overflow-auto"
           >
             <p className="text-lg font-bold text-cyan-100">Folhas de ponto:</p>
             <div className="flex-1 bg-white dark:bg-inherit">
@@ -143,7 +145,7 @@ export default function Obra() {
                 </Thead>
                 <Tbody>
                   {/* TODO check folhasdeponto type */}
-                  {folhasDePonto &&
+                  {folhasDePonto && folhasDePonto.length > 0 ? (
                     folhasDePonto.map(
                       (folhaDePonto: IFolhaDePontoInfoModel) => (
                         <Tr
@@ -155,18 +157,24 @@ export default function Obra() {
                           <Td>{folhaDePonto.ano}</Td>
                         </Tr>
                       )
-                    )}
+                    )
+                  ) : (
+                    <SemDadosRow />
+                  )}
                 </Tbody>
               </Table>
             </div>
           </div>
           <div
             id="table-container"
-            className="flex-3 gap-6 p-6 mb-3 bg-slate-800 rounded-xl flex flex-col overflow-auto"
+            className="flex-3 gap-3 p-3 bg-slate-800 rounded-xl flex flex-col overflow-auto"
           >
             <p className="text-lg font-bold text-cyan-100">Funcionarios:</p>
             <div className="flex-1 bg-white dark:bg-inherit">
               <FuncionariosPorObraTable funcionarios={funcionarios} />
+            </div>
+            <div id="table-button-container" className="ml-auto">
+              <FuncionariosModal obra={obra} />
             </div>
           </div>
         </div>
