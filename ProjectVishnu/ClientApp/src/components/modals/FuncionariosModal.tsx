@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { AiOutlineUserAdd } from "react-icons/ai";
 import {
   Button,
   Modal,
@@ -9,24 +10,11 @@ import {
   ModalBody,
   ModalCloseButton,
   useDisclosure,
-  Table,
-  Tr,
-  Thead,
-  Th,
-  Tbody,
-  Td,
   Spinner,
 } from "@chakra-ui/react";
-import IFuncionarioOutput from "../../common/Interfaces/Funcionario/IFuncionarioOutput";
 import FilterBar from "../FilterBar";
 import IObraOutput from "../../common/Interfaces/Obra/IObraOutput";
-import {
-  AddFuncionarioToObra,
-  AddObraToFunc,
-  fetchFuncionarios,
-  fetchObras,
-} from "../../common/APICalls";
-import ObrasTable from "../tables/ObrasTable";
+import { fetchFuncionarios } from "../../common/APICalls";
 import FuncionariosTable from "../tables/FuncionariosTable";
 
 //TODO: tornar todo o código da tabela das obras universal de maneira a que isto não se repita aqui (e no index das obras)
@@ -70,8 +58,12 @@ export default function FuncioanriosModal({ obra }: { obra: IObraOutput }) {
   );
   return (
     <>
-      <Button onClick={onOpen} colorScheme="blue" className="w-full sm:w-fit">
-        Adicionar funcionario
+      <Button
+        onClick={onOpen}
+        colorScheme="blue"
+        className="w-fit [&>*]:text-xl"
+      >
+        <AiOutlineUserAdd />
       </Button>
 
       <Modal

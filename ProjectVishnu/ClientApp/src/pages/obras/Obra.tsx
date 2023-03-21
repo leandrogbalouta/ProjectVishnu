@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { MdOutlinePostAdd } from "react-icons/md";
 import {
   fetchObra,
   createFolhaDePonto,
@@ -23,6 +24,7 @@ import IFuncionarioObraOutputModel from "../../common/Interfaces/Funcionario/IFu
 import FuncionariosPorObraTable from "../../components/tables/FuncionariosPorObraTable";
 import SemDadosRow from "../../components/SemDadosRow";
 import FuncionariosModal from "../../components/modals/FuncionariosModal";
+import { GrTableAdd } from "react-icons/gr";
 
 export default function Obra() {
   const navigate = useNavigate();
@@ -99,7 +101,7 @@ export default function Obra() {
       <div className="flex flex-col h-full w-full">
         <div className="p-3 mb-3 bg-slate-800 text-cyan-100 rounded-xl">
           <p className="text-xl font-bold ">Detalhes de obra:</p>
-          <div className="flex justify-between flex-wrap gap-3 ">
+          <div className="flex justify-between flex-wrap gap-3 pt-3">
             <div>
               <p className="obra-heading">Código interno</p>
               <p>{obra.codigoInterno}</p>
@@ -134,8 +136,52 @@ export default function Obra() {
             id="table-container"
             className="flex-1 gap-3 p-3 bg-slate-800 rounded-xl flex flex-col overflow-auto"
           >
-            <p className="text-lg font-bold text-cyan-100">Folhas de ponto:</p>
-            <div className="flex-1 bg-white dark:bg-inherit">
+            <div id="top-items-container" className="flex justify-between">
+              <p className="text-lg font-bold text-cyan-100">
+                Folhas de ponto:
+              </p>
+              <div
+                id="create-folha-de-ponto-container"
+                className="flex justify-between text-cyan-100"
+              >
+                <div
+                  id="create-folha-de-ponto-inner-container"
+                  className="flex gap-1"
+                >
+                  <Input
+                    type="month"
+                    id="date"
+                    value={data}
+                    min="2018-01"
+                    max="2050-12"
+                    onChange={handleDateChange}
+                    background={"white"}
+                  />
+                  <Input
+                    type="number"
+                    id="workDays"
+                    value={workDays}
+                    min="1"
+                    max="31"
+                    background={"white"}
+                    onChange={handleWorkDaysChange}
+                  />
+                  <div id="button-container">
+                    <Button
+                      colorScheme="blue"
+                      className="p-1 [&>*]:text-xl"
+                      onClick={() => submitFolhaDePonto()}
+                    >
+                      <MdOutlinePostAdd/>
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              id="table-wrapper"
+              className="flex-1 bg-white dark:bg-inherit rounded p-1"
+            >
               <Table className="overflow-scroll" aria-labelledby="tabelLabel">
                 <Thead>
                   <Tr className="data-table-header">
@@ -169,43 +215,15 @@ export default function Obra() {
             id="table-container"
             className="flex-3 gap-3 p-3 bg-slate-800 rounded-xl flex flex-col overflow-auto"
           >
-            <p className="text-lg font-bold text-cyan-100">Funcionarios:</p>
-            <div className="flex-1 bg-white dark:bg-inherit">
-              <FuncionariosPorObraTable funcionarios={funcionarios} />
-            </div>
-            <div id="table-button-container" className="ml-auto">
+            <div id="table-button-container" className="flex justify-between">
+              <p className="text-lg font-bold text-cyan-100">Funcionarios:</p>
               <FuncionariosModal obra={obra} />
             </div>
-          </div>
-        </div>
-
-        <div id="create-folha-de-ponto-container">
-          <label htmlFor="date">Data de início:</label>
-          <div id="create-folha-de-ponto-inner-container" className="flex">
-            <Input
-              type="month"
-              id="date"
-              value={data}
-              min="2018-01"
-              max="2050-12"
-              onChange={handleDateChange}
-            />
-            <Input
-              type="number"
-              id="workDays"
-              value={workDays}
-              min="1"
-              max="31"
-              onChange={handleWorkDaysChange}
-            />
-            <div id="button-container">
-              <Button
-                colorScheme="blue"
-                className="p-1"
-                onClick={() => submitFolhaDePonto()}
-              >
-                Criar Folha de Ponto
-              </Button>
+            <div
+              id="funcionarios-table-wrapper"
+              className="flex-1 bg-white dark:bg-inherit p-1 rounded"
+            >
+              <FuncionariosPorObraTable funcionarios={funcionarios} />
             </div>
           </div>
         </div>
