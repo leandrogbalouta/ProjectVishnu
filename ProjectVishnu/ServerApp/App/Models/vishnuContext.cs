@@ -13,17 +13,8 @@ namespace ProjectVishnu.Models
         {
             _configuration = config;
             // _connectionString = connectionString;
-            _usePostgres = _configuration.GetValue<bool>("Postgres");
+            bool.TryParse(_configuration.GetValue<string>("Postgres"), out _usePostgres);
         }
-
-        // public vishnuContext(DbContextOptions<vishnuContext> options, IConfiguration configuration)
-        //     : base(options)
-        // {
-        //     _configuration = configuration;
-        //     _usePostgres = (configuration.GetSection("Postgres").Value ?? "false").Equals("true");
-        //     _connectionString = _usePostgres ? configuration.GetConnectionString("vishnu")! : configuration.GetConnectionString("vishnuAzure")!;
-        // }
-
         protected override void ConfigureConventions(ModelConfigurationBuilder builder)
         {
             builder.Properties<DateOnly>()

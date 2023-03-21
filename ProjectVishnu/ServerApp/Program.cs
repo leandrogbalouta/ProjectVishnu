@@ -1,8 +1,4 @@
-using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using ProjectVishnu.DataAccess;
 using ProjectVishnu.DataAccess.Concrete;
 using ProjectVishnu.DataAccess.Repository;
@@ -40,11 +36,6 @@ builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
-// app.UsePathBase("/api"); // isto pelos vistos adiciona um basepath a qualquer request ao servidor.. 
-// isto funciona para uma simples api, mas para uma webapp nao
-// quer dizer que se fizers request a www.a.com/funcionarios ele automaticamente mete o basepath ao request, sendo www.a.com/api/funcionarios
-// nao tenho a certeza mas parece ser isso :)
-// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
