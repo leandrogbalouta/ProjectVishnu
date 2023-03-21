@@ -6,13 +6,11 @@ import SemDadosRow from '../SemDadosRow';
 
 interface Props {
   obras: IObraOutput[];
-  // dataOnRowClick?: (codigoInterno: string) => void;
+  dataOnRowClick: (codigoInterno: string) => void;
 }
-export default function ObrasTable({ obras }: Props) {
+export default function ObrasTable({ obras, dataOnRowClick }: Props) {
   const navigate = useNavigate();
-  async function redirectToObra(codigoInterno: string) {
-    navigate(`/obras/${codigoInterno}`);
-  }
+  
   function TdState({ state }: { state: string }) {
     let estado = '';
     let classe = '';
@@ -51,7 +49,7 @@ export default function ObrasTable({ obras }: Props) {
             <Tr
               className="data-table-row"
               onClick={() =>
-                redirectToObra(obra.codigoInterno)
+                dataOnRowClick(obra.codigoInterno)
               }
               key={obra.codigoInterno}
             >

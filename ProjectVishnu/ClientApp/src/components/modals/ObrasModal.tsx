@@ -26,6 +26,7 @@ import {
   fetchObras,
 } from "../../common/APICalls";
 import ObrasTable from "../tables/ObrasTable";
+import RemoverFuncionarioDeObraModal from "./RemoverFuncionarioDeObraModal";
 
 //TODO: tornar todo o código da tabela das obras universal de maneira a que isto não se repita aqui (e no index das obras)
 
@@ -63,12 +64,17 @@ export default function ObrasModal({
 
     let today = `${year}-${month}-${day}`;
 
-    AddFuncionarioToObra(funcionario.id, codigoInterno, today);
+    AddFuncionarioToObra(funcionario.id, codigoInterno, today)
+      .then(res => {
+        if(res.status === 409) alert("Por favor remova o funcionário da sua obra atual")
+      })
   }
   const contents = !obras ? (
     <Spinner />
   ) : (
-    <ObrasTable obras={obras} />
+    <>
+      <ObrasTable obras={obras} dataOnRowClick={addObraToFunc}/>
+    </>
   );
   return (
     <>
@@ -97,9 +103,6 @@ export default function ObrasModal({
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme="blue" mr={3}>
-              Guardar
-            </Button>
             <Button onClick={onClose} className="text-slate-800">
               Cancelar
             </Button>

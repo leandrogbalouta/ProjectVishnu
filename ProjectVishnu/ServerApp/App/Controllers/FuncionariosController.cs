@@ -2,6 +2,7 @@
 using ProjectVishnu.Models;
 using ProjectVishnu.Services;
 using ProjectVishnu.ServerApp.App.Dtos;
+using ProjectVishnu.ServerApp.App.Services.ServicesErrors;
 
 namespace ProjectVishnu.Controllers
 {
@@ -161,10 +162,15 @@ namespace ProjectVishnu.Controllers
                 int result = _funcionariosService.AddFuncToObra(id, obraInput.CodigoInterno, obraInput.Date);
                 return Ok();
             }
+            catch(FuncionariosError customError)
+            {
+                return Problem(statusCode: customError.StatusCode, title: customError.Message);
+            }
             catch(Exception e)
             {
                 return Problem(statusCode: 500, title: "Erro inesperado");
             }
+            
         }
 
         [HttpPut("{id}/obras")]
