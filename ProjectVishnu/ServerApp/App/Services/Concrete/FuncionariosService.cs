@@ -2,6 +2,8 @@
 using ProjectVishnu.DataAccess.Concrete;
 using ProjectVishnu.Models;
 using ProjectVishnu.ServerApp.App.Dtos;
+using ProjectVishnu.ServerApp.App.Services;
+using ProjectVishnu.ServerApp.App.Services.ServicesErrors;
 using System.Globalization;
 
 namespace ProjectVishnu.Services
@@ -66,7 +68,9 @@ namespace ProjectVishnu.Services
         public int AddFuncToObra(int id, string codigoObra, string date)
         {
             Funcionario func = _unitOfWork.Funcionarios.Get(id);
-            if(func.FuncionariosObras.Any(fo => fo.Datafim != null)) return 0; // retornar erro a dizer que o funcionário já se encontra numa obra
+            if(func.FuncionariosObras.Any(fo => fo.Datafim == null)){
+                throw new AlreadyInObraError();
+            }
             string ano = date.Split("-")[0];
             string mes = date.Split("-")[1];
             string dia = date.Split("-")[2];
