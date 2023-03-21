@@ -13,7 +13,7 @@ import {
   fetchObrasForFuncionario,
 } from "../../common/APICalls";
 import IFuncionarioOutput from "../../common/Interfaces/Funcionario/IFuncionarioOutput";
-import AdicionarFuncionarioAObraModal from "../../components/modals/AdicionarFuncionarioAObraModal";
+import AdicionarObraAFuncionarioModal from "../../components/modals/AdicionarObraAFuncionarioModal";
 import ObrasTable from "../../components/tables/ObrasTable";
 import IObraOutput from "../../common/Interfaces/Obra/IObraOutput";
 import { useParams, useNavigate } from "react-router-dom";
@@ -200,7 +200,7 @@ export default function Funcionario() {
                   <p className="text-lg font-bold text-cyan-100">
                     Obras Completadas:
                   </p>
-                  <AdicionarFuncionarioAObraModal funcionario={funcionario} />
+                  <AdicionarObraAFuncionarioModal funcionario={funcionario} />
                 </div>
                 <div className="flex flex-1 flex-col gap-3 overflow-auto bg-white dark:bg-slate-800 rounded">
                   <ObrasTable

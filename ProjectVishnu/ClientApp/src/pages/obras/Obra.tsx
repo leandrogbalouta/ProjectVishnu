@@ -23,7 +23,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import IFuncionarioObraOutputModel from "../../common/Interfaces/Funcionario/IFuncionarioObraOutputModel";
 import FuncionariosPorObraTable from "../../components/tables/FuncionariosPorObraTable";
 import SemDadosRow from "../../components/SemDadosRow";
-import FuncionariosModal from "../../components/modals/FuncionariosModal";
+import FuncionariosModal from "../../components/modals/AdicionarFuncionarioAObraModal";
 import { GrTableAdd } from "react-icons/gr";
 
 export default function Obra() {

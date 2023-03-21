@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AiOutlineUserAdd } from "react-icons/ai";
 import {
   Button,
@@ -10,19 +10,37 @@ import {
   ModalBody,
   ModalCloseButton,
   useDisclosure,
+  Table,
+  Tr,
+  Thead,
+  Th,
+  Tbody,
+  Td,
   Spinner,
+  Tooltip,
 } from "@chakra-ui/react";
+import IFuncionarioOutput from "../../common/Interfaces/Funcionario/IFuncionarioOutput";
 import FilterBar from "../FilterBar";
 import IObraOutput from "../../common/Interfaces/Obra/IObraOutput";
-import { fetchFuncionarios } from "../../common/APICalls";
-import FuncionariosTable from "../tables/FuncionariosTable";
+import {
+  AddFuncionarioToObra,
+  AddObraToFunc,
+  fetchObras,
+} from "../../common/APICalls";
+import ObrasTable from "../tables/ObrasTable";
+import RemoverFuncionarioDeObraModal from "./RemoverFuncionarioDeObraModal";
+import { BsBuildingAdd } from "react-icons/bs";
 
 //TODO: tornar todo o código da tabela das obras universal de maneira a que isto não se repita aqui (e no index das obras)
 
-export default function FuncioanriosModal({ obra }: { obra: IObraOutput }) {
+export default function AdicionarObraAFuncionarioModal({
+  funcionario,
+}: {
+  funcionario: IFuncionarioOutput;
+}) {
   // State
-  const [funcionarios, setFuncionarios] = useState(null);
-  const [mercado, setMercado] = useState(obra.mercado);
+  const [obras, setObras] = useState(null);
+  const [mercado, setMercado] = useState(funcionario.mercado);
   const [searchString, setSearchString] = useState(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
   // Effect
@@ -34,12 +52,12 @@ export default function FuncioanriosModal({ obra }: { obra: IObraOutput }) {
       searchString === null ? null : { valor: searchString }
     );
     // Misc
-    const populateFuncioariosData = async () => {
-      const response = await fetchFuncionarios(filters);
+    const populateObrasData = async () => {
+      const response = await fetchObras(filters);
       const data = await response.json();
-      setFuncionarios(data);
+      setObras(data);
     };
-    populateFuncioariosData();
+    populateObrasData();
   }, [mercado, searchString]);
   function addObraToFunc(codigoInterno: string) {
     const date = new Date();
@@ -49,22 +67,25 @@ export default function FuncioanriosModal({ obra }: { obra: IObraOutput }) {
 
     let today = `${year}-${month}-${day}`;
 
-    // AddFuncionarioToObra(funcionario.id, codigoInterno, today);
+    AddFuncionarioToObra(funcionario.id, codigoInterno, today).then((res) => {
+      if (res.status === 409)
+        alert("Por favor remova o funcionário da sua obra atual");
+    });
   }
-  const contents = !funcionarios ? (
+  const contents = !obras ? (
     <Spinner />
   ) : (
-    <FuncionariosTable funcionarios={funcionarios} />
+    <>
+      <ObrasTable obras={obras} dataOnRowClick={addObraToFunc} />
+    </>
   );
   return (
     <>
-      <Button
-        onClick={onOpen}
-        colorScheme="blue"
-        className="w-fit [&>*]:text-xl"
-      >
-        <AiOutlineUserAdd />
-      </Button>
+      <Tooltip label="Adicionar obra a funcionario" placement="top">
+        <Button onClick={onOpen} colorScheme="blue">
+          <BsBuildingAdd />
+        </Button>
+      </Tooltip>
 
       <Modal
         closeOnOverlayClick={false}
@@ -74,7 +95,7 @@ export default function FuncioanriosModal({ obra }: { obra: IObraOutput }) {
       >
         <ModalOverlay />
         <ModalContent className="dark:!bg-slate-800 dark:text-white">
-          <ModalHeader>Escolha o/os funcionarios</ModalHeader>
+          <ModalHeader>Escolha uma obra</ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>
             <FilterBar
@@ -87,9 +108,6 @@ export default function FuncioanriosModal({ obra }: { obra: IObraOutput }) {
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme="blue" mr={3}>
-              Guardar
-            </Button>
             <Button onClick={onClose} className="text-slate-800">
               Cancelar
             </Button>

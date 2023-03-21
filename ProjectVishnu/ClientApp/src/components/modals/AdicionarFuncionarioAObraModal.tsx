@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { AiOutlineUserAdd } from "react-icons/ai";
 import {
   Button,
@@ -10,36 +10,20 @@ import {
   ModalBody,
   ModalCloseButton,
   useDisclosure,
-  Table,
-  Tr,
-  Thead,
-  Th,
-  Tbody,
-  Td,
   Spinner,
   Tooltip,
 } from "@chakra-ui/react";
-import IFuncionarioOutput from "../../common/Interfaces/Funcionario/IFuncionarioOutput";
 import FilterBar from "../FilterBar";
 import IObraOutput from "../../common/Interfaces/Obra/IObraOutput";
-import {
-  AddFuncionarioToObra,
-  AddObraToFunc,
-  fetchObras,
-} from "../../common/APICalls";
-import ObrasTable from "../tables/ObrasTable";
-import RemoverFuncionarioDeObraModal from "./RemoverFuncionarioDeObraModal";
+import { fetchFuncionarios } from "../../common/APICalls";
+import FuncionariosTable from "../tables/FuncionariosTable";
 
 //TODO: tornar todo o código da tabela das obras universal de maneira a que isto não se repita aqui (e no index das obras)
 
-export default function AdicionarFuncionarioAObraModal({
-  funcionario,
-}: {
-  funcionario: IFuncionarioOutput;
-}) {
+export default function FuncioanriosModal({ obra }: { obra: IObraOutput }) {
   // State
-  const [obras, setObras] = useState(null);
-  const [mercado, setMercado] = useState(funcionario.mercado);
+  const [funcionarios, setFuncionarios] = useState(null);
+  const [mercado, setMercado] = useState(obra.mercado);
   const [searchString, setSearchString] = useState(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
   // Effect
@@ -51,12 +35,12 @@ export default function AdicionarFuncionarioAObraModal({
       searchString === null ? null : { valor: searchString }
     );
     // Misc
-    const populateObrasData = async () => {
-      const response = await fetchObras(filters);
+    const populateFuncioariosData = async () => {
+      const response = await fetchFuncionarios(filters);
       const data = await response.json();
-      setObras(data);
+      setFuncionarios(data);
     };
-    populateObrasData();
+    populateFuncioariosData();
   }, [mercado, searchString]);
   function addObraToFunc(codigoInterno: string) {
     const date = new Date();
@@ -66,26 +50,24 @@ export default function AdicionarFuncionarioAObraModal({
 
     let today = `${year}-${month}-${day}`;
 
-    AddFuncionarioToObra(funcionario.id, codigoInterno, today).then((res) => {
-      if (res.status === 409)
-        alert("Por favor remova o funcionário da sua obra atual");
-    });
+    // AddFuncionarioToObra(funcionario.id, codigoInterno, today);
   }
-  const contents = !obras ? (
+  const contents = !funcionarios ? (
     <Spinner />
   ) : (
-    <>
-      <ObrasTable obras={obras} dataOnRowClick={addObraToFunc} />
-    </>
+    <FuncionariosTable funcionarios={funcionarios} />
   );
   return (
     <>
       <Tooltip label="Adicionar funcionario a obra" placement="top">
-        <Button onClick={onOpen} colorScheme="blue">
+        <Button
+          onClick={onOpen}
+          colorScheme="blue"
+          className="w-fit [&>*]:text-xl"
+        >
           <AiOutlineUserAdd />
         </Button>
       </Tooltip>
-
       <Modal
         closeOnOverlayClick={false}
         isOpen={isOpen}
@@ -94,7 +76,7 @@ export default function AdicionarFuncionarioAObraModal({
       >
         <ModalOverlay />
         <ModalContent className="dark:!bg-slate-800 dark:text-white">
-          <ModalHeader>Escolha uma obra</ModalHeader>
+          <ModalHeader>Escolha o/os funcionarios</ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>
             <FilterBar
@@ -107,6 +89,9 @@ export default function AdicionarFuncionarioAObraModal({
           </ModalBody>
 
           <ModalFooter>
+            <Button colorScheme="blue" mr={3}>
+              Guardar
+            </Button>
             <Button onClick={onClose} className="text-slate-800">
               Cancelar
             </Button>
