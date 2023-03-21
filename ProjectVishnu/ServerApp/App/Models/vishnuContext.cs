@@ -8,21 +8,13 @@ namespace ProjectVishnu.Models
     {
         private readonly IConfiguration _configuration;
         private string _connectionString;
-        private bool _isAzure;
-        public vishnuContext(string connectionString)
+        private bool _usePostgres;
+        public vishnuContext(IConfiguration config)
         {
-            _connectionString = connectionString;
+            _configuration = config;
+            // _connectionString = connectionString;
+            bool.TryParse(_configuration.GetValue<string>("Postgres"), out _usePostgres);
         }
-
-        public vishnuContext(DbContextOptions<vishnuContext> options, IConfiguration configuration)
-            : base(options)
-        {
-            _configuration = configuration;
-            // _isAzure = (configuration.GetSection("Azure").Value ?? "false").Equals("true");
-            // _connectionString = _isAzure ? configuration.GetConnectionString("vishnuAzure") : configuration.GetConnectionString("vishnu");
-            _connectionString = configuration.GetConnectionString("vishnuAzure");
-        }
-
         protected override void ConfigureConventions(ModelConfigurationBuilder builder)
         {
             builder.Properties<DateOnly>()
@@ -56,11 +48,11 @@ namespace ProjectVishnu.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                if(_isAzure) {
-                    optionsBuilder.UseLazyLoadingProxies(true).UseSqlServer(_connectionString);
+                if(_usePostgres) {
+                    optionsBuilder.UseLazyLoadingProxies(true).UseNpgsql(_configuration.GetConnectionString("vishnu"));
                 }
                 else {
-                    optionsBuilder.UseLazyLoadingProxies(true).UseNpgsql(_connectionString);
+                    optionsBuilder.UseLazyLoadingProxies(true).UseSqlServer(_configuration.GetConnectionString("vishnuAzure"));
                 }
                 optionsBuilder.ConfigureWarnings(warnings => warnings.Ignore(CoreEventId.LazyLoadOnDisposedContextWarning));
             }
