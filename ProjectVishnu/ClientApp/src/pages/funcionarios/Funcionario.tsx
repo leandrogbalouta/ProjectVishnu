@@ -5,6 +5,7 @@ import {
   AccordionItem,
   AccordionPanel,
   Box,
+  Button,
   Spinner,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
@@ -18,6 +19,8 @@ import ObrasTable from "../../components/tables/ObrasTable";
 import IObraOutput from "../../common/Interfaces/Obra/IObraOutput";
 import { useParams, useNavigate } from "react-router-dom";
 import RemoverFuncionarioDeObraModal from "../../components/modals/RemoverFuncionarioDeObraModal";
+import { AiOutlineArrowLeft } from "react-icons/ai";
+import BackButton from "../../components/BackButton";
 
 export default function Funcionario() {
   const [funcionario, setFuncionario] = useState(undefined);
@@ -67,11 +70,15 @@ export default function Funcionario() {
             <div className="flex flex-col sm:flex-row h-full w-full gap-1 sm:gap-3">
               <div
                 id="detalhes-de-funcionario-container"
-                className="flex-1 p-3 bg-slate-800 text-cyan-100 rounded-xl flex flex-col overflow-auto"
+                className="flex-1 p-3 bg-slate-800 text-cyan-100 rounded-xl flex flex-col overflow-auto relative"
               >
-                <p className="text-xl font-bold mb-3">
-                  Detalhes do Funcionário:
-                </p>
+                <div className="flex justify-between ">
+                  <p className="text-xl font-bold mb-3">
+                    Detalhes do Funcionário:
+                  </p>
+                  {/* TODO dr */}
+                  <BackButton href="/funcionarios" />
+                </div>
                 <div className="flex  flex-col gap-3 overflow-auto">
                   <div>
                     <p className="obra-heading">ID</p>
@@ -196,7 +203,10 @@ export default function Funcionario() {
                     dataOnRowClick={redirectToObra}
                   />
                 </div>
-                <div id="top-obras-completadas-container-items-container" className="flex justify-between">
+                <div
+                  id="top-obras-completadas-container-items-container"
+                  className="flex justify-between"
+                >
                   <p className="text-lg font-bold text-cyan-100">
                     Obras Completadas:
                   </p>

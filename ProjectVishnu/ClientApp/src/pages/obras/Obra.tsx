@@ -25,6 +25,7 @@ import FuncionariosPorObraTable from "../../components/tables/FuncionariosPorObr
 import SemDadosRow from "../../components/SemDadosRow";
 import FuncionariosModal from "../../components/modals/AdicionarFuncionarioAObraModal";
 import { GrTableAdd } from "react-icons/gr";
+import BackButton from "../../components/BackButton";
 
 export default function Obra() {
   const navigate = useNavigate();
@@ -100,7 +101,10 @@ export default function Obra() {
     return (
       <div className="flex flex-col h-full w-full">
         <div className="p-3 mb-3 bg-slate-800 text-cyan-100 rounded-xl">
+          <div className="flex justify-between">
           <p className="text-xl font-bold ">Detalhes de obra:</p>
+          <BackButton href={"/obras"}/>
+          </div>
           <div className="flex justify-between flex-wrap gap-3 pt-3">
             <div>
               <p className="obra-heading">Código interno</p>
