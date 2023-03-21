@@ -2,17 +2,14 @@
 import { fetchObras } from "../../common/APICalls";
 import FilterBar from "../../components/FilterBar";
 import IObraOutput from "../../common/Interfaces/Obra/IObraOutput";
-import {
-  Button,
-  Spinner,
-} from "@chakra-ui/react";
+import { Button, Spinner } from "@chakra-ui/react";
 import ObrasTable from "../../components/tables/ObrasTable";
 import ObraStateFilter from "../../components/ObraStateFilter";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 export default function Obras() {
   const [obras, setObras] = useState<IObraOutput[]>();
-  const [state, setState] = useState("todas")
+  const [state, setState] = useState("todas");
   const [mercado, setMercado] = useState(null);
   const [searchString, setSearchString] = useState(null);
   const navigate = useNavigate();
@@ -25,7 +22,18 @@ export default function Obras() {
     navigate("/obras/create");
   }
 
-  let contents = obras ? <ObrasTable obras={(state !== "todas") ? [...obras.filter((obra) => obra.estado == state)] : obras} /> :<Spinner size="xl" className="m-auto"/>
+  let contents = obras ? (
+    <ObrasTable
+      obras={
+        state !== "todas"
+          ? [...obras.filter((obra) => obra.estado == state)]
+          : obras
+      }
+      dataOnRowClick={redirectToObra}
+    />
+  ) : (
+    <Spinner size="xl" className="m-auto" />
+  );
 
   useEffect(() => {
     const filters = Object.assign(

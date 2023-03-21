@@ -16,7 +16,7 @@ import IFuncionarioOutput from "../../common/Interfaces/Funcionario/IFuncionario
 import ObrasModal from "../../components/modals/ObrasModal";
 import ObrasTable from "../../components/tables/ObrasTable";
 import IObraOutput from "../../common/Interfaces/Obra/IObraOutput";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import RemoverFuncionarioDeObraModal from "../../components/modals/RemoverFuncionarioDeObraModal";
 
 export default function Funcionario() {
@@ -25,6 +25,7 @@ export default function Funcionario() {
   const [obras, setObras] = useState<IObraOutput[]>([]);
   const obrasEmCurso = obras.filter((obra) => obra.estado == "em-curso");
   const obrasCompletadas = obras.filter((obra) => obra.estado == "completada");
+  const navigate = useNavigate();
   let contents =
     funcionario === undefined ? <Spinner /> : renderFuncionario(funcionario);
 
@@ -52,27 +53,10 @@ export default function Funcionario() {
     populateFuncionarioData();
     populateObrasData();
   }, [id]);
-  // TODO test me
-  function ObrasCompletadasAccordion() {
-    return obrasCompletadas.length > 0 ? (
-      <Accordion allowToggle>
-        <AccordionItem>
-          <h2>
-            <AccordionButton>
-              <Box as="span" flex="1" textAlign="left">
-                Obras Completadas
-              </Box>
-              <AccordionIcon />
-            </AccordionButton>
-          </h2>
-          <AccordionPanel pb={4}>
-            <ObrasTable obras={obrasCompletadas} />
-          </AccordionPanel>
-        </AccordionItem>
-      </Accordion>
-    ) : (
-      <></>
-    );
+
+  // TODO dry me
+  async function redirectToObra(codigoInterno: string) {
+    navigate(`/obras/${codigoInterno}`);
   }
   function renderFuncionario(funcionario: IFuncionarioOutput) {
     return (
@@ -203,19 +187,30 @@ export default function Funcionario() {
                   Obra em curso:
                 </p>
                 <div className="flex flex-col gap-3 overflow-auto bg-white dark:bg-slate-800 rounded">
-                  <ObrasTable obras={obrasEmCurso} />
+                  <ObrasTable
+                    obras={obrasEmCurso}
+                    dataOnRowClick={redirectToObra}
+                  />
                 </div>
-                <div id="remover-funcionario-button-container" className="flex justify-end">
-                <RemoverFuncionarioDeObraModal funcionario={funcionario} />
+                <div
+                  id="remover-funcionario-button-container"
+                  className="flex justify-end"
+                >
+                  <RemoverFuncionarioDeObraModal funcionario={funcionario} />
                 </div>
                 <p className="text-lg font-bold text-cyan-100">
                   Obras Completadas:
                 </p>
                 <div className="flex flex-1 flex-col gap-3 overflow-auto bg-white dark:bg-slate-800 rounded">
-                  <ObrasTable obras={obrasCompletadas} />
-                  <ObrasCompletadasAccordion />
+                  <ObrasTable
+                    obras={obrasCompletadas}
+                    dataOnRowClick={redirectToObra}
+                  />
                 </div>
-                <div id="add-funcionario-button-container" className="flex justify-end">
+                <div
+                  id="add-funcionario-button-container"
+                  className="flex justify-end"
+                >
                   <ObrasModal funcionario={funcionario} />
                 </div>
               </div>

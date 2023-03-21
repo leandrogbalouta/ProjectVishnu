@@ -1,7 +1,5 @@
 import { Table, Thead, Tr, Th, Tbody, Td } from "@chakra-ui/react";
-import { AddFuncionarioToObra } from "../../common/APICalls";
 import IObraOutput from "../../common/Interfaces/Obra/IObraOutput";
-import { useNavigate } from 'react-router-dom';
 import SemDadosRow from '../SemDadosRow';
 
 interface Props {
@@ -9,8 +7,6 @@ interface Props {
   dataOnRowClick: (codigoInterno: string) => void;
 }
 export default function ObrasTable({ obras, dataOnRowClick }: Props) {
-  const navigate = useNavigate();
-  
   function TdState({ state }: { state: string }) {
     let estado = '';
     let classe = '';
