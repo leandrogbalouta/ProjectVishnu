@@ -14,7 +14,6 @@ export default function FuncionariosPorObraTable({ funcionarios }: Props) {
       <Table className="table table-striped" aria-labelledby="tabelLabel">
         <Thead>
           <Tr className="data-table-header">
-            <Th>#</Th>
             <Th>Nome</Th>
             <Th>Nif</Th>
             <Th>Categoria profissional</Th>
@@ -27,45 +26,22 @@ export default function FuncionariosPorObraTable({ funcionarios }: Props) {
             funcionarios.map((funcionario) => (
               <Tr className="data-table-row" key={funcionario.funcionario.nif}>
                 <Td>
-                  <Checkbox />
-                </Td>
-                <Td
-                  onClick={() =>
-                    redirectToFuncionario(funcionario.funcionario.id)
-                  }
-                >
                   {funcionario.funcionario.nif}
                 </Td>
 
-                <Td
-                  onClick={() =>
-                    redirectToFuncionario(funcionario.funcionario.id)
-                  }
-                >
+                <Td>
                   {funcionario.funcionario.nif}
                 </Td>
 
-                <Td
-                  onClick={() =>
-                    redirectToFuncionario(funcionario.funcionario.id)
-                  }
-                >
+                <Td>
                   {funcionario.funcionario.catprof}
                 </Td>
 
-                <Td
-                  onClick={() =>
-                    redirectToFuncionario(funcionario.funcionario.id)
-                  }
-                >
+                <Td>
                   {funcionario.dataInicio}
                 </Td>
 
-                <Td
-                  onClick={() =>
-                    redirectToFuncionario(funcionario.funcionario.id)
-                  }
-                >
+                <Td>
                   {funcionario.dataFim ?? "N/A"}
                 </Td>
               </Tr>
