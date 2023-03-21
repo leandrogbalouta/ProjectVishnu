@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { AiOutlineUserAdd } from "react-icons/ai";
 import {
   Button,
   Modal,
@@ -16,6 +17,7 @@ import {
   Tbody,
   Td,
   Spinner,
+  Tooltip,
 } from "@chakra-ui/react";
 import IFuncionarioOutput from "../../common/Interfaces/Funcionario/IFuncionarioOutput";
 import FilterBar from "../FilterBar";
@@ -30,7 +32,7 @@ import RemoverFuncionarioDeObraModal from "./RemoverFuncionarioDeObraModal";
 
 //TODO: tornar todo o código da tabela das obras universal de maneira a que isto não se repita aqui (e no index das obras)
 
-export default function ObrasModal({
+export default function AdicionarFuncionarioAObraModal({
   funcionario,
 }: {
   funcionario: IFuncionarioOutput;
@@ -64,23 +66,25 @@ export default function ObrasModal({
 
     let today = `${year}-${month}-${day}`;
 
-    AddFuncionarioToObra(funcionario.id, codigoInterno, today)
-      .then(res => {
-        if(res.status === 409) alert("Por favor remova o funcionário da sua obra atual")
-      })
+    AddFuncionarioToObra(funcionario.id, codigoInterno, today).then((res) => {
+      if (res.status === 409)
+        alert("Por favor remova o funcionário da sua obra atual");
+    });
   }
   const contents = !obras ? (
     <Spinner />
   ) : (
     <>
-      <ObrasTable obras={obras} dataOnRowClick={addObraToFunc}/>
+      <ObrasTable obras={obras} dataOnRowClick={addObraToFunc} />
     </>
   );
   return (
     <>
-      <Button onClick={onOpen} colorScheme="blue">
-        Adicionar a Obra
-      </Button>
+      <Tooltip label="Adicionar funcionario a obra" placement="top">
+        <Button onClick={onOpen} colorScheme="blue">
+          <AiOutlineUserAdd />
+        </Button>
+      </Tooltip>
 
       <Modal
         closeOnOverlayClick={false}

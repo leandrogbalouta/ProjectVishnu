@@ -13,7 +13,7 @@ import {
   fetchObrasForFuncionario,
 } from "../../common/APICalls";
 import IFuncionarioOutput from "../../common/Interfaces/Funcionario/IFuncionarioOutput";
-import ObrasModal from "../../components/modals/ObrasModal";
+import AdicionarFuncionarioAObraModal from "../../components/modals/AdicionarFuncionarioAObraModal";
 import ObrasTable from "../../components/tables/ObrasTable";
 import IObraOutput from "../../common/Interfaces/Obra/IObraOutput";
 import { useParams, useNavigate } from "react-router-dom";
@@ -183,24 +183,25 @@ export default function Funcionario() {
                 id="obras-de-funcionario-container"
                 className="flex-1 p-3 bg-slate-800 rounded-xl flex flex-col overflow-auto gap-3"
               >
-                <p className="text-lg font-bold text-cyan-100">
-                  Obra em curso:
-                </p>
+                <div id="top-items-container" className="flex justify-between">
+                  <p className="text-lg font-bold text-cyan-100">
+                    Obra em curso:
+                  </p>
+                  <RemoverFuncionarioDeObraModal funcionario={funcionario} />
+                </div>
+
                 <div className="flex flex-col gap-3 overflow-auto bg-white dark:bg-slate-800 rounded">
                   <ObrasTable
                     obras={obrasEmCurso}
                     dataOnRowClick={redirectToObra}
                   />
                 </div>
-                <div
-                  id="remover-funcionario-button-container"
-                  className="flex justify-end"
-                >
-                  <RemoverFuncionarioDeObraModal funcionario={funcionario} />
+                <div id="top-obras-completadas-container-items-container" className="flex justify-between">
+                  <p className="text-lg font-bold text-cyan-100">
+                    Obras Completadas:
+                  </p>
+                  <AdicionarFuncionarioAObraModal funcionario={funcionario} />
                 </div>
-                <p className="text-lg font-bold text-cyan-100">
-                  Obras Completadas:
-                </p>
                 <div className="flex flex-1 flex-col gap-3 overflow-auto bg-white dark:bg-slate-800 rounded">
                   <ObrasTable
                     obras={obrasCompletadas}
@@ -210,9 +211,7 @@ export default function Funcionario() {
                 <div
                   id="add-funcionario-button-container"
                   className="flex justify-end"
-                >
-                  <ObrasModal funcionario={funcionario} />
-                </div>
+                ></div>
               </div>
             </div>
           </div>

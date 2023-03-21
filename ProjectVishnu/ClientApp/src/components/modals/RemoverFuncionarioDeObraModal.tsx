@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { HiOutlineUserRemove } from "react-icons/hi";
 import {
   Button,
   Modal,
@@ -10,6 +11,7 @@ import {
   ModalCloseButton,
   useDisclosure,
   Input,
+  Tooltip,
 } from "@chakra-ui/react";
 import IFuncionarioOutput from "../../common/Interfaces/Funcionario/IFuncionarioOutput";
 import { removeFuncionarioDeObra } from "../../common/APICalls";
@@ -42,9 +44,11 @@ export default function RemoverFuncionarioDeObraModal({
   }
   return (
     <>
-      <Button onClick={onOpen} colorScheme="red" className="w-full sm:w-fit">
-        Remover de obra
-      </Button>
+      <Tooltip label="Remover funcionario de obra" placement="top">
+        <Button onClick={onOpen} colorScheme="red" className="w-full sm:w-fit">
+        <HiOutlineUserRemove/>
+        </Button>
+      </Tooltip>
       {isOpen && (
         <Modal isOpen={isOpen} onClose={onClose}>
           <ModalOverlay />
