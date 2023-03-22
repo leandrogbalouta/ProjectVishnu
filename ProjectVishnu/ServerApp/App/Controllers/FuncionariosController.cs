@@ -153,13 +153,13 @@ namespace ProjectVishnu.Controllers
                 return Problem(statusCode: 500, title: "Erro inesperado");
             }
         }
-
+        // TODO check this
         [HttpPost("{id}/obras")]
-        public IActionResult AddFuncToObra(int id, [FromBody] FuncionarioObraInputModel obraInput)
+        public IActionResult AddFuncToObra(int id, string codigoInterno, string date)
         {
             try
             {
-                int result = _funcionariosService.AddFuncToObra(id, obraInput.CodigoInterno, obraInput.Date);
+                int result = _funcionariosService.AddFuncToObra(id, codigoInterno, date);
                 return Ok();
             }
             catch(FuncionariosError customError)

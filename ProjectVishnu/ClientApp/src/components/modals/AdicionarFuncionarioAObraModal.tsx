@@ -15,17 +15,18 @@ import {
 } from "@chakra-ui/react";
 import FilterBar from "../FilterBar";
 import IObraOutput from "../../common/Interfaces/Obra/IObraOutput";
-import { fetchFuncionarios } from "../../common/APICalls";
+import { AddFuncionarioToObra, fetchFuncionarios } from "../../common/APICalls";
 import FuncionariosTable from "../tables/FuncionariosTable";
 
 //TODO: tornar todo o código da tabela das obras universal de maneira a que isto não se repita aqui (e no index das obras)
 
-export default function FuncioanriosModal({ obra }: { obra: IObraOutput }) {
+export default function AdicionarFuncionarioAObraModal({ obra }: { obra: IObraOutput }) {
   // State
   const [funcionarios, setFuncionarios] = useState(null);
   const [mercado, setMercado] = useState(obra.mercado);
   const [searchString, setSearchString] = useState(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [funcionariosIdList, setFuncionariosIdList] = useState<number[]>([]);
   // Effect
   useEffect(() => {
     const filters = Object.assign(
@@ -42,20 +43,23 @@ export default function FuncioanriosModal({ obra }: { obra: IObraOutput }) {
     };
     populateFuncioariosData();
   }, [mercado, searchString]);
-  function addObraToFunc(codigoInterno: string) {
+  function addObraToFunc() {
     const date = new Date();
     let day = date.getDate();
     let month = date.getMonth() + 1;
     let year = date.getFullYear();
 
     let today = `${year}-${month}-${day}`;
-
-    // AddFuncionarioToObra(funcionario.id, codigoInterno, today);
+    console.log(obra);
+    console.log(obra.codigoInterno);
+    // funcionariosIdList.map((funcionarioId => {
+    //   AddFuncionarioToObra(funcionarioId, obra.codigoInterno, today);
+    // }));
   }
   const contents = !funcionarios ? (
     <Spinner />
   ) : (
-    <FuncionariosTable funcionarios={funcionarios} />
+    <FuncionariosTable funcionarios={funcionarios} selectable funcionariosIdList={funcionariosIdList} funcionariosIdListSetter={setFuncionariosIdList}/>
   );
   return (
     <>
@@ -89,7 +93,7 @@ export default function FuncioanriosModal({ obra }: { obra: IObraOutput }) {
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme="blue" mr={3}>
+            <Button colorScheme="blue" mr={3} isDisabled={funcionariosIdList.length < 1} onClick={addObraToFunc}>
               Guardar
             </Button>
             <Button onClick={onClose} className="text-slate-800">

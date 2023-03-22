@@ -23,7 +23,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import IFuncionarioObraOutputModel from "../../common/Interfaces/Funcionario/IFuncionarioObraOutputModel";
 import FuncionariosPorObraTable from "../../components/tables/FuncionariosPorObraTable";
 import SemDadosRow from "../../components/SemDadosRow";
-import FuncionariosModal from "../../components/modals/AdicionarFuncionarioAObraModal";
+import AdicionarFuncionarioAObraModal from "../../components/modals/AdicionarFuncionarioAObraModal";
 import { GrTableAdd } from "react-icons/gr";
 import BackButton from "../../components/BackButton";
 
@@ -221,7 +221,7 @@ export default function Obra() {
           >
             <div id="table-button-container" className="flex justify-between">
               <p className="text-lg font-bold text-cyan-100">Funcionarios:</p>
-              <FuncionariosModal obra={obra} />
+              <AdicionarFuncionarioAObraModal obra={obra} />
             </div>
             <div
               id="funcionarios-table-wrapper"

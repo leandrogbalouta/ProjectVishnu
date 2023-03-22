@@ -48,16 +48,17 @@ export async function AddFuncionarioToObra(
   codigoInterno: string,
   date: string
 ): Promise<Response> {
-  const path = `/api/funcionarios/${funcID}/obras`;
+  // TODO isto teve de ser mudado
+  const path = `/api/funcionarios/${funcID}/obras?codigoInterno=${codigoInterno}&date=${date}`;
   return fetch(path, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({
-      codigoInterno: codigoInterno,
-      date: date,
-    }),
+    // body: JSON.stringify({
+    //   codigoInterno: codigoInterno,
+    //   date: date,
+    // }),
   });
 }
 
