@@ -370,6 +370,10 @@ namespace ProjectVishnu.Models
                     .HasMaxLength(40)
                     .HasColumnName("mercado");
 
+                // entity.HasOne(d => d.ChefedeobraNavigation).WithMany(p => p.Obras)
+                // .HasForeignKey(d => d.Chefedeobra)
+                // .HasConstraintName("obra_chefedeobra_fkey");
+
                 entity.HasOne(d => d.MercadoNavigation)
                     .WithMany(p => p.Obras)
                     .HasForeignKey(d => d.Mercado)

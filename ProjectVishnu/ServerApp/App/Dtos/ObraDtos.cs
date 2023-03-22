@@ -36,6 +36,7 @@ namespace ProjectVishnu.ServerApp.App.Dtos
         public string Cliente { get; set; } = null!;
         public string? Datainicio { get; set; }
         public string Estado { get; set; } = null!;
+        public FuncionarioOutputModel? ChefeDeObra { get; set; }
         public string Mercado { get; set; } = null!;
         public string Autosdemedicao { get; set; } = null!;
     }

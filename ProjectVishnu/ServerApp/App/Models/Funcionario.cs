@@ -69,6 +69,8 @@ namespace ProjectVishnu.Models
 
         public virtual ICollection<FuncionariosObra> FuncionariosObras { get; } = new List<FuncionariosObra>();
 
+        public virtual ICollection<Obra> ObraChefe { get; } = new List<Obra>();
+
         public virtual Mercado? MercadoNavigation { get; set; }
 
         public virtual ICollection<SalarioFinal> SalarioFinals { get; } = new List<SalarioFinal>();

@@ -20,10 +20,12 @@ namespace ProjectVishnu.Models
         public DateOnly? Datainicio { get; set; }
         public DateOnly? Datafim { get; set; }
         public string Estado { get; set; } = null!; 
+        public string? Chefedeobra { get; set; }
         public string? Mercado { get; set; }
         public string Autosdemedicao { get; set; } = null!;
         public DateOnly? Deleted { get; set; }
 
+        public virtual Funcionario? ChefedeobraNavigation { get; set; }
         public virtual Mercado? MercadoNavigation { get; set; }
         public virtual ICollection<DiaTrabalho> DiaTrabalhos { get; set; }
         public virtual ICollection<FolhaDePonto> FolhaDePontos { get; set; }
@@ -38,7 +40,8 @@ namespace ProjectVishnu.Models
                 Cliente = Cliente,
                 Datainicio = Datainicio?.ToShortDateString(),
                 Mercado = Mercado,
-                Estado = Estado
+                Estado = Estado,
+                ChefeDeObra = ChefedeobraNavigation?.toOutputModel()
             };
     }
     }

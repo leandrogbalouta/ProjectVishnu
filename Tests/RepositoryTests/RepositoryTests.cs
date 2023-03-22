@@ -16,7 +16,7 @@ namespace Tests.RepositoryTests
         [SetUp]
         public void Setup()
         {
-            context = new vishnuContext("Host=localhost;Database=vishnuTests;Username=postgres;Password=postgres");
+            //context = new vishnuContext("Host=localhost;Database=vishnuTests;Username=postgres;Password=postgres");
             createDB();
             populateDB();
         }
