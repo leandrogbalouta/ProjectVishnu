@@ -63,6 +63,7 @@ CREATE TABLE OBRA (
         DataInicio date,
         DataFim date,
 		Estado varchar(15) NOT NULL,
+		ChefeDeObra varchar(15) references FUNCIONARIO(NIF),
         Mercado varchar(40) references MERCADO(MercadoName),
         AutosDeMedicao varchar(100) NOT NULL,
 		deleted date default null,

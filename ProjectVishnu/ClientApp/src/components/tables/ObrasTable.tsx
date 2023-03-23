@@ -36,6 +36,7 @@ export default function ObrasTable({ obras, dataOnRowClick }: Props) {
             <Th>Código interno</Th>
             <Th>Designação</Th>
             <Th>Cliente</Th>
+            <Th>Chefe de obra</Th>
             <Th>Mercado</Th>
             <Th>Estado</Th>
           </Tr>
@@ -52,6 +53,7 @@ export default function ObrasTable({ obras, dataOnRowClick }: Props) {
               <Td>{obra.codigoInterno}</Td>
               <Td>{obra.designacao}</Td>
               <Td>{obra.cliente}</Td>
+              <Td>{obra.chefeDeObra}</Td>
               <Td className="capitalize">{obra.mercado}</Td>
               <TdState state={obra.estado} />
             </Tr>
