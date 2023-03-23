@@ -28,7 +28,7 @@ import {
   fetchObras,
 } from "../../common/APICalls";
 import ObrasTable from "../tables/ObrasTable";
-import RemoverFuncionarioDeObraModal from "./RemoverFuncionarioDeObraModal";
+import RemoverFuncionariosDeObraModal from "./RemoverFuncionarioDeObraModal";
 import { BsBuildingAdd } from "react-icons/bs";
 
 //TODO: tornar todo o código da tabela das obras universal de maneira a que isto não se repita aqui (e no index das obras)

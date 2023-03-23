@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, createContext } from 'react';
 import { MdOutlinePostAdd } from "react-icons/md";
 import {
   fetchObra,
@@ -26,6 +26,7 @@ import SemDadosRow from "../../components/SemDadosRow";
 import AdicionarFuncionarioAObraModal from "../../components/modals/AdicionarFuncionarioAObraModal";
 import { GrTableAdd } from "react-icons/gr";
 import BackButton from "../../components/BackButton";
+import RemoverFuncionariosDeObraModal from "../../components/modals/RemoverFuncionarioDeObraModal";
 
 export default function Obra() {
   const navigate = useNavigate();
@@ -221,7 +222,9 @@ export default function Obra() {
           >
             <div id="table-button-container" className="flex justify-between">
               <p className="text-lg font-bold text-cyan-100">Funcionarios:</p>
-              <AdicionarFuncionarioAObraModal obra={obra} />
+              <div id="modals-buttons-container">
+                <AdicionarFuncionarioAObraModal obra={obra}  />
+              </div>
             </div>
             <div
               id="funcionarios-table-wrapper"

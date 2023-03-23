@@ -12,6 +12,7 @@ import {
   useDisclosure,
   Spinner,
   Tooltip,
+  useToast,
 } from "@chakra-ui/react";
 import FilterBar from "../FilterBar";
 import IObraOutput from "../../common/Interfaces/Obra/IObraOutput";
@@ -20,13 +21,18 @@ import FuncionariosTable from "../tables/FuncionariosTable";
 
 //TODO: tornar todo o código da tabela das obras universal de maneira a que isto não se repita aqui (e no index das obras)
 
-export default function AdicionarFuncionarioAObraModal({ obra }: { obra: IObraOutput }) {
+export default function AdicionarFuncionarioAObraModal({
+  obra,
+}: {
+  obra: IObraOutput;
+}) {
   // State
   const [funcionarios, setFuncionarios] = useState(null);
   const [mercado, setMercado] = useState(obra.mercado);
   const [searchString, setSearchString] = useState(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [funcionariosIdList, setFuncionariosIdList] = useState<number[]>([]);
+  const toast = useToast();
   // Effect
   useEffect(() => {
     const filters = Object.assign(
@@ -52,14 +58,43 @@ export default function AdicionarFuncionarioAObraModal({ obra }: { obra: IObraOu
     let today = `${year}-${month}-${day}`;
     console.log(obra);
     console.log(obra.codigoInterno);
-    // funcionariosIdList.map((funcionarioId => {
-    //   AddFuncionarioToObra(funcionarioId, obra.codigoInterno, today);
-    // }));
+    // TODO make this batch(able) or something
+      funcionariosIdList.map((funcionarioId) => {
+        AddFuncionarioToObra(funcionarioId, obra.codigoInterno, today).then((resp) => {
+          if (!resp.ok) throw new Error("error");
+          toast({
+            title: 'Sucesso.',
+            description: `Funcionario(s) adicionado(s) a obra com sucesso.`,
+            status: 'success',
+            duration: 3000,
+            isClosable: true,
+            position: "top"
+          })
+          setFuncionariosIdList([]);
+          // close modal.
+          onClose();
+        }).catch(() => {
+          toast({
+            title: "Erro ao adicionar funcionarios.",
+            description:
+              "Ocorreu um erro ao adicionar funcionario(s). \n Por favor tente novamente.",
+            status: "error",
+            duration: 3000,
+            isClosable: true,
+            position: "top"
+          });
+        });
+      });
   }
   const contents = !funcionarios ? (
     <Spinner />
   ) : (
-    <FuncionariosTable funcionarios={funcionarios} selectable funcionariosIdList={funcionariosIdList} funcionariosIdListSetter={setFuncionariosIdList}/>
+    <FuncionariosTable
+      funcionarios={funcionarios}
+      selectable
+      funcionariosIdList={funcionariosIdList}
+      funcionariosIdListSetter={setFuncionariosIdList}
+    />
   );
   return (
     <>
@@ -93,7 +128,12 @@ export default function AdicionarFuncionarioAObraModal({ obra }: { obra: IObraOu
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme="blue" mr={3} isDisabled={funcionariosIdList.length < 1} onClick={addObraToFunc}>
+            <Button
+              colorScheme="blue"
+              mr={3}
+              isDisabled={funcionariosIdList.length < 1}
+              onClick={addObraToFunc}
+            >
               Guardar
             </Button>
             <Button onClick={onClose} className="text-slate-800">

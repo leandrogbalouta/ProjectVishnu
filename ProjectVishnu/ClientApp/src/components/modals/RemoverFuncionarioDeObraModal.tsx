@@ -12,13 +12,14 @@ import {
   useDisclosure,
   Input,
   Tooltip,
+  useToast,
 } from "@chakra-ui/react";
 import IFuncionarioOutput from "../../common/Interfaces/Funcionario/IFuncionarioOutput";
 import { removeFuncionarioDeObra } from "../../common/APICalls";
 
 //TODO: tornar todo o código da tabela das obras universal de maneira a que isto não se repita aqui (e no index das obras)
 
-export default function RemoverFuncionarioDeObraModal({
+export default function RemoverFuncionariosDeObraModal({
   funcionario,
 }: {
   funcionario: IFuncionarioOutput;
@@ -26,21 +27,32 @@ export default function RemoverFuncionarioDeObraModal({
   // State/hooks
   const [date, setDate] = useState<string>();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  // sub-component - TODO fix this
-  // const DatePicker = () =>
-  //   useMemo(
-  //     () => (
-  //       <Input
-  //         type="date"
-  //         value={date}
-  //         onChange={(e) => setDate(e.target.value)}
-  //       />
-  //     ),
-  //     [date]
-  //   );
+  const toast = useToast();
   // Main-component
   async function removerFuncionario() {
-    await removeFuncionarioDeObra(funcionario.id, date!).then(() => {});
+    await removeFuncionarioDeObra(funcionario.id, date!).then((resp) => {
+      if (!resp.ok) throw new Error("error");
+      toast({
+        title: 'Sucesso.',
+        description: `Funcionario(s) adicionado(s) a obra com sucesso.`,
+        status: 'success',
+        duration: 3000,
+        isClosable: true,
+        position: "top"
+      })
+      // close modal.
+      onClose();
+    }).catch(() => {
+      toast({
+        title: "Erro ao adicionar funcionarios.",
+        description:
+          "Ocorreu um erro ao adicionar funcionario(s). \n Por favor tente novamente.",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+        position: "top"
+      });
+    });;
   }
   return (
     <>

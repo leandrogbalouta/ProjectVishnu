@@ -18,7 +18,7 @@ import AdicionarObraAFuncionarioModal from "../../components/modals/AdicionarObr
 import ObrasTable from "../../components/tables/ObrasTable";
 import IObraOutput from "../../common/Interfaces/Obra/IObraOutput";
 import { useParams, useNavigate } from "react-router-dom";
-import RemoverFuncionarioDeObraModal from "../../components/modals/RemoverFuncionarioDeObraModal";
+import RemoverFuncionariosDeObraModal from "../../components/modals/RemoverFuncionarioDeObraModal";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import BackButton from "../../components/BackButton";
 
@@ -194,7 +194,7 @@ export default function Funcionario() {
                   <p className="text-lg font-bold text-cyan-100">
                     Obra em curso:
                   </p>
-                  <RemoverFuncionarioDeObraModal funcionario={funcionario} />
+                  <RemoverFuncionariosDeObraModal funcionario={funcionario} />
                 </div>
 
                 <div className="flex flex-col gap-3 overflow-auto bg-white dark:bg-slate-800 rounded">
