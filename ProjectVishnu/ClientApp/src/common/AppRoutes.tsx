@@ -10,6 +10,7 @@ import Obras from "../pages/obras/ObrasList";
 import ObraCreation from "../pages/obras/ObraCreation";
 import Obra from "../pages/obras/Obra";
 import FolhaDePonto from "../pages/folha-de-ponto/FolhaDePonto";
+import Login from "../pages/Login";
 
 const AppRoutes = createBrowserRouter([
   {
@@ -19,6 +20,10 @@ const AppRoutes = createBrowserRouter([
   {
     path: "/",
     element: <Home />,
+  },
+  {
+    path: '/login',
+    element: <Login />
   },
   {
     path: "/funcionarios",

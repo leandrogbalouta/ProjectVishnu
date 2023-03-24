@@ -10,6 +10,9 @@ module.exports = {
       fontFamily: {
         "Dosis" : ['Dosis', 'sans-serif']
       },
+      backgroundImage: {
+        "background" : "url('/img/backgrdoun.jpg')"
+      },
       animation: {
         aurora: 'aurora 2s ease-out infinite'
       }
