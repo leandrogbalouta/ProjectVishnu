@@ -12,22 +12,27 @@ import { LogLevel } from "@azure/msal-browser";
  */
 export const b2cPolicies = {
     names: {
+        // TODO login done, do the others
         signUpSignIn: 'B2C_1_susi_v2',
+        login: 'B2C_1_dkm_login',
         forgotPassword: 'B2C_1_reset_v3',
         editProfile: 'B2C_1_edit_profile_v2',
     },
     authorities: {
         signUpSignIn: {
-            authority: 'https://fabrikamb2c.b2clogin.com/fabrikamb2c.onmicrosoft.com/b2c_1_susi_v2',
+            authority: 'https://login.microsoftonline.com/2d7758c3-c939-469f-bb61-4a743170a94a/USERFLOW',
+        },
+        login: {
+            authority: 'https://login.microsoftonline.com/2d7758c3-c939-469f-bb61-4a743170a94a/USERFLOW/B2C_1_dkm_login',
         },
         forgotPassword: {
-            authority: 'https://fabrikamb2c.b2clogin.com/fabrikamb2c.onmicrosoft.com/B2C_1_reset_v3',
+            authority: 'https://login.microsoftonline.com/2d7758c3-c939-469f-bb61-4a743170a94a/USERFLOW',
         },
         editProfile: {
-            authority: 'https://fabrikamb2c.b2clogin.com/fabrikamb2c.onmicrosoft.com/b2c_1_edit_profile_v2',
+            authority: 'https://login.microsoftonline.com/2d7758c3-c939-469f-bb61-4a743170a94a/USERFLOW',
         },
     },
-    authorityDomain: 'fabrikamb2c.b2clogin.com',
+    authorityDomain: 'dkmdomain.onmicrosoft.com',
 };
 
 
@@ -38,11 +43,11 @@ export const b2cPolicies = {
  */
 export const msalConfig = {
     auth: {
-        clientId: '2fdd06f3-7b34-49a3-a78b-0cf1dd87878e', // This is the ONLY mandatory field that you need to supply.
+        clientId: 'b7b0a9e6-8a1c-4f64-8528-1b832afcdc2c', // This is the ONLY mandatory field that you need to supply.
         authority: b2cPolicies.authorities.signUpSignIn.authority, // Choose SUSI as your default authority.
         knownAuthorities: [b2cPolicies.authorityDomain], // Mark your B2C tenant's domain as trusted.
-        redirectUri: '/', // You must register this URI on Azure Portal/App Registration. Defaults to window.location.origin
-        postLogoutRedirectUri: '/', // Indicates the page to navigate after logout.
+        redirectUri: 'https://dkm.azurewebsites.net/', // You must register this URI on Azure Portal/App Registration. Defaults to window.location.origin
+        postLogoutRedirectUri: 'https://dkm.azurewebsites.net/login', // Indicates the page to navigate after logout.
         navigateToLoginRequestUrl: false, // If "true", will navigate back to the original request location before processing the auth code response.
     },
     cache: {

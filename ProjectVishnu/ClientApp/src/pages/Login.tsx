@@ -16,12 +16,15 @@ import { Link } from "react-router-dom";
 import PasswordInput from "../components/PasswordInput";
 import AuthenticationPanel from "../components/Authentication";
 import logo from "../img/logo.jpg";
+import { useMsal } from '@azure/msal-react';
 
 export default function Login() {
   const [loggingIn, setLoggingIn] = useState<boolean>();
   const [invalidLogin, setInvalidLogin] = useState<boolean>();
-  const [isLoaded, setIsLoaded] = useState<boolean>(false);
-  const [showAuthForm, setShowAuthForm] = useState<boolean>(false);
+  const msalInstance = useMsal().instance;
+  // Saving this for later :P
+  const isAuthenticated = useMsal().accounts.length > 0;
+
   type Inputs = {
     username: string;
     password: string;
@@ -44,6 +47,7 @@ export default function Login() {
     // In case it's on, deactivate invalidLogin message
     setLoggingIn(true);
     setInvalidLogin(false);
+    msalInstance.loginRedirect();
     // ApiCalls.PostLogin(data.username, data.password)
     //   .then((response) => {
     //     // Response here is a token if valid or unauthorized if invalid.
@@ -84,7 +88,7 @@ export default function Login() {
             <Input
               id="username"
               type="text"
-              placeholder="User Name"
+              placeholder="Username"
               autoComplete="blank-username"
               autoFocus
               {...register("username", { required: true })}
