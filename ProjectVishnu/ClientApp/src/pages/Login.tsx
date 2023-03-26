@@ -12,11 +12,11 @@ import {
   FormControl,
 } from "@chakra-ui/react";
 
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from "react-router-dom";
 import PasswordInput from "../components/PasswordInput";
 import AuthenticationPanel from "../components/Authentication";
 import logo from "../img/logo.jpg";
-import { useMsal } from '@azure/msal-react';
+import { useMsal } from "@azure/msal-react";
 
 export default function Login() {
   const [loggingIn, setLoggingIn] = useState<boolean>();
@@ -27,7 +27,7 @@ export default function Login() {
   const isAuthenticated = useMsal().accounts.length > 0;
   useEffect(() => {
     if (isAuthenticated) navigate("/");
-  },[isAuthenticated]);
+  }, [isAuthenticated]);
 
   type Inputs = {
     username: string;
@@ -36,8 +36,8 @@ export default function Login() {
 
   const schema = yup
     .object({
-      username: yup.string().required("Please enter your user name."),
-      password: yup.string().required("Please enter your password."),
+      username: yup.string().required("Por favor introduza o seu username."),
+      password: yup.string().required("Por favor introduza a sua password."),
     })
     .required();
   const {

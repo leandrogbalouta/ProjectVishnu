@@ -7,14 +7,14 @@ export default function AuthenticationPanel({
   children: ReactNode;
 }) {
   return (
-    <div className="h-full w-full bg-white rounded">
+    <div className="flex -m-5 bg-white sm:bg-slate-800 rounded w-screen h-screen">
       <main
         id="authentication-main"
-        className="flex-1 flex sm:items-center mt-10 sm:mt-0 "
+        className="flex-1 flex sm:items-center mt-10 sm:m-0"
       >
         <div
           id="authentication-panel"
-          className="sm:mx-auto sm:p-4 sm:ring-1 sm:ring-slate-600 sm:bg-white sm:shadow-md sm:rounded w-full sm:w-1/2 lg:w-1/4 sm:m-0"
+          className="sm:p-4 sm:ring-1 sm:ring-slate-600 sm:bg-white sm:shadow-md sm:rounded w-full sm:w-1/2 lg:w-1/4 sm:m-auto justify-center"
         >
           <img
             alt="DKG Logo"

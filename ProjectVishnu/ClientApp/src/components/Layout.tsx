@@ -1,15 +1,17 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from 'react-router-dom';
 import isAuthPage from "../auth/isAuthPage";
-import { MsalProvider, useMsal } from '@azure/msal-react';
+import { MsalProvider, useMsal } from "@azure/msal-react";
 import NavMenu from "./NavMenu";
 import { useEffect } from "react";
 import { b2cPolicies, protectedResources } from "./../auth/b2cPolicies";
 import { EventType } from "@azure/msal-browser";
 import { compareIssuingPolicy } from "./../auth/claimUtils";
+import AppRoutes from "../common/AppRoutes";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const isAuth = isAuthPage(location.pathname);
+  const isAuthenticated = useMsal().accounts.length > 0;
   /**
    * useMsal is hook that returns the PublicClientApplication instance,
    * an array of all accounts currently signed in and an inProgress value
@@ -18,6 +20,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
    */
   const { instance } = useMsal();
   useEffect(() => {
+    // Activar em prod.
+    // if (!isAuth && !isAuthenticated) AppRoutes.navigate("/login");
     const callbackId = instance.addEventCallback((event: any) => {
       if (
         (event.eventType === EventType.LOGIN_SUCCESS ||
@@ -103,7 +107,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       }
     };
     // eslint-disable-next-line
-  }, [instance]);
+  }, [instance, isAuthenticated]);
   return (
     <div className="flex flex-col h-full w-full dark:bg-slate-800 font-Dosis">
       {!isAuth && <NavMenu />}
