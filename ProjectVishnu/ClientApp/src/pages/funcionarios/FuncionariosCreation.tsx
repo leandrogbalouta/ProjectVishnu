@@ -59,7 +59,7 @@ export default function FuncionarioCreation() {
         .string()
         .transform((value, originalValue) => (value = originalValue))
         .nullable()
-        .notRequired(),
+        .required("Por favor, introduza a data de nascimento."),
       //.transform((value) => (isNaN(value) ? undefined : value)),
       telemovel: yup
         .string()
@@ -132,13 +132,9 @@ export default function FuncionarioCreation() {
         .min(20, "Mínimo 20")
         .max(50, "Máximo 50"),
       cartaconducao: yup.boolean(),
-      // TODO remover depois de verificado
-      // https://www.gov.ie/en/publication/89bfcf-what-is-iban-an-bic/
-      // https://stackoverflow.com/questions/21928083/iban-validation-check
-      // https://bank.codes/iban/structure/
       iban: yup
         .string()
-        .min(16)
+        .min(16, "IBAN consiste em 16 caracteres.")
         .max(34)
         .matches(/^([A-Z]{2})(\d{2})([A-Z\d]+)$/)
         .required("Por favor, introduza o IBAN."),

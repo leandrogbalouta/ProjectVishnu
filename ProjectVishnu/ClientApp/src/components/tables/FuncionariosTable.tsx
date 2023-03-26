@@ -8,7 +8,7 @@ import { useEffect } from "react";
 interface Props {
   funcionarios: IFuncionarioOutput[];
   selectable?: true; 
-  funcionariosIdList: number[]; // TODO custom hook or similar
+  funcionariosIdList?: number[]; // TODO custom hook or similar
   funcionariosIdListSetter?: any; // TODO change this to dispatch or the right type.
 }
 export default function FuncionariosTable({ funcionarios, selectable, funcionariosIdList, funcionariosIdListSetter }: Props) {

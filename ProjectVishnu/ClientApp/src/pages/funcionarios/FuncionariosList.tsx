@@ -51,7 +51,7 @@ export default function Funcionarios() {
       />
       {warningCount > 0 && !isWarningList && (
         <div
-          className="select-none flex flex-col p-3 my-3 justify-center rounded-lg border-4 border-red-900 bg-red-300 text-black text-2xl font-bold hover:bg-red-400 cursor-pointer text-center"
+          className="select-none flex flex-col p-3 my-3 justify-center rounded-lg border-4 border-red-900 bg-red-300 text-black lg:text-2xl font-bold hover:bg-red-400 cursor-pointer text-center"
           onClick={() => {
             GetWarningList();
           }}

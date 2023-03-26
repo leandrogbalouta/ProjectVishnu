@@ -135,7 +135,7 @@ export default function Obra() {
         </div>
         <div
           id="tables-container"
-          className="flex flex-col lg:flex-row flex-1 gap-3"
+          className="flex flex-col xl:flex-row flex-1 gap-3"
         >
           <div
             id="table-container"

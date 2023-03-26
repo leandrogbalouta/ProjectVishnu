@@ -7,7 +7,7 @@ export default function BackButton({ href}:{ href:string}) {
     <Button
       onClick={() => AppRoutes.navigate(href)}
       colorScheme="blue"
-      className="w-full sm:w-fit"
+      className="w-fit"
     >
       <AiOutlineArrowLeft />
       <p>Voltar</p>

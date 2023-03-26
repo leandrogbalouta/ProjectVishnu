@@ -12,7 +12,7 @@ import {
   FormControl,
 } from "@chakra-ui/react";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from 'react-router-dom';
 import PasswordInput from "../components/PasswordInput";
 import AuthenticationPanel from "../components/Authentication";
 import logo from "../img/logo.jpg";
@@ -22,8 +22,12 @@ export default function Login() {
   const [loggingIn, setLoggingIn] = useState<boolean>();
   const [invalidLogin, setInvalidLogin] = useState<boolean>();
   const msalInstance = useMsal().instance;
+  const navigate = useNavigate();
   // Saving this for later :P
   const isAuthenticated = useMsal().accounts.length > 0;
+  useEffect(() => {
+    if (isAuthenticated) navigate("/");
+  },[isAuthenticated]);
 
   type Inputs = {
     username: string;

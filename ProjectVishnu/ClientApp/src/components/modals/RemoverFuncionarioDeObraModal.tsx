@@ -57,7 +57,7 @@ export default function RemoverFuncionariosDeObraModal({
   return (
     <>
       <Tooltip label="Remover funcionario de obra" placement="top">
-        <Button onClick={onOpen} colorScheme="red" className="w-full sm:w-fit">
+        <Button onClick={onOpen} colorScheme="red" className="w-fit">
         <HiOutlineUserRemove/>
         </Button>
       </Tooltip>

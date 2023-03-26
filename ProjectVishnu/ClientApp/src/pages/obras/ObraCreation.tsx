@@ -214,7 +214,14 @@ export default function ObraCreation() {
           </InputGroup>
           <FormErrorMessage>{errors.mercado?.message}</FormErrorMessage>
         </FormControl>
-        <div id="button-container" className="flex sm:justify-end">
+        <div id="button-container" className="flex sm:justify-end gap-2">
+        <Button
+            size="lg"
+            className="mt-3 w-full sm:w-auto bg-teal-200 text-slate-800"
+            onClick={() => navigate("/obras")}
+          >
+            Voltar
+          </Button>
           <Button
             type="submit"
             size="lg"

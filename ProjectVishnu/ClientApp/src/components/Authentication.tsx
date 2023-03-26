@@ -7,10 +7,10 @@ export default function AuthenticationPanel({
   children: ReactNode;
 }) {
   return (
-    <>
+    <div className="h-full w-full bg-white rounded">
       <main
         id="authentication-main"
-        className="flex-1 flex sm:items-center mt-10 sm:mt-0"
+        className="flex-1 flex sm:items-center mt-10 sm:mt-0 "
       >
         <div
           id="authentication-panel"
@@ -24,6 +24,6 @@ export default function AuthenticationPanel({
           {children}
         </div>
       </main>
-    </>
+    </div>
   );
 }
