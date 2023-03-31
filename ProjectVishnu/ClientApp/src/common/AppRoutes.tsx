@@ -11,19 +11,24 @@ import ObraCreation from "../pages/obras/ObraCreation";
 import Obra from "../pages/obras/Obra";
 import FolhaDePonto from "../pages/folha-de-ponto/FolhaDePonto";
 import Login from "../pages/Login";
+import { Admin } from "../pages/Admin";
 
 const AppRoutes = createBrowserRouter([
   {
     path: "*",
-    element: <Custom404/>
+    element: <Custom404 />,
   },
   {
     path: "/",
     element: <Home />,
   },
   {
-    path: '/login',
-    element: <Login />
+    path: "/login",
+    element: <Login />,
+  },
+  {
+    path: "/admin",
+    element: <Admin />,
   },
   {
     path: "/funcionarios",

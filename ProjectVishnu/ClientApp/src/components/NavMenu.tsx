@@ -41,7 +41,13 @@ export default function NavMenu() {
       <nav className="bg-slate-900 border-gray-200 px-2 sm:px-4 py-2.5 rounded">
         <div className="container-fluid flex flex-wrap items-center">
           <div id="nav-menu-button-container" className="flex flex-end"></div>
-          <span id="nav-title" onClick={() => AppRoutes.navigate("/")}>
+          <span
+            id="nav-title"
+            onClick={() => {
+              AppRoutes.navigate("/");
+              setToggleNav(false);
+            }}
+          >
             DKG
           </span>
           <div id="nav-menu-button-container" className="flex flex-end">
@@ -69,7 +75,10 @@ export default function NavMenu() {
               title="open-settings"
               type="button"
               className="text-gray-500 hover:text-orange-400 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 mr-1"
-              onClick={() => {}} // TODO: ir para uma página de administração (por criar)
+              onClick={() => {
+                AppRoutes.navigate("/admin");
+                setToggleNav(false);
+              }} // TODO: ir para uma página de administração (por criar)
             >
               <RiSettings5Line className="h-5 w-5" />
             </button>

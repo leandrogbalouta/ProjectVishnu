@@ -15,7 +15,6 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import PasswordInput from "../components/PasswordInput";
 import AuthenticationPanel from "../components/Authentication";
-import logo from "../img/logo.jpg";
 import { useMsal } from "@azure/msal-react";
 
 export default function Login() {
