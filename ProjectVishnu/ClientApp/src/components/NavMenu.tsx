@@ -5,9 +5,28 @@ import { RiMenu4Line, RiSettings5Line } from "react-icons/ri";
 import { BsFillMoonStarsFill, BsFillSunFill } from "react-icons/bs";
 import ThemeContext from "./contexts/Theme/themeContext";
 import AppRoutes from "../common/AppRoutes";
+import {
+  AuthenticatedTemplate,
+  UnauthenticatedTemplate,
+  useMsal,
+} from "@azure/msal-react";
+import { SlPower } from "react-icons/sl";
+
+function signOutClickHandler() {
+  const instance = useMsal().instance;
+  const logoutRequest = {
+    account: instance.getActiveAccount(),
+    postLogoutRedirectUri: location.origin,
+    
+  };
+  instance.logoutRedirect();
+}
+
 
 export default function NavMenu() {
+  
   const [toggleNav, setToggleNav] = useState<boolean>(false);
+  const msalInstance = useMsal().instance;
   const darkTheme = useRef<boolean>();
   let toggleClass = toggleNav ? "block" : "hidden";
   const { currentTheme, changeCurrentTheme } = useContext(ThemeContext);
@@ -38,7 +57,7 @@ export default function NavMenu() {
       id="navmenu"
       className={"sticky top-0 !z-[1000] shadow-sm shadow-slate-600"}
     >
-      <nav className="bg-slate-900 border-gray-200 px-2 sm:px-4 py-2.5 rounded">
+      <nav className="bg-slate-900 border-gray-200 px-2 sm:px-4 py-2.5 rounded-b">
         <div className="container-fluid flex flex-wrap items-center">
           <div id="nav-menu-button-container" className="flex flex-end"></div>
           <span
@@ -82,6 +101,19 @@ export default function NavMenu() {
             >
               <RiSettings5Line className="h-5 w-5" />
             </button>
+            <AuthenticatedTemplate>
+              <button
+                id="logout"
+                title="open-settings"
+                type="button"
+                className="text-orange-400 hover:text-orange-600 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 mr-1"
+                onClick={() => msalInstance.loginRedirect()}
+                // TODO: ir para uma página de administração (por criar)
+              >
+                <SlPower className="h-5 w-5" />
+              </button>
+            </AuthenticatedTemplate>
+
             <button
               type="button"
               className="inline-flex items-center p-2 ml-3 text-sm rounded-lg md:hidden hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:hover:bg-slate-800 dark:focus:ring-gray-600 hover:!text-slate-500"
@@ -101,24 +133,40 @@ export default function NavMenu() {
                   Home
                 </CustomNavLink>
               </li>
-              <li>
-                <CustomNavLink href="/funcionarios" toggleNavBar={changeToggle}>
-                  Funcionarios
-                </CustomNavLink>
-              </li>
-              <li>
-                <CustomNavLink href="/obras" toggleNavBar={changeToggle}>
-                  Obras
-                </CustomNavLink>
-              </li>
-              <li>
-                <CustomNavLink
-                  href="/folha-de-ponto"
-                  toggleNavBar={changeToggle}
-                >
-                  Folhas de Ponto
-                </CustomNavLink>
-              </li>
+              <AuthenticatedTemplate>
+                <li>
+                  <CustomNavLink
+                    href="/funcionarios"
+                    toggleNavBar={changeToggle}
+                  >
+                    Funcionarios
+                  </CustomNavLink>
+                </li>
+                <li>
+                  <CustomNavLink href="/obras" toggleNavBar={changeToggle}>
+                    Obras
+                  </CustomNavLink>
+                </li>
+                <li>
+                  <CustomNavLink
+                    href="/folha-de-ponto"
+                    toggleNavBar={changeToggle}
+                  >
+                    Folhas de Ponto
+                  </CustomNavLink>
+                </li>
+              </AuthenticatedTemplate>
+              <UnauthenticatedTemplate>
+                <li>
+                  <CustomNavLink
+                    href="#"
+                    onClick={() => msalInstance.loginRedirect()}
+                    toggleNavBar={changeToggle}
+                  >
+                    Login
+                  </CustomNavLink>
+                </li>
+              </UnauthenticatedTemplate>
             </ul>
           </div>
         </div>

@@ -1,9 +1,10 @@
-import React from "react";
-import analytics from "./../img/analytics.svg";
+import logo from "../img/logo.jpg";
 import { msalConfig } from "../auth/b2cPolicies";
-import { PublicClientApplication, EventType } from "@azure/msal-browser";
+import { PublicClientApplication, EventType, InteractionType } from "@azure/msal-browser";
 import { AuthenticationResult } from "@azure/msal-common/dist/response/AuthenticationResult";
 import { EventPayload } from "@azure/msal-browser/dist/event/EventMessage";
+import { MsalAuthenticationTemplate, useMsal } from "@azure/msal-react";
+
 export default function Home() {
   function isAuthenticationResult(
     payload: EventPayload
@@ -36,12 +37,20 @@ export default function Home() {
       msalInstance.setActiveAccount(event.payload.account);
     }
   });
-  
+
+  function WelcomeUser() {
+    const { accounts } = useMsal();
+    const username = accounts[0].username;
+
+    return <p>Welcome, {username}</p>;
+  }
 
   return (
     <div className="w-full h-full flex flex-col">
-      <p className="text-2xl sm:text-3xl sm:mt-10 sm:ml-10">Bem-vindo.</p>
-      <img src={analytics} alt="" className="mx-auto sm:w-1/2" />
+      <MsalAuthenticationTemplate interactionType={InteractionType.Redirect}>
+        <WelcomeUser />
+      </MsalAuthenticationTemplate>
+      <img src={logo} alt="" className="mx-auto my-12 sm:w-1/2 rounded-xl" />
     </div>
   );
 }
