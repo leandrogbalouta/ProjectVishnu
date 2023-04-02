@@ -67,7 +67,7 @@ export default function NavMenu() {
               setToggleNav(false);
             }}
           >
-            DKG
+            DKM
           </span>
           <div id="nav-menu-button-container" className="flex flex-end">
             <button
