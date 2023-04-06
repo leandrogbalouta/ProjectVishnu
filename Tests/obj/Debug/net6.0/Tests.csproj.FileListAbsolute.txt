@@ -421,3 +421,11 @@ C:\Users\landr\Desktop\DKM\ProjectVishnu\Tests\obj\Debug\net6.0\refint\Tests.dll
 C:\Users\landr\Desktop\DKM\ProjectVishnu\Tests\obj\Debug\net6.0\Tests.pdb
 C:\Users\landr\Desktop\DKM\ProjectVishnu\Tests\obj\Debug\net6.0\Tests.genruntimeconfig.cache
 C:\Users\landr\Desktop\DKM\ProjectVishnu\Tests\obj\Debug\net6.0\ref\Tests.dll
+C:\Users\landr\Desktop\DKM\ProjectVishnu\Tests\bin\Debug\net6.0\ProjectVishnu.staticwebassets.runtime.json
+C:\Users\landr\Desktop\DKM\ProjectVishnu\Tests\bin\Debug\net6.0\Microsoft.AspNetCore.Cryptography.Internal.dll
+C:\Users\landr\Desktop\DKM\ProjectVishnu\Tests\bin\Debug\net6.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+C:\Users\landr\Desktop\DKM\ProjectVishnu\Tests\bin\Debug\net6.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+C:\Users\landr\Desktop\DKM\ProjectVishnu\Tests\bin\Debug\net6.0\Microsoft.AspNetCore.Identity.UI.dll
+C:\Users\landr\Desktop\DKM\ProjectVishnu\Tests\bin\Debug\net6.0\Microsoft.Extensions.FileProviders.Embedded.dll
+C:\Users\landr\Desktop\DKM\ProjectVishnu\Tests\bin\Debug\net6.0\Microsoft.Extensions.Identity.Core.dll
+C:\Users\landr\Desktop\DKM\ProjectVishnu\Tests\bin\Debug\net6.0\Microsoft.Extensions.Identity.Stores.dll
