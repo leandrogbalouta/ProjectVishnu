@@ -12,21 +12,9 @@ import {
 } from "@azure/msal-react";
 import { SlPower } from "react-icons/sl";
 
-function signOutClickHandler() {
-  const instance = useMsal().instance;
-  const logoutRequest = {
-    account: instance.getActiveAccount(),
-    postLogoutRedirectUri: location.origin,
-    
-  };
-  instance.logoutRedirect();
-}
-
-
 export default function NavMenu() {
-  
+  const [authenticated, setAuthenticated] = useState(false);
   const [toggleNav, setToggleNav] = useState<boolean>(false);
-  const msalInstance = useMsal().instance;
   const darkTheme = useRef<boolean>();
   let toggleClass = toggleNav ? "block" : "hidden";
   const { currentTheme, changeCurrentTheme } = useContext(ThemeContext);
@@ -101,27 +89,27 @@ export default function NavMenu() {
             >
               <RiSettings5Line className="h-5 w-5" />
             </button>
-            <AuthenticatedTemplate>
+            {authenticated ? (
               <button
                 id="logout"
                 title="open-settings"
                 type="button"
                 className="text-orange-400 hover:text-orange-600 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 mr-1"
-                onClick={() => msalInstance.loginRedirect()}
+                onClick={() => {}}
                 // TODO: ir para uma página de administração (por criar)
               >
                 <SlPower className="h-5 w-5" />
               </button>
-            </AuthenticatedTemplate>
-
-            <button
-              type="button"
-              className="inline-flex items-center p-2 ml-3 text-sm rounded-lg md:hidden hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:hover:bg-slate-800 dark:focus:ring-gray-600 hover:!text-slate-500"
-              onClick={changeToggle}
-            >
-              <span className="sr-only">Open main menu</span>
-              <RiMenu4Line className="text-2xl sm:text-3xl text-orange-400" />
-            </button>
+            ) : (
+              <button
+                type="button"
+                className="inline-flex items-center p-2 ml-3 text-sm rounded-lg md:hidden hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:hover:bg-slate-800 dark:focus:ring-gray-600 hover:!text-slate-500"
+                onClick={changeToggle}
+              >
+                <span className="sr-only">Open main menu</span>
+                <RiMenu4Line className="text-2xl sm:text-3xl text-orange-400" />
+              </button>
+            )}
           </div>
           <div
             className={toggleClass + " w-full md:block md:w-auto"}
@@ -133,40 +121,37 @@ export default function NavMenu() {
                   Home
                 </CustomNavLink>
               </li>
-              <AuthenticatedTemplate>
+              {authenticated ? (
+                <>
+                  <li>
+                    <CustomNavLink
+                      href="/funcionarios"
+                      toggleNavBar={changeToggle}
+                    >
+                      Funcionarios
+                    </CustomNavLink>
+                  </li>
+                  <li>
+                    <CustomNavLink href="/obras" toggleNavBar={changeToggle}>
+                      Obras
+                    </CustomNavLink>
+                  </li>
+                  <li>
+                    <CustomNavLink
+                      href="/folha-de-ponto"
+                      toggleNavBar={changeToggle}
+                    >
+                      Folhas de Ponto
+                    </CustomNavLink>
+                  </li>
+                </>
+              ) : (
                 <li>
-                  <CustomNavLink
-                    href="/funcionarios"
-                    toggleNavBar={changeToggle}
-                  >
-                    Funcionarios
-                  </CustomNavLink>
-                </li>
-                <li>
-                  <CustomNavLink href="/obras" toggleNavBar={changeToggle}>
-                    Obras
-                  </CustomNavLink>
-                </li>
-                <li>
-                  <CustomNavLink
-                    href="/folha-de-ponto"
-                    toggleNavBar={changeToggle}
-                  >
-                    Folhas de Ponto
-                  </CustomNavLink>
-                </li>
-              </AuthenticatedTemplate>
-              <UnauthenticatedTemplate>
-                <li>
-                  <CustomNavLink
-                    href="#"
-                    onClick={() => msalInstance.loginRedirect()}
-                    toggleNavBar={changeToggle}
-                  >
+                  <CustomNavLink href="/login" toggleNavBar={changeToggle}>
                     Login
                   </CustomNavLink>
                 </li>
-              </UnauthenticatedTemplate>
+              )}
             </ul>
           </div>
         </div>

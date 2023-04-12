@@ -208,3 +208,15 @@ function addFiltersToQuery(
   }
   return path;
 }
+// export async function tryLogin(
+//   funcionario: IFuncionarioInput
+// ): Promise<Response> {
+//   const path = "/api/funcionarios";
+//   return fetch(path, {
+//     method: "POST",
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//     body: JSON.stringify(funcionario),
+//   });
+// }
