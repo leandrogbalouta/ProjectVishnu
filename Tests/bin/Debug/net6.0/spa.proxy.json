@@ -1,8 +1,0 @@
-{
-"SpaProxyServer": {
-"ServerUrl": "https://localhost:44428",
-"LaunchCommand": "npm start",
-"WorkingDirectory": "C:\\Users\\landr\\Desktop\\DKM\\ProjectVishnu\\ProjectVishnu\\ClientApp\\",
-"MaxTimeoutInSeconds": "120"
-}
-}

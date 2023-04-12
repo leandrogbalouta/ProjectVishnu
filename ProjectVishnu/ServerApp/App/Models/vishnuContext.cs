@@ -105,8 +105,8 @@ namespace ProjectVishnu.Models
                     .HasColumnName("username");
 
                 entity.Property(e => e.Pwd)
-                    .HasMaxLength(64)
-                    .HasColumnName("pwd");
+                    .HasMaxLength(100)
+                    .HasColumnName("passwordhash");
             });
 
             modelBuilder.Entity<DiaTrabalho>(entity =>

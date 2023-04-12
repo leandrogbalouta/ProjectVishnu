@@ -8,4 +8,8 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Tests
+<<<<<<< HEAD
+build_property.ProjectDir = /Users/lmartins/Documents/Projects/ProjectVishnu/Tests/
+=======
 build_property.ProjectDir = C:\Users\landr\Desktop\DKM\ProjectVishnu\Tests\
+>>>>>>> 551a80837e7bf47c8659ec961ac1b51bbc3add07

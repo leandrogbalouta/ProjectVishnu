@@ -204,6 +204,15 @@ INSERT INTO FUNCIONARIOS_OBRAS
 ('234567899','OB22PT01','2022-05-21',null),
 ('255896379','OB22PT01','2022-05-21',null);
 
+CREATE TABLE TIPO_DE_USER (
+	Id INT UNIQUE GENERATED ALWAYS AS IDENTITY,
+	Tipo varchar(20),
+)
+CREATE TABLE CONTA (
+		Username varchar(40) primary key,
+		TipoDeUser int references TIPO_DE_USER(Id),
+		PasswordHash varchar(100)
+);
 INSERT INTO CONTA
-(username,pwd) values
-('afonso','afonso123');
+(Username, UserType, PasswordHash) values
+('shabba', 1, '67194A67DD42A0D132390A688C4034479366A4C6E6254D33F4A43E8E961BF024:EC1D96DE65F7B1FC8364CEFCA22A392C');

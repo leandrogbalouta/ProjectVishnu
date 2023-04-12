@@ -10,17 +10,12 @@ using ProjectVishnu.ServerApp.App.Services;
 using ProjectVishnu.ServerApp.App.Services.Concrete;
 using ProjectVishnu.Services;
 using ProjectVishnu.Services.Concrete;
-using Microsoft.AspNetCore.Identity;
-using ProjectVishnu.Data;
-using ProjectVishnu.ServerApp.App.Models;
 
 var builder = WebApplication.CreateBuilder(args);
+
 // Add services to the container.
 
 builder.Services.AddDbContext<vishnuContext>();
-
-builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<vishnuContext>();
 builder.Services.AddScoped<DbContext, vishnuContext>();
 builder.Services.AddSingleton(provider => builder.Configuration);
 builder.Services.AddScoped<IFuncionarioRepository, FuncionarioRepository>();
@@ -54,8 +49,6 @@ app.UseRouting();
 app.MapControllers();
 
 app.MapFallbackToFile("index.html");
-app.UseAuthentication();
-app.UseAuthorization();
 
 
 app.Run();
