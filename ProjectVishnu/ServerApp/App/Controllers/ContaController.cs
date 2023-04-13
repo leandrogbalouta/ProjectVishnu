@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using ProjectVishnu.Models;
 using ProjectVishnu.ServerApp.App.Common;
+using ProjectVishnu.ServerApp.App.Dtos;
 using ProjectVishnu.ServerApp.App.Services;
 namespace ProjectVishnu.Controllers;
 
@@ -23,11 +24,11 @@ public class ContaController : ControllerBase
     {
         string hashy = PasswordCrypto.Hash(password);
         // Continuar codigo para introduzir na DB hash da password e adicionar conta na db.
-        var result = _contaService.Create(new Conta()
+        var result = _contaService.Create(new ContaInputModel()
         {
             Username = username,
-            TipoDeUser = 1, // hard coded for now..
-            PasswordHash = hashy
+            TipoDeUser = "admin", // hard coded for now..
+            Password = hashy
         });
         return result is not null ? Ok() : NotFound();
     }

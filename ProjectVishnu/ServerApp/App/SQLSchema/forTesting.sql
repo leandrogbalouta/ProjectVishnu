@@ -201,13 +201,15 @@ INSERT INTO FUNCIONARIOS_OBRAS
 
 CREATE TABLE TIPO_DE_USER (
 	Id INT UNIQUE GENERATED ALWAYS AS IDENTITY,
-	Tipo varchar(20),
-)
+	Tipo varchar(20)
+);
+INSERT INTO TIPO_DE_USER (Tipo) values
+('admin');
 CREATE TABLE CONTA (
 		Username varchar(40) primary key,
 		TipoDeUser int references TIPO_DE_USER(Id),
 		PasswordHash varchar(100)
 );
 INSERT INTO CONTA
-(Username, UserType, PasswordHash) values
+(Username, TipoDeUser, PasswordHash) values
 ('shabba', 1, '67194A67DD42A0D132390A688C4034479366A4C6E6254D33F4A43E8E961BF024:EC1D96DE65F7B1FC8364CEFCA22A392C');
