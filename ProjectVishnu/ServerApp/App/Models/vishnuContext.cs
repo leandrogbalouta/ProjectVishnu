@@ -31,9 +31,8 @@ namespace ProjectVishnu.Models
             { }
         }
 
-        public virtual DbSet<TipoDoc> TiposDoc { get; set;} = null;
+        public virtual DbSet<TipoDoc> TiposDoc { get; set; } = null;
         public virtual DbSet<CategoriasProfissionai> CategoriasProfissionais { get; set; } = null!;
-        public virtual DbSet<Contum> Conta { get; set; } = null!;
         public virtual DbSet<DiaTrabalho> DiaTrabalhos { get; set; } = null!;
         public virtual DbSet<FolhaDePonto> FolhaDePontos { get; set; } = null!;
         public virtual DbSet<Funcionario> Funcionarios { get; set; } = null!;
@@ -41,6 +40,7 @@ namespace ProjectVishnu.Models
         public virtual DbSet<Mercado> Mercados { get; set; } = null!;
         public virtual DbSet<Obra> Obras { get; set; } = null!;
         public virtual DbSet<SalarioFinal> SalarioFinals { get; set; } = null!;
+        public virtual DbSet<Conta> Contas { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -48,10 +48,12 @@ namespace ProjectVishnu.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                if(_usePostgres) {
+                if (_usePostgres)
+                {
                     optionsBuilder.UseLazyLoadingProxies(true).UseNpgsql(_configuration.GetConnectionString("vishnu"));
                 }
-                else {
+                else
+                {
                     optionsBuilder.UseLazyLoadingProxies(true).UseSqlServer(_configuration.GetConnectionString("vishnuAzure"));
                 }
                 optionsBuilder.ConfigureWarnings(warnings => warnings.Ignore(CoreEventId.LazyLoadOnDisposedContextWarning));
@@ -61,11 +63,11 @@ namespace ProjectVishnu.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<TipoDoc>(entity => 
+            modelBuilder.Entity<TipoDoc>(entity =>
             {
                 entity.HasKey(e => e.Sigla)
                     .HasName("tipo_doc_pkey");
-                
+
                 entity.ToTable("tipo_doc");
 
                 entity.Property(e => e.Sigla)
@@ -93,7 +95,7 @@ namespace ProjectVishnu.Models
                     .HasColumnName("nomenclatura");
             });
 
-            modelBuilder.Entity<Contum>(entity =>
+            modelBuilder.Entity<Conta>(entity =>
             {
                 entity.HasKey(e => e.Username)
                     .HasName("conta_pkey");
@@ -104,10 +106,31 @@ namespace ProjectVishnu.Models
                     .HasMaxLength(40)
                     .HasColumnName("username");
 
-                entity.Property(e => e.Pwd)
+                entity.Property(e => e.TipoDeUserId)
+                    .HasColumnName("tipodeuser");
+
+                entity.Property(e => e.PasswordHash)
                     .HasMaxLength(100)
                     .HasColumnName("passwordhash");
+
+                entity.HasOne(e => e.TipoDeUser)
+                    .WithMany()
+                    .HasForeignKey(e => e.TipoDeUserId)
+                    .OnDelete(DeleteBehavior.Restrict);
             });
+
+            modelBuilder.Entity<TipoDeUser>(entity =>
+            {
+                entity.ToTable("tipo_de_user");
+
+                entity.Property(e => e.Id)
+                    .HasColumnName("id");
+
+                entity.Property(e => e.Tipo)
+                    .HasMaxLength(20)
+                    .HasColumnName("tipo");
+            });
+
 
             modelBuilder.Entity<DiaTrabalho>(entity =>
             {

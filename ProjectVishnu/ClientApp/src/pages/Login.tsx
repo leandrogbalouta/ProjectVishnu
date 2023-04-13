@@ -16,6 +16,7 @@ import { Link } from "react-router-dom";
 import PasswordInput from "../components/PasswordInput";
 import AuthenticationPanel from "../components/Authentication";
 import logo from "../img/logo.jpg";
+import { tryLogin } from "../common/APICalls";
 
 export default function Login() {
   const [loggingIn, setLoggingIn] = useState<boolean>();
@@ -45,22 +46,22 @@ export default function Login() {
     // In case it's on, deactivate invalidLogin message
     setLoggingIn(true);
     setInvalidLogin(false);
-    // ApiCalls.PostLogin(data.username, data.password)
-    //   .then((response) => {
-    //     // Response here is a token if valid or unauthorized if invalid.
-    //     if (response.status === 200) {
-    //       // change to auth code screen
-    //       setShowAuthForm(true);
-    //       setLoggingIn(false);
-    //     } else {
-    //       setInvalidLogin(true);
-    //       setLoggingIn(false);
-    //     }
-    //   })
-    //   .catch(() => {
-    //     setInvalidLogin(true);
-    //     setLoggingIn(false);
-    //   });
+    tryLogin(data.username, data.password)
+      .then((response) => {
+        // Response here is a token if valid or unauthorized if invalid.
+        if (response.status === 200) {
+          // change to auth code screen
+          console.log("successo");
+          setLoggingIn(false);
+        } else {
+          setInvalidLogin(true);
+          setLoggingIn(false);
+        }
+      })
+      .catch(() => {
+        setInvalidLogin(true);
+        setLoggingIn(false);
+      });
     // Make the button stop spinning.
   };
   // effect, if user logged in (token valid) redirect to homepage

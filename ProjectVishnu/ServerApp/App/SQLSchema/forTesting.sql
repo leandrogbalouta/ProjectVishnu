@@ -118,11 +118,6 @@ CREATE TABLE FOLHAS_SALARIO(
 		primary key(Id_salario,Id_folha_de_ponto)
 );
 
-CREATE TABLE CONTA(
-		Username varchar(40) primary key,
-		Pwd varchar(64)
-);
-
 INSERT INTO CATEGORIAS_PROFISSIONAIS
 (codigo,nomenclatura) values
 ('CA1','Carpinteiro de primeira'),

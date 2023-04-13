@@ -109,7 +109,10 @@ export async function fetchFuncionariosForObra(
   const path = `/api/obras/${codigo}/funcionarios/current`;
   return fetch(path);
 }
-export async function removeFuncionarioDeObra(id: number, dataDefim: string): Promise<Response> {
+export async function removeFuncionarioDeObra(
+  id: number,
+  dataDefim: string
+): Promise<Response> {
   const path = `/api/funcionarios/${id}/obras`;
   return fetch(path, {
     method: "PUT",
@@ -208,15 +211,17 @@ function addFiltersToQuery(
   }
   return path;
 }
-// export async function tryLogin(
-//   funcionario: IFuncionarioInput
-// ): Promise<Response> {
-//   const path = "/api/funcionarios";
-//   return fetch(path, {
-//     method: "POST",
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//     body: JSON.stringify(funcionario),
-//   });
-// }
+export async function tryLogin(
+  username: string,
+  password: string
+): Promise<Response> {
+  const path = "/api/conta/login";
+  return fetch(path, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      username: username,
+      password: password,
+    },
+  });
+}

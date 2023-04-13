@@ -24,6 +24,7 @@ namespace ProjectVishnu.DataAccess.Concrete
             SalarioFinal = new SalarioFinalRepository(_context);
             FolhaDePontos = new FolhaDePontoRepository(_context);
             TiposDocInt = new TipoDocRepository(_context);
+            Contas = new ContaRepository(_context);
         }
 
         public IFuncionarioRepository Funcionarios { get; private set; }
@@ -43,6 +44,8 @@ namespace ProjectVishnu.DataAccess.Concrete
         public IFolhaDePontoRepository FolhaDePontos { get; private set; }
 
         public ITipoDocRepository TiposDocInt { get; private set; }
+
+        public IContaRepository Contas { get; private set; }
 
         public int Complete()
         {
