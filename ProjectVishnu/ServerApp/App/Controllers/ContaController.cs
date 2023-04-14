@@ -35,10 +35,12 @@ public class ContaController : ControllerBase
     [HttpPost("login")]
     public IActionResult Login([FromHeader] string username, [FromHeader] string password)
     {
-        // TODO trocar a linha a baixo por uma call a DB e obter hash para user
-        string hashy = PasswordCrypto.Hash(password);
-        // Continuar codigo para introduzir na DB hash da password e adicionar conta na db.
-        var result = _contaService.Get(username);
-        return result is not null ? Ok() : NotFound();
+        var conta = _contaService.Get(username); // this should be awaitable
+        if (conta is null) return NotFound();
+        password = PasswordCrypto.Hash(password);
+        bool isValidPassword = (password == conta.PasswordHash);
+
+        return (isValidPassword) ? Ok() : NotFound();
     }
+
 }

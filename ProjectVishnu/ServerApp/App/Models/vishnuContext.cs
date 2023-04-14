@@ -114,7 +114,7 @@ namespace ProjectVishnu.Models
                     .HasColumnName("passwordhash");
 
                 entity.HasOne(e => e.TipoDeUser)
-                    .WithMany()
+                    .WithMany(t => t.Contas)
                     .HasForeignKey(e => e.TipoDeUserId)
                     .OnDelete(DeleteBehavior.Restrict);
             });

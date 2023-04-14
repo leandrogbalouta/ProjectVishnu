@@ -4,17 +4,5 @@
         <name>ProjectVishnu</name>
     </assembly>
     <members>
-        <member name="T:ProjectVishnu.Migrations.vishnu">
-            <inheritdoc />
-        </member>
-        <member name="M:ProjectVishnu.Migrations.vishnu.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
-            <inheritdoc />
-        </member>
-        <member name="M:ProjectVishnu.Migrations.vishnu.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
-            <inheritdoc />
-        </member>
-        <member name="M:ProjectVishnu.Migrations.vishnu.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
-            <inheritdoc />
-        </member>
     </members>
 </doc>
