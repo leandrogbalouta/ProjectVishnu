@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { RiUserFill } from "react-icons/ri";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -12,17 +12,18 @@ import {
   FormControl,
 } from "@chakra-ui/react";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from 'react-router-dom';
 import PasswordInput from "../components/PasswordInput";
 import AuthenticationPanel from "../components/Authentication";
-import logo from "../img/logo.jpg";
 import { tryLogin } from "../common/APICalls";
+import IConta from "../common/Interfaces/IConta";
+import { ContaContext } from "../components/contexts/ContaContext";
 
 export default function Login() {
   const [loggingIn, setLoggingIn] = useState<boolean>();
   const [invalidLogin, setInvalidLogin] = useState<boolean>();
-  // Saving this for later :P
-    const isAuthenticated = false;
+  const navigate = useNavigate();
+  const authenticated = useContext(ContaContext).conta;
 
   type Inputs = {
     username: string;
@@ -50,9 +51,11 @@ export default function Login() {
       .then((response) => {
         // Response here is a token if valid or unauthorized if invalid.
         if (response.status === 200) {
-          // change to auth code screen
-          console.log("successo");
           setLoggingIn(false);
+          response.json().then((resp: IConta) => {
+            localStorage.setItem("conta", JSON.stringify(resp));
+            navigate("/");
+          });
         } else {
           setInvalidLogin(true);
           setLoggingIn(false);
@@ -65,7 +68,9 @@ export default function Login() {
     // Make the button stop spinning.
   };
   // effect, if user logged in (token valid) redirect to homepage
-  useEffect(() => {});
+  useEffect(() => {
+    if (authenticated) navigate("/");
+  });
   return (
     <AuthenticationPanel>
       <form

@@ -19,7 +19,7 @@ const AppRoutes = createBrowserRouter([
     element: <Custom404 />,
   },
   {
-    path: "/",
+    index: true,
     element: <Home />,
   },
   {

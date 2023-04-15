@@ -1,6 +1,15 @@
 import { Table, Thead, Tr, Th, Tbody, Td } from "@chakra-ui/react";
+import { useEffect, useContext } from "react";
+import { ContaContext } from "../components/contexts/ContaContext";
+import { useNavigate } from 'react-router-dom';
+import Role from '../common/Role';
 
 export function Admin() {
+  const role = useContext(ContaContext).conta?.tipoDeUser;
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (role != Role.Admin) navigate("/");
+  }, []);
   return (
     <div className="flex gap-3 flex-col sm:flex-row">
       <div className="flex-1">

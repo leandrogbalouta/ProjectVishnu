@@ -5,17 +5,16 @@ import { RiMenu4Line, RiSettings5Line } from "react-icons/ri";
 import { BsFillMoonStarsFill, BsFillSunFill } from "react-icons/bs";
 import ThemeContext from "./contexts/Theme/themeContext";
 import AppRoutes from "../common/AppRoutes";
-import {
-  AuthenticatedTemplate,
-  UnauthenticatedTemplate,
-  useMsal,
-} from "@azure/msal-react";
 import { SlPower } from "react-icons/sl";
+import { ContaContext } from "./contexts/ContaContext";
+import Role from "../common/Role";
+import LogoutModal from "./LogoutModal";
 
 export default function NavMenu() {
-  const [authenticated, setAuthenticated] = useState(false);
+  const { conta, setConta } = useContext(ContaContext);
   const [toggleNav, setToggleNav] = useState<boolean>(false);
   const darkTheme = useRef<boolean>();
+  const role = conta?.tipoDeUser;
   let toggleClass = toggleNav ? "block" : "hidden";
   const { currentTheme, changeCurrentTheme } = useContext(ThemeContext);
   const changeToggle = useCallback(() => {
@@ -39,6 +38,8 @@ export default function NavMenu() {
         }
       }
     });
+    // Auth
+    setConta(JSON.parse(localStorage.getItem("conta")!));
   }, [changeCurrentTheme, changeToggle, toggleNav]);
   return (
     <header
@@ -77,29 +78,22 @@ export default function NavMenu() {
                 />
               )}
             </button>
-            <button
-              id="settings"
-              title="open-settings"
-              type="button"
-              className="text-gray-500 hover:text-orange-400 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 mr-1"
-              onClick={() => {
-                AppRoutes.navigate("/admin");
-                setToggleNav(false);
-              }} // TODO: ir para uma página de administração (por criar)
-            >
-              <RiSettings5Line className="h-5 w-5" />
-            </button>
-            {authenticated ? (
+            {role == Role.Admin && (
               <button
-                id="logout"
+                id="settings"
                 title="open-settings"
                 type="button"
-                className="text-orange-400 hover:text-orange-600 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 mr-1"
-                onClick={() => {}}
-                // TODO: ir para uma página de administração (por criar)
+                className="text-gray-500 hover:text-orange-400 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 mr-1"
+                onClick={() => {
+                  AppRoutes.navigate("/admin");
+                  setToggleNav(false);
+                }} // TODO: ir para uma página de administração (por criar)
               >
-                <SlPower className="h-5 w-5" />
+                <RiSettings5Line className="h-5 w-5" />
               </button>
+            )}
+            {conta ? (
+              <LogoutModal />
             ) : (
               <button
                 type="button"
@@ -121,7 +115,7 @@ export default function NavMenu() {
                   Home
                 </CustomNavLink>
               </li>
-              {authenticated ? (
+              {conta ? (
                 <>
                   <li>
                     <CustomNavLink
