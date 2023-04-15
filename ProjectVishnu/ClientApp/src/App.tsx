@@ -1,24 +1,17 @@
-import { RouterProvider, useLocation } from "react-router-dom";
+import { RouterProvider } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import Layout from "./components/Layout";
 import AppRoutes from "./common/AppRoutes";
 import { ChakraProvider } from "@chakra-ui/react";
 import ThemeContextProvider from "./components/contexts/Theme/ThemeContextProvider";
-import {
-  ContaContext,
-  ContaContextProvider,
-} from "./components/contexts/ContaContext";
-import { useState } from "react";
-import Role from "./common/Role";
-import IConta from './common/Interfaces/IConta';
+import { ContaContextProvider } from './components/contexts/Conta/ContaContextProvider';
 
 function App() {
-  const [conta, setConta] = useState<IConta | undefined>();
   return (
     <ThemeContextProvider>
       <ChakraProvider>
         <AnimatePresence exitBeforeEnter>
-          <ContaContextProvider value={{conta, setConta}}>
+          <ContaContextProvider>
             <Layout>
               <RouterProvider router={AppRoutes} />
             </Layout>

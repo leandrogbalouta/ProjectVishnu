@@ -12,23 +12,24 @@ import {
   FormControl,
 } from "@chakra-ui/react";
 
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from "react-router-dom";
 import PasswordInput from "../components/PasswordInput";
-import AuthenticationPanel from "../components/Authentication";
+import AuthenticationPanel from "../components/AuthenticationPanel";
 import { tryLogin } from "../common/APICalls";
 import IConta from "../common/Interfaces/IConta";
-import { ContaContext } from "../components/contexts/ContaContext";
+import { ContaContext } from "../components/contexts/Conta";
 
 export default function Login() {
   const [loggingIn, setLoggingIn] = useState<boolean>();
   const [invalidLogin, setInvalidLogin] = useState<boolean>();
   const navigate = useNavigate();
-  const authenticated = useContext(ContaContext).conta;
+  const { conta, setConta } = useContext(ContaContext);
 
   type Inputs = {
     username: string;
     password: string;
   };
+
 
   const schema = yup
     .object({
@@ -53,6 +54,7 @@ export default function Login() {
         if (response.status === 200) {
           setLoggingIn(false);
           response.json().then((resp: IConta) => {
+            setConta(resp);
             localStorage.setItem("conta", JSON.stringify(resp));
             navigate("/");
           });
@@ -69,7 +71,7 @@ export default function Login() {
   };
   // effect, if user logged in (token valid) redirect to homepage
   useEffect(() => {
-    if (authenticated) navigate("/");
+    if (conta) navigate("/");
   });
   return (
     <AuthenticationPanel>

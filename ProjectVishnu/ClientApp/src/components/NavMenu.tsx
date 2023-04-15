@@ -1,17 +1,16 @@
-import React, { useCallback, useContext, useEffect, useRef } from "react";
+import { useCallback, useContext, useEffect, useRef } from "react";
 import CustomNavLink from "./CustomNavLink";
 import { useState } from "react";
 import { RiMenu4Line, RiSettings5Line } from "react-icons/ri";
 import { BsFillMoonStarsFill, BsFillSunFill } from "react-icons/bs";
 import ThemeContext from "./contexts/Theme/themeContext";
 import AppRoutes from "../common/AppRoutes";
-import { SlPower } from "react-icons/sl";
-import { ContaContext } from "./contexts/ContaContext";
 import Role from "../common/Role";
 import LogoutModal from "./LogoutModal";
+import { ContaContext } from "./contexts/Conta/ContaContext";
 
 export default function NavMenu() {
-  const { conta, setConta } = useContext(ContaContext);
+  const { conta } = useContext(ContaContext);
   const [toggleNav, setToggleNav] = useState<boolean>(false);
   const darkTheme = useRef<boolean>();
   const role = conta?.tipoDeUser;
@@ -25,6 +24,10 @@ export default function NavMenu() {
     darkTheme.current = !darkTheme.current;
     localStorage.setItem("theme", darkTheme.current ? "dark" : "light");
   }
+  // Detect change storage
+  window.addEventListener("storage", (e) => {
+      
+  });
   useEffect(() => {
     darkTheme.current = localStorage.getItem("theme") === "dark";
     changeCurrentTheme(darkTheme.current ? "dark" : "light");
@@ -38,9 +41,7 @@ export default function NavMenu() {
         }
       }
     });
-    // Auth
-    setConta(JSON.parse(localStorage.getItem("conta")!));
-  }, [changeCurrentTheme, changeToggle, toggleNav]);
+  }, [toggleNav, conta]);
   return (
     <header
       id="navmenu"
@@ -92,18 +93,15 @@ export default function NavMenu() {
                 <RiSettings5Line className="h-5 w-5" />
               </button>
             )}
-            {conta ? (
-              <LogoutModal />
-            ) : (
-              <button
-                type="button"
-                className="inline-flex items-center p-2 ml-3 text-sm rounded-lg md:hidden hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:hover:bg-slate-800 dark:focus:ring-gray-600 hover:!text-slate-500"
-                onClick={changeToggle}
-              >
-                <span className="sr-only">Open main menu</span>
-                <RiMenu4Line className="text-2xl sm:text-3xl text-orange-400" />
-              </button>
-            )}
+            {conta && <LogoutModal />}
+            <button
+              type="button"
+              className="inline-flex items-center p-2 ml-3 text-sm rounded-lg md:hidden hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:hover:bg-slate-800 dark:focus:ring-gray-600 hover:!text-slate-500"
+              onClick={changeToggle}
+            >
+              <span className="sr-only">Open main menu</span>
+              <RiMenu4Line className="text-2xl sm:text-3xl text-orange-400" />
+            </button>
           </div>
           <div
             className={toggleClass + " w-full md:block md:w-auto"}

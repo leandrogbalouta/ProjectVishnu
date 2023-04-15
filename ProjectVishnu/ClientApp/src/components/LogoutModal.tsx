@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState, useContext } from "react";
 import { BsPower } from "react-icons/bs";
 
 import {
@@ -13,18 +13,20 @@ import {
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
-import { redirect, useNavigate } from "react-router-dom";
 import { SlPower } from 'react-icons/sl';
 import AppRoutes from "../common/AppRoutes";
+import { ContaContext } from './contexts/Conta/ContaContext';
 
 export default function LogoutModal() {
   const [loggingOut, setLoggingOut] = useState<boolean>();
+  const { onClose, isOpen, onOpen } = useDisclosure();
+  const { setConta } = useContext(ContaContext);
   async function logout() {
     setLoggingOut(true);
     localStorage.removeItem("conta");
+    setConta(undefined);
     AppRoutes.navigate("/");
   }
-  const { onClose, isOpen, onOpen } = useDisclosure();
   return (
     <>
       <button
@@ -41,7 +43,7 @@ export default function LogoutModal() {
         <ModalOverlay backdropFilter="blur(3px)" bg="blackAlpha.300" />
         <ModalContent className="h-full !m-0 sm:h-[unset] sm:!mt-16 sm:max-h-[80%]">
           <ModalHeader className="flex m-0 my-auto [&>*]:my-auto gap-2">
-            <BsPower className="text-red-500" />
+            <BsPower className="!text-red-500" />
             Logout
           </ModalHeader>
           <ModalCloseButton className="!hidden md:!block" />

@@ -7,7 +7,7 @@
 /* *:not(button, svg, svg path, .chakra-form__error-message) {
   @apply  dark:text-white;
 } */
-svg:not(button svg) {
+svg:not(button svg, header svg) {
   @apply dark:!text-slate-800;
 }
 html,

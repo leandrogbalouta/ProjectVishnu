@@ -1,6 +1,6 @@
 import { Table, Thead, Tr, Th, Tbody, Td } from "@chakra-ui/react";
 import { useEffect, useContext } from "react";
-import { ContaContext } from "../components/contexts/ContaContext";
+import { ContaContext } from "../components/contexts/Conta/ContaContext";
 import { useNavigate } from 'react-router-dom';
 import Role from '../common/Role';
 

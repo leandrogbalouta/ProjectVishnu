@@ -1,4 +1,3 @@
-import react from "react";
 import { createBrowserRouter } from "react-router-dom";
 import Home from "../pages";
 import Custom404 from "../pages/404";
