@@ -1,65 +1,47 @@
 import { Table, Thead, Tr, Th, Tbody, Td } from "@chakra-ui/react";
 import IObraOutput from "../../common/Interfaces/Obra/IObraOutput";
-import SemDadosRow from '../SemDadosRow';
+import SemDadosPlaceHolder from "../SemDadosPlaceHolder";
+import TdState from "./TdState";
 
 interface Props {
   obras: IObraOutput[];
   dataOnRowClick: (codigoInterno: string) => void;
 }
 export default function ObrasTable({ obras, dataOnRowClick }: Props) {
-  function TdState({ state }: { state: string }) {
-    let estado = '';
-    let classe = '';
-    switch (state) {
-      default:
-        break;
-      case "por-comecar":
-        classe = "bg-slate-100";
-        estado = "Por começar";
-        break;
-      case "completada":
-        classe = "bg-emerald-300";
-        estado = "Completada";
-        break;
-      case "em-curso":
-        classe = "bg-cyan-300";
-        estado = "Em curso";
-        break;
-    }
-    return <Td className={"text-black ".concat(classe)}>{estado}</Td>
-  }
   return (
     <div id="table-container" className="overflow-x-scroll flex-1">
-      <Table className="table table-striped" aria-labelledby="tabelLabel">
-        <Thead>
-          <Tr className="data-table-header">
-            <Th>Código interno</Th>
-            <Th>Designação</Th>
-            <Th>Cliente</Th>
-            <Th>Chefe de obra</Th>
-            <Th>Mercado</Th>
-            <Th>Estado</Th>
-          </Tr>
-        </Thead>
-        <Tbody>
-          {obras && obras.length > 0 ? obras.map((obra) => (
-            <Tr
-              className="data-table-row"
-              onClick={() =>
-                dataOnRowClick(obra.codigoInterno)
-              }
-              key={obra.codigoInterno}
-            >
-              <Td>{obra.codigoInterno}</Td>
-              <Td>{obra.designacao}</Td>
-              <Td>{obra.cliente}</Td>
-              <Td>{obra.chefeDeObra}</Td>
-              <Td className="capitalize">{obra.mercado}</Td>
-              <TdState state={obra.estado} />
+      {obras && obras.length > 0 ? (
+        <Table className="table table-striped" aria-labelledby="tabelLabel">
+          <Thead>
+            <Tr className="data-table-header">
+              <Th>Código interno</Th>
+              <Th>Designação</Th>
+              <Th>Cliente</Th>
+              <Th>Chefe de obra</Th>
+              <Th>Mercado</Th>
+              <Th>Estado</Th>
             </Tr>
-          )) : <SemDadosRow />}
-        </Tbody>
-      </Table>
+          </Thead>
+          <Tbody>
+            {obras.map((obra) => (
+              <Tr
+                className="data-table-row"
+                onClick={() => dataOnRowClick(obra.codigoInterno)}
+                key={obra.codigoInterno}
+              >
+                <Td>{obra.codigoInterno}</Td>
+                <Td>{obra.designacao}</Td>
+                <Td>{obra.cliente}</Td>
+                <Td>{obra.chefeDeObra}</Td>
+                <Td className="capitalize">{obra.mercado}</Td>
+                <TdState state={obra.estado} />
+              </Tr>
+            ))}
+          </Tbody>
+        </Table>
+      ) : (
+        <SemDadosPlaceHolder/>
+      )}
     </div>
   );
 }

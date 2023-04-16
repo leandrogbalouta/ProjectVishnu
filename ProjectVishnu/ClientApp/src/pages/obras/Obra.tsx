@@ -1,4 +1,4 @@
-import { useEffect, useState, createContext } from 'react';
+import { useEffect, useState, createContext } from "react";
 import { MdOutlinePostAdd } from "react-icons/md";
 import {
   fetchObra,
@@ -22,11 +22,12 @@ import IFolhaDePontoInfoModel from "../../common/Interfaces/FolhaDePonto/IFolhaD
 import { useNavigate, useParams } from "react-router-dom";
 import IFuncionarioObraOutputModel from "../../common/Interfaces/Funcionario/IFuncionarioObraOutputModel";
 import FuncionariosPorObraTable from "../../components/tables/FuncionariosPorObraTable";
-import SemDadosRow from "../../components/SemDadosRow";
+import SemDadosRow from "../../components/SemDadosPlaceHolder";
 import AdicionarFuncionarioAObraModal from "../../components/modals/AdicionarFuncionarioAObraModal";
 import { GrTableAdd } from "react-icons/gr";
 import BackButton from "../../components/BackButton";
 import RemoverFuncionariosDeObraModal from "../../components/modals/RemoverFuncionarioDeObraModal";
+import FolhaDePontoForFuncionarioTable from "../../components/tables/FolhaDePontoForFuncionarioTable";
 
 export default function Obra() {
   const navigate = useNavigate();
@@ -101,10 +102,10 @@ export default function Obra() {
   function renderObra(obra: IObraOutput, folhasDePonto: any) {
     return (
       <div className="flex flex-col h-full w-full">
-        <div className="p-3 mb-3 bg-slate-800 text-cyan-100 rounded-xl">
+        <div className="data-panel">
           <div className="flex justify-between">
-          <p className="text-xl font-bold ">Detalhes de obra:</p>
-          <BackButton href={"/obras"}/>
+            <p className="text-xl font-bold ">Detalhes de obra:</p>
+            <BackButton href="/obras" />
           </div>
           <div className="flex justify-between flex-wrap gap-3 pt-3">
             <div>
@@ -139,7 +140,7 @@ export default function Obra() {
         >
           <div
             id="table-container"
-            className="flex-1 gap-3 p-3 bg-slate-800 rounded-xl flex flex-col overflow-auto"
+            className="flex-1 gap-3 p-3 bg-slate-800 rounded-xl flex flex-col overflow-auto dark:bg-slate-700"
           >
             <div id="top-items-container" className="flex justify-between">
               <p className="text-lg font-bold text-cyan-100">
@@ -177,61 +178,25 @@ export default function Obra() {
                       className="p-1 [&>*]:text-xl"
                       onClick={() => submitFolhaDePonto()}
                     >
-                      <MdOutlinePostAdd/>
+                      <MdOutlinePostAdd />
                     </Button>
                   </div>
                 </div>
               </div>
             </div>
-            <div
-              id="table-wrapper"
-              className="flex-1 bg-white dark:bg-inherit rounded p-1"
-            >
-              <Table className="overflow-scroll" aria-labelledby="tabelLabel">
-                <Thead>
-                  <Tr className="data-table-header">
-                    <Th>Mes</Th>
-                    <Th>Ano</Th>
-                  </Tr>
-                </Thead>
-                <Tbody>
-                  {/* TODO check folhasdeponto type */}
-                  {folhasDePonto && folhasDePonto.length > 0 ? (
-                    folhasDePonto.map(
-                      (folhaDePonto: IFolhaDePontoInfoModel) => (
-                        <Tr
-                          className="data-table-row"
-                          key={`${folhaDePonto.ano}${folhaDePonto.mes}`}
-                          onClick={() => redirectToFolhaDePonto(folhaDePonto)}
-                        >
-                          <Td>{folhaDePonto.mes}</Td>
-                          <Td>{folhaDePonto.ano}</Td>
-                        </Tr>
-                      )
-                    )
-                  ) : (
-                    <SemDadosRow />
-                  )}
-                </Tbody>
-              </Table>
-            </div>
+            <FolhaDePontoForFuncionarioTable folhasDePonto={folhasDePonto} />
           </div>
           <div
             id="table-container"
-            className="flex-3 gap-3 p-3 bg-slate-800 rounded-xl flex flex-col overflow-auto"
+            className="flex-3 gap-3 p-3 bg-slate-800 dark:bg-slate-700 rounded-xl flex flex-col overflow-auto"
           >
             <div id="table-button-container" className="flex justify-between">
-              <p className="text-lg font-bold text-cyan-100">Funcionarios:</p>
+              <p className="data-panel">Funcionarios:</p>
               <div id="modals-buttons-container">
-                <AdicionarFuncionarioAObraModal obra={obra}  />
+                <AdicionarFuncionarioAObraModal obra={obra} />
               </div>
             </div>
-            <div
-              id="funcionarios-table-wrapper"
-              className="flex-1 bg-white dark:bg-inherit p-1 rounded"
-            >
               <FuncionariosPorObraTable funcionarios={funcionarios} />
-            </div>
           </div>
         </div>
       </div>

@@ -70,7 +70,7 @@ export default function Funcionario() {
             <div className="flex flex-col sm:flex-row h-full w-full gap-1 sm:gap-3">
               <div
                 id="detalhes-de-funcionario-container"
-                className="flex-1 p-3 bg-slate-800 text-cyan-100 rounded-xl flex flex-col overflow-auto relative"
+                className="data-panel flex-1 flex flex-col overflow-auto relative"
               >
                 <div className="flex justify-between ">
                   <p className="text-xl font-bold mb-3">
@@ -188,7 +188,7 @@ export default function Funcionario() {
               </div>
               <div
                 id="obras-de-funcionario-container"
-                className="flex-1 p-3 bg-slate-800 rounded-xl flex flex-col overflow-auto gap-3"
+                className="data-panel flex-1 flex flex-col overflow-auto gap-3"
               >
                 <div id="top-items-container" className="flex justify-between">
                   <p className="text-lg font-bold text-cyan-100">
@@ -197,7 +197,7 @@ export default function Funcionario() {
                   <RemoverFuncionariosDeObraModal funcionario={funcionario} />
                 </div>
 
-                <div className="flex flex-col gap-3 overflow-auto bg-white dark:bg-slate-800 rounded">
+                <div className="flex flex-col gap-3 overflow-auto data-panel">
                   <ObrasTable
                     obras={obrasEmCurso}
                     dataOnRowClick={redirectToObra}

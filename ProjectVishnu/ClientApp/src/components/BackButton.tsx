@@ -1,11 +1,12 @@
 import { Button } from "@chakra-ui/react";
 import { AiOutlineArrowLeft } from "react-icons/ai";
-import AppRoutes from "../common/AppRoutes";
+import { useNavigate } from 'react-router-dom';
 
 export default function BackButton({ href}:{ href:string}) {
+  const navigate = useNavigate();
   return (
     <Button
-      onClick={() => AppRoutes.navigate(href)}
+      onClick={() => navigate(href)}
       colorScheme="blue"
       className="w-fit"
     >

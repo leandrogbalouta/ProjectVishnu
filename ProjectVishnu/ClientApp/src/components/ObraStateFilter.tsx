@@ -5,7 +5,7 @@ interface Props  { state: any; setState: any; };
 function ObraStateFilter({ state, setState, }: Props) {
   return (
     <div className="flex justify-center align-middle" >
-      <ul className="w-full justify-center flex p-4 rounded-lg md:flex-row space-x-8 md:mt-0 md:text-md md:font-medium text-center text-xs ">
+      <ul className="w-full justify-center flex p-4 rounded-lg md:flex-row space-x-8 md:mt-0 text-center text-xs md:text-lg">
         <li
           className={
             state === "todas" ? "active-obra-state" : "inactive-obra-state"

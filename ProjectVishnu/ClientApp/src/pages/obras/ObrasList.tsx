@@ -17,11 +17,6 @@ export default function Obras() {
     navigate(`/obras/${codigoInterno}`);
   }
 
-  async function redirectToObraCreation() {
-    console.log("onclick");
-    navigate("/obras/create");
-  }
-
   let contents = obras ? (
     <ObrasTable
       obras={
@@ -51,7 +46,7 @@ export default function Obras() {
 
   return (
     <div className="flex flex-col flex-1 h-full">
-      <h1 className="text-center text-4xl mb-10">Obras</h1>
+      <h1 className="text-center text-4xl mb-3">Obras</h1>
       <ObraStateFilter state={state} setState={setState} />
       <FilterBar
         setMercado={setMercado}
@@ -61,7 +56,7 @@ export default function Obras() {
 
       {contents}
       <div id="button-container" className="flex justify-end mt-3">
-        <Button onClick={() => redirectToObraCreation()} colorScheme="blue">
+        <Button onClick={() => navigate("/obras/create")} colorScheme="blue">
           Criar
         </Button>
       </div>
