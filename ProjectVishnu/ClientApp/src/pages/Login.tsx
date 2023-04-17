@@ -17,13 +17,13 @@ import PasswordInput from "../components/PasswordInput";
 import AuthenticationPanel from "../components/AuthenticationPanel";
 import { tryLogin } from "../common/APICalls";
 import IConta from "../common/Interfaces/IConta";
-import { ContaContext } from "../components/contexts/Conta";
+import useAuth from "../auth/useAuth";
 
 export default function Login() {
   const [loggingIn, setLoggingIn] = useState<boolean>();
   const [invalidLogin, setInvalidLogin] = useState<boolean>();
   const navigate = useNavigate();
-  const { conta, setConta } = useContext(ContaContext);
+  const { conta, setConta } = useAuth()
 
   type Inputs = {
     username: string;
