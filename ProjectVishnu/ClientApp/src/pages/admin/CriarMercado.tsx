@@ -13,16 +13,12 @@ import {
 } from "@chakra-ui/react";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import {
-  useForm,
-  SubmitHandler,
-} from "react-hook-form";
-import { FaUser } from "react-icons/fa";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { FaCalendarDay, FaUser } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import IContaInput from "../../common/Interfaces/IContaInput";
-import PasswordInput from "../../components/PasswordInput";
 
-export default function CriarUtilizador() {
+export default function CriarMercado() {
   // state
   const [tiposDeUser, setTiposDeUser] = useState<string[]>([]);
   const [estado, setEstado] = useState<string | undefined>(undefined);
@@ -34,8 +30,8 @@ export default function CriarUtilizador() {
   const schema = yup
     .object({
       username: yup.string().required("Por favor, introduza o username."),
-      password: yup.string().required("Por favor, introduza uma password."),
-      tipoDeUser: yup.string().required("Por favor escolha um tipo de utilizador.")
+      datainicio: yup.date().typeError("Por favor introduza uma data válida."),
+      datafim: yup.date().typeError("Por favor introduza uma data válida")
     })
     .required();
   // end of schema
@@ -43,7 +39,7 @@ export default function CriarUtilizador() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<IContaInput>({
+  } = useForm<any>({
     resolver: yupResolver<yup.AnyObjectSchema>(schema),
   });
   const onSubmit: SubmitHandler<IContaInput> = async (data: IContaInput) => {
@@ -91,7 +87,7 @@ export default function CriarUtilizador() {
 
   return (
     <div className="w-full sm:w-1/2 mx-auto">
-      <p className="page-header">Criar Utilizador</p>
+      <p className="page-header">Criar Mercado</p>
       <form
         className="flex flex-col min-h-0 max-h-full"
         onSubmit={handleSubmit(onSubmit)}
@@ -111,42 +107,47 @@ export default function CriarUtilizador() {
               {...register("username", { required: true })}
             />
           </InputGroup>
-          <FormErrorMessage>{errors.username?.message}</FormErrorMessage>
+          <FormErrorMessage>{errors.?.message}</FormErrorMessage>
         </FormControl>
-        {/* Password field */}
-        <FormControl className="mb-5" isInvalid={!!errors.password}>
-          <FormLabel htmlFor="password">Password</FormLabel>
-          <PasswordInput
-            id="password"
-            register={register}
-            label="password"
-            required
-          />
-          <FormErrorMessage>{errors.password?.message}</FormErrorMessage>
-        </FormControl>
-        {/* tipo de utilizador field */}
-        <FormControl className="mb-5" isInvalid={!!errors.tipoDeUser}>
-          <FormLabel htmlFor="mercado">Tipo de user</FormLabel>
-          <InputGroup>
-            <Select
-              id="tiposDeUser"
-              className="capitalize"
-              placeholder="Tipo de user"
-              {...register("tipoDeUser", { required: true })}
-            >
-              {tiposDeUser && (
-                <>
-                  {tiposDeUser.map((mercado: string) => (
-                    <option value={mercado} key={mercado}>
-                      {mercado}
-                    </option>
-                  ))}
-                </>
-              )}
-            </Select>
-          </InputGroup>
-          <FormErrorMessage>{errors.tipoDeUser?.message}</FormErrorMessage>
-        </FormControl>
+        {/* Data de Início field */}
+        {(estado == "em-curso" || estado == "completada") && (
+          <FormControl className="mb-5" isInvalid={!!errors.datainicio}>
+            <FormLabel htmlFor="datainicio">Data de Início</FormLabel>
+            <InputGroup>
+              <InputLeftElement pointerEvents="none">
+                <FaCalendarDay color="#000E31" />
+              </InputLeftElement>
+              <Input
+                id="datainicio"
+                type="date"
+                placeholder="Data de ínicio de obra"
+                autoComplete="blank-datainicio"
+                {...register("datainicio", { required: false })}
+              />
+            </InputGroup>
+            <FormErrorMessage>{errors.datainicio?.message}</FormErrorMessage>
+          </FormControl>
+        )}
+
+        {/* Data de fim field */}
+        {estado == "completada" && (
+          <FormControl className="mb-5" isInvalid={!!errors.datafim}>
+            <FormLabel htmlFor="datafim">Data de Fim</FormLabel>
+            <InputGroup>
+              <InputLeftElement pointerEvents="none">
+                <FaCalendarDay color="#000E31" />
+              </InputLeftElement>
+              <Input
+                id="datafim"
+                type="date"
+                placeholder="Data de fim de obra"
+                autoComplete="blank-datafim"
+                {...register("datafim", { required: false })}
+              />
+            </InputGroup>
+            <FormErrorMessage>{errors.datafim?.message}</FormErrorMessage>
+          </FormControl>
+        )}
         <div id="button-container" className="flex sm:justify-end gap-2">
           <Button
             size="lg"

@@ -13,7 +13,7 @@ export default function Admin() {
     icon: JSX.Element;
   }) => (
     <div
-      className="flex flex-col flex-1 bg-gradient-to-br from-slate-500
+      className="flex flex-col flex-1 bg-gradient-to-br from-slate-500 
                    to-slate-900 text-white text-2xl text-center rounded-xl
                     cursor-pointer select-none hover:scale-105 transition-all p-20 dark:ring-1 dark:ring-white"
       onClick={onClick}
@@ -32,7 +32,11 @@ export default function Admin() {
           onClick={() => navigate("/admin/criar-utilizador")}
           icon={<FaUser />}
         />
-        <Option title={"Criar Mercado"} onClick={() => {}} icon={<FaUser />} />
+        <Option
+          title={"Criar Mercado"}
+          onClick={() => navigate("/admin/criar-mercado")}
+          icon={<FaUser />}
+        />
         <Option
           title={"Criar Categoria Profissional"}
           onClick={() => {}}

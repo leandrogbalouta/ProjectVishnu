@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import Home from "../pages/Home";
 import Custom404 from "../pages/404";
-import { Admin, CriarUtilizador } from "../pages/admin";
+import { Admin, CriarUtilizador, CriarMercado } from "../pages/admin";
 import Login from "../pages/Login";
 import RequireAuth from "../auth/RequireAuth";
 import Unauthorized from "../pages/Unauthorized";
@@ -25,6 +25,7 @@ export default function AppRoutes() {
         <Route element={<RequireAuth allowedRoles={["admin"]} />}>
           <Route path="admin" element={<Admin />} />
           <Route path="admin/criar-utilizador" element={<CriarUtilizador />} />
+          <Route path="admin/criar-mercado" element={<CriarMercado />} />
           <Route element={<RequireAuth allowedRoles={["user", "admin"]} />}>
             <Route path="funcionarios" element={<Funcionarios />} />
             <Route

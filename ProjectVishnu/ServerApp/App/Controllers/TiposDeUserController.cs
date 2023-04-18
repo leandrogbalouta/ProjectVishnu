@@ -4,7 +4,7 @@ using ProjectVishnu.Services;
 namespace ProjectVishnu.Controllers
 {
     [ApiController]
-    [Route("api/tipos-de-user")]
+    [Route("api/shabba")]
     public class TiposDeUserController : ControllerBase
     {
         private readonly ITiposDeUserService _tiposDeUserService;
@@ -15,11 +15,11 @@ namespace ProjectVishnu.Controllers
         [HttpGet]
         IActionResult List() => new JsonResult(_tiposDeUserService.List());
 
-        [HttpGet]
-        IActionResult Get(string tipoDeUser)
-        {
-            var toReturn = _tiposDeUserService.Get(tipoDeUser);
-            return toReturn is null ? BadRequest() : Ok(toReturn);
-        }
+        // [HttpGet("{tipoDeUser}")]
+        // IActionResult Get(string tipoDeUser)
+        // {
+        //     var toReturn = _tiposDeUserService.Get(tipoDeUser);
+        //     return toReturn is null ? BadRequest() : Ok(toReturn);
+        // }
     }
 }
