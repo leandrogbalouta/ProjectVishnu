@@ -25,6 +25,7 @@ namespace ProjectVishnu.DataAccess.Concrete
             FolhaDePontos = new FolhaDePontoRepository(_context);
             TiposDocInt = new TipoDocRepository(_context);
             Contas = new ContaRepository(_context);
+            TiposDeUser = new TiposDeUserRepository(_context);
         }
 
         public IFuncionarioRepository Funcionarios { get; private set; }
@@ -46,6 +47,8 @@ namespace ProjectVishnu.DataAccess.Concrete
         public ITipoDocRepository TiposDocInt { get; private set; }
 
         public IContaRepository Contas { get; private set; }
+
+        public ITiposDeUserRepository TiposDeUser { get; private set; }
 
         public int Complete()
         {

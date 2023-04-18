@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { CreateUser, fetchMercados } from "../../common/APICalls";
+import { CreateUser, fetchMercados, fetchTiposDeUser } from "../../common/APICalls";
 import {
   Button,
   FormControl,
@@ -82,7 +82,7 @@ export default function CriarUtilizador() {
   useEffect(() => {
     // Get Mercados
     const populateTiposDeUser = async () => {
-      const response = await fetchRoles();
+      const response = await fetchTiposDeUser();
       const data = await response.json();
       setTiposDeUser(data);
     };

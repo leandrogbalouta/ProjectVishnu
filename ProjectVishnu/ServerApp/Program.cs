@@ -30,6 +30,7 @@ builder.Services.AddScoped<IMercadosService, MercadosService>();
 builder.Services.AddScoped<ICategoriaProfService, CategoriaProfService>();
 builder.Services.AddScoped<ITiposDocService, TiposDocService>();
 builder.Services.AddScoped<IContaService, ContaService>();
+builder.Services.AddScoped<ITiposDeUserService, TiposDeUserService>();
 
 builder.Services.AddControllersWithViews();
 

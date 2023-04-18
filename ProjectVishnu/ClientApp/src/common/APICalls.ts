@@ -241,6 +241,6 @@ export async function CreateUser(user: IContaInput): Promise<Response> {
 }
 // Tipos de User
 export async function fetchTiposDeUser(): Promise<Response> {
-  let path = "/api/mercados";
+  let path = "/api/tipos-de-user/";
   return fetch(path);
 }

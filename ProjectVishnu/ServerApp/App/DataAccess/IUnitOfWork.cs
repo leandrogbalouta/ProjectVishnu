@@ -15,6 +15,7 @@ namespace ProjectVishnu.DataAccess
         ISalarioFinalRepository SalarioFinal { get; }
         IFolhaDePontoRepository FolhaDePontos { get; }
         IContaRepository Contas { get; }
+        ITiposDeUserRepository TiposDeUser { get; }
         int Complete();
     }
 }
