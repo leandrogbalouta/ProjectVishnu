@@ -16,7 +16,7 @@ import { Link, useNavigate } from "react-router-dom";
 import PasswordInput from "../components/PasswordInput";
 import AuthenticationPanel from "../components/AuthenticationPanel";
 import { tryLogin } from "../common/APICalls";
-import IConta from "../common/Interfaces/IConta";
+import IContaOutput from "../common/Interfaces/IContaOutput";
 import useAuth from "../auth/useAuth";
 
 export default function Login() {
@@ -24,8 +24,6 @@ export default function Login() {
   const [invalidLogin, setInvalidLogin] = useState<boolean>();
   const navigate = useNavigate();
   const { conta, setConta } = useAuth()
-
-  console.log("login")
 
   type Inputs = {
     username: string;
@@ -55,7 +53,7 @@ export default function Login() {
         // Response here is a token if valid or unauthorized if invalid.
         if (response.status === 200) {
           setLoggingIn(false);
-          response.json().then((resp: IConta) => {
+          response.json().then((resp: IContaOutput) => {
             setConta(resp);
             localStorage.setItem("conta", JSON.stringify(resp));
             navigate("/");

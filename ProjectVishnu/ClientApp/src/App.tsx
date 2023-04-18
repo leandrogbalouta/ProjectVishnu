@@ -7,10 +7,9 @@ import ThemeContextProvider from "./components/contexts/Theme/ThemeContextProvid
 import { ContaContextProvider } from "./components/contexts/Conta/ContaContextProvider";
 
 function App() {
-  const routes = AppRoutes()
 
   return (
-    <BrowserRouter>
+    <BrowserRouter >
       <ThemeContextProvider>
         <ChakraProvider>
           <AnimatePresence exitBeforeEnter>

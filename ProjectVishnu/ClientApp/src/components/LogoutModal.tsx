@@ -1,6 +1,5 @@
 import { useState, useContext } from "react";
 import { BsPower } from "react-icons/bs";
-
 import {
   ModalFooter,
   Button,
@@ -10,22 +9,22 @@ import {
   ModalContent,
   ModalHeader,
   ModalOverlay,
-  Text,
   useDisclosure,
 } from "@chakra-ui/react";
-import { SlPower } from 'react-icons/sl';
-import AppRoutes from "../common/AppRoutes";
-import { ContaContext } from './contexts/Conta/ContaContext';
+import { SlPower } from "react-icons/sl";
+import { ContaContext } from "./contexts/Conta/ContaContext";
+import { useNavigate } from "react-router-dom";
 
 export default function LogoutModal() {
   const [loggingOut, setLoggingOut] = useState<boolean>();
+  const navigate = useNavigate();
   const { onClose, isOpen, onOpen } = useDisclosure();
   const { setConta } = useContext(ContaContext);
   async function logout() {
     setLoggingOut(true);
     localStorage.removeItem("conta");
     setConta(undefined);
-    AppRoutes.navigate("/");
+    navigate("/");
   }
   return (
     <>
@@ -38,7 +37,7 @@ export default function LogoutModal() {
       >
         <SlPower className="h-5 w-5" />
       </button>
-      
+
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay backdropFilter="blur(3px)" bg="blackAlpha.300" />
         <ModalContent className="h-full !m-0 sm:h-[unset] sm:!mt-16 sm:max-h-[80%]">

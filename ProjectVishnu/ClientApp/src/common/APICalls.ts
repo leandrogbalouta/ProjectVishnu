@@ -1,5 +1,6 @@
 import IFolhaDePontoInput from "./Interfaces/FolhaDePonto/IFolhaDePontoInput";
 import IFuncionarioInput from "./Interfaces/Funcionario/IFuncionarioInput";
+import IContaInput from "./Interfaces/IContaInput";
 import IObraOutput from "./Interfaces/Obra/IObraOutput";
 
 // Tipos de documento
@@ -211,11 +212,12 @@ function addFiltersToQuery(
   }
   return path;
 }
+// Auth
 export async function tryLogin(
   username: string,
   password: string
 ): Promise<Response> {
-  const path = "/api/conta/login";
+  const path = "/api/contas/login";
   return fetch(path, {
     method: "POST",
     headers: {
@@ -224,4 +226,21 @@ export async function tryLogin(
       password: password,
     },
   });
+}
+export async function CreateUser(user: IContaInput): Promise<Response> {
+  const path = "/api/contas/create";
+  return fetch(path, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "username": user.username,
+      "password": user.password,
+      "tipoDeUser": user.tipoDeUser
+    },
+  });
+}
+// Tipos de User
+export async function fetchTiposDeUser(): Promise<Response> {
+  let path = "/api/mercados";
+  return fetch(path);
 }

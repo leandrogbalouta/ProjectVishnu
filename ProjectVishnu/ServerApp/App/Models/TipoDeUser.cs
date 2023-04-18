@@ -1,5 +1,3 @@
-using ProjectVishnu.Models;
-
 namespace ProjectVishnu.Models;
 public class TipoDeUser
 {

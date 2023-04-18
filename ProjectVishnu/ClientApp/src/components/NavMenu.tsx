@@ -8,9 +8,11 @@ import AppRoutes from "../common/AppRoutes";
 import Role from "../common/Role";
 import LogoutModal from "./LogoutModal";
 import { ContaContext } from "./contexts/Conta/ContaContext";
+import { useNavigate, Navigate } from 'react-router-dom';
 
 export default function NavMenu() {
   const { conta } = useContext(ContaContext);
+  const navigate = useNavigate();
   const [toggleNav, setToggleNav] = useState<boolean>(false);
   const darkTheme = useRef<boolean>();
   const role = conta?.tipoDeUser;
@@ -53,7 +55,7 @@ export default function NavMenu() {
           <span
             id="nav-title"
             onClick={() => {
-              AppRoutes.navigate("/");
+              navigate("/");
               setToggleNav(false);
             }}
           >
@@ -86,7 +88,7 @@ export default function NavMenu() {
                 type="button"
                 className="text-gray-500 hover:text-orange-400 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 mr-1"
                 onClick={() => {
-                  AppRoutes.navigate("/admin");
+                  navigate("/admin");
                   setToggleNav(false);
                 }} // TODO: ir para uma página de administração (por criar)
               >

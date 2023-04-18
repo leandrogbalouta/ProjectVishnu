@@ -11,12 +11,12 @@ namespace ProjectVishnu.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class ContaController : ControllerBase
+public class ContasController : ControllerBase
 {
     private readonly IContaService _contaService;
     private readonly IConfiguration _config;
 
-    public ContaController(IContaService contaSerice, IConfiguration config)
+    public ContasController(IContaService contaSerice, IConfiguration config)
     {
         _contaService = contaSerice;
         _config = config;
@@ -26,14 +26,14 @@ public class ContaController : ControllerBase
     public IActionResult Get() => Ok("shabba");
 
     [HttpPost("create")]
-    public IActionResult CreateAccount([FromHeader] string username, [FromHeader] string password)
+    public IActionResult CreateAccount([FromHeader] string username, [FromHeader] string password, [FromHeader] string tipoDeUser)
     {
         string hashy = PasswordCrypto.Hash(password);
         // Continuar codigo para introduzir na DB hash da password e adicionar conta na db.
         var result = _contaService.Create(new ContaInputModel()
         {
             Username = username,
-            TipoDeUser = "admin", // hard coded for now..
+            TipoDeUser = tipoDeUser,
             Password = hashy
         });
         return result is not null ? Ok() : NotFound();

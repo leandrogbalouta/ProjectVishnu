@@ -1,5 +1,5 @@
 import { ReactNode, FC, useState, useEffect } from "react";
-import IConta from "../../../common/Interfaces/IConta";
+import IContaOutput from "../../../common/Interfaces/IContaOutput";
 import { ContaContext } from "./ContaContext";
 
 interface ContaContextProps {
@@ -11,11 +11,11 @@ export const ContaContextProvider: FC<ContaContextProps> = ({ children }) => {
     const conta = localStorage.getItem("conta");
     return conta ? JSON.parse(conta) : [];
   }
-  const [conta, setConta] = useState<IConta | undefined>(getInitialState);
+  const [conta, setConta] = useState<IContaOutput | undefined>(getInitialState);
   useEffect(() => {
     setConta(JSON.parse(window.localStorage.getItem("conta")!));
   }, []);
-  function changeConta(conta: IConta) {
+  function changeConta(conta: IContaOutput) {
     setConta(conta);
   }
   return (

@@ -1,6 +1,6 @@
-import IConta from "../../../common/Interfaces/IConta";
+import IContaOutput from "../../../common/Interfaces/IContaOutput";
 
 export interface ContaContextValue {
-  conta: IConta | undefined;
-  setConta: React.Dispatch<React.SetStateAction<IConta | undefined>>;
+  conta: IContaOutput | undefined;
+  setConta: React.Dispatch<React.SetStateAction<IContaOutput | undefined>>;
 }
