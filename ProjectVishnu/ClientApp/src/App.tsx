@@ -4,7 +4,7 @@ import Layout from "./components/Layout";
 import AppRoutes from "./common/AppRoutes";
 import { ChakraProvider } from "@chakra-ui/react";
 import ThemeContextProvider from "./components/contexts/Theme/ThemeContextProvider";
-import { ContaContextProvider } from './components/contexts/Conta/ContaContextProvider';
+import { ContaContextProvider } from "./components/contexts/Conta/ContaContextProvider";
 
 function App() {
   return (
@@ -15,7 +15,7 @@ function App() {
             <Layout>
               <RouterProvider router={AppRoutes} />
             </Layout>
-          </ContaContextProvider>
+          </ContaContextProvider> 
         </AnimatePresence>
       </ChakraProvider>
     </ThemeContextProvider>

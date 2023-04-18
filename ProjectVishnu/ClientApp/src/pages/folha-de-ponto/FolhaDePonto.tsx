@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { AddFolhaDePontoTable } from "../../components/tables/AddFolhaDePontoTable";
 import { fetchFolhaDePontoByMercado, fetchFolhaDePontoByObra, submitFolhaDePontoValues } from "../../common/APICalls";
 import IFolhaDePontoOutput from "../../common/Interfaces/FolhaDePonto/IFolhaDePontoOutput";

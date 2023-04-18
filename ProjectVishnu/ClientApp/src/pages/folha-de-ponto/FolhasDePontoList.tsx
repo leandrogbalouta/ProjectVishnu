@@ -36,6 +36,4 @@ export default function FolhasDePonto() {
       {contents}
     </div>
   );
-
-  // TODO: folhasDePonto type
 }
