@@ -25,6 +25,8 @@ export default function Login() {
   const navigate = useNavigate();
   const { conta, setConta } = useAuth()
 
+  console.log("login")
+
   type Inputs = {
     username: string;
     password: string;

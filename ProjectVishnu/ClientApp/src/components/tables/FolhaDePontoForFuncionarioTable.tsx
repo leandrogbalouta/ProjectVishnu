@@ -1,5 +1,4 @@
-import { Thead, Tr, Th, Tbody, Td } from "@chakra-ui/react";
-import { Table } from "antd";
+import { Table, Thead, Tr, Th, Tbody, Td } from "@chakra-ui/react";
 import IFolhaDePontoInfoModel from "../../common/Interfaces/FolhaDePonto/IFolhaDePontoInfoModel";
 import { useNavigate, useParams } from "react-router-dom";
 import SemDadosPlaceHolder from "../SemDadosPlaceHolder";
