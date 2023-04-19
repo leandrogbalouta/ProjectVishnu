@@ -17,6 +17,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { FaCalendarDay, FaUser } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import IContaInput from "../../common/Interfaces/IContaInput";
+import IMercado from "../../common/Interfaces/IMercado";
 
 export default function CriarMercado() {
   // state
@@ -31,7 +32,7 @@ export default function CriarMercado() {
     .object({
       username: yup.string().required("Por favor, introduza o username."),
       datainicio: yup.date().typeError("Por favor introduza uma data válida."),
-      datafim: yup.date().typeError("Por favor introduza uma data válida")
+      datafim: yup.date().typeError("Por favor introduza uma data válida"),
     })
     .required();
   // end of schema
@@ -39,11 +40,11 @@ export default function CriarMercado() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<any>({
+  } = useForm<IMercado>({
     resolver: yupResolver<yup.AnyObjectSchema>(schema),
   });
-  const onSubmit: SubmitHandler<IContaInput> = async (data: IContaInput) => {
-    AddConta(data);
+  const onSubmit: SubmitHandler<IMercado> = async (data: IMercado) => {
+    // TODO add mercado
   };
   // end of form
   async function AddConta(conta: IContaInput) {
@@ -92,62 +93,58 @@ export default function CriarMercado() {
         className="flex flex-col min-h-0 max-h-full"
         onSubmit={handleSubmit(onSubmit)}
       >
-        {/* username field */}
-        <FormControl className="mb-5 basis-2/5" isInvalid={!!errors.username}>
-          <FormLabel htmlFor="username">Username</FormLabel>
+        {/* nome field */}
+        <FormControl className="mb-5 basis-2/5" isInvalid={!!errors.nome}>
+          <FormLabel htmlFor="nome">Nome</FormLabel>
           <InputGroup>
             <InputLeftElement pointerEvents="none">
               <FaUser />
             </InputLeftElement>
             <Input
-              id="username"
+              id="nome"
               type="text"
-              placeholder="Username"
-              autoComplete="blank-username"
-              {...register("username", { required: true })}
+              placeholder="nome"
+              autoComplete="blank-nome"
+              {...register("nome", { required: true })}
             />
           </InputGroup>
-          <FormErrorMessage>{errors.?.message}</FormErrorMessage>
+          <FormErrorMessage>{errors?.nome?.message}</FormErrorMessage>
         </FormControl>
         {/* Data de Início field */}
-        {(estado == "em-curso" || estado == "completada") && (
-          <FormControl className="mb-5" isInvalid={!!errors.datainicio}>
-            <FormLabel htmlFor="datainicio">Data de Início</FormLabel>
-            <InputGroup>
-              <InputLeftElement pointerEvents="none">
-                <FaCalendarDay color="#000E31" />
-              </InputLeftElement>
-              <Input
-                id="datainicio"
-                type="date"
-                placeholder="Data de ínicio de obra"
-                autoComplete="blank-datainicio"
-                {...register("datainicio", { required: false })}
-              />
-            </InputGroup>
-            <FormErrorMessage>{errors.datainicio?.message}</FormErrorMessage>
-          </FormControl>
-        )}
+        <FormControl className="mb-5" isInvalid={!!errors.datainicio}>
+          <FormLabel htmlFor="datainicio">Data de Início</FormLabel>
+          <InputGroup>
+            <InputLeftElement pointerEvents="none">
+              <FaCalendarDay color="#000E31" />
+            </InputLeftElement>
+            <Input
+              id="datainicio"
+              type="date"
+              placeholder="Data de ínicio de obra"
+              autoComplete="blank-datainicio"
+              {...register("datainicio", { required: false })}
+            />
+          </InputGroup>
+          <FormErrorMessage>{errors.datainicio?.message}</FormErrorMessage>
+        </FormControl>
 
         {/* Data de fim field */}
-        {estado == "completada" && (
-          <FormControl className="mb-5" isInvalid={!!errors.datafim}>
-            <FormLabel htmlFor="datafim">Data de Fim</FormLabel>
-            <InputGroup>
-              <InputLeftElement pointerEvents="none">
-                <FaCalendarDay color="#000E31" />
-              </InputLeftElement>
-              <Input
-                id="datafim"
-                type="date"
-                placeholder="Data de fim de obra"
-                autoComplete="blank-datafim"
-                {...register("datafim", { required: false })}
-              />
-            </InputGroup>
-            <FormErrorMessage>{errors.datafim?.message}</FormErrorMessage>
-          </FormControl>
-        )}
+        <FormControl className="mb-5" isInvalid={!!errors.datafim}>
+          <FormLabel htmlFor="datafim">Data de Fim</FormLabel>
+          <InputGroup>
+            <InputLeftElement pointerEvents="none">
+              <FaCalendarDay color="#000E31" />
+            </InputLeftElement>
+            <Input
+              id="datafim"
+              type="date"
+              placeholder="Data de fim de obra"
+              autoComplete="blank-datafim"
+              {...register("datafim", { required: false })}
+            />
+          </InputGroup>
+          <FormErrorMessage>{errors.datafim?.message}</FormErrorMessage>
+        </FormControl>
         <div id="button-container" className="flex sm:justify-end gap-2">
           <Button
             size="lg"
