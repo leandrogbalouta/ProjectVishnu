@@ -1,5 +1,5 @@
 import { Outlet, useNavigate } from "react-router-dom";
-import { FaUser } from "react-icons/fa";
+import { FaGlobeEurope, FaUser, FaUserGraduate } from "react-icons/fa";
 
 export default function Admin() {
   const navigate = useNavigate();
@@ -25,8 +25,8 @@ export default function Admin() {
     </div>
   );
   return (
-    <div className="flex gap-3 flex-col sm:flex-row px-5">
-      <div className="flex flex-row flex-1 flex-wrap gap-10 sm:gap-20 justify-between mt-10 ">
+    <div className="flex gap-3 flex-col sm:flex-row px-5 overflow-auto">
+      <div className="flex flex-row flex-1 flex-wrap gap-10 sm:gap-20 justify-between mt-10 mb-10 sm:mb-0">
         <Option
           title={"Criar Utilizador"}
           onClick={() => navigate("/admin/criar-utilizador")}
@@ -35,12 +35,12 @@ export default function Admin() {
         <Option
           title={"Criar Mercado"}
           onClick={() => navigate("/admin/criar-mercado")}
-          icon={<FaUser />}
+          icon={<FaGlobeEurope />}
         />
         <Option
           title={"Criar Categoria Profissional"}
-          onClick={() => {}}
-          icon={<FaUser />}
+          onClick={() => navigate("/admin/criar-categoria-profissional")}
+          icon={<FaUserGraduate />}
         />
         <Outlet />
       </div>

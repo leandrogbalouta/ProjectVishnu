@@ -19,7 +19,7 @@ import {
 } from "react-hook-form";
 import { FaUser } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import IContaInput from "../../common/Interfaces/IContaInput";
+import IContaInput from "../../common/Interfaces/Conta/IContaInput";
 import PasswordInput from "../../components/PasswordInput";
 
 export default function CriarUtilizador() {

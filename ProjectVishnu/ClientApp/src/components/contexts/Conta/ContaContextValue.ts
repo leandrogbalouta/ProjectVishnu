@@ -1,4 +1,4 @@
-import IContaOutput from "../../../common/Interfaces/IContaOutput";
+import IContaOutput from "../../../common/Interfaces/Conta/IContaOutput";
 
 export interface ContaContextValue {
   conta: IContaOutput | undefined;

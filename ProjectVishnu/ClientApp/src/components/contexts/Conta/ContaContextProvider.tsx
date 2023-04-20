@@ -1,5 +1,5 @@
 import { ReactNode, FC, useState, useEffect } from "react";
-import IContaOutput from "../../../common/Interfaces/IContaOutput";
+import IContaOutput from "../../../common/Interfaces/Conta/IContaOutput";
 import { ContaContext } from "./ContaContext";
 
 interface ContaContextProps {

@@ -1,6 +1,6 @@
 import IFolhaDePontoInput from "./Interfaces/FolhaDePonto/IFolhaDePontoInput";
 import IFuncionarioInput from "./Interfaces/Funcionario/IFuncionarioInput";
-import IContaInput from "./Interfaces/IContaInput";
+import IContaInput from "./Interfaces/Conta/IContaInput";
 import IObraOutput from "./Interfaces/Obra/IObraOutput";
 
 // Tipos de documento

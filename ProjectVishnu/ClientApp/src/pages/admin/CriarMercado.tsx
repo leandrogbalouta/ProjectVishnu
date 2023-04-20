@@ -16,8 +16,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { FaCalendarDay, FaUser } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import IContaInput from "../../common/Interfaces/IContaInput";
-import IMercado from "../../common/Interfaces/IMercado";
+import IContaInput from "../../common/Interfaces/Conta/IContaInput";
+import IMercado from "../../common/Interfaces/Mercado/IMercado";
 
 export default function CriarMercado() {
   // state
@@ -30,7 +30,7 @@ export default function CriarMercado() {
   // schema
   const schema = yup
     .object({
-      username: yup.string().required("Por favor, introduza o username."),
+      nome: yup.string().required("Por favor, introduza o nome do mercado."),
       datainicio: yup.date().typeError("Por favor introduza uma data válida."),
       datafim: yup.date().typeError("Por favor introduza uma data válida"),
     })
@@ -103,7 +103,7 @@ export default function CriarMercado() {
             <Input
               id="nome"
               type="text"
-              placeholder="nome"
+              placeholder="Nome"
               autoComplete="blank-nome"
               {...register("nome", { required: true })}
             />

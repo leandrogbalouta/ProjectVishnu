@@ -16,7 +16,7 @@ import { Link, useNavigate } from "react-router-dom";
 import PasswordInput from "../components/PasswordInput";
 import AuthenticationPanel from "../components/AuthenticationPanel";
 import { tryLogin } from "../common/APICalls";
-import IContaOutput from "../common/Interfaces/IContaOutput";
+import IContaOutput from "../common/Interfaces/Conta/IContaOutput";
 import useAuth from "../auth/useAuth";
 
 export default function Login() {
@@ -130,12 +130,13 @@ export default function Login() {
             Sign In
           </Button>
         </div>
-        <Link
+        {/* TODO ver se é para implementar reset password */}
+        {/* <Link
           to="/forgot-password"
           className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
         >
           Forgot Password?
-        </Link>
+        </Link> */}
       </form>
     </AuthenticationPanel>
   );
