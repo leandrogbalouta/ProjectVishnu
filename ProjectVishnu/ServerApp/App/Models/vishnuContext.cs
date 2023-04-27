@@ -41,6 +41,7 @@ namespace ProjectVishnu.Models
         public virtual DbSet<Obra> Obras { get; set; } = null!;
         public virtual DbSet<SalarioFinal> SalarioFinals { get; set; } = null!;
         public virtual DbSet<Conta> Contas { get; set; } = null!;
+        public virtual DbSet<TipoDeUser> TiposDeUser { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -129,6 +130,8 @@ namespace ProjectVishnu.Models
                 entity.Property(e => e.Tipo)
                     .HasMaxLength(20)
                     .HasColumnName("tipo");
+                entity.Navigation(e => e.Contas)
+    .AutoInclude(false);
             });
 
 

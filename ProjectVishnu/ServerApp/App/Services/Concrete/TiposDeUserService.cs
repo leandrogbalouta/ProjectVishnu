@@ -19,19 +19,15 @@ public class TiposDeUserService : ITiposDeUserService
     {
         throw new NotImplementedException();
     }
+    // TODO double check DB prevents duplicate values..
+    public TipoDeUser Get(string tipoDeUser) => _unitOfWork.TiposDeUser.Find((tipo) => tipo.Tipo == tipoDeUser).FirstOrDefault()!;
 
-    public TipoDeUser Get(string tipoDeUser)
-    {
-        throw new NotImplementedException();
-    }
-
-    public IEnumerable<TipoDeUser> List()
-    {
-        throw new NotImplementedException();
-    }
+    public IEnumerable<TipoDeUser> List() => _unitOfWork.TiposDeUser.GetAll();
 
     public string Update(string tipoDeUser, TipoDeUser tipoDeUserEntity)
     {
-        throw new NotImplementedException();
+        _unitOfWork.TiposDeUser.Update(tipoDeUser, tipoDeUserEntity);
+        _unitOfWork.Complete();
+        return "Tipo de user atualizado com sucesso.";  
     }
 }

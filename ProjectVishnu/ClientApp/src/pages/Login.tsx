@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState } from "react";
 import { RiUserFill } from "react-icons/ri";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -12,7 +12,7 @@ import {
   FormControl,
 } from "@chakra-ui/react";
 
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import PasswordInput from "../components/PasswordInput";
 import AuthenticationPanel from "../components/AuthenticationPanel";
 import { tryLogin } from "../common/APICalls";

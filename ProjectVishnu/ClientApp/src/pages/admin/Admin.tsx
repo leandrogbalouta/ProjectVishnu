@@ -26,7 +26,7 @@ export default function Admin() {
   );
   return (
     <div className="flex gap-3 flex-col sm:flex-row px-5 overflow-auto">
-      <div className="flex flex-row flex-1 flex-wrap gap-10 sm:gap-20 justify-between mt-10 mb-10 sm:mb-0">
+      <div className="flex flex-row flex-1 flex-wrap gap-10 sm:gap-20 justify-between p-3 sm:mb-0">
         <Option
           title={"Criar Utilizador"}
           onClick={() => navigate("/admin/criar-utilizador")}

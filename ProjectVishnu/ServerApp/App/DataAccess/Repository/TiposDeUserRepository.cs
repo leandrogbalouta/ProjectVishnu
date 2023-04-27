@@ -11,6 +11,10 @@ public class TiposDeUserRepository : Repository<TipoDeUser>, ITiposDeUserReposit
             : base(context)
     {
     }
+    public vishnuContext VishnuContext
+    {
+        get { return Context as vishnuContext; }
+    }
     public void Add(Conta entity)
     {
         throw new NotImplementedException();
@@ -28,6 +32,9 @@ public class TiposDeUserRepository : Repository<TipoDeUser>, ITiposDeUserReposit
 
     public void Update(string tipoDeUser, TipoDeUser entity)
     {
-        throw new NotImplementedException();
+
     }
+    public void GetAll() => VishnuContext.TiposDeUser.Select(tdu => new { tdu.Id, tdu.Tipo })
+    .ToList();
+    
 }

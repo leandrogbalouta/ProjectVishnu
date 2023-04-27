@@ -21,7 +21,6 @@ import IMercado from "../../common/Interfaces/Mercado/IMercado";
 
 export default function CriarMercado() {
   // state
-  const [tiposDeUser, setTiposDeUser] = useState<string[]>([]);
   const [estado, setEstado] = useState<string | undefined>(undefined);
   // Router
   const navigate = useNavigate();
@@ -77,13 +76,7 @@ export default function CriarMercado() {
     }
   }
   useEffect(() => {
-    // Get Mercados
-    const populateTiposDeUser = async () => {
-      const response = await fetchTiposDeUser();
-      const data = await response.json();
-      setTiposDeUser(data);
-    };
-    populateTiposDeUser();
+   
   }, []);
 
   return (
