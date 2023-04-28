@@ -106,7 +106,13 @@ CREATE TABLE FOLHAS_SALARIO(
 		primary key(Id_salario,Id_folha_de_ponto)
 );
 
+CREATE TABLE TIPO_DE_USER(
+		Id int PRIMARY KEY,
+		Tipo varchar(20) NOT NULL
+);
+
 CREATE TABLE CONTA(
 		Username varchar(40) primary key,
-		Pwd varchar(64)
+		TipoDeUser int REFERENCES TIPO_DE_USER(Id),
+		PasswordHash varchar(100)
 );

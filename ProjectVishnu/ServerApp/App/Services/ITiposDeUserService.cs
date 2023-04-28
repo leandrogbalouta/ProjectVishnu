@@ -1,4 +1,5 @@
 using ProjectVishnu.Models;
+using ProjectVishnu.ServerApp.App.Dtos;
 
 namespace ProjectVishnu.Services;
 public interface ITiposDeUserService
@@ -7,5 +8,5 @@ public interface ITiposDeUserService
     string Create(TipoDeUser conta);
     string Delete(string tipoDeUser);
     string Update(string tipoDeUser, TipoDeUser tipoDeUserEntity);
-    IEnumerable<TipoDeUser> List();
+    IEnumerable<TiposUserOutputModel> List();
 }

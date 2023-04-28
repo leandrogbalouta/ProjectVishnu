@@ -1,6 +1,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Mvc;
+using ProjectVishnu.ServerApp.App.Dtos;
 using ProjectVishnu.Services;
 
 namespace ProjectVishnu.Controllers;
@@ -16,13 +17,7 @@ public class TiposDeUserController : ControllerBase
     [HttpGet]
     public IActionResult List()
     {
-        var options = new JsonSerializerOptions
-        {
-            ReferenceHandler = ReferenceHandler.Preserve,
-            MaxDepth = 64 // Increase the maximum allowed depth if necessary
-        };
-
-        string output = JsonSerializer.Serialize(_tiposDeUserService.List(), options);
+        IEnumerable<TiposUserOutputModel> output = _tiposDeUserService.List();
         return Ok(output);
     }
 

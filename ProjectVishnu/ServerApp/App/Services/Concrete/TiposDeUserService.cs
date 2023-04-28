@@ -1,5 +1,6 @@
 using ProjectVishnu.DataAccess;
 using ProjectVishnu.Models;
+using ProjectVishnu.ServerApp.App.Dtos;
 
 namespace ProjectVishnu.Services.Concrete;
 public class TiposDeUserService : ITiposDeUserService
@@ -22,7 +23,7 @@ public class TiposDeUserService : ITiposDeUserService
     // TODO double check DB prevents duplicate values..
     public TipoDeUser Get(string tipoDeUser) => _unitOfWork.TiposDeUser.Find((tipo) => tipo.Tipo == tipoDeUser).FirstOrDefault()!;
 
-    public IEnumerable<TipoDeUser> List() => _unitOfWork.TiposDeUser.GetAll();
+    public IEnumerable<TiposUserOutputModel> List() => _unitOfWork.TiposDeUser.GetAll().Select(tu => tu.toOutputModel());
 
     public string Update(string tipoDeUser, TipoDeUser tipoDeUserEntity)
     {
