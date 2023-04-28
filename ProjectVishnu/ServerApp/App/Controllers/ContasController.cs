@@ -26,26 +26,21 @@ public class ContasController : ControllerBase
     public IActionResult Get() => Ok("shabba");
 
     [HttpPost("create")]
-    public IActionResult CreateAccount([FromHeader] string username, [FromHeader] string password, [FromHeader] string tipoDeUser)
+    public IActionResult CreateAccount([FromBody] ContaInputModel contaInput)
     {
-        string hashy = PasswordCrypto.Hash(password);
+        string hashy = PasswordCrypto.Hash(contaInput.Password);
         // Continuar codigo para introduzir na DB hash da password e adicionar conta na db.
-        var result = _contaService.Create(new ContaInputModel()
-        {
-            Username = username,
-            TipoDeUser = tipoDeUser,
-            Password = hashy
-        });
+        var result = _contaService.Create(contaInput);
         return result is not null ? Ok() : NotFound();
     }
     [HttpPost("login")]
-    public IActionResult Login([FromHeader] string username, [FromHeader] string password)
+    public IActionResult Login([FromBody] ContaInputModel contaInput)
     {
         try
         {
-            var conta = _contaService.Get(username); // this should be awaitable
+            var conta = _contaService.Get(contaInput.Username); // this should be awaitable
             if (conta is null) return NotFound();
-            password = PasswordCrypto.Hash(password);
+            var password = PasswordCrypto.Hash(contaInput.Password);
             bool isValidPassword = (password == conta.PasswordHash);
             if (!isValidPassword) return Unauthorized();
             // Generate token.

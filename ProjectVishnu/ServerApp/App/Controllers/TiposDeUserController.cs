@@ -17,7 +17,7 @@ public class TiposDeUserController : ControllerBase
     [HttpGet]
     public IActionResult List()
     {
-        IEnumerable<TiposUserOutputModel> output = _tiposDeUserService.List();
+        IEnumerable<string> output = _tiposDeUserService.List();
         return Ok(output);
     }
 

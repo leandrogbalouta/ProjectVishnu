@@ -11,6 +11,7 @@ DROP TABLE IF EXISTS CATEGORIAS_PROFISSIONAIS;
 DROP TABLE IF EXISTS TIPO_DOC;
 DROP TABLE IF EXISTS MERCADO;
 
+
 CREATE TABLE TIPO_DOC(
 		Sigla varchar(5) PRIMARY KEY,
 		Designacao varchar(50)
@@ -119,6 +120,18 @@ CREATE TABLE FOLHAS_SALARIO(
 		primary key(Id_salario,Id_folha_de_ponto)
 );
 
+CREATE TABLE TIPO_DE_USER (
+	Id INT UNIQUE GENERATED ALWAYS AS IDENTITY,
+	Tipo varchar(20)
+);
+
+CREATE TABLE CONTA (
+		Username varchar(40) primary key,
+		TipoDeUser int references TIPO_DE_USER(Id),
+		PasswordHash varchar(70)
+);
+
+
 INSERT INTO CATEGORIAS_PROFISSIONAIS
 (codigo,nomenclatura) values
 ('CA1','Carpinteiro de primeira'),
@@ -200,17 +213,9 @@ INSERT INTO FUNCIONARIOS_OBRAS
 ('234567899','OB22PT01','2022-05-21',null),
 ('255896379','OB22PT01','2022-05-21',null);
 
-CREATE TABLE TIPO_DE_USER (
-	Id INT UNIQUE GENERATED ALWAYS AS IDENTITY,
-	Tipo varchar(20)
-);
 INSERT INTO TIPO_DE_USER (Tipo) values
 ('admin');
-CREATE TABLE CONTA (
-		Username varchar(40) primary key,
-		TipoDeUser int references TIPO_DE_USER(Id),
-		PasswordHash varchar(70)
-);
+
 INSERT INTO CONTA
 (Username, TipoDeUser, PasswordHash, PasswordSalt) values
 ('admin', 1, '0863F757E0EC7471A223B14B977F9D6158F2AEFFAAE255BFCDE5D188BCCAC825');

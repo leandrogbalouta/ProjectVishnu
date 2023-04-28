@@ -23,7 +23,7 @@ public class TiposDeUserService : ITiposDeUserService
     // TODO double check DB prevents duplicate values..
     public TipoDeUser Get(string tipoDeUser) => _unitOfWork.TiposDeUser.Find((tipo) => tipo.Tipo == tipoDeUser).FirstOrDefault()!;
 
-    public IEnumerable<TiposUserOutputModel> List() => _unitOfWork.TiposDeUser.GetAll().Select(tu => tu.toOutputModel());
+    public IEnumerable<string> List() => _unitOfWork.TiposDeUser.GetAll().Select(tu => tu.Tipo);
 
     public string Update(string tipoDeUser, TipoDeUser tipoDeUserEntity)
     {

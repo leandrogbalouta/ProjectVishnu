@@ -222,9 +222,12 @@ export async function tryLogin(
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      
+    },
+    body: JSON.stringify({
       username: username,
       password: password,
-    },
+    })
   });
 }
 export async function CreateUser(user: IContaInput): Promise<Response> {
@@ -233,10 +236,12 @@ export async function CreateUser(user: IContaInput): Promise<Response> {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "username": user.username,
-      "password": user.password,
-      "tipoDeUser": user.tipoDeUser
     },
+    body: JSON.stringify({
+      username: user.username,
+      password: user.password,
+      tipoDeUser: user.tipoDeUser
+    })
   });
 }
 // Tipos de User

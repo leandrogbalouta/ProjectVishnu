@@ -8,5 +8,5 @@ public interface ITiposDeUserService
     string Create(TipoDeUser conta);
     string Delete(string tipoDeUser);
     string Update(string tipoDeUser, TipoDeUser tipoDeUserEntity);
-    IEnumerable<TiposUserOutputModel> List();
+    IEnumerable<string> List();
 }

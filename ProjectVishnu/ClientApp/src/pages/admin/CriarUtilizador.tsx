@@ -22,6 +22,10 @@ import { useNavigate } from "react-router-dom";
 import IContaInput from "../../common/Interfaces/Conta/IContaInput";
 import PasswordInput from "../../components/PasswordInput";
 
+interface TipoDeUser {
+  tipo: string
+}
+
 export default function CriarUtilizador() {
   // state
   const [tiposDeUser, setTiposDeUser] = useState<string[]>([]);
@@ -84,6 +88,7 @@ export default function CriarUtilizador() {
     const populateTiposDeUser = async () => {
       const response = await fetchTiposDeUser();
       const data = await response.json();
+      console.log(data)
       setTiposDeUser(data);
     };
     populateTiposDeUser();
@@ -136,9 +141,9 @@ export default function CriarUtilizador() {
             >
               {tiposDeUser && (
                 <>
-                  {tiposDeUser.map((mercado: string) => (
-                    <option value={mercado} key={mercado}>
-                      {mercado}
+                  {tiposDeUser.map((tipo: string) => (
+                    <option value={tipo} key={tipo}>
+                      {tipo}
                     </option>
                   ))}
                 </>

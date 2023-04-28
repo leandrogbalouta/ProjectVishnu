@@ -79,11 +79,9 @@ INSERT INTO FUNCIONARIOS_OBRAS
 ('234567899','OB22PT01','2022-05-21',null),
 ('255896379','OB22PT01','2022-05-21',null);
 
-INSERT INTO TIPO_DE_USER(Id, Tipo) values
-(1, 'Admin'),
-(2, 'testType1'),
-(3, 'testType3');
+INSERT INTO TIPO_DE_USER (Tipo) values
+('admin');
 
 INSERT INTO CONTA
-(username,tipodeuser, passwordhash) values
-('afonso',1,'afonso123');
+(Username, TipoDeUser, PasswordHash) values
+('admin', 1, '0863F757E0EC7471A223B14B977F9D6158F2AEFFAAE255BFCDE5D188BCCAC825');
