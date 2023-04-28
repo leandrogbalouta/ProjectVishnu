@@ -36,5 +36,9 @@ public class TiposDeUserRepository : Repository<TipoDeUser>, ITiposDeUserReposit
     }
     public void GetAll() => VishnuContext.TiposDeUser.Select(tdu => new { tdu.Id, tdu.Tipo })
     .ToList();
-    
+
+    public int GetByType(string tipoDeUser)
+    {
+        return VishnuContext.TiposDeUser.SingleOrDefault(tu => tu.Tipo == tipoDeUser).Id;
+    }
 }

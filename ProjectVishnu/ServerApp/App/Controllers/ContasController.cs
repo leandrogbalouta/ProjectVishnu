@@ -28,7 +28,6 @@ public class ContasController : ControllerBase
     [HttpPost("create")]
     public IActionResult CreateAccount([FromBody] ContaInputModel contaInput)
     {
-        string hashy = PasswordCrypto.Hash(contaInput.Password);
         // Continuar codigo para introduzir na DB hash da password e adicionar conta na db.
         var result = _contaService.Create(contaInput);
         return result is not null ? Ok() : NotFound();

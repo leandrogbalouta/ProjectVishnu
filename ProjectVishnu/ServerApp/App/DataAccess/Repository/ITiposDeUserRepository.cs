@@ -7,5 +7,5 @@ public interface ITiposDeUserRepository : IRepository<TipoDeUser>
     public void Add(Conta entity);
     public void Update(string tipoDeUser, TipoDeUser entity);
     public void Delete(string tipoDeUser);
-
+    int GetByType(string tipoDeUser);
 }

@@ -1,5 +1,6 @@
 using ProjectVishnu.DataAccess;
 using ProjectVishnu.Models;
+using ProjectVishnu.ServerApp.App.Common;
 using ProjectVishnu.ServerApp.App.Dtos;
 
 namespace ProjectVishnu.ServerApp.App.Services.Concrete;
@@ -13,7 +14,24 @@ public class ContaService : IContaService
 
     public string Create(ContaInputModel conta)
     {
-        throw new NotImplementedException();
+        try{
+            string hashy = PasswordCrypto.Hash(conta.Password);
+
+            int TipoDeUserId = _unitOfWork.TiposDeUser.GetByType(conta.TipoDeUser);
+
+            Conta contaToAdd = new Conta 
+            {
+                Username = conta.Username,
+                PasswordHash = hashy,
+                TipoDeUserId = TipoDeUserId
+            };
+            _unitOfWork.Contas.Add(contaToAdd);
+            _unitOfWork.Complete();
+            return conta.Username;
+        }catch(Exception ex){
+            throw ex;
+        }
+        
     }
 
     public string Delete(string username)
