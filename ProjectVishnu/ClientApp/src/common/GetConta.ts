@@ -6,7 +6,6 @@ const GetConta  = (): IContaOutput | undefined  => {
   const token = localStorage.getItem("DKMToken");
   if (!token) return undefined;
   let decoded = jose.decodeJwt(token!); 
-  console.log("exp" + decoded.exp);
   if (decoded!.exp! * 1000 < new Date().getTime()) return undefined;
   return {
     username: decoded.username as string,

@@ -13,12 +13,11 @@ const RequireAuth = ({ allowedRoles }: Params) => {
   useEffect(() => {
     // Detect if token still valid
     const cnt = GetConta();
-    if (!cnt) {
-      localStorage.removeItem("DKMToken");
-      setConta(undefined);
-    }
-    setConta(cnt);
-  }, []);
+    if (cnt) return setConta(cnt);
+    
+    localStorage.removeItem("DKMToken");
+    setConta(undefined);
+  }, [location]);
   return allowedRoles?.find((role) => conta?.tipoDeUser === role) ? (
     <Outlet />
   ) : conta?.username ? (

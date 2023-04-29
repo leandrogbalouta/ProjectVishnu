@@ -68,7 +68,7 @@ export default function Login() {
   // effect, if user logged in (token valid) redirect to homepage
   useEffect(() => {
     if (conta) navigate("/");
-  });
+  },[]);
   return (
     <AuthenticationPanel>
       <form
