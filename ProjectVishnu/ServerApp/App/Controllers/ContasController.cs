@@ -64,10 +64,10 @@ public class ContasController : ControllerBase
         {
             Subject = new ClaimsIdentity(new Claim[]
             {
-                new Claim(ClaimTypes.Name, conta.Username),
-                new Claim(ClaimTypes.Role, conta.TipoDeUser)
+                new Claim("username", conta.Username),
+                new Claim("tipoDeUser", conta.TipoDeUser)
             }),
-            Expires = DateTime.UtcNow.AddDays(7),
+            Expires = DateTime.UtcNow.AddMinutes(1),
             SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(asciKey), SecurityAlgorithms.HmacSha256Signature)
         };
         var token = tokenHandler.CreateToken(tokenDescriptor);

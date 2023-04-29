@@ -2,6 +2,7 @@ import IFolhaDePontoInput from "./Interfaces/FolhaDePonto/IFolhaDePontoInput";
 import IFuncionarioInput from "./Interfaces/Funcionario/IFuncionarioInput";
 import IContaInput from "./Interfaces/Conta/IContaInput";
 import IObraOutput from "./Interfaces/Obra/IObraOutput";
+import { IMercado } from "./Interfaces";
 
 // Tipos de documento
 export async function fetchTiposDocumento(): Promise<Response> {
@@ -17,6 +18,16 @@ export async function fetchMercados(): Promise<Response> {
 export async function fetchCategoriasProfissionais(): Promise<Response> {
   let path = "/api/categorias-profissionais";
   return fetch(path);
+}
+export async function createMercado(mercado: IMercado): Promise<Response> {
+  const path = "/api/mercados";
+  return fetch(path, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(mercado),
+  });
 }
 // Funcionario
 export async function fetchFuncionarios(
