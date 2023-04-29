@@ -29,7 +29,6 @@ export default function Obras() {
   ) : (
     <Spinner size="xl" className="m-auto" />
   );
-
   useEffect(() => {
     const filters = Object.assign(
       {},
@@ -38,8 +37,7 @@ export default function Obras() {
     );
     const populateObrasData = async () => {
       const response = await fetchObras(filters);
-      const data = await response.json();
-      setObras(data);
+      setObras(response.data);
     };
     populateObrasData();
   }, [mercado, searchString, state]);
@@ -53,7 +51,6 @@ export default function Obras() {
         setSearchString={setSearchString}
         searchBar
       />
-
       {contents}
       <div id="button-container" className="flex justify-end mt-3">
         <Button onClick={() => navigate("/obras/create")} colorScheme="blue">

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { CreateUser, fetchTiposDeUser } from "../../common/APICalls";
+import { createUser, fetchTiposDeUser } from "../../common/APICalls";
 import {
   Button,
   FormControl,
@@ -13,17 +13,14 @@ import {
 } from "@chakra-ui/react";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import {
-  useForm,
-  SubmitHandler,
-} from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { FaUser } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import IContaInput from "../../common/Interfaces/Conta/IContaInput";
 import PasswordInput from "../../components/PasswordInput";
 
 interface TipoDeUser {
-  tipo: string
+  tipo: string;
 }
 
 export default function CriarUtilizador() {
@@ -39,7 +36,9 @@ export default function CriarUtilizador() {
     .object({
       username: yup.string().required("Por favor, introduza o username."),
       password: yup.string().required("Por favor, introduza uma password."),
-      tipoDeUser: yup.string().required("Por favor escolha um tipo de utilizador.")
+      tipoDeUser: yup
+        .string()
+        .required("Por favor escolha um tipo de utilizador."),
     })
     .required();
   // end of schema
@@ -55,7 +54,7 @@ export default function CriarUtilizador() {
   };
   // end of form
   async function AddConta(conta: IContaInput) {
-    const resp = await CreateUser(conta);
+    const resp = await createUser(conta);
     if (resp.status === 201) {
       navigate("/admin");
       if (!toast.isActive("sucesso")) {
@@ -87,9 +86,7 @@ export default function CriarUtilizador() {
     // Get Mercados
     const populateTiposDeUser = async () => {
       const response = await fetchTiposDeUser();
-      const data = await response.json();
-      console.log(data)
-      setTiposDeUser(data);
+      setTiposDeUser(response.data);
     };
     populateTiposDeUser();
   }, []);

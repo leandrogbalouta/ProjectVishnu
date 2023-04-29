@@ -1,13 +1,24 @@
+import { useContext, useEffect } from "react";
 import { useLocation, Navigate, Outlet } from "react-router-dom";
-import useAuth from "./useAuth";
+import GetConta from "../common/GetConta";
+import useAuth from './useAuth';
 
 interface Params {
   allowedRoles?: string[];
 }
 
 const RequireAuth = ({ allowedRoles }: Params) => {
-  const { conta } = useAuth();
   const location = useLocation();
+  const { conta, setConta } = useAuth();
+  useEffect(() => {
+    // Detect if token still valid
+    const cnt = GetConta();
+    if (!cnt) {
+      localStorage.removeItem("DKMToken");
+      setConta(undefined);
+    }
+    setConta(cnt);
+  }, []);
   return allowedRoles?.find((role) => conta?.tipoDeUser === role) ? (
     <Outlet />
   ) : conta?.username ? (

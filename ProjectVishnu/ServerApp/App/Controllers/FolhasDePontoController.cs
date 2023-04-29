@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ProjectVishnu.ServerApp.App.Dtos;
 using ProjectVishnu.ServerApp.App.Services;
 
 namespace ProjectVishnu.ServerApp.App.Controllers
 {
     [ApiController]
+    [Authorize]
     public class FolhasDePontoController : ControllerBase
     {
 

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { CreateUser, fetchTiposDeUser } from "../../common/APICalls";
+import { createUser, fetchTiposDeUser } from "../../common/APICalls";
 import {
   Button,
   FormControl,
@@ -54,7 +54,7 @@ export default function CriarMercado() {
   const onSubmit: SubmitHandler<IMercado> = async (data: IMercado) => {};
   // end of form
   async function AddConta(conta: IContaInput) {
-    const resp = await CreateUser(conta);
+    const resp = await createUser(conta);
     if (resp.status === 201) {
       navigate("/admin");
       if (!toast.isActive("sucesso")) {
@@ -69,15 +69,13 @@ export default function CriarMercado() {
       }
     } else {
       if (!toast.isActive("erro")) {
-        resp.json().then((res) => {
-          toast({
-            id: "erro",
-            title: "Ocorreu um erro ao criar mercado.",
-            position: "top-right",
-            duration: 10000,
-            status: "error",
-            isClosable: true,
-          });
+        toast({
+          id: "erro",
+          title: "Ocorreu um erro ao criar mercado.",
+          position: "top-right",
+          duration: 10000,
+          status: "error",
+          isClosable: true,
         });
       }
     }

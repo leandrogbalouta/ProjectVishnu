@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { CreateObra, fetchMercados } from "../../common/APICalls";
+import { createObra, fetchMercados } from "../../common/APICalls";
 import {
   Button,
   FormControl,
@@ -16,12 +16,12 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm, SubmitHandler } from "react-hook-form";
 import IObraOutput from "../../common/Interfaces/Obra/IObraOutput";
 import { FaUser, FaPen, FaCalendarDay } from "react-icons/fa";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 export default function ObraCreation() {
   // state
   const [mercados, setMercados] = useState<string[]>([]);
-  const [estado, setEstado] = useState<string | undefined>(undefined)
+  const [estado, setEstado] = useState<string | undefined>(undefined);
   // Router
   const navigate = useNavigate();
   // misc
@@ -50,7 +50,7 @@ export default function ObraCreation() {
   };
   // end of form
   async function AddObra(obra: IObraOutput) {
-    const resp = await CreateObra(obra);
+    const resp = await createObra(obra);
     if (resp.status === 201) {
       navigate("/obras");
       if (!toast.isActive("sucesso")) {
@@ -65,16 +65,14 @@ export default function ObraCreation() {
       }
     } else {
       if (!toast.isActive("erro")) {
-        resp.json().then((res) => {
-          toast({
-            id: "erro",
-            title: 'Ocorreu um erro ao criar uma nova obra.',
-            position: "top-right",
-            duration: 10000,
-            status: "error",
-            isClosable: true,
-          });
-        })
+        toast({
+          id: "erro",
+          title: "Ocorreu um erro ao criar uma nova obra.",
+          position: "top-right",
+          duration: 10000,
+          status: "error",
+          isClosable: true,
+        });
       }
     }
   }
@@ -82,8 +80,7 @@ export default function ObraCreation() {
     // Get Mercados
     const populateMercados = async () => {
       const response = await fetchMercados();
-      const data = await response.json();
-      setMercados(data);
+      setMercados(response.data);
     };
     populateMercados();
   }, []);
@@ -131,29 +128,23 @@ export default function ObraCreation() {
         </FormControl>
         {/* Estado field */}
         <FormControl className="mb-5" isInvalid={!!errors.estado}>
-            <FormLabel htmlFor="estado">Estado</FormLabel>
-            <InputGroup>
-              <Select
-                id="estado"
-                placeholder="Estado"
-                {...register("estado", { required: true })}
-                onChange={(e) => setEstado(e.target.value)}
-              >
-                <option value="em-curso">
-                  Em curso
-                </option>
-                <option value="completada">
-                  Completada
-                </option>
-                <option value="por-comecar">
-                  Por começar
-                </option>
-              </Select>
-            </InputGroup>
-            <FormErrorMessage>{errors.mercado?.message}</FormErrorMessage>
-          </FormControl>
+          <FormLabel htmlFor="estado">Estado</FormLabel>
+          <InputGroup>
+            <Select
+              id="estado"
+              placeholder="Estado"
+              {...register("estado", { required: true })}
+              onChange={(e) => setEstado(e.target.value)}
+            >
+              <option value="em-curso">Em curso</option>
+              <option value="completada">Completada</option>
+              <option value="por-comecar">Por começar</option>
+            </Select>
+          </InputGroup>
+          <FormErrorMessage>{errors.mercado?.message}</FormErrorMessage>
+        </FormControl>
         {/* Data de Início field */}
-        {(estado == "em-curso" || estado == "completada") &&
+        {(estado == "em-curso" || estado == "completada") && (
           <FormControl className="mb-5" isInvalid={!!errors.datainicio}>
             <FormLabel htmlFor="datainicio">Data de Início</FormLabel>
             <InputGroup>
@@ -170,10 +161,10 @@ export default function ObraCreation() {
             </InputGroup>
             <FormErrorMessage>{errors.datainicio?.message}</FormErrorMessage>
           </FormControl>
-        }
-        
+        )}
+
         {/* Data de fim field */}
-        {estado == "completada" &&
+        {estado == "completada" && (
           <FormControl className="mb-5" isInvalid={!!errors.datafim}>
             <FormLabel htmlFor="datafim">Data de Fim</FormLabel>
             <InputGroup>
@@ -190,7 +181,7 @@ export default function ObraCreation() {
             </InputGroup>
             <FormErrorMessage>{errors.datafim?.message}</FormErrorMessage>
           </FormControl>
-        }
+        )}
         {/* mercado field */}
         <FormControl className="mb-5" isInvalid={!!errors.mercado}>
           <FormLabel htmlFor="mercado">Mercado</FormLabel>
@@ -215,7 +206,7 @@ export default function ObraCreation() {
           <FormErrorMessage>{errors.mercado?.message}</FormErrorMessage>
         </FormControl>
         <div id="button-container" className="flex sm:justify-end gap-2">
-        <Button
+          <Button
             size="lg"
             className="mt-3 w-full sm:w-auto bg-teal-200 text-slate-800"
             onClick={() => navigate("/obras")}

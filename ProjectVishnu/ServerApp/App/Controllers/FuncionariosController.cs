@@ -3,11 +3,13 @@ using ProjectVishnu.Models;
 using ProjectVishnu.Services;
 using ProjectVishnu.ServerApp.App.Dtos;
 using ProjectVishnu.ServerApp.App.Services.ServicesErrors;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ProjectVishnu.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class FuncionariosController : ControllerBase
     {
 

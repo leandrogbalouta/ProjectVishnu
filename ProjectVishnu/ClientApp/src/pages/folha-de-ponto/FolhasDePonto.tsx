@@ -19,8 +19,7 @@ export default function FolhasDePonto() {
   useEffect(() => {
     const populateFolhasDePontoData = async () => {
       const response = await fetchFolhaDePontoAllByMercado(mercado!);
-      const data = await response.json();
-      setFolhasDePonto(data);
+      setFolhasDePonto(response.data);
     };
     populateFolhasDePontoData();
   }, [mercado]);

@@ -1,6 +1,7 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using ProjectVishnu.Models;
@@ -26,6 +27,7 @@ public class ContasController : ControllerBase
     public IActionResult Get() => Ok("shabba");
 
     [HttpPost("create")]
+    [Authorize(Roles = "Admin")]
     public IActionResult CreateAccount([FromBody] ContaInputModel contaInput)
     {
         // Continuar codigo para introduzir na DB hash da password e adicionar conta na db.
@@ -37,7 +39,7 @@ public class ContasController : ControllerBase
     {
         try
         {
-            var conta = _contaService.Get(contaInput.Username); // this should be awaitable
+            var conta = _contaService.Get(contaInput.Username); // This should be awaitable
             if (conta is null) return NotFound();
             var password = PasswordCrypto.Hash(contaInput.Password);
             bool isValidPassword = (password == conta.PasswordHash);
@@ -45,29 +47,29 @@ public class ContasController : ControllerBase
             // Generate token.
             ContaOutputModel outConta = conta.ToContaOutputModel();
             string token = GenerateToken(outConta);
-            outConta.Token = token;
-
-            return Ok(outConta);
+            return Ok(token);
         }
         catch (System.Exception)
         {
             return BadRequest();
         }
     }
-    public string GenerateToken(ContaOutputModel conta)
+    private string GenerateToken(ContaOutputModel conta)
     {
-        string key = _config.GetSection("Key").ToString()!;
-        // authentication successful so generate jwt token
+        string key = TokenSettings.Key;
+        // Authentication successful so generate jwt token
         var tokenHandler = new JwtSecurityTokenHandler();
         var asciKey = Encoding.ASCII.GetBytes(key);
         var tokenDescriptor = new SecurityTokenDescriptor
         {
+            Audience = TokenSettings.Audience,
+            Issuer = TokenSettings.Issuer,
             Subject = new ClaimsIdentity(new Claim[]
             {
                 new Claim("username", conta.Username),
                 new Claim("tipoDeUser", conta.TipoDeUser)
             }),
-            Expires = DateTime.UtcNow.AddMinutes(1),
+            Expires = TokenSettings.Expiration,
             SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(asciKey), SecurityAlgorithms.HmacSha256Signature)
         };
         var token = tokenHandler.CreateToken(tokenDescriptor);

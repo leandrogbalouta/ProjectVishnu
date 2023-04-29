@@ -1,211 +1,172 @@
+import axios, { AxiosResponse } from "axios";
 import IFolhaDePontoInput from "./Interfaces/FolhaDePonto/IFolhaDePontoInput";
 import IFuncionarioInput from "./Interfaces/Funcionario/IFuncionarioInput";
 import IContaInput from "./Interfaces/Conta/IContaInput";
 import IObraOutput from "./Interfaces/Obra/IObraOutput";
 import { IMercado } from "./Interfaces";
 
+const token = localStorage.getItem("DKMToken");
+const instance = axios.create({
+  baseURL: "/api/",
+  headers: {
+    "Content-Type": "application/json",
+    "Authorization": `Bearer ${token}` 
+  }
+});
 // Tipos de documento
-export async function fetchTiposDocumento(): Promise<Response> {
-  let path = "/api/tiposdoc";
-  return fetch(path);
+export function fetchTiposDocumento(): Promise<AxiosResponse> {
+  return instance.get("/tiposdoc");
 }
+
 // Mercados
-export async function fetchMercados(): Promise<Response> {
-  let path = "/api/mercados";
-  return fetch(path);
+export function fetchMercados(): Promise<AxiosResponse> {
+  return instance.get("/mercados");
 }
+
+export function createMercado(mercado: IMercado): Promise<AxiosResponse> {
+  return instance.post("/mercados", mercado);
+}
+
 // Categorias Profissionais
-export async function fetchCategoriasProfissionais(): Promise<Response> {
-  let path = "/api/categorias-profissionais";
-  return fetch(path);
+export function fetchCategoriasProfissionais(): Promise<AxiosResponse> {
+  return instance.get("/categorias-profissionais");
 }
-export async function createMercado(mercado: IMercado): Promise<Response> {
-  const path = "/api/mercados";
-  return fetch(path, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(mercado),
-  });
-}
+
 // Funcionario
-export async function fetchFuncionarios(
+export function fetchFuncionarios(
   filters: Record<string, string>
-): Promise<Response> {
-  let path = "/api/funcionarios";
-  path = addFiltersToQuery(path, filters);
-  return fetch(path);
-}
-export async function fetchFuncionario(id: string): Promise<Response> {
-  const path = `/api/funcionarios/${id}`;
-  return fetch(path);
+): Promise<AxiosResponse> {
+  const queryParams = new URLSearchParams(filters).toString();
+  return instance.get(`/funcionarios?${queryParams}`);
 }
 
-export async function CreateFuncionario(
+export function fetchFuncionario(id: string): Promise<AxiosResponse> {
+  return instance.get(`/funcionarios/${id}`);
+}
+
+export function createFuncionario(
   funcionario: IFuncionarioInput
-): Promise<Response> {
-  const path = "/api/funcionarios";
-  return fetch(path, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(funcionario),
-  });
+): Promise<AxiosResponse> {
+  return instance.post("/funcionarios", funcionario);
 }
 
-export async function AddFuncionarioToObra(
+export function addFuncionarioToObra(
   funcID: number,
   codigoInterno: string,
   date: string
-): Promise<Response> {
-  // TODO isto teve de ser mudado
-  const path = `/api/funcionarios/${funcID}/obras?codigoInterno=${codigoInterno}&date=${date}`;
-  return fetch(path, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    // body: JSON.stringify({
-    //   codigoInterno: codigoInterno,
-    //   date: date,
-    // }),
-  });
+): Promise<AxiosResponse> {
+  const path = `/funcionarios/${funcID}/obras`;
+  const body = { codigoInterno, date };
+  return instance.post(path, body);
 }
 
-export async function GetFuncionariosValidityWarningCount(): Promise<Response> {
-  const path = "/api/funcionarios/validity/count";
-  return fetch(path);
+export function getFuncionariosValidityWarningCount(): Promise<AxiosResponse> {
+  return instance.get("/funcionarios/validity/count");
 }
 
-export async function GetFuncionariosValidityWarningList(): Promise<Response> {
-  const path = "/api/funcionarios/validity/list";
-  return fetch(path);
+export function getFuncionariosValidityWarningList(): Promise<AxiosResponse> {
+  return instance.get("/funcionarios/validity/list");
 }
 
 // Obra
-export async function CreateObra(obra: IObraOutput): Promise<Response> {
-  const path = "/api/obras";
-  return fetch(path, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(obra),
-  });
+export function createObra(obra: IObraOutput): Promise<AxiosResponse> {
+  return instance.post("/obras", obra);
 }
-export async function fetchObras(
+
+export function fetchObras(
   filters?: Record<string, string>
-): Promise<Response> {
-  let path = "/api/obras";
-  if (filters) path = addFiltersToQuery(path, filters);
-  return fetch(path);
+): Promise<AxiosResponse> {
+  const queryParams = new URLSearchParams(filters).toString();
+  const path = `/obras${queryParams ? `?${queryParams}` : ""}`;
+  return instance.get(path);
 }
-export async function fetchObra(codigo: string): Promise<Response> {
-  const path = `/api/obras/${codigo}`;
-  return fetch(path);
+
+export function fetchObra(codigo: string): Promise<AxiosResponse> {
+  return instance.get(`/obras/${codigo}`);
 }
-export async function AddObraToFunc(): Promise<Response> {
-  throw new Error("Implementa-me 😢");
+
+export function addObraToFunc(): Promise<AxiosResponse> {
+  return Promise.reject(new Error("Not implemented"));
 }
-export async function fetchObrasForFuncionario(
+
+export function fetchObrasForFuncionario(
   funcionarioId: string
-): Promise<Response> {
-  const path = `/api/obras/funcionario/${funcionarioId}`;
-  return fetch(path);
+): Promise<AxiosResponse> {
+  return instance.get(`/obras/funcionario/${funcionarioId}`);
 }
+
 export async function fetchFuncionariosForObra(
   codigo: string
-): Promise<Response> {
-  const path = `/api/obras/${codigo}/funcionarios/current`;
-  return fetch(path);
+): Promise<AxiosResponse> {
+  const path = `obras/${codigo}/funcionarios/current`;
+  return instance.get(path);
 }
+
 export async function removeFuncionarioDeObra(
   id: number,
   dataDefim: string
-): Promise<Response> {
-  const path = `/api/funcionarios/${id}/obras`;
-  return fetch(path, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(dataDefim),
-  });
+): Promise<AxiosResponse> {
+  const path = `funcionarios/${id}/obras`;
+  return instance.put(path, { dataDefim });
 }
+
 // Folha de ponto
 export async function createFolhaDePonto(
   mes: string,
   ano: string,
   workDays: number,
   codigo: string
-): Promise<Response> {
-  const path = `/api/obras/${codigo}/folha-de-ponto`;
-  return fetch(path, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      mes: mes,
-      ano: ano,
-      workDays: workDays,
-    }),
-  });
+): Promise<AxiosResponse> {
+  const path = `obras/${codigo}/folha-de-ponto`;
+  return instance.post(path, { mes, ano, workDays });
 }
+
 export async function fetchFolhaDePontoByObra(
   codigo: string,
   mes: string,
   ano: string
-): Promise<Response> {
-  const path = `/api/obras/${codigo}/folha-de-ponto/${ano}-${mes}`;
-  return fetch(path);
+): Promise<AxiosResponse> {
+  const path = `obras/${codigo}/folha-de-ponto/${ano}-${mes}`;
+  return instance.get(path);
 }
+
 export async function fetchFolhaDePontoByMercado(
   mercado: string,
   mes: string,
   ano: string
-): Promise<Response> {
-  const path = `/api/folha-de-ponto/${mercado}/${ano}-${mes}`;
-  return fetch(path);
+): Promise<AxiosResponse> {
+  const path = `folha-de-ponto/${mercado}/${ano}-${mes}`;
+  return instance.get(path);
 }
+
 export async function submitFolhaDePontoValues(
   codigo: string,
   mes: string,
   ano: string,
   values: IFolhaDePontoInput
-): Promise<Response> {
-  const path = `/api/obras/${codigo}/folha-de-ponto/${ano}-${mes}`;
-  return fetch(path, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      values: values.values,
-    }),
-  });
+): Promise<AxiosResponse> {
+  const path = `obras/${codigo}/folha-de-ponto/${ano}-${mes}`;
+  return instance.put(path, { values });
 }
 
 export async function fetchFolhaDePontoAllByobra(
   codigo: string
-): Promise<Response> {
-  const path = `/api/obras/${codigo}/folha-de-ponto`;
-  return fetch(path);
+): Promise<AxiosResponse> {
+  const path = `obras/${codigo}/folha-de-ponto`;
+  return instance.get(path);
 }
 
 export async function fetchFolhaDePontoAllByMercado(
   mercado: string
-): Promise<Response> {
-  const path = `/api/folha-de-ponto/${mercado ?? ""}`;
-  return fetch(path);
+): Promise<AxiosResponse> {
+  const path = `folha-de-ponto/${mercado ?? ""}`;
+  return instance.get(path);
 }
 
-// Filtes
+// Filters
 function addFiltersToQuery(
   path: string,
-  filters: Record<string, String>
+  filters: Record<string, string>
 ): string {
   let size = Object.keys(filters).length;
   if (size > 0) {
@@ -223,40 +184,30 @@ function addFiltersToQuery(
   }
   return path;
 }
+
 // Auth
 export async function tryLogin(
   username: string,
   password: string
-): Promise<Response> {
-  const path = "/api/contas/login";
-  return fetch(path, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      
-    },
-    body: JSON.stringify({
-      username: username,
-      password: password,
-    })
+): Promise<AxiosResponse<string>> {
+  const path = "contas/login";
+  return instance.post(path, {
+    username: username,
+    password: password,
   });
 }
-export async function CreateUser(user: IContaInput): Promise<Response> {
-  const path = "/api/contas/create";
-  return fetch(path, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      username: user.username,
-      password: user.password,
-      tipoDeUser: user.tipoDeUser
-    })
+
+export async function createUser(user: IContaInput): Promise<AxiosResponse> {
+  const path = "contas/create";
+  return instance.post(path, {
+    username: user.username,
+    password: user.password,
+    tipoDeUser: user.tipoDeUser,
   });
 }
+
 // Tipos de User
-export async function fetchTiposDeUser(): Promise<Response> {
-  let path = "/api/tipos-de-user/";
-  return fetch(path);
+export async function fetchTiposDeUser(): Promise<AxiosResponse> {
+  let path = "tipos-de-user/";
+  return instance.get(path);
 }

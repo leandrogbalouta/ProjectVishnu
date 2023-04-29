@@ -17,8 +17,7 @@ public static class ContaExtention
         return new ContaOutputModel()
         {
             Username = conta.Username,
-            TipoDeUser = conta.TipoDeUser.Tipo,
-            Token = token
+            TipoDeUser = conta.TipoDeUser.Tipo
         };
     }
 }

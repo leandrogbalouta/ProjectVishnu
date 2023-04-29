@@ -9,5 +9,4 @@ public class ContaOutputModel
 {
     public string Username { get; set; }
     public string TipoDeUser { get; set; }
-    public string Token { get; set; }
 }

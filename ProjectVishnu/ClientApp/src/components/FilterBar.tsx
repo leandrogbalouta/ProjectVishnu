@@ -43,8 +43,7 @@ export default function FilterBar({
   useEffect(() => {
     const getMercadosData = async () => {
       const response = await fetchMercados();
-      const data = await response.json();
-      setMercados(data);
+      setMercados(response.data);
     };
 
     getMercadosData();

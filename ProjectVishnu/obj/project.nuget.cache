@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "ttRJwpMg7Ybdo9zEnxyUOgRC28nrpACnfAtXcPOeiFVgSTCqnp/i9nnb0e33Ig15hFmVWaHKPt5tjNNqAvGReQ==",
+  "dgSpecHash": "Y8S74V+bFTPy3KzlRk1T8e9XLzcaqzxY/kvYcxNwW+7RgPNgImOR89ZyBLELBkaLh4Kc6xzSAo11iPFE5ba1yQ==",
   "success": true,
   "projectFilePath": "/Users/lmartins/Documents/Projects/ProjectVishnu/ProjectVishnu/ProjectVishnu.csproj",
   "expectedPackageFiles": [
@@ -8,6 +8,7 @@
     "/Users/lmartins/.nuget/packages/azure.identity/1.7.0/azure.identity.1.7.0.nupkg.sha512",
     "/Users/lmartins/.nuget/packages/castle.core/5.1.0/castle.core.5.1.0.nupkg.sha512",
     "/Users/lmartins/.nuget/packages/humanizer.core/2.14.1/humanizer.core.2.14.1.nupkg.sha512",
+    "/Users/lmartins/.nuget/packages/microsoft.aspnetcore.authentication.jwtbearer/6.0.16/microsoft.aspnetcore.authentication.jwtbearer.6.0.16.nupkg.sha512",
     "/Users/lmartins/.nuget/packages/microsoft.aspnetcore.spaproxy/6.0.14/microsoft.aspnetcore.spaproxy.6.0.14.nupkg.sha512",
     "/Users/lmartins/.nuget/packages/microsoft.bcl.asyncinterfaces/1.1.1/microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
     "/Users/lmartins/.nuget/packages/microsoft.csharp/4.5.0/microsoft.csharp.4.5.0.nupkg.sha512",
