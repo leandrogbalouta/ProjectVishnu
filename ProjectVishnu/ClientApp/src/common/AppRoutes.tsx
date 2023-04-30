@@ -46,7 +46,7 @@ export default function AppRoutes() {
           <Route path="obras" element={<Obras />} />
           <Route path="obras/create" element={<ObraCreation />} />
           <Route path="obras/:codigo" element={<Obra />} />
-          <Route path="obras/folha-de-ponto/:data" element={<FolhaDePonto />} />
+          <Route path="obras/:codigo/folha-de-ponto/:data" element={<FolhaDePonto />} />
           <Route path="folha-de-ponto" element={<FolhasDePonto />} />
           <Route
             path="folha-de-ponto/:mercado/:data"

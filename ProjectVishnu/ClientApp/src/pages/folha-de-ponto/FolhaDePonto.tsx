@@ -4,6 +4,7 @@ import { fetchFolhaDePontoByMercado, fetchFolhaDePontoByObra, submitFolhaDePonto
 import IFolhaDePontoOutput from "../../common/Interfaces/FolhaDePonto/IFolhaDePontoOutput";
 import FolhaDePontoValuesInput from "../../common/Interfaces/FolhaDePonto/IFolhaDePontoInput";
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
+import { resize } from "@motionone/dom";
 
 
 export default function FolhaDePonto(){
@@ -28,20 +29,17 @@ export default function FolhaDePonto(){
     async function submitValues(values : FolhaDePontoValuesInput){
         const [ano, mes] = data!.split("-")
         const res = await submitFolhaDePontoValues(codigo!, mes, ano, values)
-        const jsonInfo = await res.json()
-        setInfo(jsonInfo)
+        setInfo(res.data)
     }
     async function fetchDataByObra(){
         const [ano, mes] = data!.split("-")
         const res = await fetchFolhaDePontoByObra(codigo!, mes, ano)
-        const jsonInfo = await res.json()
-        setInfo(jsonInfo)
+        setInfo(res.data)
     }
     async function fetchDataByMercado(){
         const [ano, mes] = data!.split("-")
         const res = await fetchFolhaDePontoByMercado(mercado!, mes, ano)
-        const jsonInfo = await res.json()
-        setInfo(jsonInfo)
+        setInfo(res.data)
     }
     return(
         <div>

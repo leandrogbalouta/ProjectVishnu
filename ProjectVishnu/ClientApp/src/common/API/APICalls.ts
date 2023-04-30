@@ -14,7 +14,8 @@ const instance: AxiosInstance = axios.create({
 });
 // Instance related
 export function changeInstanceToken(token: string) {
-  instance.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+  instance.defaults.headers["Authorization"] = `Bearer ${token}`;
+  //instance.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 }
 // Tipos de documento
 export function fetchTiposDocumento(): Promise<AxiosResponse> {
@@ -149,7 +150,7 @@ export async function submitFolhaDePontoValues(
   values: IFolhaDePontoInput
 ): Promise<AxiosResponse> {
   const path = `obras/${codigo}/folha-de-ponto/${ano}-${mes}`;
-  return instance.put(path, { values });
+  return instance.put(path, { values: values.values });
 }
 
 export async function fetchFolhaDePontoAllByobra(

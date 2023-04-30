@@ -209,7 +209,7 @@ namespace ProjectVishnu.Models
                     .HasColumnName("mercado");
 
                 entity.Property(e => e.WorkDays)
-                    .HasColumnName("WorkDays");
+                    .HasColumnName("workdays");
 
                 entity.HasOne(d => d.MercadoNavigation)
                     .WithMany(p => p.FolhaDePontos)
