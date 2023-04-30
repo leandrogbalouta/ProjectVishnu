@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { createUser, fetchTiposDeUser } from "../../common/API/APICalls";
+import { pt } from "date-fns/locale";
+import { createUser } from "../../common/API/APICalls";
 import {
   Button,
   FormControl,
@@ -8,26 +9,20 @@ import {
   Input,
   InputGroup,
   InputLeftElement,
-  NumberDecrementStepper,
-  NumberIncrementStepper,
-  NumberInput,
-  NumberInputField,
-  NumberInputStepper,
-  Select,
   useToast,
 } from "@chakra-ui/react";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useForm, SubmitHandler } from "react-hook-form";
-import { FaCalendarDay, FaGlobe, FaUser } from "react-icons/fa";
+import { useForm, SubmitHandler, Controller } from "react-hook-form";
+import { FaGlobe } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import IContaInput from "../../common/Interfaces/Conta/IContaInput";
 import IMercado from "../../common/Interfaces/Mercado/IMercado";
 import { RxLetterCaseCapitalize } from "react-icons/rx";
+import { DateFormatter, DateRange, DayPicker } from "react-day-picker";
+import "react-day-picker/dist/style.css";
 
 export default function CriarMercado() {
-  // state
-  const [estado, setEstado] = useState<string | undefined>(undefined);
   // Router
   const navigate = useNavigate();
   // misc
@@ -39,14 +34,14 @@ export default function CriarMercado() {
       sigla: yup
         .string()
         .required("Por favor, introduza a sigla para o mercado."),
-      diaInicio: yup.date().typeError("Por favor introduza um dia de inicio."),
-      diaFim: yup.date().typeError("Por favor introduza um dia de fim"),
+      dateRange: yup.string().required("Por favor introduza uma range."),
     })
     .required();
   // end of schema
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors },
   } = useForm<IMercado>({
     resolver: yupResolver<yup.AnyObjectSchema>(schema),
@@ -81,6 +76,11 @@ export default function CriarMercado() {
     }
   }
   useEffect(() => {}, []);
+  // Formatter day picker
+  const formatCaption: DateFormatter = () => {
+    // Remove month
+    return <></>;
+  };
 
   return (
     <div className="w-full sm:w-1/2 mx-auto">
@@ -124,38 +124,36 @@ export default function CriarMercado() {
           <FormErrorMessage>{errors?.nome?.message}</FormErrorMessage>
         </FormControl>
         {/* Dia de Início field */}
-        <FormControl className="mb-5" isInvalid={!!errors.diaInicio}>
-          <FormLabel htmlFor="diaInicio">Dia de Início</FormLabel>
-
-          <NumberInput defaultValue={1} maxW={31} min={10}>
-            <NumberInputField {...register("diaInicio", { required: false })} />
-            <NumberInputStepper>
-              <NumberIncrementStepper />
-              <NumberDecrementStepper />
-            </NumberInputStepper>
-          </NumberInput>
-
-          <FormErrorMessage>{errors.diaInicio?.message}</FormErrorMessage>
-        </FormControl>
-
-        {/* Dia de fim field */}
-        <FormControl className="mb-5" isInvalid={!!errors.diaFim}>
-          <FormLabel htmlFor="diaFim">Dia de Fim</FormLabel>
-          <InputGroup>
-            <InputLeftElement pointerEvents="none">
-              <FaCalendarDay color="#000E31" />
-            </InputLeftElement>
-            <Input
-              id="diaFim"
-              type="number"
-              min="1"
-              max="31"
-              placeholder="Dia de fim de obra"
-              autoComplete="blank-diaFim"
-              {...register("diaFim", { required: false })}
-            />
-          </InputGroup>
-          <FormErrorMessage>{errors.diaFim?.message}</FormErrorMessage>
+        <FormControl
+          className="mb-5 basis-2/5 flex flex-col w-full"
+          isInvalid={!!errors.dateRange}
+        >
+          <FormLabel htmlFor="sigla">Sigla</FormLabel>
+          <div className="!flex !m-auto flex-col w-full">
+            <div className="!flex !m-auto flex-col w-full ring-slate-200 ring-2 rounded-xl !p-3 !text-xl [&>th]:!p-12">
+              <Controller
+                name="dateRange"
+                control={control}
+                render={({
+                  field: { onChange, value, name },
+                  fieldState: { invalid, isTouched, isDirty, error },
+                  formState,
+                }) => (
+                  <DayPicker
+                    id="test"
+                    mode="range"
+                    onSelect={onChange}
+                    disableNavigation
+                    formatters={{ formatCaption }}
+                    locale={pt}
+                    selected={value}
+                    className="!m-auto"
+                  />
+                )}
+              />
+            </div>
+            <FormErrorMessage>{errors?.dateRange?.message}</FormErrorMessage>
+          </div>
         </FormControl>
         <div id="button-container" className="flex sm:justify-end gap-2">
           <Button

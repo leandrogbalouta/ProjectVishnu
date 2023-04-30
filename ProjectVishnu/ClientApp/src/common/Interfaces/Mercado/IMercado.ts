@@ -1,6 +1,7 @@
+import { DateRange } from "react-day-picker";
+
 export default interface IMercado {
   nome: string;
   sigla: string;
-  diaInicio: number;
-  diaFim: number;
+  dateRange: DateRange;
 }

@@ -12,7 +12,10 @@ module.exports = {
       },
       animation: {
         aurora: 'aurora 2s ease-out infinite'
-      }
+      },
+      boxShadow: {
+        'inset': 'inset 0 0 0 9999px rgba(0, 0, 0, 0.25)',
+      },
     },
   },
   plugins: [],
