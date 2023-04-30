@@ -1,5 +1,5 @@
 ﻿import { useState, useEffect } from "react";
-import { fetchObras } from "../../common/APICalls";
+import { fetchObras } from "../../common/API/APICalls";
 import FilterBar from "../../components/FilterBar";
 import IObraOutput from "../../common/Interfaces/Obra/IObraOutput";
 import { Button, Spinner } from "@chakra-ui/react";

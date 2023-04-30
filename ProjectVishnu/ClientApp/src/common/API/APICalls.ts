@@ -1,18 +1,20 @@
-import axios, { AxiosResponse } from "axios";
-import IFolhaDePontoInput from "./Interfaces/FolhaDePonto/IFolhaDePontoInput";
-import IFuncionarioInput from "./Interfaces/Funcionario/IFuncionarioInput";
-import IContaInput from "./Interfaces/Conta/IContaInput";
-import IObraOutput from "./Interfaces/Obra/IObraOutput";
-import { IMercado } from "./Interfaces";
+import axios, { AxiosInstance, AxiosResponse } from "axios";
+import IFolhaDePontoInput from "../Interfaces/FolhaDePonto/IFolhaDePontoInput";
+import IFuncionarioInput from "../Interfaces/Funcionario/IFuncionarioInput";
+import IContaInput from "../Interfaces/Conta/IContaInput";
+import IObraOutput from "../Interfaces/Obra/IObraOutput";
+import { IMercado } from "../Interfaces";
 
-const token = localStorage.getItem("DKMToken");
-const instance = axios.create({
+const instance: AxiosInstance = axios.create({
   baseURL: "/api/",
   headers: {
     "Content-Type": "application/json",
-    "Authorization": `Bearer ${token}` 
-  }
+  },
 });
+// Instance related
+export function changeInstanceToken(token: string) {
+  instance.defaults.headers.common.Authorization = `Bearer ${token}`;
+}
 // Tipos de documento
 export function fetchTiposDocumento(): Promise<AxiosResponse> {
   return instance.get("/tiposdoc");
@@ -184,19 +186,6 @@ function addFiltersToQuery(
   }
   return path;
 }
-
-// Auth
-export async function tryLogin(
-  username: string,
-  password: string
-): Promise<AxiosResponse<string>> {
-  const path = "contas/login";
-  return instance.post(path, {
-    username: username,
-    password: password,
-  });
-}
-
 export async function createUser(user: IContaInput): Promise<AxiosResponse> {
   const path = "contas/create";
   return instance.post(path, {
@@ -210,4 +199,17 @@ export async function createUser(user: IContaInput): Promise<AxiosResponse> {
 export async function fetchTiposDeUser(): Promise<AxiosResponse> {
   let path = "tipos-de-user/";
   return instance.get(path);
+}
+
+// DO NOT NEED TOKEN/INSTANCE
+// Auth
+export async function tryLogin(
+  username: string,
+  password: string
+): Promise<AxiosResponse<string>> {
+  const path = "contas/login";
+  return instance.post(path, {
+    username: username,
+    password: password,
+  });
 }

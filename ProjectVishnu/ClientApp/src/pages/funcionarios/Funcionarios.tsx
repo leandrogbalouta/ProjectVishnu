@@ -5,7 +5,7 @@ import {
   getFuncionariosValidityWarningCount,
   getFuncionariosValidityWarningList,
   fetchFuncionarios,
-} from "../../common/APICalls";
+} from "../../common/API/APICalls";
 import FilterBar from "../../components/FilterBar";
 import FuncionariosTable from "../../components/tables/FuncionariosTable";
 

@@ -11,12 +11,10 @@ import {
   Button,
   FormControl,
 } from "@chakra-ui/react";
-
 import { useNavigate } from "react-router-dom";
 import PasswordInput from "../components/PasswordInput";
 import AuthenticationPanel from "../components/AuthenticationPanel";
-import { tryLogin } from "../common/APICalls";
-import IContaOutput from "../common/Interfaces/Conta/IContaOutput";
+import { changeInstanceToken, tryLogin } from "../common/API/APICalls";
 import useAuth from "../auth/useAuth";
 
 export default function Login() {
@@ -53,6 +51,7 @@ export default function Login() {
         if (response.status === 200) {
           setLoggingIn(false);
           localStorage.setItem("DKMToken", response.data);
+          changeInstanceToken(response.data);
           navigate("/");
         } else {
           setInvalidLogin(true);

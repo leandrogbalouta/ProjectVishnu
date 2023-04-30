@@ -15,7 +15,7 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import IFuncionarioOutput from "../../common/Interfaces/Funcionario/IFuncionarioOutput";
-import { removeFuncionarioDeObra } from "../../common/APICalls";
+import { removeFuncionarioDeObra } from "../../common/API/APICalls";
 
 //TODO: tornar todo o código da tabela das obras universal de maneira a que isto não se repita aqui (e no index das obras)
 

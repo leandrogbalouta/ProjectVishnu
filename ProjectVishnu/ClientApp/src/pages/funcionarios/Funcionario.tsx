@@ -12,7 +12,7 @@ import React, { useEffect, useState } from "react";
 import {
   fetchFuncionario,
   fetchObrasForFuncionario,
-} from "../../common/APICalls";
+} from "../../common/API/APICalls";
 import IFuncionarioOutput from "../../common/Interfaces/Funcionario/IFuncionarioOutput";
 import AdicionarObraAFuncionarioModal from "../../components/modals/AdicionarObraAFuncionarioModal";
 import ObrasTable from "../../components/tables/ObrasTable";

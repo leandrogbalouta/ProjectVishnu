@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { createUser, fetchTiposDeUser } from "../../common/APICalls";
+import { createUser, fetchTiposDeUser } from "../../common/API/APICalls";
 import {
   Button,
   FormControl,

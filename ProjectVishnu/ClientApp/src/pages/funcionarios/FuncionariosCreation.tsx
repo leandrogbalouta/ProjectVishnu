@@ -5,7 +5,7 @@ import {
   fetchCategoriasProfissionais,
   fetchMercados,
   fetchTiposDocumento,
-} from "../../common/APICalls";
+} from "../../common/API/APICalls";
 import {
   Input,
   Button,

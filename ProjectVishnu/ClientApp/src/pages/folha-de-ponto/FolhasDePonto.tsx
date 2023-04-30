@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetchFolhaDePontoAllByMercado } from "../../common/APICalls";
+import { fetchFolhaDePontoAllByMercado } from "../../common/API/APICalls";
 import FilterBar from "../../components/FilterBar";
 import { useNavigate } from "react-router-dom";
 import { Spinner } from "@chakra-ui/react";

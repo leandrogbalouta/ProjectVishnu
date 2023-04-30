@@ -14,7 +14,7 @@ import {
 } from "@chakra-ui/react";
 import IFuncionarioOutput from "../../common/Interfaces/Funcionario/IFuncionarioOutput";
 import FilterBar from "../FilterBar";
-import { addFuncionarioToObra, fetchObras } from "../../common/APICalls";
+import { addFuncionarioToObra, fetchObras } from "../../common/API/APICalls";
 import ObrasTable from "../tables/ObrasTable";
 import { BsBuildingAdd } from "react-icons/bs";
 

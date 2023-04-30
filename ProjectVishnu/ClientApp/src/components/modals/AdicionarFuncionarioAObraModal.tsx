@@ -16,7 +16,7 @@ import {
 } from "@chakra-ui/react";
 import FilterBar from "../FilterBar";
 import IObraOutput from "../../common/Interfaces/Obra/IObraOutput";
-import { addFuncionarioToObra, fetchFuncionarios } from "../../common/APICalls";
+import { addFuncionarioToObra, fetchFuncionarios } from "../../common/API/APICalls";
 import FuncionariosTable from "../tables/FuncionariosTable";
 
 //TODO: tornar todo o código da tabela das obras universal de maneira a que isto não se repita aqui (e no index das obras)

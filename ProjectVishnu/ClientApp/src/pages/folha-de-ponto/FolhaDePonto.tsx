@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { AddFolhaDePontoTable } from "../../components/tables/AddFolhaDePontoTable";
-import { fetchFolhaDePontoByMercado, fetchFolhaDePontoByObra, submitFolhaDePontoValues } from "../../common/APICalls";
+import { fetchFolhaDePontoByMercado, fetchFolhaDePontoByObra, submitFolhaDePontoValues } from "../../common/API/APICalls";
 import IFolhaDePontoOutput from "../../common/Interfaces/FolhaDePonto/IFolhaDePontoOutput";
 import FolhaDePontoValuesInput from "../../common/Interfaces/FolhaDePonto/IFolhaDePontoInput";
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
