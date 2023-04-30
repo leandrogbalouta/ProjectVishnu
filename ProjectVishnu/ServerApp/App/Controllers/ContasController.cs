@@ -16,9 +16,9 @@ public class ContasController : ControllerBase
     private readonly IContaService _contaService;
     private readonly IConfiguration _config;
 
-    public ContasController(IContaService contaSerice, IConfiguration config)
+    public ContasController(IContaService contaService, IConfiguration config)
     {
-        _contaService = contaSerice;
+        _contaService = contaService;
         _config = config;
     }
 
@@ -29,8 +29,13 @@ public class ContasController : ControllerBase
     public IActionResult CreateAccount([FromBody] ContaInputModel contaInput)
     {
         // Continuar codigo para introduzir na DB hash da password e adicionar conta na db.
-        var result = _contaService.Create(contaInput);
-        return result is not null ? Ok() : NotFound();
+        try{
+            var result = _contaService.Create(contaInput);
+            return result is not null ? Ok() : NotFound();
+
+        }catch(Exception ex){
+            return Problem(statusCode: 500, title: "Erro inesperado");
+        }
     }
     [HttpPost("login")]
     public IActionResult Login([FromBody] ContaInputModel contaInput)
