@@ -9,6 +9,7 @@ const instance: AxiosInstance = axios.create({
   baseURL: "/api/",
   headers: {
     "Content-Type": "application/json",
+    "Authorization": `Bearer ${localStorage.getItem("DKMToken")}`
   },
 });
 // Instance related

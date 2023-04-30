@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { createObra, fetchMercados } from "../../common/API/APICalls";
+import { useState, useEffect } from "react";
+
 import {
   Button,
   FormControl,
@@ -15,8 +15,9 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm, SubmitHandler } from "react-hook-form";
 import IObraOutput from "../../common/Interfaces/Obra/IObraOutput";
-import { FaUser, FaPen, FaCalendarDay } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import { createObra, fetchMercados } from "../../common/API/APICalls";
+import { FaPen, FaUser, FaCalendarDay } from "react-icons/fa";
 
 export default function ObraCreation() {
   // state
@@ -46,35 +47,41 @@ export default function ObraCreation() {
     resolver: yupResolver<yup.AnyObjectSchema>(schema),
   });
   const onSubmit: SubmitHandler<IObraOutput> = async (data: IObraOutput) => {
+    console.log("sdsd");
     AddObra(data);
   };
   // end of form
   async function AddObra(obra: IObraOutput) {
-    const resp = await createObra(obra);
-    if (resp.status === 201) {
-      navigate("/obras");
-      if (!toast.isActive("sucesso")) {
-        toast({
-          id: "sucesso",
-          title: `Obra criada com sucesso.`,
-          position: "top-right",
-          duration: 5000,
-          status: "success",
-          isClosable: true,
-        });
-      }
-    } else {
-      if (!toast.isActive("erro")) {
-        toast({
-          id: "erro",
-          title: "Ocorreu um erro ao criar uma nova obra.",
-          position: "top-right",
-          duration: 10000,
-          status: "error",
-          isClosable: true,
-        });
-      }
-    }
+    await createObra(obra)
+      .then((resp) => {
+        if (resp.status === 201) {
+          navigate("/obras");
+          if (!toast.isActive("sucesso")) {
+            toast({
+              id: "sucesso",
+              title: `Obra criada com sucesso.`,
+              position: "top-right",
+              duration: 5000,
+              status: "success",
+              isClosable: true,
+            });
+          }
+        } else {
+          throw new Error("Something mad happen.");
+        }
+      })
+      .catch((error) => {
+        if (!toast.isActive("erro")) {
+          toast({
+            id: "erro",
+            title: error.response.data.title,
+            position: "top-right",
+            duration: 10000,
+            status: "error",
+            isClosable: true,
+          });
+        }
+      });
   }
   useEffect(() => {
     // Get Mercados

@@ -199,19 +199,21 @@ export default function FuncionarioCreation() {
             });
           }
         } else {
-          if (!toast.isActive("erro")) {
-            toast({
-              id: "erro",
-              title: resp.headers["title"],
-              position: "top-right",
-              duration: 10000,
-              status: "error",
-              isClosable: true,
-            });
-          }
+          throw new Error("Something mad happen.");
         }
       })
-      .catch(() => {});
+      .catch((error) => {;
+        if (!toast.isActive("erro")) {
+          toast({
+            id: "erro",
+            title: error.response.data.title,
+            position: "top-right",
+            duration: 10000,
+            status: "error",
+            isClosable: true,
+          });
+        }
+      });
   }
 
   return (

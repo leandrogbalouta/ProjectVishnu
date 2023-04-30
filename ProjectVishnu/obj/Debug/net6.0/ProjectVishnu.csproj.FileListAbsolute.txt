@@ -111,7 +111,6 @@ C:/Users/landr/Desktop/DKM/ProjectVishnu/ProjectVishnu/obj/Debug/net6.0/ref/Proj
 /Users/lmartins/Documents/Projects/ProjectVishnu/ProjectVishnu/bin/Debug/net6.0/ProjectVishnu.runtimeconfig.json
 /Users/lmartins/Documents/Projects/ProjectVishnu/ProjectVishnu/bin/Debug/net6.0/ProjectVishnu.dll
 /Users/lmartins/Documents/Projects/ProjectVishnu/ProjectVishnu/bin/Debug/net6.0/ProjectVishnu.pdb
-/Users/lmartins/Documents/Projects/ProjectVishnu/ProjectVishnu/bin/Debug/net6.0/ProjectVishnu.xml
 /Users/lmartins/Documents/Projects/ProjectVishnu/ProjectVishnu/bin/Debug/net6.0/Azure.Core.dll
 /Users/lmartins/Documents/Projects/ProjectVishnu/ProjectVishnu/bin/Debug/net6.0/Azure.Identity.dll
 /Users/lmartins/Documents/Projects/ProjectVishnu/ProjectVishnu/bin/Debug/net6.0/Castle.Core.dll
@@ -210,3 +209,4 @@ C:/Users/landr/Desktop/DKM/ProjectVishnu/ProjectVishnu/obj/Debug/net6.0/ref/Proj
 /Users/lmartins/Documents/Projects/ProjectVishnu/ProjectVishnu/obj/Debug/net6.0/ProjectVishnu.genruntimeconfig.cache
 /Users/lmartins/Documents/Projects/ProjectVishnu/ProjectVishnu/obj/Debug/net6.0/ref/ProjectVishnu.dll
 /Users/lmartins/Documents/Projects/ProjectVishnu/ProjectVishnu/bin/Debug/net6.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll
+/Users/lmartins/Documents/Projects/ProjectVishnu/ProjectVishnu/bin/Debug/net6.0/package-lock.json
