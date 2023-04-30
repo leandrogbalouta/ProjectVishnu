@@ -10,9 +10,33 @@ using ProjectVishnu.ServerApp.App.Services;
 using ProjectVishnu.ServerApp.App.Services.Concrete;
 using ProjectVishnu.Services;
 using ProjectVishnu.Services.Concrete;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using ProjectVishnu.ServerApp.App.Common;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(o =>
+{
+    o.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidIssuer = TokenSettings.Issuer,
+        ValidAudience = TokenSettings.Audience,
+        IssuerSigningKey = new SymmetricSecurityKey
+        (Encoding.UTF8.GetBytes(TokenSettings.Key)),
+        RequireExpirationTime = true,
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true
+    };
+});
+builder.Services.AddAuthorization();
 // Add services to the container.
 
 builder.Services.AddDbContext<vishnuContext>();
@@ -34,8 +58,6 @@ builder.Services.AddScoped<ITiposDeUserService, TiposDeUserService>();
 
 builder.Services.AddControllersWithViews();
 
-
-
 var app = builder.Build();
 
 if (!app.Environment.IsDevelopment())
@@ -50,6 +72,8 @@ app.UseRouting();
 
 app.MapControllers();
 
+app.UseAuthentication();
+app.UseAuthorization();
 app.MapFallbackToFile("index.html");
 
 

@@ -1,11 +1,13 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProjectVishnu.ServerApp.App.Dtos;
 using ProjectVishnu.Services;
 
 namespace ProjectVishnu.Controllers;
 [ApiController]
+[Authorize]
 [Route("api/tipos-de-user")]
 public class TiposDeUserController : ControllerBase
 {

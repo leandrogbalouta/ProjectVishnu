@@ -12,7 +12,7 @@ import React, { useEffect, useState } from "react";
 import {
   fetchFuncionario,
   fetchObrasForFuncionario,
-} from "../../common/APICalls";
+} from "../../common/API/APICalls";
 import IFuncionarioOutput from "../../common/Interfaces/Funcionario/IFuncionarioOutput";
 import AdicionarObraAFuncionarioModal from "../../components/modals/AdicionarObraAFuncionarioModal";
 import ObrasTable from "../../components/tables/ObrasTable";
@@ -36,8 +36,7 @@ export default function Funcionario() {
     const populateFuncionarioData = async () => {
       const response = await fetchFuncionario(id!);
       if (response.status == 200) {
-        const data = await response.json();
-        setFuncionario(data);
+        setFuncionario(response.data);
       } else if (response.status == 204) {
         setFuncionario(undefined);
       } else {
@@ -46,8 +45,7 @@ export default function Funcionario() {
     const populateObrasData = async () => {
       const response = await fetchObrasForFuncionario(id!);
       if (response.status == 200) {
-        const data = await response.json();
-        setObras(data);
+        setObras(response.data);
       } else if (response.status == 204) {
       } else {
       }

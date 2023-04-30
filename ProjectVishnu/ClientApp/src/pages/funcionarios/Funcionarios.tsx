@@ -2,10 +2,10 @@ import { Button, Spinner } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
-  GetFuncionariosValidityWarningCount,
-  GetFuncionariosValidityWarningList,
+  getFuncionariosValidityWarningCount,
+  getFuncionariosValidityWarningList,
   fetchFuncionarios,
-} from "../../common/APICalls";
+} from "../../common/API/APICalls";
 import FilterBar from "../../components/FilterBar";
 import FuncionariosTable from "../../components/tables/FuncionariosTable";
 
@@ -88,22 +88,18 @@ export default function Funcionarios() {
     </div>
   );
   async function populateFuncionariosData(filters: Record<string, string>) {
-    const response = await fetchFuncionarios(filters).then((res) => res.json());
-    setFuncionarios(response);
+    const response = await fetchFuncionarios(filters);
+    setFuncionarios(response.data);
   }
 
   async function GetWarningCount() {
-    const response = await GetFuncionariosValidityWarningCount().then((res) =>
-      res.json()
-    );
-    setWarningCount(response);
+    const response = await getFuncionariosValidityWarningCount();
+    setWarningCount(response.data);
   }
 
   async function GetWarningList() {
-    const response = await GetFuncionariosValidityWarningList().then((res) =>
-      res.json()
-    );
-    setFuncionarios(response);
+    const response = await getFuncionariosValidityWarningList();
+    setFuncionarios(response.data);
     setWarningList(true);
   }
 }

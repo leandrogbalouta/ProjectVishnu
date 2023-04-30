@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProjectVishnu.ServerApp.App.Dtos;
 using ProjectVishnu.ServerApp.App.Services;
@@ -5,6 +6,7 @@ using ProjectVishnu.ServerApp.App.Services;
 namespace ProjectVishnu.ServerApp.App.Controllers
 {
     [ApiController]
+    [Authorize]
     [Route("api/tiposdoc")]
     public class TiposDocIntController : ControllerBase
     {

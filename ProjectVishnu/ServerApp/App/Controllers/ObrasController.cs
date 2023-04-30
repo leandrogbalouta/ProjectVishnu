@@ -1,5 +1,6 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProjectVishnu.Models;
 using ProjectVishnu.ServerApp.App.Dtos;
@@ -8,6 +9,7 @@ using ProjectVishnu.Services;
 namespace ProjectVishnu.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
     public class ObrasController : ControllerBase
     {
@@ -27,7 +29,8 @@ namespace ProjectVishnu.Controllers
             try
             {
                 IEnumerable<Obra> obraList;
-                if(estado == null && mercado == null && valor == null){
+                if (estado == null && mercado == null && valor == null)
+                {
                     obraList = _obrasService.ListAlphabetically();
                 }
                 else
@@ -37,7 +40,7 @@ namespace ProjectVishnu.Controllers
 
                 return Ok(obraList.Select(obra => obra.toObraOutputModel()));
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return Problem(statusCode: 500, title: "Erro inesperado");
             }
@@ -65,7 +68,7 @@ namespace ProjectVishnu.Controllers
                 });
                 return Ok(result);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return Problem(statusCode: 500, title: "Erro inesperado");
             }
@@ -83,11 +86,11 @@ namespace ProjectVishnu.Controllers
                 Obra result = _obrasService.Get(codigoInterno);
                 return Ok(result.toObraOutputModel());
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return Problem(statusCode: 500, title: "Erro inesperado");
             }
-           
+
         }
 
         [HttpPost]
@@ -100,13 +103,13 @@ namespace ProjectVishnu.Controllers
             try
             {
                 // TODO verificar se isto é 🍞 ou 💩
-                if(obraInput.Datainicio != null)
+                if (obraInput.Datainicio != null)
                 {
                     DateTime.TryParse(obraInput.Datainicio, out DateTime dt);
                     obraInput.Datainicio = dt.ToShortDateString();
                 }
 
-                if(obraInput.Datafim != null)
+                if (obraInput.Datafim != null)
                 {
                     DateTime.TryParse(obraInput.Datainicio, out DateTime dt);
                     obraInput.Datafim = dt.ToShortDateString();
@@ -139,7 +142,7 @@ namespace ProjectVishnu.Controllers
                 string result = _obrasService.Update(codigoInterno, obraInput);
                 return Ok(result);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return Problem(statusCode: 500, title: "Erro inesperado");
             }
@@ -156,7 +159,7 @@ namespace ProjectVishnu.Controllers
                 string result = _obrasService.Delete(codigoInterno);
                 return Ok(result);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return Problem(statusCode: 500, title: "Erro inesperado");
             }
@@ -171,7 +174,7 @@ namespace ProjectVishnu.Controllers
                 IEnumerable<FuncionarioObraOutputModel> funcs = _obrasService.GetCurrentFuncs(codigoInterno);
                 return Ok(funcs);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return Problem(statusCode: 500, title: "Erro inesperado");
             }
@@ -186,7 +189,7 @@ namespace ProjectVishnu.Controllers
                 IEnumerable<FuncionarioObraOutputModel> funcs = _obrasService.GetPastFuncs(codigoInterno);
                 return Ok(funcs);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return Problem(statusCode: 500, title: "Erro inesperado");
             }
@@ -200,7 +203,7 @@ namespace ProjectVishnu.Controllers
                 _obrasService.AddFuncToObra(codigoInterno, funcInput);
                 return Ok();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return Problem(statusCode: 500, title: "Erro inesperado");
             }
@@ -214,10 +217,10 @@ namespace ProjectVishnu.Controllers
                 _obrasService.RemoveFuncFromObra(codigoInterno, funcInput);
                 return Ok();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return Problem(statusCode: 500, title: "Erro inesperado");
-            }          
+            }
         }
     }
 }

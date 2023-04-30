@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { CreateUser, fetchTiposDeUser } from "../../common/APICalls";
+import { createUser, fetchTiposDeUser } from "../../common/API/APICalls";
 import {
   Button,
   FormControl,
@@ -13,17 +13,14 @@ import {
 } from "@chakra-ui/react";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import {
-  useForm,
-  SubmitHandler,
-} from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { FaUser } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import IContaInput from "../../common/Interfaces/Conta/IContaInput";
 import PasswordInput from "../../components/PasswordInput";
 
 interface TipoDeUser {
-  tipo: string
+  tipo: string;
 }
 
 export default function CriarUtilizador() {
@@ -39,7 +36,9 @@ export default function CriarUtilizador() {
     .object({
       username: yup.string().required("Por favor, introduza o username."),
       password: yup.string().required("Por favor, introduza uma password."),
-      tipoDeUser: yup.string().required("Por favor escolha um tipo de utilizador.")
+      tipoDeUser: yup
+        .string()
+        .required("Por favor escolha um tipo de utilizador."),
     })
     .required();
   // end of schema
@@ -55,41 +54,42 @@ export default function CriarUtilizador() {
   };
   // end of form
   async function AddConta(conta: IContaInput) {
-    const resp = await CreateUser(conta);
-    if (resp.status === 201) {
-      navigate("/admin");
-      if (!toast.isActive("sucesso")) {
-        toast({
-          id: "sucesso",
-          title: `Utilizador criado com sucesso.`,
-          position: "top-right",
-          duration: 5000,
-          status: "success",
-          isClosable: true,
-        });
-      }
-    } else {
-      if (!toast.isActive("erro")) {
-        resp.json().then((res) => {
+    await createUser(conta)
+      .then((resp) => {
+        if (resp.status === 201) {
+          navigate("/admin");
+          if (!toast.isActive("sucesso")) {
+            toast({
+              id: "sucesso",
+              title: `Utiliador criado com sucesso.`,
+              position: "top-right",
+              duration: 5000,
+              status: "success",
+              isClosable: true,
+            });
+          }
+        } else {
+          throw new Error("Something mad happen.");
+        }
+      })
+      .catch((error) => {
+        if (!toast.isActive("erro")) {
           toast({
             id: "erro",
-            title: "Ocorreu um erro ao criar utilizador.",
+            title: error.response.data.title,
             position: "top-right",
             duration: 10000,
             status: "error",
             isClosable: true,
           });
-        });
-      }
-    }
+        }
+      });
   }
   useEffect(() => {
     // Get Mercados
     const populateTiposDeUser = async () => {
       const response = await fetchTiposDeUser();
-      const data = await response.json();
-      console.log(data)
-      setTiposDeUser(data);
+      setTiposDeUser(response.data);
     };
     populateTiposDeUser();
   }, []);

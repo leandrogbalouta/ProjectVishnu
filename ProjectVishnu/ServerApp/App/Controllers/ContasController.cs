@@ -1,6 +1,7 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using ProjectVishnu.Models;
@@ -26,15 +27,26 @@ public class ContasController : ControllerBase
     public IActionResult Get() => Ok("shabba");
 
     [HttpPost("create")]
+    [Authorize(Roles = "admin")]
     public IActionResult CreateAccount([FromBody] ContaInputModel contaInput)
     {
-        // Continuar codigo para introduzir na DB hash da password e adicionar conta na db.
-        try{
+        try
+        {
+            // Continuar codigo para introduzir na DB hash da password e adicionar conta na db.
             var result = _contaService.Create(contaInput);
-            return result is not null ? Ok() : NotFound();
-
-        }catch(Exception ex){
-            return Problem(statusCode: 500, title: "Erro inesperado");
+            var actionName = nameof(FuncionariosController.Get);
+            var routeValues = new
+            {
+                id = result
+            };
+            return CreatedAtAction(actionName, routeValues, contaInput);
+        }
+        catch (Exception ex)
+        {
+            string erroCode = ex.InnerException!.Data["SqlState"]!.ToString()!;
+            // 23505 significa primary key duplicada (Postgres).
+            string errorMessage = (erroCode.Equals("23505")) ? "Username duplicado." : "Ocorreu um erro, por favor tente novamente, se o erro persistir, entre em contacto connosco.";
+            return Problem(statusCode: 409, title: errorMessage);
         }
     }
     [HttpPost("login")]
@@ -42,7 +54,7 @@ public class ContasController : ControllerBase
     {
         try
         {
-            var conta = _contaService.Get(contaInput.Username); // this should be awaitable
+            var conta = _contaService.Get(contaInput.Username); // This should be awaitable
             if (conta is null) return NotFound();
             var password = PasswordCrypto.Hash(contaInput.Password);
             bool isValidPassword = (password == conta.PasswordHash);
@@ -50,29 +62,29 @@ public class ContasController : ControllerBase
             // Generate token.
             ContaOutputModel outConta = conta.ToContaOutputModel();
             string token = GenerateToken(outConta);
-            outConta.Token = token;
-
-            return Ok(outConta);
+            return Ok(token);
         }
         catch (System.Exception)
         {
             return BadRequest();
         }
     }
-    public string GenerateToken(ContaOutputModel conta)
+    private string GenerateToken(ContaOutputModel conta)
     {
-        string key = _config.GetSection("Key").ToString()!;
-        // authentication successful so generate jwt token
+        string key = TokenSettings.Key;
+        // Authentication successful so generate jwt token
         var tokenHandler = new JwtSecurityTokenHandler();
         var asciKey = Encoding.ASCII.GetBytes(key);
         var tokenDescriptor = new SecurityTokenDescriptor
         {
+            Audience = TokenSettings.Audience,
+            Issuer = TokenSettings.Issuer,
             Subject = new ClaimsIdentity(new Claim[]
             {
-                new Claim(ClaimTypes.Name, conta.Username),
+                new Claim("username", conta.Username),
                 new Claim(ClaimTypes.Role, conta.TipoDeUser)
             }),
-            Expires = DateTime.UtcNow.AddDays(7),
+            Expires = TokenSettings.Expiration,
             SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(asciKey), SecurityAlgorithms.HmacSha256Signature)
         };
         var token = tokenHandler.CreateToken(tokenDescriptor);

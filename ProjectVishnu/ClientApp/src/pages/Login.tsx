@@ -11,25 +11,22 @@ import {
   Button,
   FormControl,
 } from "@chakra-ui/react";
-
 import { useNavigate } from "react-router-dom";
 import PasswordInput from "../components/PasswordInput";
 import AuthenticationPanel from "../components/AuthenticationPanel";
-import { tryLogin } from "../common/APICalls";
-import IContaOutput from "../common/Interfaces/Conta/IContaOutput";
+import { changeInstanceToken, tryLogin } from "../common/API/APICalls";
 import useAuth from "../auth/useAuth";
 
 export default function Login() {
   const [loggingIn, setLoggingIn] = useState<boolean>();
   const [invalidLogin, setInvalidLogin] = useState<boolean>();
   const navigate = useNavigate();
-  const { conta, setConta } = useAuth()
+  const { conta, setConta } = useAuth();
 
   type Inputs = {
     username: string;
     password: string;
   };
-
 
   const schema = yup
     .object({
@@ -53,11 +50,9 @@ export default function Login() {
         // Response here is a token if valid or unauthorized if invalid.
         if (response.status === 200) {
           setLoggingIn(false);
-          response.json().then((resp: IContaOutput) => {
-            setConta(resp);
-            localStorage.setItem("conta", JSON.stringify(resp));
-            navigate("/");
-          });
+          localStorage.setItem("DKMToken", response.data);
+          changeInstanceToken(response.data);
+          navigate("/");
         } else {
           setInvalidLogin(true);
           setLoggingIn(false);
@@ -72,7 +67,7 @@ export default function Login() {
   // effect, if user logged in (token valid) redirect to homepage
   useEffect(() => {
     if (conta) navigate("/");
-  });
+  },[]);
   return (
     <AuthenticationPanel>
       <form

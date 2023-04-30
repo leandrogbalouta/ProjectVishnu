@@ -1,11 +1,11 @@
 // TODO in case u need an IBAN - IE64IRCE92050112345678
 import React, { useState, useEffect } from "react";
 import {
-  CreateFuncionario,
+  createFuncionario,
   fetchCategoriasProfissionais,
   fetchMercados,
   fetchTiposDocumento,
-} from "../../common/APICalls";
+} from "../../common/API/APICalls";
 import {
   Input,
   Button,
@@ -26,7 +26,7 @@ import IFuncionarioInput from "../../common/Interfaces/Funcionario/IFuncionarioI
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import {
   FaCalendarAlt,
   FaCreditCard,
@@ -164,20 +164,17 @@ export default function FuncionarioCreation() {
     // Get Tipos de documento
     const populateTiposDocInt = async () => {
       const response = await fetchTiposDocumento();
-      const data = await response.json();
-      setTiposDeDocumento(data);
+      setTiposDeDocumento(response.data);
     };
     // Get Categorias profissionais
     const populateCategoriasProfissionais = async () => {
       const response = await fetchCategoriasProfissionais();
-      const data = await response.json();
-      setCategoriasProfissionais(data);
+      setCategoriasProfissionais(response.data);
     };
     // Get Mercados
     const populateMercados = async () => {
       const response = await fetchMercados();
-      const data = await response.json();
-      setMercados(data);
+      setMercados(response.data);
     };
 
     // run 'em
@@ -187,12 +184,10 @@ export default function FuncionarioCreation() {
   }, []);
   // Component
   async function AddFuncionario(funcionario: IFuncionarioInput) {
-    await CreateFuncionario(funcionario)
+    await createFuncionario(funcionario)
       .then((resp) => {
         if (resp.status === 201) {
-          navigate(
-            "/funcionarios"
-          );
+          navigate("/funcionarios");
           if (!toast.isActive("sucesso")) {
             toast({
               id: "sucesso",
@@ -204,21 +199,21 @@ export default function FuncionarioCreation() {
             });
           }
         } else {
-          if (!toast.isActive("erro")) {
-            resp.json().then((res) => {
-              toast({
-                id: "erro",
-                title: res.title,
-                position: "top-right",
-                duration: 10000,
-                status: "error",
-                isClosable: true,
-              });
-            });
-          }
+          throw new Error("Something mad happen.");
         }
       })
-      .catch((error) => {});
+      .catch((error) => {;
+        if (!toast.isActive("erro")) {
+          toast({
+            id: "erro",
+            title: error.response.data.title,
+            position: "top-right",
+            duration: 10000,
+            status: "error",
+            isClosable: true,
+          });
+        }
+      });
   }
 
   return (

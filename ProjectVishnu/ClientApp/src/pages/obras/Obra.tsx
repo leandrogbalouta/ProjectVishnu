@@ -1,32 +1,22 @@
-import { useEffect, useState, createContext } from "react";
+import { useEffect, useState } from "react";
 import { MdOutlinePostAdd } from "react-icons/md";
 import {
   fetchObra,
   createFolhaDePonto,
   fetchFolhaDePontoAllByobra as fetchFolhaDePontoAllByObra,
   fetchFuncionariosForObra,
-} from "../../common/APICalls";
+} from "../../common/API/APICalls";
 import {
   Button,
   Input,
   Spinner,
-  Table,
-  Tbody,
-  Td,
-  Th,
-  Thead,
-  Tr,
 } from "@chakra-ui/react";
 import IObraOutput from "../../common/Interfaces/Obra/IObraOutput";
-import IFolhaDePontoInfoModel from "../../common/Interfaces/FolhaDePonto/IFolhaDePontoInfoModel";
 import { useNavigate, useParams } from "react-router-dom";
 import IFuncionarioObraOutputModel from "../../common/Interfaces/Funcionario/IFuncionarioObraOutputModel";
 import FuncionariosPorObraTable from "../../components/tables/FuncionariosPorObraTable";
-import SemDadosRow from "../../components/SemDadosPlaceHolder";
 import AdicionarFuncionarioAObraModal from "../../components/modals/AdicionarFuncionarioAObraModal";
-import { GrTableAdd } from "react-icons/gr";
 import BackButton from "../../components/BackButton";
-import RemoverFuncionariosDeObraModal from "../../components/modals/RemoverFuncionarioDeObraModal";
 import FolhaDePontoForFuncionarioTable from "../../components/tables/FolhaDePontoForFuncionarioTable";
 
 export default function Obra() {
@@ -59,13 +49,11 @@ export default function Obra() {
     const monthInput = document.getElementById("date");
     const date = monthInput!.nodeValue!;
     const [ano, mes] = data.split("-");
-
     const resp = await createFolhaDePonto(mes, ano, workDays, codigo!);
-    const respData = await resp.json();
-    const location = resp.headers.get("location");
+    const location = resp.headers["location"];
     const result = location?.split(`${codigo}/`)[1];
     console.log(`Location here ${result}`);
-    navigate(result!, { state: respData });
+    navigate(result!, { state: resp.data });
   }
 
   async function redirectToFolhaDePonto(folhaDePonto: any) {
@@ -78,18 +66,15 @@ export default function Obra() {
     (async () => {
       const populateObraData = async () => {
         const response = await fetchObra(codigo!);
-        const data = await response.json();
-        setObra(data);
+        setObra(response.data);
       };
       const populateFolhasDePontoData = async () => {
         const response = await fetchFolhaDePontoAllByObra(codigo!);
-        const data = await response.json();
-        setFolhasDePonto(data);
+        setFolhasDePonto(response.data);
       };
       const populateFuncionarios = async () => {
         const response = await fetchFuncionariosForObra(codigo!);
-        const data = await response.json();
-        setFuncionarios(data);
+        setFuncionarios(response.data);
       };
       await populateObraData();
       await populateFuncionarios();

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetchFolhaDePontoAllByMercado } from "../../common/APICalls";
+import { fetchFolhaDePontoAllByMercado } from "../../common/API/APICalls";
 import FilterBar from "../../components/FilterBar";
 import { useNavigate } from "react-router-dom";
 import { Spinner } from "@chakra-ui/react";
@@ -19,8 +19,7 @@ export default function FolhasDePonto() {
   useEffect(() => {
     const populateFolhasDePontoData = async () => {
       const response = await fetchFolhaDePontoAllByMercado(mercado!);
-      const data = await response.json();
-      setFolhasDePonto(data);
+      setFolhasDePonto(response.data);
     };
     populateFolhasDePontoData();
   }, [mercado]);

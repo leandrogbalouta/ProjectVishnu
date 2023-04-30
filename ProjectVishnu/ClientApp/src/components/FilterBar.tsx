@@ -9,7 +9,7 @@ import {
   MenuList,
 } from "@chakra-ui/react";
 import { BsChevronDown, BsSearch } from "react-icons/bs";
-import { fetchMercados } from "../common/APICalls";
+import { fetchMercados } from "../common/API/APICalls";
 
 // TODO check parameters
 interface Params {
@@ -43,8 +43,7 @@ export default function FilterBar({
   useEffect(() => {
     const getMercadosData = async () => {
       const response = await fetchMercados();
-      const data = await response.json();
-      setMercados(data);
+      setMercados(response.data);
     };
 
     getMercadosData();

@@ -4,18 +4,17 @@ import { useState } from "react";
 import { RiMenu4Line, RiSettings5Line } from "react-icons/ri";
 import { BsFillMoonStarsFill, BsFillSunFill } from "react-icons/bs";
 import ThemeContext from "./contexts/Theme/themeContext";
-import AppRoutes from "../common/AppRoutes";
 import Role from "../common/Role";
 import LogoutModal from "./LogoutModal";
-import { ContaContext } from "./contexts/Conta/ContaContext";
-import { useNavigate, Navigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+import useAuth from "../auth/useAuth";
 
 export default function NavMenu() {
-  const { conta } = useContext(ContaContext);
+  const { conta } = useAuth();
   const navigate = useNavigate();
   const [toggleNav, setToggleNav] = useState<boolean>(false);
   const darkTheme = useRef<boolean>();
-  const role = conta?.tipoDeUser;
+  const role = conta?.role;
   let toggleClass = toggleNav ? "block" : "hidden";
   const { currentTheme, changeCurrentTheme } = useContext(ThemeContext);
   const changeToggle = useCallback(() => {
@@ -27,10 +26,10 @@ export default function NavMenu() {
     localStorage.setItem("theme", darkTheme.current ? "dark" : "light");
   }
   // Detect change storage
-  window.addEventListener("storage", (e) => {
-      
-  });
+  window.addEventListener("storage", (e) => {});
   useEffect(() => {
+    console.log(role);
+    // Dark mode
     darkTheme.current = localStorage.getItem("theme") === "dark";
     changeCurrentTheme(darkTheme.current ? "dark" : "light");
     // Fechar NavMenu quando utilizador clicka fora da nav.
@@ -38,12 +37,12 @@ export default function NavMenu() {
       if (toggleNav) {
         const target = e.target;
         const navMenu = document.getElementById("navmenu")!;
-        if (!navMenu.contains(target as Node)) {
+        if (navMenu && !navMenu.contains(target as Node)) {
           changeToggle();
         }
       }
     });
-  }, [toggleNav, conta]);
+  }, [toggleNav]);
   return (
     <header
       id="navmenu"

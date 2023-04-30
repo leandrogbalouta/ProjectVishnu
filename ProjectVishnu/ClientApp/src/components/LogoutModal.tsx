@@ -14,15 +14,16 @@ import {
 import { SlPower } from "react-icons/sl";
 import { ContaContext } from "./contexts/Conta/ContaContext";
 import { useNavigate } from "react-router-dom";
+import useAuth from '../auth/useAuth';
 
 export default function LogoutModal() {
   const [loggingOut, setLoggingOut] = useState<boolean>();
   const navigate = useNavigate();
   const { onClose, isOpen, onOpen } = useDisclosure();
-  const { setConta } = useContext(ContaContext);
+  const { setConta } = useAuth();
   async function logout() {
     setLoggingOut(true);
-    localStorage.removeItem("conta");
+    localStorage.removeItem("DKMToken");
     setConta(undefined);
     navigate("/");
   }

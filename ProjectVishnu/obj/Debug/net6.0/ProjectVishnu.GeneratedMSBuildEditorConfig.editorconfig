@@ -9,6 +9,7 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = ProjectVishnu
 build_property.RootNamespace = ProjectVishnu
+<<<<<<< HEAD
 build_property.ProjectDir = c:\Users\landr\Desktop\DKM\ProjectVishnu\ProjectVishnu\
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
@@ -22,4 +23,19 @@ build_metadata.AdditionalFiles.CssScope =
 
 [c:/Users/landr/Desktop/DKM/ProjectVishnu/ProjectVishnu/ServerApp/App/Pages/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = U2VydmVyQXBwXEFwcFxQYWdlc1xfVmlld0ltcG9ydHMuY3NodG1s
+=======
+build_property.ProjectDir = /Users/lmartins/Documents/Projects/ProjectVishnu/ProjectVishnu/
+build_property.RazorLangVersion = 6.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = /Users/lmartins/Documents/Projects/ProjectVishnu/ProjectVishnu
+build_property._RazorSourceGeneratorDebug = 
+
+[/Users/lmartins/Documents/Projects/ProjectVishnu/ProjectVishnu/ServerApp/App/Pages/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = U2VydmVyQXBwL0FwcC9QYWdlcy9FcnJvci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/lmartins/Documents/Projects/ProjectVishnu/ProjectVishnu/ServerApp/App/Pages/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = U2VydmVyQXBwL0FwcC9QYWdlcy9fVmlld0ltcG9ydHMuY3NodG1s
+>>>>>>> 324b9aa67bbdd13995b5a4539ba813da5b61db88
 build_metadata.AdditionalFiles.CssScope = 

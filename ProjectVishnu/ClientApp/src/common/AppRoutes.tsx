@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import Home from "../pages/Home";
 import Custom404 from "../pages/404";
 import {
@@ -33,7 +33,10 @@ export default function AppRoutes() {
           <Route path="admin" element={<Admin />} />
           <Route path="admin/criar-utilizador" element={<CriarUtilizador />} />
           <Route path="admin/criar-mercado" element={<CriarMercado />} />
-          <Route path="admin/criar-categoria-profissional" element={<CriarCategoriaProfissinal />}/>
+          <Route
+            path="admin/criar-categoria-profissional"
+            element={<CriarCategoriaProfissinal />}
+          />
         </Route>
         {/* General Authenticated Routes */}
         <Route element={<RequireAuth allowedRoles={["user", "admin"]} />}>
@@ -45,7 +48,10 @@ export default function AppRoutes() {
           <Route path="obras/:codigo" element={<Obra />} />
           <Route path="obras/folha-de-ponto/:data" element={<FolhaDePonto />} />
           <Route path="folha-de-ponto" element={<FolhasDePonto />} />
-          <Route path="folha-de-ponto/:mercado/:data" element={<FolhaDePonto />}/>
+          <Route
+            path="folha-de-ponto/:mercado/:data"
+            element={<FolhaDePonto />}
+          />
         </Route>
       </Route>
     </Routes>

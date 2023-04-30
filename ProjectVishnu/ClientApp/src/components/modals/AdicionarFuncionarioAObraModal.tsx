@@ -16,7 +16,7 @@ import {
 } from "@chakra-ui/react";
 import FilterBar from "../FilterBar";
 import IObraOutput from "../../common/Interfaces/Obra/IObraOutput";
-import { AddFuncionarioToObra, fetchFuncionarios } from "../../common/APICalls";
+import { addFuncionarioToObra, fetchFuncionarios } from "../../common/API/APICalls";
 import FuncionariosTable from "../tables/FuncionariosTable";
 
 //TODO: tornar todo o código da tabela das obras universal de maneira a que isto não se repita aqui (e no index das obras)
@@ -44,8 +44,7 @@ export default function AdicionarFuncionarioAObraModal({
     // Misc
     const populateFuncioariosData = async () => {
       const response = await fetchFuncionarios(filters);
-      const data = await response.json();
-      setFuncionarios(data);
+      setFuncionarios(response.data);
     };
     populateFuncioariosData();
   }, [mercado, searchString]);
@@ -60,8 +59,8 @@ export default function AdicionarFuncionarioAObraModal({
     console.log(obra.codigoInterno);
     // TODO make this batch(able) or something
       funcionariosIdList.map((funcionarioId) => {
-        AddFuncionarioToObra(funcionarioId, obra.codigoInterno, today).then((resp) => {
-          if (!resp.ok) throw new Error("error");
+        addFuncionarioToObra(funcionarioId, obra.codigoInterno, today).then((resp) => {
+          if (resp.status !== 200) throw new Error("error");
           toast({
             title: 'Sucesso.',
             description: `Funcionario(s) adicionado(s) a obra com sucesso.`,

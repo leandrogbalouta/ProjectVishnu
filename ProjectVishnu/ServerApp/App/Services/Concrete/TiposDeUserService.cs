@@ -29,6 +29,6 @@ public class TiposDeUserService : ITiposDeUserService
     {
         _unitOfWork.TiposDeUser.Update(tipoDeUser, tipoDeUserEntity);
         _unitOfWork.Complete();
-        return "Tipo de user atualizado com sucesso.";  
+        return "Tipo de user atualizado com sucesso.";
     }
 }

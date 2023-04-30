@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { AiOutlineUserAdd } from "react-icons/ai";
+import { useEffect, useState } from "react";
 import {
   Button,
   Modal,
@@ -10,25 +9,13 @@ import {
   ModalBody,
   ModalCloseButton,
   useDisclosure,
-  Table,
-  Tr,
-  Thead,
-  Th,
-  Tbody,
-  Td,
   Spinner,
   Tooltip,
 } from "@chakra-ui/react";
 import IFuncionarioOutput from "../../common/Interfaces/Funcionario/IFuncionarioOutput";
 import FilterBar from "../FilterBar";
-import IObraOutput from "../../common/Interfaces/Obra/IObraOutput";
-import {
-  AddFuncionarioToObra,
-  AddObraToFunc,
-  fetchObras,
-} from "../../common/APICalls";
+import { addFuncionarioToObra, fetchObras } from "../../common/API/APICalls";
 import ObrasTable from "../tables/ObrasTable";
-import RemoverFuncionariosDeObraModal from "./RemoverFuncionarioDeObraModal";
 import { BsBuildingAdd } from "react-icons/bs";
 
 //TODO: tornar todo o código da tabela das obras universal de maneira a que isto não se repita aqui (e no index das obras)
@@ -54,8 +41,7 @@ export default function AdicionarObraAFuncionarioModal({
     // Misc
     const populateObrasData = async () => {
       const response = await fetchObras(filters);
-      const data = await response.json();
-      setObras(data);
+      setObras(response.data);
     };
     populateObrasData();
   }, [mercado, searchString]);
@@ -67,7 +53,7 @@ export default function AdicionarObraAFuncionarioModal({
 
     let today = `${year}-${month}-${day}`;
 
-    AddFuncionarioToObra(funcionario.id, codigoInterno, today).then((res) => {
+    addFuncionarioToObra(funcionario.id, codigoInterno, today).then((res) => {
       if (res.status === 409)
         alert("Por favor remova o funcionário da sua obra atual");
     });

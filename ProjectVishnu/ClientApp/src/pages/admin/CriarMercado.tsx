@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { CreateUser, fetchTiposDeUser } from "../../common/APICalls";
+import { createUser, fetchTiposDeUser } from "../../common/API/APICalls";
 import {
   Button,
   FormControl,
@@ -8,16 +8,22 @@ import {
   Input,
   InputGroup,
   InputLeftElement,
+  NumberDecrementStepper,
+  NumberIncrementStepper,
+  NumberInput,
+  NumberInputField,
+  NumberInputStepper,
   Select,
   useToast,
 } from "@chakra-ui/react";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { FaCalendarDay, FaUser } from "react-icons/fa";
+import { FaCalendarDay, FaGlobe, FaUser } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import IContaInput from "../../common/Interfaces/Conta/IContaInput";
 import IMercado from "../../common/Interfaces/Mercado/IMercado";
+import { RxLetterCaseCapitalize } from "react-icons/rx";
 
 export default function CriarMercado() {
   // state
@@ -30,8 +36,11 @@ export default function CriarMercado() {
   const schema = yup
     .object({
       nome: yup.string().required("Por favor, introduza o nome do mercado."),
-      datainicio: yup.date().typeError("Por favor introduza uma data válida."),
-      datafim: yup.date().typeError("Por favor introduza uma data válida"),
+      sigla: yup
+        .string()
+        .required("Por favor, introduza a sigla para o mercado."),
+      diaInicio: yup.date().typeError("Por favor introduza um dia de inicio."),
+      diaFim: yup.date().typeError("Por favor introduza um dia de fim"),
     })
     .required();
   // end of schema
@@ -42,18 +51,16 @@ export default function CriarMercado() {
   } = useForm<IMercado>({
     resolver: yupResolver<yup.AnyObjectSchema>(schema),
   });
-  const onSubmit: SubmitHandler<IMercado> = async (data: IMercado) => {
-    // TODO add mercado
-  };
+  const onSubmit: SubmitHandler<IMercado> = async (data: IMercado) => {};
   // end of form
   async function AddConta(conta: IContaInput) {
-    const resp = await CreateUser(conta);
+    const resp = await createUser(conta);
     if (resp.status === 201) {
       navigate("/admin");
       if (!toast.isActive("sucesso")) {
         toast({
           id: "sucesso",
-          title: `Utilizador criado com sucesso.`,
+          title: `Mercado criado com sucesso.`,
           position: "top-right",
           duration: 5000,
           status: "success",
@@ -62,22 +69,18 @@ export default function CriarMercado() {
       }
     } else {
       if (!toast.isActive("erro")) {
-        resp.json().then((res) => {
-          toast({
-            id: "erro",
-            title: "Ocorreu um erro ao criar utilizador.",
-            position: "top-right",
-            duration: 10000,
-            status: "error",
-            isClosable: true,
-          });
+        toast({
+          id: "erro",
+          title: "Ocorreu um erro ao criar mercado.",
+          position: "top-right",
+          duration: 10000,
+          status: "error",
+          isClosable: true,
         });
       }
     }
   }
-  useEffect(() => {
-   
-  }, []);
+  useEffect(() => {}, []);
 
   return (
     <div className="w-full sm:w-1/2 mx-auto">
@@ -91,7 +94,7 @@ export default function CriarMercado() {
           <FormLabel htmlFor="nome">Nome</FormLabel>
           <InputGroup>
             <InputLeftElement pointerEvents="none">
-              <FaUser />
+              <FaGlobe />
             </InputLeftElement>
             <Input
               id="nome"
@@ -103,40 +106,56 @@ export default function CriarMercado() {
           </InputGroup>
           <FormErrorMessage>{errors?.nome?.message}</FormErrorMessage>
         </FormControl>
-        {/* Data de Início field */}
-        <FormControl className="mb-5" isInvalid={!!errors.datainicio}>
-          <FormLabel htmlFor="datainicio">Data de Início</FormLabel>
+        {/* Sigla field */}
+        <FormControl className="mb-5 basis-2/5" isInvalid={!!errors.sigla}>
+          <FormLabel htmlFor="sigla">Sigla</FormLabel>
           <InputGroup>
             <InputLeftElement pointerEvents="none">
-              <FaCalendarDay color="#000E31" />
+              <RxLetterCaseCapitalize />
             </InputLeftElement>
             <Input
-              id="datainicio"
-              type="date"
-              placeholder="Data de ínicio de obra"
-              autoComplete="blank-datainicio"
-              {...register("datainicio", { required: false })}
+              id="sigla"
+              type="text"
+              placeholder="Nome"
+              autoComplete="blank-nome"
+              {...register("sigla", { required: true })}
             />
           </InputGroup>
-          <FormErrorMessage>{errors.datainicio?.message}</FormErrorMessage>
+          <FormErrorMessage>{errors?.nome?.message}</FormErrorMessage>
+        </FormControl>
+        {/* Dia de Início field */}
+        <FormControl className="mb-5" isInvalid={!!errors.diaInicio}>
+          <FormLabel htmlFor="diaInicio">Dia de Início</FormLabel>
+
+          <NumberInput defaultValue={1} maxW={31} min={10}>
+            <NumberInputField {...register("diaInicio", { required: false })} />
+            <NumberInputStepper>
+              <NumberIncrementStepper />
+              <NumberDecrementStepper />
+            </NumberInputStepper>
+          </NumberInput>
+
+          <FormErrorMessage>{errors.diaInicio?.message}</FormErrorMessage>
         </FormControl>
 
-        {/* Data de fim field */}
-        <FormControl className="mb-5" isInvalid={!!errors.datafim}>
-          <FormLabel htmlFor="datafim">Data de Fim</FormLabel>
+        {/* Dia de fim field */}
+        <FormControl className="mb-5" isInvalid={!!errors.diaFim}>
+          <FormLabel htmlFor="diaFim">Dia de Fim</FormLabel>
           <InputGroup>
             <InputLeftElement pointerEvents="none">
               <FaCalendarDay color="#000E31" />
             </InputLeftElement>
             <Input
-              id="datafim"
-              type="date"
-              placeholder="Data de fim de obra"
-              autoComplete="blank-datafim"
-              {...register("datafim", { required: false })}
+              id="diaFim"
+              type="number"
+              min="1"
+              max="31"
+              placeholder="Dia de fim de obra"
+              autoComplete="blank-diaFim"
+              {...register("diaFim", { required: false })}
             />
           </InputGroup>
-          <FormErrorMessage>{errors.datafim?.message}</FormErrorMessage>
+          <FormErrorMessage>{errors.diaFim?.message}</FormErrorMessage>
         </FormControl>
         <div id="button-container" className="flex sm:justify-end gap-2">
           <Button

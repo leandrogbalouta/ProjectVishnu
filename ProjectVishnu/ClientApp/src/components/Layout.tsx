@@ -1,9 +1,7 @@
-import React from "react";
 import NavMenu from "./NavMenu";
 import { Outlet } from "react-router-dom";
 
 export default function Layout() {
-
   return (
     <div className="flex flex-col h-full w-full dark:bg-slate-800 font-Dosis">
       <NavMenu />

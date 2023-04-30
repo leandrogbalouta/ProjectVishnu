@@ -1,4 +1,4 @@
-import { CreateUser } from "../../common/APICalls";
+import { createUser } from "../../common/API/APICalls";
 import {
   Button,
   FormControl,
@@ -47,9 +47,15 @@ export default function CriarCategoriaProfissinal() {
     // TODO add mercado
   };
   // end of form
-  async function AddCategoriaProfissional(catProfissional: ICategoriaProfissional) {
+  async function AddCategoriaProfissional(
+    catProfissional: ICategoriaProfissional
+  ) {
     // TODO change this crap below
-    const resp = await CreateUser({username: "shabba", password: "ranks", tipoDeUser: Role.User});
+    const resp = await createUser({
+      username: "shabba",
+      password: "ranks",
+      tipoDeUser: Role.User,
+    });
     if (resp.status === 201) {
       navigate("/admin");
       if (!toast.isActive("sucesso")) {
@@ -64,15 +70,13 @@ export default function CriarCategoriaProfissinal() {
       }
     } else {
       if (!toast.isActive("erro")) {
-        resp.json().then((res) => {
-          toast({
-            id: "erro",
-            title: "Ocorreu um erro ao criar categoria profissional.",
-            position: "top-right",
-            duration: 10000,
-            status: "error",
-            isClosable: true,
-          });
+        toast({
+          id: "erro",
+          title: "Ocorreu um erro ao criar categoria profissional.",
+          position: "top-right",
+          duration: 10000,
+          status: "error",
+          isClosable: true,
         });
       }
     }
@@ -101,8 +105,11 @@ export default function CriarCategoriaProfissinal() {
           </InputGroup>
           <FormErrorMessage>{errors?.codigo?.message}</FormErrorMessage>
         </FormControl>
-          {/* nome field */}
-          <FormControl className="mb-5 basis-2/5" isInvalid={!!errors.nomenclatura}>
+        {/* nome field */}
+        <FormControl
+          className="mb-5 basis-2/5"
+          isInvalid={!!errors.nomenclatura}
+        >
           <FormLabel htmlFor="nome">Nome</FormLabel>
           <InputGroup>
             <InputLeftElement pointerEvents="none">
