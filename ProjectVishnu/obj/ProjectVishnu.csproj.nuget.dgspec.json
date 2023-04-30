@@ -1,27 +1,26 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\landr\\Desktop\\DKM\\ProjectVishnu\\ProjectVishnu\\ProjectVishnu.csproj": {}
+    "/Users/lmartins/Documents/Projects/ProjectVishnu/ProjectVishnu/ProjectVishnu.csproj": {}
   },
   "projects": {
-    "C:\\Users\\landr\\Desktop\\DKM\\ProjectVishnu\\ProjectVishnu\\ProjectVishnu.csproj": {
+    "/Users/lmartins/Documents/Projects/ProjectVishnu/ProjectVishnu/ProjectVishnu.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\landr\\Desktop\\DKM\\ProjectVishnu\\ProjectVishnu\\ProjectVishnu.csproj",
+        "projectUniqueName": "/Users/lmartins/Documents/Projects/ProjectVishnu/ProjectVishnu/ProjectVishnu.csproj",
         "projectName": "ProjectVishnu",
-        "projectPath": "C:\\Users\\landr\\Desktop\\DKM\\ProjectVishnu\\ProjectVishnu\\ProjectVishnu.csproj",
-        "packagesPath": "C:\\Users\\landr\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\landr\\Desktop\\DKM\\ProjectVishnu\\ProjectVishnu\\obj\\",
+        "projectPath": "/Users/lmartins/Documents/Projects/ProjectVishnu/ProjectVishnu/ProjectVishnu.csproj",
+        "packagesPath": "/Users/lmartins/.nuget/packages/",
+        "outputPath": "/Users/lmartins/Documents/Projects/ProjectVishnu/ProjectVishnu/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\landr\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/Users/lmartins/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "/usr/local/share/dotnet/library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -110,7 +109,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.100/RuntimeIdentifierGraph.json"
         }
       }
     }

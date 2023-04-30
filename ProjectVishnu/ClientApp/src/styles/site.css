@@ -54,7 +54,7 @@ select,
   @apply p-3 mb-3 bg-slate-800 dark:bg-slate-700 text-cyan-100 rounded-xl font-bold
 }
 .page-header {
-  @apply text-center text-2xl md:text-4xl mb-5;
+  @apply text-center text-2xl md:text-4xl mb-3;
 }
 .obra-heading {
   @apply text-lg font-bold text-cyan-400;

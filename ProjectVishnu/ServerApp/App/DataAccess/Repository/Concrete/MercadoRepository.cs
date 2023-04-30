@@ -18,7 +18,7 @@ namespace ProjectVishnu.ServerApp.App.DataAccess.Repository.Concrete
 
         public void Add(Mercado entity)
         {
-            throw new NotImplementedException();
+            VishnuContext.Mercados.Add(entity);
         }
 
         public void AddRange(IEnumerable<Mercado> entities)

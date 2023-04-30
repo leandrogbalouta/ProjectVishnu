@@ -1,5 +1,6 @@
 import IFolhaDePontoInfoModel from './IFolhaDePontoInfoModel';
 import IFolhaDePontoOutput from './IFolhaDePontoInfoModel';
-import { FuncDaysOfWorkInput } from './IFolhaDePontoInput';
+import FolhaDePontoValuesInput, { FuncDaysOfWorkInput } from './IFolhaDePontoInput';
 
-export type { IFolhaDePontoInfoModel, IFolhaDePontoOutput, FuncDaysOfWorkInput };
+
+export type { IFolhaDePontoInfoModel, IFolhaDePontoOutput, FuncDaysOfWorkInput, FolhaDePontoValuesInput};

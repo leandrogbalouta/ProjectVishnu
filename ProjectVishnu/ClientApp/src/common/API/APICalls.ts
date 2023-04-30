@@ -1,9 +1,11 @@
 import axios, { AxiosInstance, AxiosResponse } from "axios";
-import IFolhaDePontoInput from "../Interfaces/FolhaDePonto/IFolhaDePontoInput";
-import IFuncionarioInput from "../Interfaces/Funcionario/IFuncionarioInput";
-import IContaInput from "../Interfaces/Conta/IContaInput";
-import IObraOutput from "../Interfaces/Obra/IObraOutput";
-import { IMercado } from "../Interfaces";
+import { IContaInput } from "../Interfaces/Conta";
+import { FolhaDePontoValuesInput } from "../Interfaces/FolhaDePonto";
+import { IFuncionarioInput } from "../Interfaces/Funcionario";
+import { IMercadoOutput } from "../Interfaces/Mercado";
+import { IObraOutput } from "../Interfaces/Obra";
+
+
 
 const instance: AxiosInstance = axios.create({
   baseURL: "/api/",
@@ -27,7 +29,7 @@ export function fetchMercados(): Promise<AxiosResponse> {
   return instance.get("/mercados");
 }
 
-export function createMercado(mercado: IMercado): Promise<AxiosResponse> {
+export function createMercado(mercado: IMercadoOutput): Promise<AxiosResponse> {
   return instance.post("/mercados", mercado);
 }
 
@@ -147,7 +149,7 @@ export async function submitFolhaDePontoValues(
   codigo: string,
   mes: string,
   ano: string,
-  values: IFolhaDePontoInput
+  values: FolhaDePontoValuesInput
 ): Promise<AxiosResponse> {
   const path = `obras/${codigo}/folha-de-ponto/${ano}-${mes}`;
   return instance.put(path, { values: values.values });

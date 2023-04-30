@@ -28,11 +28,11 @@ namespace ProjectVishnu.ServerApp.App.Controllers
                 var result = _mercadosService.ListAlphabetically();
                 return Ok(result);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return Problem(statusCode: 500, title: "Erro inesperado");
             }
-            
+
         }
 
         [HttpGet("{name}")]
@@ -46,11 +46,11 @@ namespace ProjectVishnu.ServerApp.App.Controllers
                 var result = _mercadosService.GetMercado(name);
                 return Ok();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return Problem(statusCode: 500, title: "Erro inesperado");
             }
-            
+
         }
 
         [HttpPost]
@@ -62,13 +62,13 @@ namespace ProjectVishnu.ServerApp.App.Controllers
             {
                 var result = _mercadosService.CreateMercado(mercado);
                 var actionName = nameof(MercadosController.Get);
-                var routeValues = new 
+                var routeValues = new
                 {
                     name = result.Mercadoname
                 };
                 return CreatedAtAction(actionName, routeValues, result);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return Problem(statusCode: 500, title: "Erro inesperado");
             }
