@@ -9,7 +9,7 @@ const GetConta  = (): IContaOutput | undefined  => {
   if (decoded!.exp! * 1000 < new Date().getTime()) return undefined;
   return {
     username: decoded.username as string,
-    tipoDeUser: decoded.tipoDeUser as string
+    role: decoded.role as string
   };
 };
 export default GetConta;

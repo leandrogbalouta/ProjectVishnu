@@ -54,33 +54,36 @@ export default function CriarUtilizador() {
   };
   // end of form
   async function AddConta(conta: IContaInput) {
-    const resp = await createUser(conta);
-    if (resp.status === 201) {
-      navigate("/admin");
-      if (!toast.isActive("sucesso")) {
-        toast({
-          id: "sucesso",
-          title: `Utilizador criado com sucesso.`,
-          position: "top-right",
-          duration: 5000,
-          status: "success",
-          isClosable: true,
-        });
-      }
-    } else {
-      if (!toast.isActive("erro")) {
-        resp.json().then((res) => {
+    await createUser(conta)
+      .then((resp) => {
+        if (resp.status === 201) {
+          navigate("/admin");
+          if (!toast.isActive("sucesso")) {
+            toast({
+              id: "sucesso",
+              title: `Utiliador criado com sucesso.`,
+              position: "top-right",
+              duration: 5000,
+              status: "success",
+              isClosable: true,
+            });
+          }
+        } else {
+          throw new Error("Something mad happen.");
+        }
+      })
+      .catch((error) => {
+        if (!toast.isActive("erro")) {
           toast({
             id: "erro",
-            title: "Ocorreu um erro ao criar utilizador.",
+            title: error.response.data.title,
             position: "top-right",
             duration: 10000,
             status: "error",
             isClosable: true,
           });
-        });
-      }
-    }
+        }
+      });
   }
   useEffect(() => {
     // Get Mercados

@@ -14,7 +14,7 @@ export default function NavMenu() {
   const navigate = useNavigate();
   const [toggleNav, setToggleNav] = useState<boolean>(false);
   const darkTheme = useRef<boolean>();
-  const role = conta?.tipoDeUser;
+  const role = conta?.role;
   let toggleClass = toggleNav ? "block" : "hidden";
   const { currentTheme, changeCurrentTheme } = useContext(ThemeContext);
   const changeToggle = useCallback(() => {
@@ -28,6 +28,7 @@ export default function NavMenu() {
   // Detect change storage
   window.addEventListener("storage", (e) => {});
   useEffect(() => {
+    console.log(role);
     // Dark mode
     darkTheme.current = localStorage.getItem("theme") === "dark";
     changeCurrentTheme(darkTheme.current ? "dark" : "light");

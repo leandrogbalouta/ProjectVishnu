@@ -14,7 +14,7 @@ const instance: AxiosInstance = axios.create({
 });
 // Instance related
 export function changeInstanceToken(token: string) {
-  instance.defaults.headers.common.Authorization = `Bearer ${token}`;
+  instance.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 }
 // Tipos de documento
 export function fetchTiposDocumento(): Promise<AxiosResponse> {

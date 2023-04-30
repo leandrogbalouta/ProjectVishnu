@@ -18,7 +18,7 @@ const RequireAuth = ({ allowedRoles }: Params) => {
     localStorage.removeItem("DKMToken");
     setConta(undefined);
   }, [location]);
-  return allowedRoles?.find((role) => conta?.tipoDeUser === role) ? (
+  return allowedRoles?.find((role) => conta?.role === role) ? (
     <Outlet />
   ) : conta?.username ? (
     <Navigate to="/unauthorized" state={{ from: location }} replace />

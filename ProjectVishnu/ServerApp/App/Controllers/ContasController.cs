@@ -27,12 +27,27 @@ public class ContasController : ControllerBase
     public IActionResult Get() => Ok("shabba");
 
     [HttpPost("create")]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "admin")]
     public IActionResult CreateAccount([FromBody] ContaInputModel contaInput)
     {
-        // Continuar codigo para introduzir na DB hash da password e adicionar conta na db.
-        var result = _contaService.Create(contaInput);
-        return result is not null ? Ok() : NotFound();
+        try
+        {
+            // Continuar codigo para introduzir na DB hash da password e adicionar conta na db.
+            var result = _contaService.Create(contaInput);
+            var actionName = nameof(FuncionariosController.Get);
+            var routeValues = new
+            {
+                id = result
+            };
+            return CreatedAtAction(actionName, routeValues, contaInput);
+        }
+        catch (Exception ex)
+        {
+            string erroCode = ex.InnerException!.Data["SqlState"]!.ToString()!;
+            // 23505 significa primary key duplicada (Postgres).
+            string errorMessage = (erroCode.Equals("23505")) ? "Username duplicado." : "Ocorreu um erro, por favor tente novamente, se o erro persistir, entre em contacto connosco.";
+            return Problem(statusCode: 409, title: errorMessage);
+        }
     }
     [HttpPost("login")]
     public IActionResult Login([FromBody] ContaInputModel contaInput)
@@ -67,7 +82,7 @@ public class ContasController : ControllerBase
             Subject = new ClaimsIdentity(new Claim[]
             {
                 new Claim("username", conta.Username),
-                new Claim("tipoDeUser", conta.TipoDeUser)
+                new Claim(ClaimTypes.Role, conta.TipoDeUser)
             }),
             Expires = TokenSettings.Expiration,
             SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(asciKey), SecurityAlgorithms.HmacSha256Signature)
