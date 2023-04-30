@@ -95,6 +95,7 @@ CREATE TABLE FOLHA_DE_PONTO(
 		Id INT UNIQUE GENERATED ALWAYS AS IDENTITY,
 		Mes varchar(9) NOT NULL, 
         Ano varchar(4) NOT NULL,
+		WorkDays INT NOT NULL,
 		Obra varchar(20) references Obra(CodigoInterno) NOT NULL,
 		Mercado varchar(40) references MERCADO(mercadoName) NOT NULL,
 		primary key(Mes,Ano,Obra)
