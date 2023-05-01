@@ -1,5 +1,5 @@
 import { pt } from "date-fns/locale";
-import { createUser, createMercado } from "../../common/API/APICalls";
+import { createMercado } from "../../common/API/APICalls";
 import {
   Button,
   FormControl,
@@ -15,7 +15,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { FaGlobe } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import IContaInput from "../../common/Interfaces/Conta/IContaInput";
 import { RxLetterCaseCapitalize } from "react-icons/rx";
 import { DateFormatter, DateRange, DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
@@ -23,8 +22,6 @@ import { IMercadoOutput, IMercadoInput } from "../../common/Interfaces/Mercado";
 import { useState } from "react";
 
 export default function CriarMercado() {
-  // state
-  const [nullToDate, setNullToDate] = useState(false);
   // Router
   const navigate = useNavigate();
   // misc
@@ -35,10 +32,18 @@ export default function CriarMercado() {
       nome: yup.string().required("Por favor, introduza o nome do mercado."),
       sigla: yup
         .string()
-        .required("Por favor, introduza a sigla para o mercado."),
+        .required("Por favor, introduza a sigla para o mercado.")
+        .length(2, "Uma sigla consiste em 2 caracteres"),
       dateRange: yup
         .mixed<DateRange>()
-        .required("Por favor introduza uma range."),
+        .required("Por favor introduza um ciclo.")
+        .test(
+          "is-to-valid-date",
+          "Por favor introdiza um ciclo válido.",
+          (value) => {
+            return !value || !!value!.to;
+          }
+        ),
     })
     .required();
   // end of schema
@@ -53,12 +58,6 @@ export default function CriarMercado() {
   const onSubmit: SubmitHandler<IMercadoInput> = async (
     data: IMercadoInput
   ) => {
-    // TODO is there a more gracefully way of doing this?
-    setNullToDate(false);
-    if (!data.dateRange.to) {
-      setNullToDate(true);
-      return;
-    }
     const mercado: IMercadoOutput = {
       name: data.nome,
       sigla: data.sigla,
@@ -144,14 +143,14 @@ export default function CriarMercado() {
                   {...register("sigla", { required: true })}
                 />
               </InputGroup>
-              <FormErrorMessage>{errors?.nome?.message}</FormErrorMessage>
+              <FormErrorMessage>{errors?.sigla?.message}</FormErrorMessage>
             </FormControl>
           </div>
           <div className="flex flex-1 sm:justify-end">
             {/* Range */}
             <FormControl
               className="mb-5 md:mb-0 flex flex-col sm:basis-0"
-              isInvalid={!!errors.dateRange || nullToDate}
+              isInvalid={!!errors.dateRange}
             >
               <FormLabel htmlFor="sigla">Ciclo</FormLabel>
               <div className="!flex flex-col justify-end mx-auto sm:mx-0">
@@ -174,10 +173,7 @@ export default function CriarMercado() {
                   />
                 </div>
                 <FormErrorMessage>
-                  <>
-                    {errors.dateRange && <>{errors?.dateRange?.message}</>}
-                    {nullToDate && "Por favor selecione uma data de término."}
-                  </>
+                  {errors?.dateRange?.message}
                 </FormErrorMessage>
               </div>
             </FormControl>

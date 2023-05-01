@@ -19,7 +19,7 @@ namespace ProjectVishnu.ServerApp.App.Services.Concrete
             CategoriasProfissionai catProf = new CategoriasProfissionai{Codigo = Codigo, Nomenclatura = Nomenclatura};
   
             _unitOfWork.CategoriasProfissionais.Add(catProf);
-                
+            _unitOfWork.Complete();
             return catProf;
 
         }

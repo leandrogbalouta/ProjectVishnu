@@ -1,4 +1,7 @@
-import { createUser } from "../../common/API/APICalls";
+import {
+  createCategoriaProfissional,
+  createUser,
+} from "../../common/API/APICalls";
 import {
   Button,
   FormControl,
@@ -27,7 +30,8 @@ export default function CriarCategoriaProfissinal() {
     .object({
       codigo: yup
         .string()
-        .required("Por favor, introduza o codigo de categoria profissional."),
+        .required("Por favor, introduza o codigo de categoria profissional.")
+        .max(7, "Por favor não exceda 7 caracteres."),
       nomenclatura: yup
         .string()
         .required("Por favor, introduza o nome da categoria profissional."),
@@ -44,42 +48,42 @@ export default function CriarCategoriaProfissinal() {
   const onSubmit: SubmitHandler<ICategoriaProfissional> = async (
     data: ICategoriaProfissional
   ) => {
-    // TODO add mercado
+    AddCategoriaProfissional(data);
   };
   // end of form
   async function AddCategoriaProfissional(
-    catProfissional: ICategoriaProfissional
+    categoriaProfissional: ICategoriaProfissional
   ) {
-    // TODO change this crap below
-    const resp = await createUser({
-      username: "shabba",
-      password: "ranks",
-      tipoDeUser: Role.User,
-    });
-    if (resp.status === 201) {
-      navigate("/admin");
-      if (!toast.isActive("sucesso")) {
-        toast({
-          id: "sucesso",
-          title: `Categoria profissional criada com sucesso.`,
-          position: "top-right",
-          duration: 5000,
-          status: "success",
-          isClosable: true,
-        });
-      }
-    } else {
-      if (!toast.isActive("erro")) {
-        toast({
-          id: "erro",
-          title: "Ocorreu um erro ao criar categoria profissional.",
-          position: "top-right",
-          duration: 10000,
-          status: "error",
-          isClosable: true,
-        });
-      }
-    }
+    await createCategoriaProfissional(categoriaProfissional)
+      .then((resp) => {
+        if (resp.status === 201) {
+          navigate("/admin");
+          if (!toast.isActive("sucesso")) {
+            toast({
+              id: "sucesso",
+              title: `Categoria profissional criado com sucesso.`,
+              position: "top-right",
+              duration: 5000,
+              status: "success",
+              isClosable: true,
+            });
+          }
+        } else {
+          throw new Error("Something mad happen.");
+        }
+      })
+      .catch((error) => {
+        if (!toast.isActive("erro")) {
+          toast({
+            id: "erro",
+            title: "Ocorreu um erro ao criar categoria profissional.",
+            position: "top-right",
+            duration: 10000,
+            status: "error",
+            isClosable: true,
+          });
+        }
+      });
   }
   return (
     <div className="w-full sm:w-1/2 mx-auto">

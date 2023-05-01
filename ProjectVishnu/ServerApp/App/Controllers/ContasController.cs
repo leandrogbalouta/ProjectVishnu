@@ -45,8 +45,10 @@ public class ContasController : ControllerBase
         {
             string erroCode = ex.InnerException!.Data["SqlState"]!.ToString()!;
             // 23505 significa primary key duplicada (Postgres).
-            string errorMessage = (erroCode.Equals("23505")) ? "Username duplicado." : "Ocorreu um erro, por favor tente novamente, se o erro persistir, entre em contacto connosco.";
-            return Problem(statusCode: 409, title: errorMessage);
+            bool duplicate = (erroCode.Equals("23505"));
+            string errorMessage = duplicate ? "Username duplicado." : "Ocorreu um erro, por favor tente novamente, se o erro persistir, entre em contacto connosco.";
+            int errorCode = duplicate ? 409 : 500;
+            return Problem(statusCode: errorCode, title: errorMessage);
         }
     }
     [HttpPost("login")]

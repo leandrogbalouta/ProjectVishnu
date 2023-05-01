@@ -19,7 +19,7 @@ namespace ProjectVishnu.ServerApp.App.Services.Concrete
             Mercado m = mercado.ToMercado();
                 
             _unitOfWork.Mercados.Add(m);
-                
+            _unitOfWork.Complete();
             return m;
         }
 

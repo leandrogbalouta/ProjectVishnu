@@ -68,9 +68,14 @@ namespace ProjectVishnu.ServerApp.App.Controllers
                 };
                 return CreatedAtAction(actionName, routeValues, result);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                return Problem(statusCode: 500, title: "Erro inesperado");
+                string erroCode = ex.InnerException!.Data["SqlState"]!.ToString()!;
+                // 23505 significa primary key duplicada (Postgres).
+                bool duplicate = (erroCode.Equals("23505"));
+                string errorMessage = duplicate ? "Sigla de mercado duplicada." : "Ocorreu um erro, por favor tente novamente, se o erro persistir, entre em contacto connosco.";
+                int errorCode = duplicate ? 409 : 500;
+                return Problem(statusCode: errorCode, title: errorMessage);
             }
         }
     }

@@ -1,4 +1,5 @@
 import axios, { AxiosInstance, AxiosResponse } from "axios";
+import { ICategoriaProfissional } from "../Interfaces";
 import { IContaInput } from "../Interfaces/Conta";
 import { FolhaDePontoValuesInput } from "../Interfaces/FolhaDePonto";
 import { IFuncionarioInput } from "../Interfaces/Funcionario";
@@ -37,7 +38,11 @@ export function createMercado(mercado: IMercadoOutput): Promise<AxiosResponse> {
 export function fetchCategoriasProfissionais(): Promise<AxiosResponse> {
   return instance.get("/categorias-profissionais");
 }
-
+export function createCategoriaProfissional(
+  categoriaProfissional: ICategoriaProfissional
+): Promise<AxiosResponse> {
+  return instance.post("/categorias-profissionais", categoriaProfissional);
+}
 // Funcionario
 export function fetchFuncionarios(
   filters: Record<string, string>
