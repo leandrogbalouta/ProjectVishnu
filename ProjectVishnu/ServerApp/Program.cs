@@ -55,6 +55,7 @@ builder.Services.AddScoped<ICategoriaProfService, CategoriaProfService>();
 builder.Services.AddScoped<ITiposDocService, TiposDocService>();
 builder.Services.AddScoped<IContaService, ContaService>();
 builder.Services.AddScoped<ITiposDeUserService, TiposDeUserService>();
+builder.Services.AddScoped<IBlobService, BlobService>();
 
 builder.Services.AddControllersWithViews();
 
