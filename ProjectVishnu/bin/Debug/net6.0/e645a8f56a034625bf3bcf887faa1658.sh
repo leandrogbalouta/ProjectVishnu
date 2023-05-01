@@ -15,16 +15,16 @@ function list_child_processes () {
     fi;
 }
 
-ps 46150;
+ps 76218;
 while [ $? -eq 0 ];
 do
   sleep 1;
-  ps 46150 > /dev/null;
+  ps 76218 > /dev/null;
 done;
 
-for child in $(list_child_processes 46165);
+for child in $(list_child_processes 76228);
 do
   echo killing $child;
   kill -s KILL $child;
 done;
-rm /Users/lmartins/Documents/Projects/ProjectVishnu/ProjectVishnu/bin/Debug/net6.0/e397ecf50a7643b8941b88c849cdd453.sh;
+rm /Users/lmartins/Documents/Projects/ProjectVishnu/ProjectVishnu/bin/Debug/net6.0/e645a8f56a034625bf3bcf887faa1658.sh;

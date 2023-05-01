@@ -30,11 +30,12 @@ export default function RemoverFuncionariosDeObraModal({
   const toast = useToast();
   // Main-component
   async function removerFuncionario() {
+    console.log(date);
     await removeFuncionarioDeObra(funcionario.id, date!).then((resp) => {
-      if (!resp.ok) throw new Error("error");
+      if (resp.status !== 200) throw new Error("error");
       toast({
         title: 'Sucesso.',
-        description: `Funcionario(s) adicionado(s) a obra com sucesso.`,
+        description: `Funcionario removido de obra com sucesso.`,
         status: 'success',
         duration: 3000,
         isClosable: true,
@@ -44,9 +45,9 @@ export default function RemoverFuncionariosDeObraModal({
       onClose();
     }).catch(() => {
       toast({
-        title: "Erro ao adicionar funcionarios.",
+        title: "Erro ao remover funcionarios.",
         description:
-          "Ocorreu um erro ao adicionar funcionario(s). \n Por favor tente novamente.",
+          "Ocorreu um erro ao remover funcionario. \n Por favor tente novamente.",
         status: "error",
         duration: 3000,
         isClosable: true,

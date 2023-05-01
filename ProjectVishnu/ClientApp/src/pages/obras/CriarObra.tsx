@@ -10,7 +10,7 @@ import {
   InputLeftElement,
   Select,
   useToast,
-} from "@chakra-ui/react";
+} from "@chakra-ui/react"; 
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm, SubmitHandler } from "react-hook-form";
@@ -200,7 +200,7 @@ export default function ObraCreation() {
               {...register("mercado", { required: true })}
             >
               {mercados && (
-                <>
+                <>w
                   {mercados.map((mercado: string) => (
                     <option value={mercado} key={mercado}>
                       {mercado}

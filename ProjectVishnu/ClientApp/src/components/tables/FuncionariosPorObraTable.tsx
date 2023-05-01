@@ -27,7 +27,7 @@ export default function FuncionariosPorObraTable({ funcionarios }: Props) {
           <Tbody>
             {funcionarios.map((funcionario) => (
               <Tr className="data-table-row" key={funcionario.funcionario.nif}>
-                <Td>{funcionario.funcionario.nif}</Td>
+                <Td>{funcionario.funcionario.nome}</Td>
 
                 <Td>{funcionario.funcionario.nif}</Td>
 

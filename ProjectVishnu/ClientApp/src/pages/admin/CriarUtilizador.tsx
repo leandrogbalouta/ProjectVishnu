@@ -19,14 +19,9 @@ import { useNavigate } from "react-router-dom";
 import IContaInput from "../../common/Interfaces/Conta/IContaInput";
 import PasswordInput from "../../components/PasswordInput";
 
-interface TipoDeUser {
-  tipo: string;
-}
-
 export default function CriarUtilizador() {
   // state
   const [tiposDeUser, setTiposDeUser] = useState<string[]>([]);
-  const [estado, setEstado] = useState<string | undefined>(undefined);
   // Router
   const navigate = useNavigate();
   // misc
