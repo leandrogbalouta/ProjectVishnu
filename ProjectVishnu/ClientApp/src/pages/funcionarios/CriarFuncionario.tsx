@@ -40,7 +40,7 @@ import {
   FaUser,
 } from "react-icons/fa";
 
-export default function FuncionarioCreation() {
+export default function CriarFuncionario() {
   // Hooks
   const [tipodocidentState, setTipodocidentState] = useState<string>(" ");
   // Data from db

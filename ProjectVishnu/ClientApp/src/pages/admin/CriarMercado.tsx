@@ -19,13 +19,11 @@ import { RxLetterCaseCapitalize } from "react-icons/rx";
 import { DateFormatter, DateRange, DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
 import { IMercadoOutput, IMercadoInput } from "../../common/Interfaces/Mercado";
-import { useState } from "react";
 
 export default function CriarMercado() {
-  // Router
   const navigate = useNavigate();
-  // misc
   const toast = useToast();
+  const january = new Date("jan-99")
   // schema
   const schema = yup
     .object({
@@ -58,7 +56,8 @@ export default function CriarMercado() {
   const onSubmit: SubmitHandler<IMercadoInput> = async (
     data: IMercadoInput
   ) => {
-    const mercado: IMercadoOutput = {
+    console.log(data);
+    const mercado: IMercadoOutput = { 
       name: data.nome,
       sigla: data.sigla,
       diaInicio: data.dateRange!.from!.getDate(),
@@ -100,85 +99,82 @@ export default function CriarMercado() {
       });
   }
   // Formatter day picker
-  const formatCaption: DateFormatter = () => {
-    // Remove month
-    return <></>;
+  const formatCaption: DateFormatter = (month) => {
+    const monthNumber = month.getMonth();
+    return <>Mês {monthNumber}</>;
   };
 
   return (
     <div className="w-full h-full px-3 sm:px-8 flex flex-col">
       <p className="page-header">Criar Mercado</p>
-      <form className="flex flex-col flex-1" onSubmit={handleSubmit(onSubmit)}>
-        <div className="flex flex-col md:flex-row justify-center xl:px-32">
-          <div id="inputs-container" className="flex-1">
-            {/* nome field */}
-            <FormControl className="mb-5 basis-2/5" isInvalid={!!errors.nome}>
-              <FormLabel htmlFor="nome">Nome</FormLabel>
-              <InputGroup>
-                <InputLeftElement pointerEvents="none">
-                  <FaGlobe />
-                </InputLeftElement>
-                <Input
-                  id="nome"
-                  type="text"
-                  placeholder="Nome"
-                  autoComplete="blank-nome"
-                  {...register("nome", { required: true })}
+      <form className="flex flex-col flex-1 w-fit mx-auto" onSubmit={handleSubmit(onSubmit)}>
+        {/* nome field */}
+        <FormControl className="mb-5 basis-2/5" isInvalid={!!errors.nome}>
+          <FormLabel htmlFor="nome">Nome</FormLabel>
+          <InputGroup>
+            <InputLeftElement pointerEvents="none">
+              <FaGlobe />
+            </InputLeftElement>
+            <Input
+              id="nome"
+              type="text"
+              placeholder="Nome"
+              autoComplete="blank-nome"
+              {...register("nome", { required: true })}
+            />
+          </InputGroup>
+          <FormErrorMessage>{errors?.nome?.message}</FormErrorMessage>
+        </FormControl>
+        {/* Sigla field */}
+        <FormControl className="mb-5 basis-2/5" isInvalid={!!errors.sigla}>
+          <FormLabel htmlFor="sigla">Sigla</FormLabel>
+          <InputGroup>
+            <InputLeftElement pointerEvents="none">
+              <RxLetterCaseCapitalize />
+            </InputLeftElement>
+            <Input
+              id="sigla"
+              type="text"
+              placeholder="Sigla"
+              autoComplete="blank-sigla"
+              {...register("sigla", { required: true })}
+            />
+          </InputGroup>
+          <FormErrorMessage>{errors?.sigla?.message}</FormErrorMessage>
+        </FormControl>
+        <div className="flex flex-1 sm:justify-end">
+          {/* Range */}
+          <FormControl
+            className="mb-5 md:mb-0 flex flex-col sm:basis-0"
+            isInvalid={!!errors.dateRange}
+          >
+            <FormLabel htmlFor="sigla">Ciclo</FormLabel>
+            <div className="!flex flex-col justify-end mx-auto sm:mx-0">
+              <div className="!flex flex-col ring-slate-200 ring-2 rounded-xl !px-3 py-7 !text-xl [&>th]:!p-12 w-fit">
+                <Controller
+                  name="dateRange"
+                  control={control}
+                  render={({ field: { onChange, value } }) => (
+                    <DayPicker
+                      id="test"
+                      mode="range"
+                      onSelect={onChange}
+                      disableNavigation
+                      numberOfMonths={2}
+                      formatters={{ formatCaption }}
+                      locale={pt}
+                      selected={value}
+                      className="!m-0"
+                      defaultMonth={new Date(2015, 1)}
+                    />
+                  )}
                 />
-              </InputGroup>
-              <FormErrorMessage>{errors?.nome?.message}</FormErrorMessage>
-            </FormControl>
-            {/* Sigla field */}
-            <FormControl className="mb-5 basis-2/5" isInvalid={!!errors.sigla}>
-              <FormLabel htmlFor="sigla">Sigla</FormLabel>
-              <InputGroup>
-                <InputLeftElement pointerEvents="none">
-                  <RxLetterCaseCapitalize />
-                </InputLeftElement>
-                <Input
-                  id="sigla"
-                  type="text"
-                  placeholder="Sigla"
-                  autoComplete="blank-sigla"
-                  {...register("sigla", { required: true })}
-                />
-              </InputGroup>
-              <FormErrorMessage>{errors?.sigla?.message}</FormErrorMessage>
-            </FormControl>
-          </div>
-          <div className="flex flex-1 sm:justify-end">
-            {/* Range */}
-            <FormControl
-              className="mb-5 md:mb-0 flex flex-col sm:basis-0"
-              isInvalid={!!errors.dateRange}
-            >
-              <FormLabel htmlFor="sigla">Ciclo</FormLabel>
-              <div className="!flex flex-col justify-end mx-auto sm:mx-0">
-                <div className="!flex flex-col ring-slate-200 ring-2 rounded-xl !px-3 py-7 !text-xl [&>th]:!p-12 w-fit">
-                  <Controller
-                    name="dateRange"
-                    control={control}
-                    render={({ field: { onChange, value } }) => (
-                      <DayPicker
-                        id="test"
-                        mode="range"
-                        onSelect={onChange}
-                        disableNavigation
-                        formatters={{ formatCaption }}
-                        locale={pt}
-                        selected={value}
-                        className="!m-0"
-                      />
-                    )}
-                  />
-                </div>
-                <FormErrorMessage>
-                  {errors?.dateRange?.message}
-                </FormErrorMessage>
               </div>
-            </FormControl>
-          </div>
+              <FormErrorMessage>{errors?.dateRange?.message}</FormErrorMessage>
+            </div>
+          </FormControl>
         </div>
+
         <div
           id="button-container"
           className="flex sm:justify-end gap-2 mt-auto"

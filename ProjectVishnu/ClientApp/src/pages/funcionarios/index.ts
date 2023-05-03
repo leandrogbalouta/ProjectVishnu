@@ -1,5 +1,5 @@
 import Funcionario from "./Funcionario";
-import FuncionarioCreation from "./FuncionariosCreation";
+import CriarFuncionario from "./CriarFuncionario";
 import Funcionarios from "./Funcionarios";
 
-export { Funcionario, FuncionarioCreation, Funcionarios }; 
+export { Funcionario, CriarFuncionario as FuncionarioCreation, Funcionarios }; 
