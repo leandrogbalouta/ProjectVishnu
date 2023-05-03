@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using ProjectVishnu.Models;
 using ProjectVishnu.ServerApp.App.Dtos;
+using ProjectVishnu.ServerApp.App.Services;
 using ProjectVishnu.Services;
 
 namespace ProjectVishnu.Controllers
@@ -12,10 +13,12 @@ namespace ProjectVishnu.Controllers
     public class ObrasController : ControllerBase
     {
         private readonly IObrasService _obrasService;
+        private readonly IBlobService _blobService;
 
-        public ObrasController(IObrasService obrasService)
+        public ObrasController(IObrasService obrasService, IBlobService blobService)
         {
-            this._obrasService = obrasService;
+            _obrasService = obrasService;
+            _blobService = blobService;
         }
 
         [HttpGet]
@@ -216,6 +219,20 @@ namespace ProjectVishnu.Controllers
                 return Ok();
             }
             catch (Exception e)
+            {
+                return Problem(statusCode: 500, title: "Erro inesperado");
+            }
+        }
+
+        [HttpPost("{codigoInterno}/upload")]
+        public IActionResult UploadFiles(string codigoInterno, [FromForm] List<IFormFile> files)
+        {
+            try
+            {
+                _blobService.UploadBlobsAsync(codigoInterno, files);
+                return Ok();
+
+            }catch(Exception e)
             {
                 return Problem(statusCode: 500, title: "Erro inesperado");
             }

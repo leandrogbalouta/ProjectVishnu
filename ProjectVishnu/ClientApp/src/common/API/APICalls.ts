@@ -121,6 +121,17 @@ export async function removeFuncionarioDeObra(
   return instance.put(path, JSON.stringify(date));
 }
 
+export async function uploadFilesToObra(
+  codigo: string,
+  formData : FormData
+){
+  instance.defaults.headers["Content-Type"] = 'multipart/form-data';
+  const path = `obras/${codigo}/upload`
+  console.log(formData.getAll('files'))
+
+  return instance.post(path, formData)
+}
+
 // Folha de ponto
 export async function createFolhaDePonto(
   mes: string,

@@ -5,6 +5,7 @@ import {
   createFolhaDePonto,
   fetchFolhaDePontoAllByobra as fetchFolhaDePontoAllByObra,
   fetchFuncionariosForObra,
+  uploadFilesToObra,
 } from "../../common/API/APICalls";
 import {
   Button,
@@ -18,6 +19,7 @@ import FuncionariosPorObraTable from "../../components/tables/FuncionariosPorObr
 import AdicionarFuncionarioAObraModal from "../../components/modals/AdicionarFuncionarioAObraModal";
 import BackButton from "../../components/BackButton";
 import FolhaDePontoForFuncionarioTable from "../../components/tables/FolhaDePontoForFuncionarioTable";
+import UploadForm from "../../components/UploadForm";
 
 export default function Obra() {
   const navigate = useNavigate();
@@ -38,6 +40,16 @@ export default function Obra() {
   };
   const handleWorkDaysChange = (event: any) => {
     setWorkDays(event!.target!.value!);
+  };
+
+  const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>, selectedFiles : File[]) => {
+    console.log(selectedFiles)
+    event.preventDefault();
+    const formData = new FormData();
+    selectedFiles.forEach((file) => formData.append('files', file));
+  //console.log(formData.get('files'))
+
+    await uploadFilesToObra(codigo!!, formData)
   };
 
   let contents = obra === null ? <Spinner /> : renderObra(obra, folhasDePonto);
@@ -87,6 +99,7 @@ export default function Obra() {
   function renderObra(obra: IObraOutput, folhasDePonto: any) {
     return (
       <div className="flex flex-col h-full w-full">
+        <UploadForm handleFormSubmit={handleFormSubmit}/>
         <div className="data-panel">
           <div className="flex justify-between">
             <p className="text-xl font-bold ">Detalhes de obra:</p>
