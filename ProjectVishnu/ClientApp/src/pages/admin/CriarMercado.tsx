@@ -166,6 +166,7 @@ export default function CriarMercado() {
                       selected={value}
                       className="!m-0"
                       defaultMonth={new Date(2015, 1)}
+                      showOutsideDays
                     />
                   )}
                 />

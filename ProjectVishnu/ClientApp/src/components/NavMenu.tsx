@@ -28,7 +28,6 @@ export default function NavMenu() {
   // Detect change storage
   window.addEventListener("storage", (e) => {});
   useEffect(() => {
-    console.log(role);
     // Dark mode
     darkTheme.current = localStorage.getItem("theme") === "dark";
     changeCurrentTheme(darkTheme.current ? "dark" : "light");
