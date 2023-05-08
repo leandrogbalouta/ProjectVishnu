@@ -28,7 +28,6 @@ export default function NavMenu() {
   // Detect change storage
   window.addEventListener("storage", (e) => {});
   useEffect(() => {
-    console.log(role);
     // Dark mode
     darkTheme.current = localStorage.getItem("theme") === "dark";
     changeCurrentTheme(darkTheme.current ? "dark" : "light");
@@ -65,7 +64,7 @@ export default function NavMenu() {
               id="theme-toggle"
               title="toggle-dark-mode-button"
               type="button"
-              className="text-gray-500 hover:text-orange-400 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 mr-1"
+              className="text-gray-500 hover:text-orange-400 focus:outline-none rounded-lg text-sm p-2.5 mr-1"
               onClick={changeTheme}
             >
               {darkTheme.current ? (

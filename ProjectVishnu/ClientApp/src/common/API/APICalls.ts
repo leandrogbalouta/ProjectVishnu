@@ -115,10 +115,10 @@ export async function fetchFuncionariosForObra(
 
 export async function removeFuncionarioDeObra(
   id: number,
-  dataDefim: string
+  date: string
 ): Promise<AxiosResponse> {
   const path = `funcionarios/${id}/obras`;
-  return instance.put(path, { dataDefim });
+  return instance.put(path, JSON.stringify(date));
 }
 
 export async function uploadFilesToObra(

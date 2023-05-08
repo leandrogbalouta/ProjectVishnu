@@ -10,7 +10,7 @@ import {
   InputLeftElement,
   Select,
   useToast,
-} from "@chakra-ui/react";
+} from "@chakra-ui/react"; 
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm, SubmitHandler } from "react-hook-form";
@@ -32,7 +32,7 @@ export default function ObraCreation() {
     .object({
       designacao: yup.string().required("Por favor, introduza a designação."),
       cliente: yup.string().required("Por favor, introduza o nome do cliente."),
-      estado: yup.string().required("Por favor, introduza um estado da obra"),
+      estado: yup.string().required("Por favor, introduza o estado da obra"),
       datainicio: yup.date().typeError("Por favor introduza uma data válida."),
       datafim: yup.date().typeError("Por favor introduza uma data válida"),
       mercado: yup.string().required("Por favor, introduza o mercado."),
@@ -44,10 +44,9 @@ export default function ObraCreation() {
     handleSubmit,
     formState: { errors },
   } = useForm<IObraOutput>({
-    resolver: yupResolver<yup.AnyObjectSchema>(schema),
+    resolver: yupResolver(schema),
   });
-  const onSubmit: SubmitHandler<IObraOutput> = async (data: IObraOutput) => {
-    console.log("sdsd");
+  const onSubmit: SubmitHandler<IObraOutput> = async (data) => {
     AddObra(data);
   };
   // end of form
@@ -200,7 +199,7 @@ export default function ObraCreation() {
               {...register("mercado", { required: true })}
             >
               {mercados && (
-                <>
+                <>w
                   {mercados.map((mercado: string) => (
                     <option value={mercado} key={mercado}>
                       {mercado}

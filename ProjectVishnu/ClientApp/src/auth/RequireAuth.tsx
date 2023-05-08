@@ -10,14 +10,12 @@ interface Params {
 const RequireAuth = ({ allowedRoles }: Params) => {
   const location = useLocation();
   const { conta, setConta } = useAuth();
-  useEffect(() => {
-    // Detect if token still valid
-    const cnt = GetConta();
-    if (cnt) return setConta(cnt);
-    
-    localStorage.removeItem("DKMToken");
-    setConta(undefined);
-  }, [location]);
+  // useEffect(() => {
+  //   const cnt = GetConta();
+  //   if (cnt) return setConta(cnt);
+  //   localStorage.removeItem("DKMToken");
+  //   setConta(undefined);
+  // }, [location]);
   return allowedRoles?.find((role) => conta?.role === role) ? (
     <Outlet />
   ) : conta?.username ? (
