@@ -3,6 +3,7 @@ import IObraOutput from "../../common/Interfaces/Obra/IObraOutput";
 import SemDadosPlaceHolder from "../SemDadosPlaceHolder";
 import TdState from "./TdState";
 import { v4 as uuidv4 } from 'uuid';
+import { Key } from "react";
 
 interface Props {
   obras: IObraOutput[];
@@ -29,7 +30,7 @@ export default function ObrasTable({ obras, dataOnRowClick }: Props) {
               <Tr
                 className="data-table-row"
                 onClick={() => dataOnRowClick(obra.codigoInterno)}
-                key={() => uuidv4()}
+                key={uuidv4 as unknown as Key}
               >
                 <Td>{obra.codigoInterno}</Td>
                 <Td>{obra.designacao}</Td>

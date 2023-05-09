@@ -18,7 +18,7 @@ import { useNavigate } from "react-router-dom";
 import { createObra, fetchMercados } from "../../common/API/APICalls";
 import { FaPen, FaUser, FaCalendarDay } from "react-icons/fa";
 
-export default function ObraCreation() {
+export function ObraCreation() {
   const [mercados, setMercados] = useState<string[]>([]);
   const [estado, setEstado] = useState<string | undefined>(undefined);
   const navigate = useNavigate();

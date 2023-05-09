@@ -17,7 +17,7 @@ import {
   FuncionarioCreation,
   Funcionarios,
 } from "../pages/funcionarios/";
-import { ObraCreation, Obra, Obras } from "../pages/obras";
+import { ObraCreation, Obra, Obras, AutosMediacao } from "../pages/obras";
 
 export default function AppRoutes() {
   return (
@@ -46,7 +46,14 @@ export default function AppRoutes() {
           <Route path="obras" element={<Obras />} />
           <Route path="obras/create" element={<ObraCreation />} />
           <Route path="obras/:codigo" element={<Obra />} />
-          <Route path="obras/:codigo/folha-de-ponto/:data" element={<FolhaDePonto />} />
+          <Route
+            path="obras/:codigo/autos-mediacao"
+            element={<AutosMediacao />}
+          />
+          <Route
+            path="obras/:codigo/folha-de-ponto/:data"
+            element={<FolhaDePonto />}
+          />
           <Route path="folha-de-ponto" element={<FolhasDePonto />} />
           <Route
             path="folha-de-ponto/:mercado/:data"

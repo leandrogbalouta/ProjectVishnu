@@ -1,5 +1,4 @@
-import Obra from "./Obra";
-import ObraCreation from "./CriarObra";
-import Obras from "./Obras";
-
-export { Obra, ObraCreation, Obras };
+export { Obra } from "./Obra";
+export { ObraCreation } from "./CriarObra";
+export { Obras } from "./Obras";
+export { AutosMediacao } from "./AutosMediacao";

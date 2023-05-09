@@ -7,7 +7,7 @@ import ObrasTable from "../../components/tables/ObrasTable";
 import ObraStateFilter from "../../components/ObraStateFilter";
 import { useNavigate } from "react-router-dom";
 
-export default function Obras() {
+export function Obras() {
   const [obras, setObras] = useState<IObraOutput[]>();
   const [state, setState] = useState("todas");
   const [mercado, setMercado] = useState(null);

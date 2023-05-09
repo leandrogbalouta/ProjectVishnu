@@ -7,11 +7,7 @@ import {
   fetchFuncionariosForObra,
   uploadFilesToObra,
 } from "../../common/API/APICalls";
-import {
-  Button,
-  Input,
-  Spinner,
-} from "@chakra-ui/react";
+import { Button, Input, Spinner } from "@chakra-ui/react";
 import IObraOutput from "../../common/Interfaces/Obra/IObraOutput";
 import { useNavigate, useParams } from "react-router-dom";
 import IFuncionarioObraOutputModel from "../../common/Interfaces/Funcionario/IFuncionarioObraOutputModel";
@@ -21,7 +17,7 @@ import BackButton from "../../components/BackButton";
 import FolhaDePontoForFuncionarioTable from "../../components/tables/FolhaDePontoForFuncionarioTable";
 import UploadForm from "../../components/UploadForm";
 
-export default function Obra() {
+export function Obra() {
   const navigate = useNavigate();
   const [obra, setObra] = useState(null);
   const [folhasDePonto, setFolhasDePonto] = useState(null);
@@ -41,17 +37,7 @@ export default function Obra() {
   const handleWorkDaysChange = (event: any) => {
     setWorkDays(event!.target!.value!);
   };
-
-  const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>, selectedFiles : File[]) => {
-    console.log(selectedFiles)
-    event.preventDefault();
-    const formData = new FormData();
-    selectedFiles.forEach((file) => formData.append('files', file));
-  //console.log(formData.get('files'))
-
-    await uploadFilesToObra(codigo!!, formData)
-  };
-
+  
   let contents = obra === null ? <Spinner /> : renderObra(obra, folhasDePonto);
 
   // check this
@@ -64,7 +50,6 @@ export default function Obra() {
     const resp = await createFolhaDePonto(mes, ano, workDays, codigo!);
     const location = resp.headers["location"];
     const result = location?.split(`${codigo}/`)[1];
-    console.log(`Location here ${result}`);
     navigate(result!, { state: resp.data });
   }
 
@@ -99,11 +84,13 @@ export default function Obra() {
   function renderObra(obra: IObraOutput, folhasDePonto: any) {
     return (
       <div className="flex flex-col h-full w-full">
-        <UploadForm handleFormSubmit={handleFormSubmit}/>
         <div className="data-panel">
           <div className="flex justify-between">
             <p className="text-xl font-bold ">Detalhes de obra:</p>
-            <BackButton href="/obras" />
+            <div id="upper-button-container" className="flex gap-1">
+              <Button colorScheme="twitter" onClick={() => navigate(`autos-mediacao`)}>Autos de medição</Button>
+              <BackButton href="/obras" />
+            </div>
           </div>
           <div className="flex justify-between flex-wrap gap-3 pt-3">
             <div>
@@ -194,7 +181,7 @@ export default function Obra() {
                 <AdicionarFuncionarioAObraModal obra={obra} />
               </div>
             </div>
-              <FuncionariosPorObraTable funcionarios={funcionarios} />
+            <FuncionariosPorObraTable funcionarios={funcionarios} />
           </div>
         </div>
       </div>
