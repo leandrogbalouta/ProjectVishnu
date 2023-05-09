@@ -6,13 +6,11 @@ import { IFuncionarioInput } from "../Interfaces/Funcionario";
 import { IMercadoOutput } from "../Interfaces/Mercado";
 import { IObraOutput } from "../Interfaces/Obra";
 
-
-
 const instance: AxiosInstance = axios.create({
   baseURL: "/api/",
   headers: {
     "Content-Type": "application/json",
-    "Authorization": `Bearer ${localStorage.getItem("DKMToken")}`
+    Authorization: `Bearer ${localStorage.getItem("DKMToken")}`,
   },
 });
 // Instance related
@@ -78,6 +76,12 @@ export function getFuncionariosValidityWarningCount(): Promise<AxiosResponse> {
 export function getFuncionariosValidityWarningList(): Promise<AxiosResponse> {
   return instance.get("/funcionarios/validity/list");
 }
+export function getPastObrasFuncionario(funcId: number,): Promise<AxiosResponse> {
+  return instance.get(`/funcionarios/${funcId}/obras/past`);
+}
+export function getCurrentObraFuncionario(funcId: number,): Promise<AxiosResponse> {
+  return instance.get(`/funcionarios/${funcId}/obras/current`);
+}
 
 // Obra
 export function createObra(obra: IObraOutput): Promise<AxiosResponse> {
@@ -121,15 +125,12 @@ export async function removeFuncionarioDeObra(
   return instance.put(path, JSON.stringify(date));
 }
 
-export async function uploadFilesToObra(
-  codigo: string,
-  formData : FormData
-){
-  instance.defaults.headers["Content-Type"] = 'multipart/form-data';
-  const path = `obras/${codigo}/upload`
-  console.log(formData.getAll('files'))
+export async function uploadFilesToObra(codigo: string, formData: FormData) {
+  instance.defaults.headers["Content-Type"] = "multipart/form-data";
+  const path = `obras/${codigo}/upload`;
+  console.log(formData.getAll("files"));
 
-  return instance.post(path, formData)
+  return instance.post(path, formData);
 }
 
 // Folha de ponto

@@ -87,11 +87,7 @@ namespace ProjectVishnu.Controllers
                 Obra result = _obrasService.Get(codigoInterno);
                 return Ok(result.toObraOutputModel());
             }
-            catch (Exception e)
-            {
-                return Problem(statusCode: 500, title: "Erro inesperado");
-            }
-
+            catch (Exception e) { return Problem(statusCode: 500, title: "Erro inesperado"); }
         }
 
         [HttpPost]
@@ -126,10 +122,7 @@ namespace ProjectVishnu.Controllers
                 ActionResult a = CreatedAtAction(actionName, routeValues, obraInput);
                 return a;
             }
-            catch (Exception e)
-            {
-                return Problem(statusCode: 500, title: "Erro inesperado");
-            }
+            catch (Exception) { return Problem(statusCode: 500, title: "Erro inesperado");}
         }
 
         [HttpPut("{codigoInterno}")]

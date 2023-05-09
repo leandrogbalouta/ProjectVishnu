@@ -1,17 +1,9 @@
-import {
-  Accordion,
-  AccordionButton,
-  AccordionIcon,
-  AccordionItem,
-  AccordionPanel,
-  Box,
-  Button,
-  Spinner,
-} from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import { Spinner } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 import {
   fetchFuncionario,
-  fetchObrasForFuncionario,
+  getCurrentObraFuncionario,
+  getPastObrasFuncionario,
 } from "../../common/API/APICalls";
 import IFuncionarioOutput from "../../common/Interfaces/Funcionario/IFuncionarioOutput";
 import AdicionarObraAFuncionarioModal from "../../components/modals/AdicionarObraAFuncionarioModal";
@@ -19,15 +11,13 @@ import ObrasTable from "../../components/tables/ObrasTable";
 import IObraOutput from "../../common/Interfaces/Obra/IObraOutput";
 import { useParams, useNavigate } from "react-router-dom";
 import RemoverFuncionariosDeObraModal from "../../components/modals/RemoverFuncionarioDeObraModal";
-import { AiOutlineArrowLeft } from "react-icons/ai";
 import BackButton from "../../components/BackButton";
 
 export default function Funcionario() {
   const [funcionario, setFuncionario] = useState(undefined);
   const { id } = useParams();
-  const [obras, setObras] = useState<IObraOutput[]>([]);
-  const obrasEmCurso = obras.filter((obra) => obra.estado == "em-curso");
-  const obrasCompletadas = obras.filter((obra) => obra.estado == "completada");
+  const [obrasEmCurso, setObrasEmCurso] = useState<IObraOutput[]>([]);
+  const [obrasCompletadas, setObrasCompletadas] = useState<IObraOutput[]>([]);
   const navigate = useNavigate();
   let contents =
     funcionario === undefined ? <Spinner /> : renderFuncionario(funcionario);
@@ -43,12 +33,22 @@ export default function Funcionario() {
       }
     };
     const populateObrasData = async () => {
-      const response = await fetchObrasForFuncionario(id!);
-      if (response.status == 200) {
-        setObras(response.data);
-      } else if (response.status == 204) {
-      } else {
-      }
+      await getPastObrasFuncionario(Number(id!))
+        .then((resp) => {
+          if (resp.status === 200) {
+            const obraArray = resp.data.map((item: any) => item.obra);
+            setObrasCompletadas(obraArray);
+          } 
+        })
+        .catch(() => {});
+      await getCurrentObraFuncionario(Number(id!))
+        .then((resp) => {
+          if (resp.status === 200) {
+            const obraArray = resp.data.map((item: any) => item.obra);
+            setObrasEmCurso(obraArray);
+          } 
+        })
+        .catch(() => {});
     };
 
     populateFuncionarioData();

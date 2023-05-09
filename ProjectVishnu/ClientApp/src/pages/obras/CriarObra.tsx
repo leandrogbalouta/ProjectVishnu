@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-
 import {
   Button,
   FormControl,
@@ -10,7 +9,7 @@ import {
   InputLeftElement,
   Select,
   useToast,
-} from "@chakra-ui/react"; 
+} from "@chakra-ui/react";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm, SubmitHandler } from "react-hook-form";
@@ -20,14 +19,11 @@ import { createObra, fetchMercados } from "../../common/API/APICalls";
 import { FaPen, FaUser, FaCalendarDay } from "react-icons/fa";
 
 export default function ObraCreation() {
-  // state
   const [mercados, setMercados] = useState<string[]>([]);
   const [estado, setEstado] = useState<string | undefined>(undefined);
-  // Router
   const navigate = useNavigate();
-  // misc
   const toast = useToast();
-  // schema
+
   const schema = yup
     .object({
       designacao: yup.string().required("Por favor, introduza a designação."),
@@ -38,7 +34,7 @@ export default function ObraCreation() {
       mercado: yup.string().required("Por favor, introduza o mercado."),
     })
     .required();
-  // end of schema
+
   const {
     register,
     handleSubmit,
@@ -46,9 +42,8 @@ export default function ObraCreation() {
   } = useForm<IObraOutput>({
     resolver: yupResolver(schema),
   });
-  const onSubmit: SubmitHandler<IObraOutput> = async (data) => {
-    AddObra(data);
-  };
+
+  const onSubmit: SubmitHandler<IObraOutput> = async (data) => AddObra(data);
   // end of form
   async function AddObra(obra: IObraOutput) {
     await createObra(obra)
@@ -199,7 +194,8 @@ export default function ObraCreation() {
               {...register("mercado", { required: true })}
             >
               {mercados && (
-                <>w
+                <>
+                  w
                   {mercados.map((mercado: string) => (
                     <option value={mercado} key={mercado}>
                       {mercado}
