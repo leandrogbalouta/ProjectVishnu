@@ -39,5 +39,35 @@ namespace ProjectVishnu.ServerApp.App.Services.Concrete
 
             
         }
+
+        public async Task<List<string>> ListBlobs(string directory)
+        {
+            List<string> blobNames = new List<string>();
+
+            BlobContainerClient containerClient = _blobServiceClient.GetBlobContainerClient(_containerName);
+
+            await foreach (BlobItem blobItem in containerClient.GetBlobsAsync(prefix: directory))
+            {
+                blobNames.Add(blobItem.Name);
+            }
+
+            return blobNames;
+        }
+
+        public async Task<Stream> GetBlobStreamAsync(string directory, string blobName)
+        {
+            BlobContainerClient containerClient = _blobServiceClient.GetBlobContainerClient(_containerName);
+
+            BlobClient blobClient = containerClient.GetBlobClient(directory + "/" + blobName);
+
+            BlobDownloadInfo download = await blobClient.DownloadAsync();
+
+            if (download == null)
+            {
+                return null;
+            }
+
+            return download.Content;
+        }
     }
 }
