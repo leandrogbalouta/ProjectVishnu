@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { BsPower } from "react-icons/bs";
 import {
   ModalFooter,
@@ -12,9 +12,8 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { SlPower } from "react-icons/sl";
-import { ContaContext } from "./contexts/Conta/ContaContext";
 import { useNavigate } from "react-router-dom";
-import useAuth from '../auth/useAuth';
+import {useAuth} from '../auth/useAuth';
 
 export default function LogoutModal() {
   const [loggingOut, setLoggingOut] = useState<boolean>();

@@ -4,8 +4,7 @@ import {
   fetchObra,
   createFolhaDePonto,
   fetchFolhaDePontoAllByobra as fetchFolhaDePontoAllByObra,
-  fetchFuncionariosForObra,
-  uploadFilesToObra,
+  fetchFuncionariosForObra
 } from "../../common/API/APICalls";
 import { Button, Input, Spinner } from "@chakra-ui/react";
 import IObraOutput from "../../common/Interfaces/Obra/IObraOutput";
@@ -15,7 +14,6 @@ import FuncionariosPorObraTable from "../../components/tables/FuncionariosPorObr
 import AdicionarFuncionarioAObraModal from "../../components/modals/AdicionarFuncionarioAObraModal";
 import BackButton from "../../components/BackButton";
 import FolhaDePontoForFuncionarioTable from "../../components/tables/FolhaDePontoForFuncionarioTable";
-import UploadForm from "../../components/UploadForm";
 
 export function Obra() {
   const navigate = useNavigate();
@@ -46,7 +44,7 @@ export function Obra() {
     } //TODO: THROW ALERT
     const monthInput = document.getElementById("date");
     const date = monthInput!.nodeValue!;
-    const [ano, mes] = data.split("-");
+    const [ano, mes] = date.split("-");
     const resp = await createFolhaDePonto(mes, ano, workDays, codigo!);
     const location = resp.headers["location"];
     const result = location?.split(`${codigo}/`)[1];

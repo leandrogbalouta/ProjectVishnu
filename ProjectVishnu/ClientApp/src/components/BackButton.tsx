@@ -1,14 +1,20 @@
 import { Button } from "@chakra-ui/react";
+import React from "react";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import { useNavigate } from 'react-router-dom';
 
-export default function BackButton({ href}:{ href:string}) {
+interface Params extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  href: string;
+}
+
+export default function BackButton({ href, ...rest}: Params) {
   const navigate = useNavigate();
   return (
     <Button
       onClick={() => navigate(href)}
       colorScheme="blue"
-      className="w-fit"
+      {...rest}
+      className={"w-fit ".concat(rest.className ?? "")}
     >
       <AiOutlineArrowLeft />
       <p>Voltar</p>

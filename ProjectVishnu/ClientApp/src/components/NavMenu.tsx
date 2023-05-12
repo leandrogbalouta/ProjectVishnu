@@ -7,10 +7,10 @@ import ThemeContext from "./contexts/Theme/themeContext";
 import Role from "../common/Role";
 import LogoutModal from "./LogoutModal";
 import { useNavigate } from "react-router-dom";
-import useAuth from "../auth/useAuth";
+import GetConta from "../common/GetConta";
 
 export default function NavMenu() {
-  const { conta } = useAuth();
+  const conta = GetConta();
   const navigate = useNavigate();
   const [toggleNav, setToggleNav] = useState<boolean>(false);
   const darkTheme = useRef<boolean>();

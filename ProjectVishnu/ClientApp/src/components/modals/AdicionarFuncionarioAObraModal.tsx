@@ -55,8 +55,6 @@ export default function AdicionarFuncionarioAObraModal({
     let year = date.getFullYear();
 
     let today = `${year}-${month}-${day}`;
-    console.log(obra);
-    console.log(obra.codigoInterno);
     // TODO make this batch(able) or something
       funcionariosIdList.map((funcionarioId) => {
         addFuncionarioToObra(funcionarioId, obra.codigoInterno, today).then((resp) => {

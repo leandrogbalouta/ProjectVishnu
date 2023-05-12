@@ -1,8 +1,8 @@
 import logo from "../img/logo.jpg";
-import useAuth from "../auth/useAuth";
+import {useAuth} from "../auth/useAuth";
 
 export default function Home() {
-  const { conta } = useAuth();
+  const conta = useAuth();
   return (
     <div className="w-full h-full flex flex-col">
       {conta && <p className="text-xl">Bem-vindo, {conta?.username}.</p>}

@@ -169,7 +169,6 @@ export function AddFolhaDePontoTable({
     const funcRows: { func: IFuncionarioOutput; data: React.ReactElement[] }[] =
       [];
 
-    console.log(folhaData);
     folhaData.funcionarios.forEach((func) => {
       funcRows.push({ func: func, data: [] });
     });
@@ -177,7 +176,6 @@ export function AddFolhaDePontoTable({
     funcRows.forEach((row) => {
       days.forEach((day) => {
         let hours = 0;
-        console.log(!folhaData.funcWorkDays);
         if (folhaData.funcWorkDays) {
           let funcNif = row.func.nif as keyof Record<
             string,

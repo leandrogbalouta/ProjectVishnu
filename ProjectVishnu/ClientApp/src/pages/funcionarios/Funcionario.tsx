@@ -65,17 +65,16 @@ export default function Funcionario() {
         {!funcionario && <p>Não foi possível encontrar o funcionario</p>}
         {funcionario && (
           <div className="h-full w-full flex flex-col">
-            <div className="flex flex-col sm:flex-row h-full w-full gap-1 sm:gap-3">
+            <div className="flex flex-col sm:flex-row h-full w-full flex-1 gap-1 sm:gap-3">
               <div
                 id="detalhes-de-funcionario-container"
-                className="data-panel flex-1 flex flex-col overflow-auto relative"
+                className="data-panel flex flex-col overflow-auto relative"
               >
                 <div className="flex justify-between ">
                   <p className="text-xl font-bold mb-3">
                     Detalhes do Funcionário:
                   </p>
-                  {/* TODO dr */}
-                  <BackButton href="/funcionarios" />
+                  <BackButton href="/funcionarios" className="ml-4"/>
                 </div>
                 <div className="flex  flex-col gap-3 overflow-auto">
                   <div>
@@ -186,7 +185,7 @@ export default function Funcionario() {
               </div>
               <div
                 id="obras-de-funcionario-container"
-                className="data-panel flex-1 flex flex-col overflow-auto gap-3"
+                className="data-panel flex flex-1 flex-col overflow-auto gap-3"
               >
                 <div id="top-items-container" className="flex justify-between">
                   <p className="text-lg font-bold text-cyan-100">

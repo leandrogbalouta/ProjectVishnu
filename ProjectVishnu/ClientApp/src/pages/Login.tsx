@@ -15,13 +15,13 @@ import { useNavigate } from "react-router-dom";
 import PasswordInput from "../components/PasswordInput";
 import AuthenticationPanel from "../components/AuthenticationPanel";
 import { changeInstanceToken, tryLogin } from "../common/API/APICalls";
-import useAuth from "../auth/useAuth";
+import GetConta from "../common/GetConta";
 
 export default function Login() {
   const [loggingIn, setLoggingIn] = useState<boolean>();
   const [invalidLogin, setInvalidLogin] = useState<boolean>();
   const navigate = useNavigate();
-  const { conta, setConta } = useAuth();
+  const conta = GetConta();
 
   type Inputs = {
     username: string;
@@ -67,7 +67,7 @@ export default function Login() {
   // effect, if user logged in (token valid) redirect to homepage
   useEffect(() => {
     if (conta) navigate("/");
-  },[]);
+  }, []);
   return (
     <AuthenticationPanel>
       <form

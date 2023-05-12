@@ -76,10 +76,14 @@ export function getFuncionariosValidityWarningCount(): Promise<AxiosResponse> {
 export function getFuncionariosValidityWarningList(): Promise<AxiosResponse> {
   return instance.get("/funcionarios/validity/list");
 }
-export function getPastObrasFuncionario(funcId: number,): Promise<AxiosResponse> {
+export function getPastObrasFuncionario(
+  funcId: number
+): Promise<AxiosResponse> {
   return instance.get(`/funcionarios/${funcId}/obras/past`);
 }
-export function getCurrentObraFuncionario(funcId: number,): Promise<AxiosResponse> {
+export function getCurrentObraFuncionario(
+  funcId: number
+): Promise<AxiosResponse> {
   return instance.get(`/funcionarios/${funcId}/obras/current`);
 }
 
@@ -128,7 +132,6 @@ export async function removeFuncionarioDeObra(
 export async function uploadFilesToObra(codigo: string, formData: FormData) {
   instance.defaults.headers["Content-Type"] = "multipart/form-data";
   const path = `obras/${codigo}/upload`;
-  console.log(formData.getAll("files"));
 
   return instance.post(path, formData);
 }

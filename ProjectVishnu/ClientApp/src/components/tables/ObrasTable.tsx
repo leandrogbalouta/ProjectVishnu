@@ -2,7 +2,7 @@ import { Table, Thead, Tr, Th, Tbody, Td } from "@chakra-ui/react";
 import IObraOutput from "../../common/Interfaces/Obra/IObraOutput";
 import SemDadosPlaceHolder from "../SemDadosPlaceHolder";
 import TdState from "./TdState";
-import { v4 as uuidv4 } from 'uuid';
+import uniqid  from "uniqid";
 import { Key } from "react";
 
 interface Props {
@@ -10,7 +10,6 @@ interface Props {
   dataOnRowClick: (codigoInterno: string) => void;
 }
 export default function ObrasTable({ obras, dataOnRowClick }: Props) {
-  console.log(obras);
   return (
     <div id="table-container" className="overflow-x-scroll flex-1">
       {obras && obras.length > 0 ? (
@@ -30,7 +29,7 @@ export default function ObrasTable({ obras, dataOnRowClick }: Props) {
               <Tr
                 className="data-table-row"
                 onClick={() => dataOnRowClick(obra.codigoInterno)}
-                key={uuidv4 as unknown as Key}
+                key={uniqid()}
               >
                 <Td>{obra.codigoInterno}</Td>
                 <Td>{obra.designacao}</Td>

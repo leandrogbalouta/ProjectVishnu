@@ -1,9 +1,8 @@
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import AppRoutes from "./common/AppRoutes";
 import { ChakraProvider } from "@chakra-ui/react";
 import ThemeContextProvider from "./components/contexts/Theme/ThemeContextProvider";
-import { ContaContextProvider } from "./components/contexts/Conta/ContaContextProvider";
 
 function App() {
   return (
@@ -11,9 +10,7 @@ function App() {
       <ThemeContextProvider>
         <ChakraProvider>
           <AnimatePresence exitBeforeEnter>
-            <ContaContextProvider>
-              <AppRoutes />
-            </ContaContextProvider>
+            <AppRoutes />
           </AnimatePresence>
         </ChakraProvider>
       </ThemeContextProvider>

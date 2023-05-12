@@ -56,7 +56,6 @@ export default function CriarMercado() {
   const onSubmit: SubmitHandler<IMercadoInput> = async (
     data: IMercadoInput
   ) => {
-    console.log(data);
     const mercado: IMercadoOutput = { 
       name: data.nome,
       sigla: data.sigla,

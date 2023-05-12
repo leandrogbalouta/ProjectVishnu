@@ -1,8 +1,3 @@
-import { useContext } from "react";
-import { ContaContext } from "../components/contexts/Conta/ContaContext"
+import GetConta from "../common/GetConta";
 
-const useAuth = () => {
-    return useContext(ContaContext)
-}
-
-export default useAuth
+export const useAuth = () => GetConta();

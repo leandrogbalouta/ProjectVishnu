@@ -30,7 +30,6 @@ export default function RemoverFuncionariosDeObraModal({
   const toast = useToast();
   // Main-component
   async function removerFuncionario() {
-    console.log(date);
     await removeFuncionarioDeObra(funcionario.id, date!).then((resp) => {
       if (resp.status !== 200) throw new Error("error");
       toast({

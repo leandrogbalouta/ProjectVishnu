@@ -8,11 +8,9 @@ export function AutosMediacao() {
     event: React.FormEvent<HTMLFormElement>,
     selectedFiles: File[]
   ) => {
-    console.log(selectedFiles);
     event.preventDefault();
     const formData = new FormData();
     selectedFiles.forEach((file) => formData.append("files", file));
-    //console.log(formData.get('files'))
 
     await uploadFilesToObra(codigo!!, formData);
   };

@@ -1,4 +1,4 @@
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import Home from "../pages/Home";
 import Custom404 from "../pages/404";
 import {
@@ -8,7 +8,7 @@ import {
   CriarCategoriaProfissinal,
 } from "../pages/admin";
 import Login from "../pages/Login";
-import RequireAuth from "../auth/RequireAuth";
+import { RequireAuth, RequireRole } from "../auth/";
 import Unauthorized from "../pages/Unauthorized";
 import Layout from "../components/Layout";
 import { FolhaDePonto, FolhasDePonto } from "../pages/folha-de-ponto";
@@ -28,18 +28,22 @@ export default function AppRoutes() {
         <Route path="*" element={<Custom404 />} />
         <Route path="unauthorized" element={<Unauthorized />} />
         <Route path="/" element={<Home />} />
-        {/* Admin routes */}
-        <Route element={<RequireAuth allowedRoles={["admin"]} />}>
-          <Route path="admin" element={<Admin />} />
-          <Route path="admin/criar-utilizador" element={<CriarUtilizador />} />
-          <Route path="admin/criar-mercado" element={<CriarMercado />} />
-          <Route
-            path="admin/criar-categoria-profissional"
-            element={<CriarCategoriaProfissinal />}
-          />
-        </Route>
-        {/* General Authenticated Routes */}
-        <Route element={<RequireAuth allowedRoles={["user", "admin"]} />}>
+        {/* Authenticated Routes */}
+        <Route element={<RequireAuth />}>
+          {/* Admin routes */}
+          <Route element={<RequireRole allowedRoles={["admin"]} />}>
+            <Route path="admin" element={<Admin />} />
+            <Route
+              path="admin/criar-utilizador"
+              element={<CriarUtilizador />}
+            />
+            <Route path="admin/criar-mercado" element={<CriarMercado />} />
+            <Route
+              path="admin/criar-categoria-profissional"
+              element={<CriarCategoriaProfissinal />}
+            />
+          </Route>
+          {/* General Authenticated Routes */}
           <Route path="funcionarios" element={<Funcionarios />} />
           <Route path="funcionarios/create" element={<FuncionarioCreation />} />
           <Route path="funcionarios/:id" element={<Funcionario />} />

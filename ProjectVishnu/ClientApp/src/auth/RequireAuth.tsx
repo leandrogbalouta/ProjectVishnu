@@ -1,28 +1,13 @@
-import { useContext, useEffect } from "react";
 import { useLocation, Navigate, Outlet } from "react-router-dom";
-import GetConta from "../common/GetConta";
-import useAuth from './useAuth';
+import { useAuth } from "./useAuth";
 
-interface Params {
-  allowedRoles?: string[];
-}
-
-const RequireAuth = ({ allowedRoles }: Params) => {
+export const RequireAuth = () => {
   const location = useLocation();
-  const { conta, setConta } = useAuth();
-  // useEffect(() => {
-  //   const cnt = GetConta();
-  //   if (cnt) return setConta(cnt);
-  //   localStorage.removeItem("DKMToken");
-  //   setConta(undefined);
-  // }, [location]);
-  return allowedRoles?.find((role) => conta?.role === role) ? (
+  const conta = useAuth();
+  
+  return conta ? (
     <Outlet />
-  ) : conta?.username ? (
-    <Navigate to="/unauthorized" state={{ from: location }} replace />
   ) : (
     <Navigate to="/login" state={{ from: location }} replace />
   );
 };
-
-export default RequireAuth;
