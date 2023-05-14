@@ -129,11 +129,27 @@ export async function removeFuncionarioDeObra(
   return instance.put(path, JSON.stringify(date));
 }
 
-export async function uploadFilesToObra(codigo: string, formData: FormData) {
-  instance.defaults.headers["Content-Type"] = "multipart/form-data";
+export async function uploadFilesToObra(codigo: string, files: File[]) {
   const path = `obras/${codigo}/upload`;
-
-  return instance.post(path, formData);
+  const formData = new FormData();
+  
+  for (let i = 0; i < files.length; i++) {
+    formData.append('files', files[i]);
+  }
+  
+  try {
+    const response = await instance.post(path, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    });
+    
+    return response.data;
+  } catch (error) {
+    // Handle the error appropriately
+    console.error('Error uploading files to Obra:', error);
+    throw error;
+  }
 }
 
 // Folha de ponto

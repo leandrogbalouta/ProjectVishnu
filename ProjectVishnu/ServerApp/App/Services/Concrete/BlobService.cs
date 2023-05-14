@@ -16,7 +16,8 @@ namespace ProjectVishnu.ServerApp.App.Services.Concrete
 
         public async Task UploadBlobsAsync(string directory, List<IFormFile> files)
         {
-            try{
+            try
+            {
                 BlobContainerClient containerClient = _blobServiceClient.GetBlobContainerClient(_containerName);
 
                 foreach (IFormFile file in files)
@@ -33,11 +34,11 @@ namespace ProjectVishnu.ServerApp.App.Services.Concrete
                         await blobClient.UploadAsync(stream);
                     }
                 }
-            }catch(Exception e){
+            }
+            catch (Exception e)
+            {
                 throw e;
             }
-
-            
         }
 
         public async Task<List<string>> ListBlobs(string directory)

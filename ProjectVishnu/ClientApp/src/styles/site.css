@@ -10,6 +10,9 @@
 svg:not(button svg, header svg) {
   @apply dark:!text-slate-800;
 }
+* {
+  @apply box-border
+}
 html,
 body,
 #root {
