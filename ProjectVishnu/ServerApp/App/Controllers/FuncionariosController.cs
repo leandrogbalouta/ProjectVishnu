@@ -157,11 +157,11 @@ namespace ProjectVishnu.Controllers
         }
         // TODO check this
         [HttpPost("{id}/obras")]
-        public IActionResult AddFuncToObra(int id, [FromBody](string codigoInterno, string date) body)
+        public IActionResult AddFuncToObra(int id, [FromBody]ObraInsertionModel body)
         {
             try
             {
-                int result = _funcionariosService.AddFuncToObra(id, body.codigoInterno, body.date);
+                int result = _funcionariosService.AddFuncToObra(id, body.CodigoInterno, body.Date);
                 return Ok();
             }
             catch(FuncionariosError customError)

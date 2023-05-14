@@ -43,12 +43,15 @@ export default function Funcionario() {
         .catch(() => {});
       await getCurrentObraFuncionario(Number(id!))
         .then((resp) => {
+          console.log(resp.status)
           if (resp.status === 200) {
-            const obraArray = resp.data.map((item: any) => item.obra);
+            console.log(resp.data)
+            const obraArray : IObraOutput[] = []
+            obraArray.push(resp.data.obra)
             setObrasEmCurso(obraArray);
           } 
         })
-        .catch(() => {});
+        .catch((err) => console.log(err));
     };
 
     populateFuncionarioData();

@@ -99,4 +99,9 @@ namespace ProjectVishnu.ServerApp.App.Dtos
         public DateOnly? DataFim {get; set;}
     }
    
+
+   public class ObraInsertionModel{
+    public string CodigoInterno {get;set;}
+    public string Date {get; set;}
+   }
 }
