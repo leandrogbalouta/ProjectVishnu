@@ -6,7 +6,7 @@ interface Params {
 }
 
 export const RequireRole = ({ allowedRoles }: Params) => {
-  const { conta } = useAuth();
+  const conta = useAuth();
   const isAllowed: boolean = !!allowedRoles?.find(
     (role) => conta?.role === role
   );
