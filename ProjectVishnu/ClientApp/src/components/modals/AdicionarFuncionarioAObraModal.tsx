@@ -23,8 +23,10 @@ import FuncionariosTable from "../tables/FuncionariosTable";
 
 export default function AdicionarFuncionarioAObraModal({
   obra,
+  callback
 }: {
-  obra: IObraOutput;
+    obra: IObraOutput;
+  callback: () => void
 }) {
   // State
   const [funcionarios, setFuncionarios] = useState(null);
@@ -68,6 +70,8 @@ export default function AdicionarFuncionarioAObraModal({
             position: "top"
           })
           setFuncionariosIdList([]);
+          // run callback
+          callback()
           // close modal.
           onClose();
         }).catch(() => {

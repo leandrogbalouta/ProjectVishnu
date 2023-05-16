@@ -39,6 +39,7 @@ export function Obra() {
   let contents = obra === null ? <Spinner /> : renderObra(obra, folhasDePonto);
 
   // check this
+  function callback() { };
   async function submitFolhaDePonto() {
     if (workDays < 1 || workDays > 31) {
     } //TODO: THROW ALERT
@@ -176,7 +177,7 @@ export function Obra() {
             <div id="table-button-container" className="flex justify-between">
               <p className="data-panel">Funcionarios:</p>
               <div id="modals-buttons-container">
-                <AdicionarFuncionarioAObraModal obra={obra} />
+                <AdicionarFuncionarioAObraModal obra={obra} callback={callback} />
               </div>
             </div>
             <FuncionariosPorObraTable funcionarios={funcionarios} />

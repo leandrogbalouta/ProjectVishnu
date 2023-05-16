@@ -38,18 +38,18 @@ export default function Funcionario() {
           if (resp.status === 200) {
             const obraArray = resp.data.map((item: any) => item.obra);
             setObrasCompletadas(obraArray);
-          } 
+          }
         })
         .catch(() => {});
       await getCurrentObraFuncionario(Number(id!))
         .then((resp) => {
-          console.log(resp.status)
+          console.log(resp.status);
           if (resp.status === 200) {
-            console.log(resp.data)
-            const obraArray : IObraOutput[] = []
-            obraArray.push(resp.data.obra)
+            console.log(resp.data);
+            const obraArray: IObraOutput[] = [];
+            obraArray.push(resp.data.obra);
             setObrasEmCurso(obraArray);
-          } 
+          }
         })
         .catch((err) => console.log(err));
     };
@@ -77,7 +77,7 @@ export default function Funcionario() {
                   <p className="text-xl font-bold mb-3">
                     Detalhes do Funcionário:
                   </p>
-                  <BackButton href="/funcionarios" className="ml-4"/>
+                  <BackButton href="/funcionarios" className="ml-4" />
                 </div>
                 <div className="flex  flex-col gap-3 overflow-auto">
                   <div>
@@ -194,7 +194,9 @@ export default function Funcionario() {
                   <p className="text-lg font-bold text-cyan-100">
                     Obra em curso:
                   </p>
-                  <RemoverFuncionariosDeObraModal funcionario={funcionario} />
+                  {obrasEmCurso.length > 0 && (
+                    <RemoverFuncionariosDeObraModal funcionario={funcionario} />
+                  )}
                 </div>
 
                 <div className="flex flex-col gap-3 overflow-auto data-panel">
