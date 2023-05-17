@@ -77,7 +77,6 @@ export default function Funcionario() {
                   <p className="text-xl font-bold mb-3">
                     Detalhes do Funcionário:
                   </p>
-                  <BackButton href="/funcionarios" className="ml-4" />
                 </div>
                 <div className="flex  flex-col gap-3 overflow-auto">
                   <div>
@@ -227,7 +226,9 @@ export default function Funcionario() {
                 <div
                   id="add-funcionario-button-container"
                   className="flex justify-end"
-                ></div>
+                >
+                  <BackButton href="/funcionarios" className="ml-4" />
+                </div>
               </div>
             </div>
           </div>

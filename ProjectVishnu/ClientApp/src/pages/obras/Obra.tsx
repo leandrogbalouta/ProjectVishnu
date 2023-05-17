@@ -90,15 +90,6 @@ export function Obra() {
         <div className="data-panel">
           <div className="flex justify-between">
             <p className="text-xl font-bold ">Detalhes de obra:</p>
-            <div id="upper-button-container" className="flex gap-1">
-              <Button
-                colorScheme="twitter"
-                onClick={() => navigate(`autos-mediacao`)}
-              >
-                Autos de medição
-              </Button>
-              <BackButton href="/obras" />
-            </div>
           </div>
           <div className="flex justify-between flex-wrap gap-3 pt-3">
             <div>
@@ -193,6 +184,18 @@ export function Obra() {
               </div>
             </div>
             <FuncionariosPorObraTable funcionarios={funcionarios} />
+          <div
+            id="add-funcionario-button-container"
+            className="flex justify-end gap-3"
+          >
+            <Button
+              colorScheme="twitter"
+              onClick={() => navigate(`autos-mediacao`)}
+            >
+              Autos de medição
+            </Button>
+            <BackButton href="/obras" />
+          </div>
           </div>
         </div>
       </div>

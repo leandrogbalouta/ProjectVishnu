@@ -16,17 +16,20 @@ import {
 } from "@chakra-ui/react";
 import FilterBar from "../FilterBar";
 import IObraOutput from "../../common/Interfaces/Obra/IObraOutput";
-import { addFuncionarioToObra, fetchFuncionarios } from "../../common/API/APICalls";
+import {
+  addFuncionarioToObra,
+  fetchFuncionarios,
+} from "../../common/API/APICalls";
 import FuncionariosTable from "../tables/FuncionariosTable";
 
 //TODO: tornar todo o código da tabela das obras universal de maneira a que isto não se repita aqui (e no index das obras)
 
 export default function AdicionarFuncionarioAObraModal({
   obra,
-  callback
+  callback,
 }: {
-    obra: IObraOutput;
-  callback: () => void
+  obra: IObraOutput;
+  callback: () => void;
 }) {
   // State
   const [funcionarios, setFuncionarios] = useState(null);
@@ -37,18 +40,20 @@ export default function AdicionarFuncionarioAObraModal({
   const toast = useToast();
   // Effect
   useEffect(() => {
-    const filters = Object.assign(
-      {},
-      { estado: "em-curso" },
-      mercado === null ? null : { mercado: mercado },
-      searchString === null ? null : { valor: searchString }
-    );
-    // Misc
-    const populateFuncioariosData = async () => {
-      const response = await fetchFuncionarios(filters);
-      setFuncionarios(response.data);
-    };
-    populateFuncioariosData();
+    if (isOpen) {
+      const filters = Object.assign(
+        {},
+        { estado: "em-curso" },
+        mercado === null ? null : { mercado: mercado },
+        searchString === null ? null : { valor: searchString }
+      );
+      // Misc
+      const populateFuncioariosData = async () => {
+        const response = await fetchFuncionarios(filters);
+        setFuncionarios(response.data);
+      };
+      populateFuncioariosData();
+    }
   }, [mercado, searchString]);
   function addObraToFunc() {
     const date = new Date();
@@ -58,23 +63,25 @@ export default function AdicionarFuncionarioAObraModal({
 
     let today = `${year}-${month}-${day}`;
     // TODO make this batch(able) or something
-      funcionariosIdList.map((funcionarioId) => {
-        addFuncionarioToObra(funcionarioId, obra.codigoInterno, today).then((resp) => {
+    funcionariosIdList.map((funcionarioId) => {
+      addFuncionarioToObra(funcionarioId, obra.codigoInterno, today)
+        .then((resp) => {
           if (resp.status !== 200) throw new Error("error");
           toast({
-            title: 'Sucesso.',
+            title: "Sucesso.",
             description: `Funcionario(s) adicionado(s) a obra com sucesso.`,
-            status: 'success',
+            status: "success",
             duration: 3000,
             isClosable: true,
-            position: "top"
-          })
+            position: "top",
+          });
           setFuncionariosIdList([]);
           // run callback
-          callback()
+          callback();
           // close modal.
           onClose();
-        }).catch(() => {
+        })
+        .catch(() => {
           toast({
             title: "Erro ao adicionar funcionarios.",
             description:
@@ -82,10 +89,10 @@ export default function AdicionarFuncionarioAObraModal({
             status: "error",
             duration: 3000,
             isClosable: true,
-            position: "top"
+            position: "top",
           });
         });
-      });
+    });
   }
   const contents = !funcionarios ? (
     <Spinner />

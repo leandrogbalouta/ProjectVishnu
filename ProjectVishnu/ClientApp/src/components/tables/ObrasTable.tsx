@@ -7,12 +7,12 @@ import { Key } from "react";
 
 interface Props {
   obras: IObraOutput[];
-  selectable: boolean;
+  selectable?: boolean;
   dataOnRowClick: (codigoInterno: string) => void;
 }
 export default function ObrasTable({
   obras,
-  selectable,
+  selectable = false,
   dataOnRowClick,
 }: Props) {
   return (
