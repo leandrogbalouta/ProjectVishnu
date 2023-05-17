@@ -7,6 +7,7 @@ import { AiOutlineCloudUpload } from "react-icons/ai";
 import uniqid from "uniqid";
 import { Button, Tooltip } from "@chakra-ui/react";
 import { IoMdCloseCircle } from "react-icons/io";
+import BackButton from "../../components/BackButton";
 export function AutosMediacao() {
   const { codigo } = useParams();
   const [files, setFiles] = useState<File[]>([]);
@@ -25,7 +26,7 @@ export function AutosMediacao() {
         className="hidden group-hover:block text-lg text-slate-700 dark:!text-slate-200 absolute -top-1 -right-1"
         onClick={(e) => {
           e.stopPropagation();
-          let newArr = files!.filter(f => file != f);
+          let newArr = files!.filter((f) => file != f);
           setFiles(newArr);
         }}
       />
@@ -81,13 +82,21 @@ export function AutosMediacao() {
           </div>
         )}
       </div>
-      <Button
-        colorScheme="blue"
-        onClick={() => handleFormSubmit(files!)}
-        isDisabled={files.length <= 0}
-      >
-        Upload
-      </Button>
+      <div className="div flex justify-end gap-3 mt-3">
+        <Button
+          colorScheme="blue"
+          onClick={() => handleFormSubmit(files!)}
+          isDisabled={files.length <= 0}
+        >
+          Upload
+        </Button>
+        <BackButton
+          href={location.pathname.substring(
+            0,
+            location.pathname.lastIndexOf("/")
+          )}
+        />
+      </div>
     </div>
   );
 }

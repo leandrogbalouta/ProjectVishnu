@@ -38,15 +38,16 @@ namespace ProjectVishnu.DataAccess.Repository.Concrete
 
         public void Update(Funcionario funcionario)
         {
-            VishnuContext.Funcionarios.Update(funcionario).Property(func => func.Id).IsModified = false; 
+            VishnuContext.Funcionarios.Update(funcionario).Property(func => func.Id).IsModified = false;
         }
 
-        public int GetValidityWarningCount(){
+        public int GetValidityWarningCount()
+        {
             DateOnly date = DateOnly.FromDateTime(DateTime.Today);
             date = date.AddDays(VALIDATY_WARNING_DAYS);
             return VishnuContext.Funcionarios.Where(func => date > func.Validadedocident).Count();
         }
-        
+
         public IEnumerable<Funcionario> GetValidityWarningList()
         {
             DateOnly date = DateOnly.FromDateTime(DateTime.Today);
@@ -54,7 +55,7 @@ namespace ProjectVishnu.DataAccess.Repository.Concrete
             return VishnuContext.Funcionarios.Where(func => date > func.Validadedocident).ToList();
         }
 
-         public FuncionariosObra GetCurrentObra(int id)
+        public FuncionariosObra GetCurrentObra(int id)
         {
             return Get(id).FuncionariosObras.Where(fo => fo.Datafim == null).Single();
         }
@@ -100,9 +101,10 @@ namespace ProjectVishnu.DataAccess.Repository.Concrete
             return VishnuContext.Funcionarios.Where(func => func.Nif == nif).First().Id;
         }
 
-       
 
-        bool Filter(Funcionario func, string? mercado, string? valor){
+
+        bool Filter(Funcionario func, string? mercado, string? valor)
+        {
             bool mercadoCondition = mercado == null ? true : func.Mercado.Contains(mercado);
             bool valorCondition = valor == null ? true : func.Nome.Contains(valor);
 

@@ -29,7 +29,7 @@ namespace ProjectVishnu.Controllers
             try
             {
                 IEnumerable<Funcionario> funcionariosList;
-                if(mercado == null && nome == null)
+                if (mercado == null && nome == null)
                 {
                     funcionariosList = _funcionariosService.ListAlphabetically();
                 }
@@ -37,10 +37,10 @@ namespace ProjectVishnu.Controllers
                 {
                     funcionariosList = _funcionariosService.ListWithFilters(mercado, nome);
                 }
-                
+
                 return Ok(funcionariosList.Select(x => x.toOutputModel()));
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return Problem(statusCode: 500, title: "Erro inesperado");
             }
@@ -58,11 +58,11 @@ namespace ProjectVishnu.Controllers
                 Funcionario result = _funcionariosService.Get(id);
                 return Ok(result.toOutputModel());
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return Problem(statusCode: 500, title: "Erro inesperado");
             }
-            
+
         }
 
         [HttpPost]
@@ -102,11 +102,11 @@ namespace ProjectVishnu.Controllers
                 string result = _funcionariosService.Update(funcionario);
                 return Ok(result);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return Problem(statusCode: 500, title: "Erro inesperado");
             }
-            
+
         }
 
         [HttpDelete("{id}")]
@@ -120,7 +120,7 @@ namespace ProjectVishnu.Controllers
                 string result = _funcionariosService.Delete(id);
                 return Ok(result);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return Problem(statusCode: 500, title: "Erro inesperado");
             }
@@ -135,7 +135,7 @@ namespace ProjectVishnu.Controllers
                 ObraFuncionarioOutputModel currentObra = _funcionariosService.GetCurrentObra(id);
                 return Ok(currentObra);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return Problem(statusCode: 500, title: "Erro inesperado");
             }
@@ -150,44 +150,44 @@ namespace ProjectVishnu.Controllers
                 IEnumerable<ObraFuncionarioOutputModel> pastObras = _funcionariosService.GetPastObras(id);
                 return Ok(pastObras);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return Problem(statusCode: 500, title: "Erro inesperado");
             }
         }
         // TODO check this
         [HttpPost("{id}/obras")]
-        public IActionResult AddFuncToObra(int id, [FromBody]ObraInsertionModel body)
+        public IActionResult AddFuncToObra(int id, [FromBody] ObraInsertionModel body)
         {
             try
             {
                 int result = _funcionariosService.AddFuncToObra(id, body.CodigoInterno, body.Date);
                 return Ok();
             }
-            catch(FuncionariosError customError)
+            catch (FuncionariosError customError)
             {
                 return Problem(statusCode: customError.StatusCode, title: customError.Message);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return Problem(statusCode: 500, title: "Erro inesperado");
             }
-            
+
         }
 
         [HttpPut("{id}/obras")]
         public IActionResult RemoveFuncFromCurrentObra(int id, [FromBody] string date)
         {
-            try 
+            try
             {
                 int result = _funcionariosService.RemoveFuncFromObra(id, date);
                 return Ok();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return Problem(statusCode: 500, title: "Erro inesperado");
             }
-            
+
         }
 
         [HttpGet("validity/count")]
@@ -200,7 +200,7 @@ namespace ProjectVishnu.Controllers
             {
                 return Ok(_funcionariosService.GetValidityWarningCount());
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return Problem(statusCode: 500, title: "Erro inesperado");
             }
@@ -216,7 +216,7 @@ namespace ProjectVishnu.Controllers
             {
                 return Ok(_funcionariosService.GetValidityWarningList().Select(f => f.toOutputModel()));
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return Problem(statusCode: 500, title: "Erro inesperado");
             }
