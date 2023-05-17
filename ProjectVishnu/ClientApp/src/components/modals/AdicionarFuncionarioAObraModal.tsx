@@ -54,7 +54,7 @@ export default function AdicionarFuncionarioAObraModal({
       };
       populateFuncioariosData();
     }
-  }, [mercado, searchString]);
+  }, [mercado, searchString, isOpen]);
   function addObraToFunc() {
     const date = new Date();
     let day = date.getDate();
