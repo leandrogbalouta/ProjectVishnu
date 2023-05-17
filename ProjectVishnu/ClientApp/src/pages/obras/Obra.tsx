@@ -183,7 +183,7 @@ export function Obra() {
                 />
               </div>
             </div>
-            <FuncionariosPorObraTable funcionarios={funcionarios} />
+            <FuncionariosPorObraTable funcionarios={funcionarios} callback={callback}/>
           <div
             id="add-funcionario-button-container"
             className="flex justify-end gap-3"

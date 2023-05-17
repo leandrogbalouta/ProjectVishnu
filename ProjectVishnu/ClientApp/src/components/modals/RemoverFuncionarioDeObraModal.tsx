@@ -21,11 +21,14 @@ import { removeFuncionarioDeObra } from "../../common/API/APICalls";
 
 export default function RemoverFuncionariosDeObraModal({
   funcionario,
+  callback,
 }: {
-  funcionario: IFuncionarioOutput;
+    funcionario: IFuncionarioOutput;
+    callback: () => void;
+  
 }) {
   // State/hooks
-  const [date, setDate] = useState<string>();
+  const [date, setDate] = useState<string>('');
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
   // Main-component
@@ -41,6 +44,7 @@ export default function RemoverFuncionariosDeObraModal({
         position: "top"
       })
       // close modal.
+      callback();
       onClose();
     }).catch(() => {
       toast({

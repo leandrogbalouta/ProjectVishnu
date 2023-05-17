@@ -1,15 +1,19 @@
 import { Table, Thead, Tr, Th, Tbody, Td, Checkbox } from "@chakra-ui/react";
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import IFuncionarioObraOutputModel from "../../common/Interfaces/Funcionario/IFuncionarioObraOutputModel";
 import RemoverFuncionariosDeObraModal from "../modals/RemoverFuncionarioDeObraModal";
-import SemDadosRow from "../SemDadosPlaceHolder";
 import SemDadosPlaceHolder from "../SemDadosPlaceHolder";
 
 interface Props {
   funcionarios: IFuncionarioObraOutputModel[];
+  callback: () => void;
 }
-export default function FuncionariosPorObraTable({ funcionarios }: Props) {
+
+export default function FuncionariosPorObraTable({
+  funcionarios,
+  callback,
+}: Props) {
   return (
     <div id="table-container" className="overflow-x-scroll flex-1">
       {funcionarios && funcionarios.length > 0 ? (
@@ -39,6 +43,7 @@ export default function FuncionariosPorObraTable({ funcionarios }: Props) {
                 <Td>
                   <RemoverFuncionariosDeObraModal
                     funcionario={funcionario.funcionario}
+                    callback={callback}
                   />
                 </Td>
               </Tr>
