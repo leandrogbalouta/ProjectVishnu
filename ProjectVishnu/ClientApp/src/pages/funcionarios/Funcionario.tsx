@@ -194,9 +194,14 @@ export default function Funcionario() {
                   <p className="text-lg font-bold text-cyan-100">
                     Obra em curso:
                   </p>
-                  {obrasEmCurso.length > 0 && (
-                    <RemoverFuncionariosDeObraModal funcionario={funcionario} />
-                  )}
+                  <div id="func-botoes" className="flex gap-3">
+                    <AdicionarObraAFuncionarioModal funcionario={funcionario} />
+                    {obrasEmCurso.length > 0 && (
+                      <RemoverFuncionariosDeObraModal
+                        funcionario={funcionario}
+                      />
+                    )}
+                  </div>
                 </div>
 
                 <div className="flex flex-col gap-3 overflow-auto data-panel">
@@ -212,7 +217,6 @@ export default function Funcionario() {
                   <p className="text-lg font-bold text-cyan-100">
                     Obras Completadas:
                   </p>
-                  <AdicionarObraAFuncionarioModal funcionario={funcionario} />
                 </div>
                 <div className="flex flex-1 flex-col gap-3 overflow-auto bg-white dark:bg-slate-800 rounded">
                   <ObrasTable

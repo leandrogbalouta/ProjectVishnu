@@ -4,7 +4,7 @@ import {
   fetchObra,
   createFolhaDePonto,
   fetchFolhaDePontoAllByobra as fetchFolhaDePontoAllByObra,
-  fetchFuncionariosForObra
+  fetchFuncionariosForObra,
 } from "../../common/API/APICalls";
 import { Button, Input, Spinner } from "@chakra-ui/react";
 import IObraOutput from "../../common/Interfaces/Obra/IObraOutput";
@@ -24,6 +24,7 @@ export function Obra() {
   >([]);
   const { codigo } = useParams();
   const date = new Date();
+  const [callbackTrigger, setCallbackTrigger] = useState(false);
   const [data, setData] = useState(
     `${date.getFullYear()}-${date.getMonth() + 1}`
   );
@@ -35,11 +36,13 @@ export function Obra() {
   const handleWorkDaysChange = (event: any) => {
     setWorkDays(event!.target!.value!);
   };
-  
+
   let contents = obra === null ? <Spinner /> : renderObra(obra, folhasDePonto);
 
   // check this
-  function callback() { };
+  function callback() {
+    setCallbackTrigger(!callbackTrigger);
+  }
   async function submitFolhaDePonto() {
     if (workDays < 1 || workDays > 31) {
     } //TODO: THROW ALERT
@@ -76,7 +79,8 @@ export function Obra() {
       await populateFuncionarios();
       await populateFolhasDePontoData();
     })();
-  }, [codigo]);
+    console.log("sdsd");
+  }, [codigo, callbackTrigger]);
 
   return <div className="flex h-full w-full">{contents}</div>;
 
@@ -87,7 +91,12 @@ export function Obra() {
           <div className="flex justify-between">
             <p className="text-xl font-bold ">Detalhes de obra:</p>
             <div id="upper-button-container" className="flex gap-1">
-              <Button colorScheme="twitter" onClick={() => navigate(`autos-mediacao`)}>Autos de medição</Button>
+              <Button
+                colorScheme="twitter"
+                onClick={() => navigate(`autos-mediacao`)}
+              >
+                Autos de medição
+              </Button>
               <BackButton href="/obras" />
             </div>
           </div>
@@ -177,7 +186,10 @@ export function Obra() {
             <div id="table-button-container" className="flex justify-between">
               <p className="data-panel">Funcionarios:</p>
               <div id="modals-buttons-container">
-                <AdicionarFuncionarioAObraModal obra={obra} callback={callback} />
+                <AdicionarFuncionarioAObraModal
+                  obra={obra}
+                  callback={callback}
+                />
               </div>
             </div>
             <FuncionariosPorObraTable funcionarios={funcionarios} />
