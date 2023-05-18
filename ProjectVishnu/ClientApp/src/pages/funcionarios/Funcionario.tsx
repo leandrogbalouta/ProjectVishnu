@@ -10,7 +10,7 @@ import AdicionarObraAFuncionarioModal from "../../components/modals/AdicionarObr
 import ObrasTable from "../../components/tables/ObrasTable";
 import IObraOutput from "../../common/Interfaces/Obra/IObraOutput";
 import { useParams, useNavigate } from "react-router-dom";
-import RemoverFuncionariosDeObraModal from "../../components/modals/RemoverFuncionarioDeObraModal";
+import AdicionarOuRemoverFuncionariosDeObraModal from "../../components/modals/AdicionarOuRemoverFuncionarioDeObraModal";
 import BackButton from "../../components/BackButton";
 
 export default function Funcionario() {
@@ -18,6 +18,8 @@ export default function Funcionario() {
   const { id } = useParams();
   const [obrasEmCurso, setObrasEmCurso] = useState<IObraOutput[]>([]);
   const [obrasCompletadas, setObrasCompletadas] = useState<IObraOutput[]>([]);
+  const [callbackTrigger, useCallbackTrigger] = useState(false);
+  const callback = () => useCallbackTrigger(!callbackTrigger);
   const navigate = useNavigate();
   let contents =
     funcionario === undefined ? <Spinner /> : renderFuncionario(funcionario);
@@ -196,9 +198,10 @@ export default function Funcionario() {
                   <div id="func-botoes" className="flex gap-3">
                     <AdicionarObraAFuncionarioModal funcionario={funcionario} />
                     {obrasEmCurso.length > 0 && (
-                      <RemoverFuncionariosDeObraModal
-                        funcionario={funcionario}
-                      />
+                      <AdicionarOuRemoverFuncionariosDeObraModal
+                        funcionario={funcionario} modo={"adicionar"} callback={function (): void {
+                          throw new Error("Function not implemented.");
+                        } }                      />
                     )}
                   </div>
                 </div>

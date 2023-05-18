@@ -184,20 +184,22 @@ export function Obra() {
               </div>
             </div>
             <FuncionariosPorObraTable funcionarios={funcionarios} callback={callback}/>
-          <div
+          </div>
+          
+        </div>
+        <div
             id="add-funcionario-button-container"
-            className="flex justify-end gap-3"
+            className="flex justify-end gap-3 mt-3"
           >
             <Button
               colorScheme="twitter"
-              onClick={() => navigate(`autos-mediacao`)}
+            onClick={() => navigate(`autos-mediacao`)}
+            className="flex-grow-1 sm:flex-grow-0"
             >
               Autos de medição
             </Button>
-            <BackButton href="/obras" />
+            <BackButton href="/obras" className="flex-grow-1 sm:flex-grow-0"/>
           </div>
-          </div>
-        </div>
       </div>
     );
   }

@@ -14,9 +14,8 @@ export default function BackButton({ href, ...rest}: Params) {
       onClick={() => navigate(href)}
       colorScheme="blue"
       {...rest}
-      className={"w-fit ".concat(rest.className ?? "")}
+      className={`w-fit ${rest.className }`}
     >
-      <AiOutlineArrowLeft />
       <p>Voltar</p>
     </Button>
   );
