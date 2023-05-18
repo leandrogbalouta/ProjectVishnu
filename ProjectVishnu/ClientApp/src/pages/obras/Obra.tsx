@@ -116,6 +116,12 @@ export function Obra() {
               <p className="obra-heading">Estado</p>
               <p className="capitalize">{obra.estado}</p>
             </div>
+            {obra.chefeDeObra && (
+              <div>
+                <p className="obra-heading">Chefe de obra</p>
+                <p onClick={() => navigate(`/funcionarios/${obra.chefeDeObra}`)}>{obra.chefeDeObra}</p>
+              </div>
+            )}
           </div>
         </div>
         <div
@@ -183,23 +189,24 @@ export function Obra() {
                 />
               </div>
             </div>
-            <FuncionariosPorObraTable funcionarios={funcionarios} callback={callback}/>
+            <FuncionariosPorObraTable
+              funcionarios={funcionarios}
+              callback={callback}
+            />
           </div>
-          
         </div>
         <div
-            id="add-funcionario-button-container"
-            className="flex justify-end gap-3 mt-3"
-          >
-            <Button
-              colorScheme="twitter"
+          id="add-funcionario-button-container"
+          className="flex justify-end gap-3 mt-3 [&>*]:flex-1 sm:[&>*]:!flex-none"
+        >
+          <Button
+            colorScheme="twitter"
             onClick={() => navigate(`autos-mediacao`)}
-            className="flex-grow-1 sm:flex-grow-0"
-            >
-              Autos de medição
-            </Button>
-            <BackButton href="/obras" className="flex-grow-1 sm:flex-grow-0"/>
-          </div>
+          >
+            Autos de medição
+          </Button>
+          <BackButton href="/obras" />
+        </div>
       </div>
     );
   }

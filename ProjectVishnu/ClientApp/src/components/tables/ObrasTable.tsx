@@ -7,12 +7,10 @@ import { Key } from "react";
 
 interface Props {
   obras: IObraOutput[];
-  selectable?: boolean;
   dataOnRowClick: (codigoInterno: string) => void;
 }
 export default function ObrasTable({
   obras,
-  selectable = false,
   dataOnRowClick,
 }: Props) {
   return (
@@ -21,7 +19,6 @@ export default function ObrasTable({
         <Table className="table table-striped" aria-labelledby="tabelLabel">
           <Thead>
             <Tr className="data-table-header">
-              {selectable && <Th>#</Th>}
               <Th>Código interno</Th>
               <Th>Designação</Th>
               <Th>Cliente</Th>
@@ -37,14 +34,6 @@ export default function ObrasTable({
                 onClick={() => dataOnRowClick(obra.codigoInterno)}
                 key={uniqid()}
               >
-                {selectable && (
-                  <Td className="!border-r-slate-100">
-                    <Checkbox
-                      className="bg-white rounded"
-                      // Add onchange or wtv
-                    />
-                  </Td>
-                )}
                 <Td>{obra.codigoInterno}</Td>
                 <Td>{obra.designacao}</Td>
                 <Td>{obra.cliente}</Td>

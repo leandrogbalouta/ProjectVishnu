@@ -1,8 +1,6 @@
-import { Table, Thead, Tr, Th, Tbody, Td, Checkbox } from "@chakra-ui/react";
-import { ReactNode, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Table, Thead, Tr, Th, Tbody, Td } from "@chakra-ui/react";
 import IFuncionarioObraOutputModel from "../../common/Interfaces/Funcionario/IFuncionarioObraOutputModel";
-import AdicionarOuRemoverFuncionariosDeObraModal from "../modals/AdicionarOuRemoverFuncionarioDeObraModal";
+import RemoverFuncionariosDeObraModal from "../modals/RemoverFuncionariosDeObraModal";
 import SemDadosPlaceHolder from "../SemDadosPlaceHolder";
 
 interface Props {
@@ -41,9 +39,10 @@ export default function FuncionariosPorObraTable({
 
                 <Td>{funcionario.dataFim ?? "N/A"}</Td>
                 <Td>
-                  <AdicionarOuRemoverFuncionariosDeObraModal
+                  <RemoverFuncionariosDeObraModal
                     funcionario={funcionario.funcionario}
-                    callback={callback} modo={"remover"}                  />
+                    callback={callback}
+                  />
                 </Td>
               </Tr>
             ))}

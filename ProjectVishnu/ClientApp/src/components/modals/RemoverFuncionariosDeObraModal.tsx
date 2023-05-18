@@ -19,40 +19,29 @@ import { removeFuncionarioDeObra } from "../../common/API/APICalls";
 
 //TODO: tornar todo o código da tabela das obras universal de maneira a que isto não se repita aqui (e no index das obras)
 
-export default function AdicionarOuRemoverFuncionariosDeObraModal({
+export default function RemoverFuncionariosDeObraModal({
   funcionario,
-  modo,
   callback,
 }: {
   funcionario: IFuncionarioOutput;
-  modo: "adicionar" | "remover";
   callback: () => void;
 }) {
   // State/hooks
   const [date, setDate] = useState<string>("");
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
-  // Todo array para isto ou wtv
-  const verboInfinitivo = modo === "adicionar" ? "adicionar" : "remover";
-  const verboInfinitivoMaiusculo =
-    modo === "adicionar" ? "Adicionar" : "Remover";
-  const verboPassado = modo === "adicionar" ? "adicionado" : "removido";
   // Main-component
   async function removerFuncionario() {
     await removeFuncionarioDeObra(funcionario.id, date!)
       .then((resp) => {
-        if (resp.status !== 200) throw new Error("error");
         toast({
           title: "Sucesso.",
-          description: `Funcionario ${
-            modo === "adicionar" ? "adicionado" : "removido"
-          } de obra com sucesso.`,
+          description: `Funcionario removido de obra com sucesso.`,
           status: "success",
           duration: 3000,
           isClosable: true,
           position: "top",
         });
-        // close modal.
         callback();
         onClose();
       })
@@ -71,7 +60,7 @@ export default function AdicionarOuRemoverFuncionariosDeObraModal({
   return (
     <>
       <Tooltip
-        label={`${verboInfinitivoMaiusculo} funcionario de obra`}
+        label={`remover funcionario de obra`}
         placement="top"
       >
         <Button onClick={onOpen} colorScheme="red" className="w-fit">
@@ -83,7 +72,7 @@ export default function AdicionarOuRemoverFuncionariosDeObraModal({
           <ModalOverlay />
           <ModalContent>
             <ModalHeader>
-              {verboInfinitivoMaiusculo} "{funcionario.nome}" de obra
+              Remover {funcionario.nome} de obra
             </ModalHeader>
             <ModalCloseButton />
             <ModalBody>
@@ -95,7 +84,7 @@ export default function AdicionarOuRemoverFuncionariosDeObraModal({
                   onChange={(e) => setDate(e.target.value)}
                 />
                 <p>
-                  Tem a certeza que deseja {verboInfinitivo}{" "}
+                  Tem a certeza que deseja remover
                   <b>{funcionario.nome}</b> com o NIF <b>{funcionario.nif}</b>{" "}
                   da obra ativa?
                 </p>
@@ -106,7 +95,7 @@ export default function AdicionarOuRemoverFuncionariosDeObraModal({
                 Cancelar
               </Button>
               <Button colorScheme="red" onClick={() => removerFuncionario()}>
-                {verboInfinitivoMaiusculo}
+                Remover
               </Button>
             </ModalFooter>
           </ModalContent>

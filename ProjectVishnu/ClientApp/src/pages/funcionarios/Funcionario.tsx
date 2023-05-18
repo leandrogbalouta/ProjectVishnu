@@ -10,7 +10,7 @@ import AdicionarObraAFuncionarioModal from "../../components/modals/AdicionarObr
 import ObrasTable from "../../components/tables/ObrasTable";
 import IObraOutput from "../../common/Interfaces/Obra/IObraOutput";
 import { useParams, useNavigate } from "react-router-dom";
-import AdicionarOuRemoverFuncionariosDeObraModal from "../../components/modals/AdicionarOuRemoverFuncionarioDeObraModal";
+import RemoverFuncionariosDeObraModal from "../../components/modals/RemoverFuncionariosDeObraModal";
 import BackButton from "../../components/BackButton";
 
 export default function Funcionario() {
@@ -25,6 +25,7 @@ export default function Funcionario() {
     funcionario === undefined ? <Spinner /> : renderFuncionario(funcionario);
 
   useEffect(() => {
+    console.log("shabba");
     const populateFuncionarioData = async () => {
       const response = await fetchFuncionario(id!);
       if (response.status == 200) {
@@ -45,20 +46,14 @@ export default function Funcionario() {
         .catch(() => {});
       await getCurrentObraFuncionario(Number(id!))
         .then((resp) => {
-          console.log(resp.status);
-          if (resp.status === 200) {
-            console.log(resp.data);
-            const obraArray: IObraOutput[] = [];
-            obraArray.push(resp.data.obra);
-            setObrasEmCurso(obraArray);
-          }
+          setObrasEmCurso([resp.data.obra]);
         })
-        .catch((err) => console.log(err));
+        .catch((err) => console.log("error aqui"));
     };
 
     populateFuncionarioData();
     populateObrasData();
-  }, [id]);
+  }, [id, callbackTrigger]);
 
   // TODO dry me
   async function redirectToObra(codigoInterno: string) {
@@ -196,12 +191,12 @@ export default function Funcionario() {
                     Obra em curso:
                   </p>
                   <div id="func-botoes" className="flex gap-3">
-                    <AdicionarObraAFuncionarioModal funcionario={funcionario} />
+                    <AdicionarObraAFuncionarioModal funcionario={funcionario} callback={callback}/>
                     {obrasEmCurso.length > 0 && (
-                      <AdicionarOuRemoverFuncionariosDeObraModal
-                        funcionario={funcionario} modo={"adicionar"} callback={function (): void {
-                          throw new Error("Function not implemented.");
-                        } }                      />
+                      <RemoverFuncionariosDeObraModal
+                        funcionario={funcionario}
+                        callback={callback}
+                      />
                     )}
                   </div>
                 </div>
