@@ -30,10 +30,14 @@ export default function RemoverFuncionariosDeObraModal({
   const [date, setDate] = useState<string>("");
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
-  // Main-component
+
+  const closeModal = () => {
+    onClose();
+    callback();
+  };
   async function removerFuncionario() {
     await removeFuncionarioDeObra(funcionario.id, date!)
-      .then((resp) => {
+      .then(() => {
         toast({
           title: "Sucesso.",
           description: `Funcionario removido de obra com sucesso.`,
@@ -68,7 +72,7 @@ export default function RemoverFuncionariosDeObraModal({
         </Button>
       </Tooltip>
       {isOpen && (
-        <Modal isOpen={isOpen} onClose={onClose}>
+        <Modal isOpen={isOpen} onClose={closeModal}>
           <ModalOverlay />
           <ModalContent>
             <ModalHeader>
@@ -91,7 +95,7 @@ export default function RemoverFuncionariosDeObraModal({
               </div>
             </ModalBody>
             <ModalFooter>
-              <Button colorScheme="gray" mr={3} onClick={onClose}>
+              <Button colorScheme="gray" mr={3} onClick={closeModal}>
                 Cancelar
               </Button>
               <Button colorScheme="red" onClick={() => removerFuncionario()}>

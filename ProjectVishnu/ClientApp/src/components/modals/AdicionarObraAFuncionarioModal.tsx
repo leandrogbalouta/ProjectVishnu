@@ -146,7 +146,7 @@ export default function AdicionarObraAFuncionarioModal({
         <ModalContent className="dark:!bg-slate-800 dark:text-white flex-1 h-full">
           <ModalHeader>Escolha uma obra</ModalHeader>
           <ModalCloseButton />
-          <ModalBody pb={6} className="flex-1 justify-between">
+          <ModalBody pb={6} className="flex flex-col flex-1 justify-between">
             <div id="table-container" className="overflow-scroll flex-1">
               <FilterBar
                 mercado={mercado}

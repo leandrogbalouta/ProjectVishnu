@@ -46,7 +46,7 @@ export default function Funcionario() {
         .catch(() => {});
       await getCurrentObraFuncionario(Number(id!))
         .then((resp) => {
-          setObrasEmCurso([resp.data.obra]);
+          if(resp.data.obra) setObrasEmCurso([resp.data.obra]);
         })
         .catch((err) => console.log("error aqui"));
     };
