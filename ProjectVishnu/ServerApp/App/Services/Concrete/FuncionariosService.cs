@@ -33,24 +33,48 @@ namespace ProjectVishnu.Services
 
         public int Create(FuncionarioInputModel funcionarioDto)
         {
-            Funcionario funcionario = funcionarioDto.ToFuncionario();
-            _unitOfWork.Funcionarios.Add(funcionario);
-            _unitOfWork.Complete();
-            return _unitOfWork.Funcionarios.GetFuncId(funcionario.Nif);
+            try{
+                Funcionario funcionario = funcionarioDto.ToFuncionario();
+                _unitOfWork.Funcionarios.Add(funcionario);
+                _unitOfWork.Complete();
+                return _unitOfWork.Funcionarios.GetFuncId(funcionario.Nif);
+            }catch(Exception e){
+
+                _unitOfWork.UntrackChanges();
+                throw e;
+            }
+            
         }
 
         public string Delete(int id)
         {
-            _unitOfWork.Funcionarios.Delete(id);
-            _unitOfWork.Complete();
-            return "Funcionário apagado com sucesso.";
+            try{
+
+                _unitOfWork.Funcionarios.Delete(id);
+                _unitOfWork.Complete();
+                return "Funcionário apagado com sucesso.";
+
+            }catch(Exception e){
+
+                _unitOfWork.UntrackChanges();
+                throw e;
+            }
+            
         }
 
         public string Update(FuncionarioInputModel funcionarioDto)
         {
-            _unitOfWork.Funcionarios.Update(funcionarioDto.ToFuncionario());
-            _unitOfWork.Complete();
-            return "Funcionário atualizado com sucesso.";
+            try{
+
+                _unitOfWork.Funcionarios.Update(funcionarioDto.ToFuncionario());
+                _unitOfWork.Complete();
+                return "Funcionário atualizado com sucesso.";
+                
+            }catch(Exception e){
+
+                _unitOfWork.UntrackChanges();
+                throw e;
+            }
         }
 
         public ObraFuncionarioOutputModel GetCurrentObra(int id)
@@ -67,41 +91,57 @@ namespace ProjectVishnu.Services
 
         public int AddFuncToObra(int id, string codigoObra, string date)
         {
-            Funcionario func = _unitOfWork.Funcionarios.Get(id);
-            if (func.FuncionariosObras.Any(fo => fo.Datafim == null))
-            {
-                throw new AlreadyInObraError();
-            }
-            string ano = date.Split("-")[0];
-            string mes = date.Split("-")[1];
-            string dia = date.Split("-")[2];
-            DateOnly startDate = DateOnly.Parse(String.Format("{0}-{1}-{2}", ano, mes, dia));
+            try{
+                Funcionario func = _unitOfWork.Funcionarios.Get(id);
+                if (func.FuncionariosObras.Any(fo => fo.Datafim == null))
+                {
+                    throw new AlreadyInObraError();
+                }
+                string ano = date.Split("-")[0];
+                string mes = date.Split("-")[1];
+                string dia = date.Split("-")[2];
+                DateOnly startDate = DateOnly.Parse(String.Format("{0}-{1}-{2}", ano, mes, dia));
 
-            FuncionariosObra fo = new FuncionariosObra
-            {
-                Funcionario = func.Nif,
-                Obra = codigoObra,
-                Datacomeco = startDate
-            };
-            func.FuncionariosObras.Add(fo);
-            _unitOfWork.Complete();
-            return 1;
+                FuncionariosObra fo = new FuncionariosObra
+                {
+                    Funcionario = func.Nif,
+                    Obra = codigoObra,
+                    Datacomeco = startDate
+                };
+                func.FuncionariosObras.Add(fo);
+                _unitOfWork.Complete();
+                return 1;
+
+            }catch(Exception e){
+
+                _unitOfWork.UntrackChanges();
+                throw e;
+            }
+            
         }
 
         public int RemoveFuncFromObra(int id, string date)
         {
-            string ano = date.Split("-")[0];
-            string mes = date.Split("-")[1];
-            string dia = date.Split("-")[2];
+            try{
+                string ano = date.Split("-")[0];
+                string mes = date.Split("-")[1];
+                string dia = date.Split("-")[2];
 
-            DateOnly endDate = DateOnly.Parse(String.Format("{0}-{1}-{2}", ano, mes, dia));
+                DateOnly endDate = DateOnly.Parse(String.Format("{0}-{1}-{2}", ano, mes, dia));
 
-            FuncionariosObra fo = _unitOfWork.Funcionarios.GetCurrentObra(id);
-            fo.Datafim = endDate;
+                FuncionariosObra fo = _unitOfWork.Funcionarios.GetCurrentObra(id);
+                fo.Datafim = endDate;
 
-            _unitOfWork.Complete();
+                _unitOfWork.Complete();
 
-            return 1;
+                return 1;
+
+            }catch(Exception e){
+                
+                _unitOfWork.UntrackChanges();
+                throw e;
+            }
+            
         }
 
         public int GetValidityWarningCount()

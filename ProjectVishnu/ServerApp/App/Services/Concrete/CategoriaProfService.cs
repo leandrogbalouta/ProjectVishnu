@@ -15,12 +15,19 @@ namespace ProjectVishnu.ServerApp.App.Services.Concrete
 
         public CategoriasProfissionai Create(string Codigo, string Nomenclatura)
         {
-               
-            CategoriasProfissionai catProf = new CategoriasProfissionai{Codigo = Codigo, Nomenclatura = Nomenclatura};
+            try{
+                CategoriasProfissionai catProf = new CategoriasProfissionai{Codigo = Codigo, Nomenclatura = Nomenclatura};
   
-            _unitOfWork.CategoriasProfissionais.Add(catProf);
-            _unitOfWork.Complete();
-            return catProf;
+                _unitOfWork.CategoriasProfissionais.Add(catProf);
+                _unitOfWork.Complete();
+                return catProf;
+
+            }catch(Exception e){
+                
+                _unitOfWork.UntrackChanges();
+                throw e;
+            }
+            
 
         }
 

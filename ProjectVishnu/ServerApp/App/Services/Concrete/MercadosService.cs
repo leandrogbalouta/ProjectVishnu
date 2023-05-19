@@ -15,12 +15,20 @@ namespace ProjectVishnu.ServerApp.App.Services.Concrete
 
         public Mercado CreateMercado(MercadoDto mercado)
         {
+            try{
+
+                Mercado m = mercado.ToMercado();
                 
-            Mercado m = mercado.ToMercado();
-                
-            _unitOfWork.Mercados.Add(m);
-            _unitOfWork.Complete();
-            return m;
+                _unitOfWork.Mercados.Add(m);
+                _unitOfWork.Complete();
+                return m;
+
+            }catch(Exception e){
+
+                _unitOfWork.UntrackChanges();
+                throw e;
+            } 
+            
         }
 
         public Mercado GetMercado(string name)
