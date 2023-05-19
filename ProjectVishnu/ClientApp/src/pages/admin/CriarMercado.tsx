@@ -8,7 +8,6 @@ import {
   Input,
   InputGroup,
   InputLeftElement,
-  useToast,
 } from "@chakra-ui/react";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -19,11 +18,12 @@ import { RxLetterCaseCapitalize } from "react-icons/rx";
 import { DateFormatter, DateRange, DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
 import { IMercadoOutput, IMercadoInput } from "../../common/Interfaces/Mercado";
+import { useGlobalToaster } from "../../components/contexts/Toast/useGlobalToaster";
 
 export default function CriarMercado() {
   const navigate = useNavigate();
-  const toast = useToast();
-  const january = new Date("jan-99")
+  const { addToast, isToastActive } = useGlobalToaster();
+  const january = new Date("jan-99");
   // schema
   const schema = yup
     .object({
@@ -56,7 +56,7 @@ export default function CriarMercado() {
   const onSubmit: SubmitHandler<IMercadoInput> = async (
     data: IMercadoInput
   ) => {
-    const mercado: IMercadoOutput = { 
+    const mercado: IMercadoOutput = {
       name: data.nome,
       sigla: data.sigla,
       diaInicio: data.dateRange!.from!.getDate(),
@@ -70,14 +70,12 @@ export default function CriarMercado() {
       .then((resp) => {
         if (resp.status === 201) {
           navigate("/admin");
-          if (!toast.isActive("sucesso")) {
-            toast({
+          if (!isToastActive("sucesso")) {
+            addToast({
               id: "sucesso",
-              title: `Mercado criado com sucesso.`,
-              position: "top-right",
-              duration: 5000,
+              title: "Sucesso",
+              description: `Mercado criado com sucesso.`,
               status: "success",
-              isClosable: true,
             });
           }
         } else {
@@ -85,14 +83,12 @@ export default function CriarMercado() {
         }
       })
       .catch((error) => {
-        if (!toast.isActive("erro")) {
-          toast({
+        if (!isToastActive("erro")) {
+          addToast({
             id: "erro",
-            title: "Ocorreu um erro ao criar mercado.",
-            position: "top-right",
-            duration: 10000,
+            title: "Erro",
+            description: "Ocorreu um erro ao criar mercado.",
             status: "error",
-            isClosable: true,
           });
         }
       });
@@ -106,7 +102,10 @@ export default function CriarMercado() {
   return (
     <div className="w-full h-full px-3 sm:px-8 flex flex-col">
       <p className="page-header">Criar Mercado</p>
-      <form className="flex flex-col flex-1 w-fit mx-auto" onSubmit={handleSubmit(onSubmit)}>
+      <form
+        className="flex flex-col flex-1 w-fit mx-auto"
+        onSubmit={handleSubmit(onSubmit)}
+      >
         {/* nome field */}
         <FormControl className="mb-5 basis-2/5" isInvalid={!!errors.nome}>
           <FormLabel htmlFor="nome">Nome</FormLabel>

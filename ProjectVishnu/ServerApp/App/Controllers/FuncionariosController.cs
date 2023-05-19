@@ -132,7 +132,7 @@ namespace ProjectVishnu.Controllers
         {
             try
             {
-                ObraFuncionarioOutputModel currentObra = _funcionariosService.GetCurrentObra(id);
+                ObraFuncionarioOutputModel? currentObra = _funcionariosService.GetCurrentObra(id);
                 return Ok(currentObra);
             }
             catch (Exception e)

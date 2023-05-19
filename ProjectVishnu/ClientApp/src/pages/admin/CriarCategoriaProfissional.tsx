@@ -10,7 +10,6 @@ import {
   Input,
   InputGroup,
   InputLeftElement,
-  useToast,
 } from "@chakra-ui/react";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -19,12 +18,13 @@ import { FaUser } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { ICategoriaProfissional } from "../../common/Interfaces";
 import Role from "../../common/Role";
+import { useGlobalToaster } from "../../components/contexts/Toast/useGlobalToaster";
 
 export default function CriarCategoriaProfissinal() {
   // Router
   const navigate = useNavigate();
   // misc
-  const toast = useToast();
+  const { addToast, isToastActive } = useGlobalToaster();
   // schema
   const schema = yup
     .object({
@@ -58,29 +58,24 @@ export default function CriarCategoriaProfissinal() {
       .then((resp) => {
         if (resp.status === 201) {
           navigate("/admin");
-          if (!toast.isActive("sucesso")) {
-            toast({
+          if (!isToastActive("sucesso")) {
+            addToast({
               id: "sucesso",
-              title: `Categoria profissional criado com sucesso.`,
-              position: "top-right",
-              duration: 5000,
+              title: "Sucesso",
+              description: `Categoria profissional criado com sucesso.`,
               status: "success",
-              isClosable: true,
             });
           }
         } else {
           throw new Error("Something mad happen.");
         }
       })
-      .catch((error) => {
-        if (!toast.isActive("erro")) {
-          toast({
-            id: "erro",
-            title: "Ocorreu um erro ao criar categoria profissional.",
-            position: "top-right",
-            duration: 10000,
+      .catch(() => {
+        if (!isToastActive("erro")) {
+          addToast({
+            title: "erro",
+            description: "Ocorreu um erro ao criar categoria profissional.",
             status: "error",
-            isClosable: true,
           });
         }
       });

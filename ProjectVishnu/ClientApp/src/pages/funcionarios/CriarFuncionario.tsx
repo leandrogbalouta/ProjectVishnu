@@ -19,7 +19,6 @@ import {
   Radio,
   RadioGroup,
   Select,
-  useToast,
   Switch,
 } from "@chakra-ui/react";
 import IFuncionarioInput from "../../common/Interfaces/Funcionario/IFuncionarioInput";
@@ -27,6 +26,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
+import { useGlobalToaster } from "../../components/contexts/Toast/useGlobalToaster";
 import {
   FaCalendarAlt,
   FaCreditCard,
@@ -50,7 +50,7 @@ export default function CriarFuncionario() {
   const navigate = useNavigate();
   const [tiposDeDocumento, setTiposDeDocumento] = useState<any[]>([]);
   const [mercados, setMercados] = useState<string[]>([]);
-  const toast = useToast();
+  const { addToast, isToastActive } = useGlobalToaster();
   // Form
   const schema = yup
     .object({
@@ -188,29 +188,25 @@ export default function CriarFuncionario() {
       .then((resp) => {
         if (resp.status === 201) {
           navigate("/funcionarios");
-          if (!toast.isActive("sucesso")) {
-            toast({
+          if (!isToastActive("sucesso")) {
+            addToast({
               id: "sucesso",
-              title: `Funcionário criado com sucesso.`,
-              position: "top-right",
-              duration: 5000,
+              title: "Sucesso",
+              description: `Funcionário criado com sucesso.`,
               status: "success",
-              isClosable: true,
             });
           }
         } else {
           throw new Error("Something mad happen.");
         }
       })
-      .catch((error) => {;
-        if (!toast.isActive("erro")) {
-          toast({
+      .catch((error) => {
+        if (!isToastActive("erro")) {
+          addToast({
             id: "erro",
-            title: error.response.data.title,
-            position: "top-right",
-            duration: 10000,
+            title: "Erro",
+            description: error.response.data.title,
             status: "error",
-            isClosable: true,
           });
         }
       });

@@ -19,13 +19,12 @@ export default function Funcionario() {
   const [obrasEmCurso, setObrasEmCurso] = useState<IObraOutput[]>([]);
   const [obrasCompletadas, setObrasCompletadas] = useState<IObraOutput[]>([]);
   const [callbackTrigger, useCallbackTrigger] = useState(false);
-  const callback = () => useCallbackTrigger(!callbackTrigger);
+  const callback = () => { useCallbackTrigger(!callbackTrigger); console.log("callback tri");};
   const navigate = useNavigate();
   let contents =
     funcionario === undefined ? <Spinner /> : renderFuncionario(funcionario);
 
   useEffect(() => {
-    console.log("shabba");
     const populateFuncionarioData = async () => {
       const response = await fetchFuncionario(id!);
       if (response.status == 200) {
@@ -46,7 +45,7 @@ export default function Funcionario() {
         .catch(() => {});
       await getCurrentObraFuncionario(Number(id!))
         .then((resp) => {
-          if(resp.data.obra) setObrasEmCurso([resp.data.obra]);
+          setObrasEmCurso(resp.data.obra ? [resp.data.obra] : []);
         })
         .catch((err) => console.log("error aqui"));
     };

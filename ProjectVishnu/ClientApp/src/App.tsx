@@ -9,9 +9,9 @@ function App() {
     <BrowserRouter>
       <ThemeContextProvider>
         <ChakraProvider>
-          <AnimatePresence exitBeforeEnter>
-            <AppRoutes />
-          </AnimatePresence>
+            <AnimatePresence exitBeforeEnter>
+              <AppRoutes />
+            </AnimatePresence>
         </ChakraProvider>
       </ThemeContextProvider>
     </BrowserRouter>

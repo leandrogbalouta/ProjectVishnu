@@ -24,7 +24,7 @@ namespace ProjectVishnu.DataAccess.Repository.Concrete
             return VishnuContext.Funcionarios.Where(FuncionarioExists).Where(func => Filter(func, mercado, nome)).OrderBy(func => func.Nome);
         }
 
-        public Funcionario Get(int id) => VishnuContext.Funcionarios.Single(func => func.Id == id);
+        public Funcionario? Get(int id) => VishnuContext.Funcionarios.SingleOrDefault(func => func.Id == id);
 
         public IEnumerable<Funcionario> GetAll()
         {
@@ -55,7 +55,7 @@ namespace ProjectVishnu.DataAccess.Repository.Concrete
             return VishnuContext.Funcionarios.Where(func => date > func.Validadedocident).ToList();
         }
 
-        public FuncionariosObra GetCurrentObra(int id)
+        public FuncionariosObra? GetCurrentObra(int id)
         {
             return Get(id).FuncionariosObras.SingleOrDefault(fo => fo.Datafim == null);
         }
