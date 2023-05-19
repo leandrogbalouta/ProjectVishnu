@@ -157,7 +157,7 @@ export default function AdicionarObraAFuncionarioModal({
               <DataTable />
             </div>
             <div className="flex flex-col gap-3 mt-3 data-panel">
-              <p className="text-lg">Data de fim:</p>
+              <p className="text-lg">Data de inicio:</p>
               <Input
                 type="date"
                 value={date}

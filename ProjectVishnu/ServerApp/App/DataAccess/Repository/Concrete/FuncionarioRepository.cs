@@ -57,7 +57,7 @@ namespace ProjectVishnu.DataAccess.Repository.Concrete
 
         public FuncionariosObra GetCurrentObra(int id)
         {
-            return Get(id).FuncionariosObras.Where(fo => fo.Datafim == null).Single();
+            return Get(id).FuncionariosObras.SingleOrDefault(fo => fo.Datafim == null);
         }
 
         public IEnumerable<FuncionariosObra> GetPastObras(int id)

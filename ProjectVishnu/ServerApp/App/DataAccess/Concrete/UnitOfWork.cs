@@ -59,5 +59,10 @@ namespace ProjectVishnu.DataAccess.Concrete
         {
             _context.Dispose();
         }
+
+        public void UntrackChanges()
+        {
+            _context.ChangeTracker.Clear();
+        }
     }
 }

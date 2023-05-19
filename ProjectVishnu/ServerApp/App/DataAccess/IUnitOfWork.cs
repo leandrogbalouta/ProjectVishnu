@@ -17,5 +17,6 @@ namespace ProjectVishnu.DataAccess
         IContaRepository Contas { get; }
         ITiposDeUserRepository TiposDeUser { get; }
         int Complete();
+        void UntrackChanges();
     }
 }

@@ -20,18 +20,35 @@ namespace ProjectVishnu.Services.Concrete
 
         public string Create(ObraInputModel obraInput)
         {
-            string CodigoInterno = generateInternalCode(obraInput);
-            _unitOfWork.Obras.Add(obraInput.ToObra(CodigoInterno));
-            _unitOfWork.Complete();
-            return CodigoInterno;
+            try{
+
+                string CodigoInterno = generateInternalCode(obraInput);
+                _unitOfWork.Obras.Add(obraInput.ToObra(CodigoInterno));
+                _unitOfWork.Complete();
+                return CodigoInterno;
+
+            }catch(Exception e){
+
+                _unitOfWork.UntrackChanges();
+                throw e;
+            }
+            
 
         }
 
         public string Delete(string codigoInterno)
         {
-            _unitOfWork.Obras.Delete(codigoInterno);
-            _unitOfWork.Complete();
-            return "Obra apagada com sucesso.";
+            try{
+
+                _unitOfWork.Obras.Delete(codigoInterno);
+                _unitOfWork.Complete();
+                return "Obra apagada com sucesso.";
+
+            }catch(Exception e){
+
+                _unitOfWork.UntrackChanges();
+                throw e;
+            }
         }
         public Obra Get(string codigoInterno)
         {
@@ -72,9 +89,17 @@ namespace ProjectVishnu.Services.Concrete
 
         public string Update(string codigoInterno, ObraInputModel obraInput)
         {
-            _unitOfWork.Obras.Update(codigoInterno, obraInput.ToObra(codigoInterno));
-            _unitOfWork.Complete();
-            return "Obra atualizada com sucesso.";
+            try{
+                
+                _unitOfWork.Obras.Update(codigoInterno, obraInput.ToObra(codigoInterno));
+                _unitOfWork.Complete();
+                return "Obra atualizada com sucesso.";
+
+            }catch(Exception e){
+                
+                _unitOfWork.UntrackChanges();
+                throw e;
+            }
         }
 
         private string generateInternalCodeFirstPart(ObraInputModel obraInput)
