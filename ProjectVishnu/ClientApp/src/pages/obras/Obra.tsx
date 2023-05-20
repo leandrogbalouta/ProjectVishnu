@@ -80,9 +80,6 @@ export function Obra() {
 
   return <div className="flex h-full w-full">{contents}</div>;
   function renderObra(obra: IObraOutput, folhasDePonto: any) {
-    console.log(obra);
-    console.log("agora");
-    console.log(callback);
     return (
       <div className="flex flex-col h-full w-full">
         <div className="data-panel">
