@@ -1,16 +1,28 @@
 import { useParams } from "react-router-dom";
-import { uploadFilesToObra } from "../../common/API/APICalls";
+import { getAutosMedicao, uploadFilesToObra } from "../../common/API/APICalls";
 import { DropzoneOptions, useDropzone } from "react-dropzone";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { FcFile } from "react-icons/fc";
 import { AiOutlineCloudUpload } from "react-icons/ai";
 import uniqid from "uniqid";
 import { Button, Tooltip } from "@chakra-ui/react";
 import { IoMdCloseCircle } from "react-icons/io";
 import BackButton from "../../components/BackButton";
-export function AutosMediacao() {
+
+export function AutosMedicao() {
+  const [autos, setAutos] = useState<string[]>([])
   const { codigo } = useParams();
   const [files, setFiles] = useState<File[]>([]);
+
+  useEffect(() =>{
+    const populateAutos = async () => {
+      const response = await getAutosMedicao(codigo!)
+      setAutos(response.data)
+    }
+    populateAutos()
+  },[])
+
+  
   // File input
   const onDrop = useCallback((acceptedFiles: File[]) => {
     setFiles(acceptedFiles);

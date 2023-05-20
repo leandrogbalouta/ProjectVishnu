@@ -152,6 +152,10 @@ export async function uploadFilesToObra(codigo: string, files: File[]) {
   }
 }
 
+export async function getAutosMedicao(codigo: string){
+  return instance.get(`obras/${codigo}/autos-medicao`)
+}
+
 // Folha de ponto
 export async function createFolhaDePonto(
   mes: string,

@@ -8,21 +8,22 @@ namespace ProjectVishnu.ServerApp.App.Services.Concrete
     {
         private readonly BlobServiceClient _blobServiceClient;
         private readonly string _containerName = "obrascontainer";
+        BlobContainerClient _containerClient;
 
         public BlobService(IConfiguration config)
         {
             _blobServiceClient = new BlobServiceClient(config.GetConnectionString("azureStorage"));
+            _containerClient = _blobServiceClient.GetBlobContainerClient(_containerName);
+            _containerClient.CreateIfNotExists();
         }
 
         public async Task UploadBlobsAsync(string directory, List<IFormFile> files)
         {
             try
             {
-                BlobContainerClient containerClient = _blobServiceClient.GetBlobContainerClient(_containerName);
-
                 foreach (IFormFile file in files)
                 {
-                    BlobClient blobClient = containerClient.GetBlobClient(directory + "/" + file.FileName);
+                    BlobClient blobClient = _containerClient.GetBlobClient(directory + "/" + file.FileName);
 
                     using (var stream = new MemoryStream())
                     {
@@ -41,25 +42,23 @@ namespace ProjectVishnu.ServerApp.App.Services.Concrete
             }
         }
 
-        public async Task<List<string>> ListBlobs(string directory)
+        public IEnumerable<string> ListBlobs(string directory)
         {
             List<string> blobNames = new List<string>();
 
-            BlobContainerClient containerClient = _blobServiceClient.GetBlobContainerClient(_containerName);
+            BlobClient blobClient = _containerClient.GetBlobClient(directory);
 
-            await foreach (BlobItem blobItem in containerClient.GetBlobsAsync(prefix: directory))
+            foreach (BlobItem blobItem in _containerClient.GetBlobs(prefix: directory))
             {
                 blobNames.Add(blobItem.Name);
             }
-
-            return blobNames;
+            blobNames.RemoveAt(0);
+            return blobNames.Select(blob => blob.Split("/")[1]);
         }
 
         public async Task<Stream> GetBlobStreamAsync(string directory, string blobName)
         {
-            BlobContainerClient containerClient = _blobServiceClient.GetBlobContainerClient(_containerName);
-
-            BlobClient blobClient = containerClient.GetBlobClient(directory + "/" + blobName);
+            BlobClient blobClient = _containerClient.GetBlobClient(directory + "/" + blobName);
 
             BlobDownloadInfo download = await blobClient.DownloadAsync();
 

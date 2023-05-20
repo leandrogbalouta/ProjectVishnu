@@ -217,7 +217,7 @@ namespace ProjectVishnu.Controllers
             }
         }
 
-        [HttpPost("{codigoInterno}/upload")]
+        [HttpPost("{codigoInterno}/autos-medicao/upload")]
         public IActionResult UploadFiles(string codigoInterno, [FromForm] List<IFormFile> files)
         {
             try
@@ -230,5 +230,19 @@ namespace ProjectVishnu.Controllers
                 return Problem(statusCode: 500, title: "Erro inesperado");
             }
         }
+
+        [HttpGet("{codigoInterno}/autos-medicao")]
+        public IActionResult GetAutos(string codigoInterno){
+            try
+            {
+                IEnumerable<string> names = _blobService.ListBlobs(codigoInterno);
+                return Ok(names);
+
+            }catch(Exception e)
+            {
+                return Problem(statusCode: 500, title: "Erro inesperado");
+            }
+        }
+
     }
 }

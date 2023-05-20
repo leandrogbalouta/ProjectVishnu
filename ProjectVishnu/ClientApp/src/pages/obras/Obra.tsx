@@ -201,7 +201,7 @@ export function Obra() {
         >
           <Button
             colorScheme="twitter"
-            onClick={() => navigate(`autos-mediacao`)}
+            onClick={() => navigate(`autos-medicao`)}
           >
             Autos de medição
           </Button>

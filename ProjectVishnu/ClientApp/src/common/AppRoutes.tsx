@@ -51,7 +51,7 @@ export default function AppRoutes() {
           <Route path="obras/create" element={<ObraCreation />} />
           <Route path="obras/:codigo" element={<Obra />} />
           <Route
-            path="obras/:codigo/autos-mediacao"
+            path="obras/:codigo/autos-medicao"
             element={<AutosMediacao />}
           />
           <Route
