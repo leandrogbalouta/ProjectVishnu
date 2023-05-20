@@ -27,20 +27,19 @@ export function Obra() {
   const [callbackTrigger, setCallbackTrigger] = useState(false);
   const [data, setData] = useState(
     `${date.getFullYear()}-${date.getMonth() + 1}`
-  );
-  const [workDays, setWorkDays] = useState(1);
-  // TODO: check this
-  const handleDateChange = (event: any) => {
-    setData(event!.target!.value!);
-  };
-  const handleWorkDaysChange = (event: any) => {
-    setWorkDays(event!.target!.value!);
-  };
-
-  let contents = obra === null ? <Spinner /> : renderObra(obra, folhasDePonto);
+    );
+    const [workDays, setWorkDays] = useState(1);
+    // TODO: check this
+    const handleDateChange = (event: any) => {
+      setData(event!.target!.value!);
+    };
+    const handleWorkDaysChange = (event: any) => {
+      setWorkDays(event!.target!.value!);
+    };
+  const callback = () => {setCallbackTrigger(!callbackTrigger)};
+  const contents = obra === null ? <Spinner /> : renderObra(obra, folhasDePonto);
 
   // check this
-  const callback = () => setCallbackTrigger(!callbackTrigger);
   async function submitFolhaDePonto() {
     if (workDays < 1 || workDays > 31) {
     } //TODO: THROW ALERT
@@ -77,12 +76,13 @@ export function Obra() {
       await populateFuncionarios();
       await populateFolhasDePontoData();
     })();
-    console.log("sdsd");
   }, [codigo, callbackTrigger]);
 
   return <div className="flex h-full w-full">{contents}</div>;
-
   function renderObra(obra: IObraOutput, folhasDePonto: any) {
+    console.log(obra);
+    console.log("agora");
+    console.log(callback);
     return (
       <div className="flex flex-col h-full w-full">
         <div className="data-panel">
