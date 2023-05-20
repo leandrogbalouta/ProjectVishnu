@@ -33,54 +33,63 @@ namespace ProjectVishnu.Services
 
         public int Create(FuncionarioInputModel funcionarioDto)
         {
-            try{
+            try
+            {
                 Funcionario funcionario = funcionarioDto.ToFuncionario();
                 _unitOfWork.Funcionarios.Add(funcionario);
                 _unitOfWork.Complete();
                 return _unitOfWork.Funcionarios.GetFuncId(funcionario.Nif);
-            }catch(Exception e){
+            }
+            catch (Exception e)
+            {
 
                 _unitOfWork.UntrackChanges();
                 throw e;
             }
-            
+
         }
 
         public string Delete(int id)
         {
-            try{
+            try
+            {
 
                 _unitOfWork.Funcionarios.Delete(id);
                 _unitOfWork.Complete();
                 return "Funcionário apagado com sucesso.";
 
-            }catch(Exception e){
+            }
+            catch (Exception e)
+            {
 
                 _unitOfWork.UntrackChanges();
                 throw e;
             }
-            
+
         }
 
         public string Update(FuncionarioInputModel funcionarioDto)
         {
-            try{
+            try
+            {
 
                 _unitOfWork.Funcionarios.Update(funcionarioDto.ToFuncionario());
                 _unitOfWork.Complete();
                 return "Funcionário atualizado com sucesso.";
-                
-            }catch(Exception e){
+
+            }
+            catch (Exception e)
+            {
 
                 _unitOfWork.UntrackChanges();
                 throw e;
             }
         }
 
-        public ObraFuncionarioOutputModel GetCurrentObra(int id)
+        public ObraFuncionarioOutputModel? GetCurrentObra(int id)
         {
-            FuncionariosObra fo = _unitOfWork.Funcionarios.GetCurrentObra(id);
-            return fo.toFuncionarioOutputModel();
+            FuncionariosObra? fo = _unitOfWork.Funcionarios.GetCurrentObra(id);
+            return (fo is not null) ? fo.toFuncionarioOutputModel() : null;
         }
 
         public IEnumerable<ObraFuncionarioOutputModel> GetPastObras(int id)
@@ -91,7 +100,8 @@ namespace ProjectVishnu.Services
 
         public int AddFuncToObra(int id, string codigoObra, string date)
         {
-            try{
+            try
+            {
                 Funcionario func = _unitOfWork.Funcionarios.Get(id);
                 if (func.FuncionariosObras.Any(fo => fo.Datafim == null))
                 {
@@ -112,17 +122,20 @@ namespace ProjectVishnu.Services
                 _unitOfWork.Complete();
                 return 1;
 
-            }catch(Exception e){
+            }
+            catch (Exception e)
+            {
 
                 _unitOfWork.UntrackChanges();
                 throw e;
             }
-            
+
         }
 
         public int RemoveFuncFromObra(int id, string date)
         {
-            try{
+            try
+            {
                 string ano = date.Split("-")[0];
                 string mes = date.Split("-")[1];
                 string dia = date.Split("-")[2];
@@ -136,12 +149,14 @@ namespace ProjectVishnu.Services
 
                 return 1;
 
-            }catch(Exception e){
-                
+            }
+            catch (Exception e)
+            {
+
                 _unitOfWork.UntrackChanges();
                 throw e;
             }
-            
+
         }
 
         public int GetValidityWarningCount()

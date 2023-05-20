@@ -40,9 +40,7 @@ export function Obra() {
   let contents = obra === null ? <Spinner /> : renderObra(obra, folhasDePonto);
 
   // check this
-  function callback() {
-    setCallbackTrigger(!callbackTrigger);
-  }
+  const callback = () => setCallbackTrigger(!callbackTrigger);
   async function submitFolhaDePonto() {
     if (workDays < 1 || workDays > 31) {
     } //TODO: THROW ALERT

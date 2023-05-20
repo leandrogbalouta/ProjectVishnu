@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, useContext } from "react";
 import { HiOutlineUserRemove } from "react-icons/hi";
 import {
   Button,
@@ -11,11 +11,11 @@ import {
   ModalCloseButton,
   useDisclosure,
   Input,
-  Tooltip,
-  useToast,
+  Tooltip
 } from "@chakra-ui/react";
 import IFuncionarioOutput from "../../common/Interfaces/Funcionario/IFuncionarioOutput";
 import { removeFuncionarioDeObra } from "../../common/API/APICalls";
+import { useGlobalToaster } from "../contexts/Toast/useGlobalToaster";
 
 //TODO: tornar todo o código da tabela das obras universal de maneira a que isto não se repita aqui (e no index das obras)
 
@@ -29,51 +29,44 @@ export default function RemoverFuncionariosDeObraModal({
   // State/hooks
   const [date, setDate] = useState<string>("");
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const toast = useToast();
-  // Main-component
+  const { addToast } = useGlobalToaster();
+
+  const closeModal = () => {
+    onClose();
+    callback();
+  };
   async function removerFuncionario() {
     await removeFuncionarioDeObra(funcionario.id, date!)
-      .then((resp) => {
-        toast({
+      .then(() => {
+        addToast({
           title: "Sucesso.",
           description: `Funcionario removido de obra com sucesso.`,
           status: "success",
-          duration: 3000,
-          isClosable: true,
-          position: "top",
         });
         callback();
         onClose();
       })
       .catch(() => {
-        toast({
+        addToast({
           title: "Erro ao remover funcionarios.",
           description:
             "Ocorreu um erro ao remover funcionario. \n Por favor tente novamente.",
           status: "error",
-          duration: 3000,
-          isClosable: true,
-          position: "top",
         });
       });
   }
   return (
     <>
-      <Tooltip
-        label={`remover funcionario de obra`}
-        placement="top"
-      >
+      <Tooltip label={`remover funcionario de obra`} placement="top">
         <Button onClick={onOpen} colorScheme="red" className="w-fit">
           <HiOutlineUserRemove />
         </Button>
       </Tooltip>
       {isOpen && (
-        <Modal isOpen={isOpen} onClose={onClose}>
+        <Modal isOpen={isOpen} onClose={closeModal}>
           <ModalOverlay />
           <ModalContent>
-            <ModalHeader>
-              Remover {funcionario.nome} de obra
-            </ModalHeader>
+            <ModalHeader>Remover {funcionario.nome} de obra</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
               <div className="flex flex-col gap-3">

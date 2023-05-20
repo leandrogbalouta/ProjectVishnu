@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from 'react';
 import { AiOutlineUserAdd } from "react-icons/ai";
 import {
   Button,
@@ -12,7 +12,6 @@ import {
   useDisclosure,
   Spinner,
   Tooltip,
-  useToast,
 } from "@chakra-ui/react";
 import FilterBar from "../FilterBar";
 import IObraOutput from "../../common/Interfaces/Obra/IObraOutput";
@@ -21,6 +20,7 @@ import {
   fetchFuncionarios,
 } from "../../common/API/APICalls";
 import FuncionariosTable from "../tables/FuncionariosTable";
+import { useGlobalToaster } from '../contexts/Toast/useGlobalToaster';
 
 //TODO: tornar todo o código da tabela das obras universal de maneira a que isto não se repita aqui (e no index das obras)
 
@@ -37,7 +37,7 @@ export default function AdicionarFuncionarioAObraModal({
   const [searchString, setSearchString] = useState(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [funcionariosIdList, setFuncionariosIdList] = useState<number[]>([]);
-  const toast = useToast();
+  const { addToast } = useGlobalToaster();
   // Effect
   useEffect(() => {
     if (isOpen) {
@@ -60,21 +60,14 @@ export default function AdicionarFuncionarioAObraModal({
     let day = date.getDate();
     let month = date.getMonth() + 1;
     let year = date.getFullYear();
-
     let today = `${year}-${month}-${day}`;
     // TODO make this batch(able) or something
     funcionariosIdList.map((funcionarioId) => {
       addFuncionarioToObra(funcionarioId, obra.codigoInterno, today)
         .then((resp) => {
           if (resp.status !== 200) throw new Error("error");
-          toast({
-            title: "Sucesso.",
-            description: `Funcionario(s) adicionado(s) a obra com sucesso.`,
-            status: "success",
-            duration: 3000,
-            isClosable: true,
-            position: "top",
-          });
+          addToast({title: "Sucesso.", description:
+          "Funcionario(s) adicionado(s) a obra com sucesso.", status:"success"})
           setFuncionariosIdList([]);
           // run callback
           callback();
@@ -82,15 +75,8 @@ export default function AdicionarFuncionarioAObraModal({
           onClose();
         })
         .catch(() => {
-          toast({
-            title: "Erro ao adicionar funcionarios.",
-            description:
-              "Ocorreu um erro ao adicionar funcionario(s). \n Por favor tente novamente.",
-            status: "error",
-            duration: 3000,
-            isClosable: true,
-            position: "top",
-          });
+          addToast({title: "Erro ao adicionar funcionarios.", description:
+          "Ocorreu um erro ao adicionar funcionario(s). \n Por favor tente novamente.", status:"error"})
         });
     });
   }

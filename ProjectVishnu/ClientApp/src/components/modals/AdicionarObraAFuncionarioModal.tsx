@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import {
   Button,
   Modal,
@@ -17,8 +17,7 @@ import {
   Th,
   Thead,
   Tr,
-  Input,
-  useToast,
+  Input
 } from "@chakra-ui/react";
 import IFuncionarioOutput from "../../common/Interfaces/Funcionario/IFuncionarioOutput";
 import FilterBar from "../FilterBar";
@@ -28,6 +27,7 @@ import uniqid from "uniqid";
 import TdState from "../tables/TdState";
 import IObraOutput from "../../common/Interfaces/Obra/IObraOutput";
 import { format } from "date-fns";
+import { useGlobalToaster } from "../contexts/Toast/useGlobalToaster";
 
 //TODO: tornar todo o código da tabela das obras universal de maneira a que isto não se repita aqui (e no index das obras)
 
@@ -45,7 +45,7 @@ export default function AdicionarObraAFuncionarioModal({
   const [selectedObra, setSelectedObra] = useState<IObraOutput>();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [date, setDate] = useState<string>("");
-  const toast = useToast();
+  const { addToast } = useGlobalToaster();
   // Effect
   useEffect(() => {
     const filters = Object.assign(
@@ -65,28 +65,22 @@ export default function AdicionarObraAFuncionarioModal({
     const data = format(new Date(date), "yyyy-MM-dd");
     addFuncionarioToObra(funcionario.id, selectedObra!.codigoInterno, data)
       .then(() => {
-        toast({
-          title: "Sucesso",
+        addToast({
+          title: "Sucesso.",
           description: `Funcionario Adicionado a obra ${selectedObra?.codigoInterno} com sucesso`,
           status: "success",
-          duration: 9000,
-          isClosable: true,
-          position: "top-right",
         });
         callback();
         onClose();
       })
       .catch((error) => {
-        toast({
-          title: "Erro",
+        addToast({
+          title: "Erro.",
           description:
             error.response.status === 409
               ? "Por favor remova o funcionário da sua obra atual"
               : "Erro inesperado, por favor tente novamente.",
           status: "error",
-          duration: 9000,
-          isClosable: true,
-          position: "top-right",
         });
       });
   }
@@ -146,7 +140,7 @@ export default function AdicionarObraAFuncionarioModal({
         <ModalContent className="dark:!bg-slate-800 dark:text-white flex-1 h-full">
           <ModalHeader>Escolha uma obra</ModalHeader>
           <ModalCloseButton />
-          <ModalBody pb={6} className="flex-1 justify-between">
+          <ModalBody pb={6} className="flex flex-col flex-1 justify-between">
             <div id="table-container" className="overflow-scroll flex-1">
               <FilterBar
                 mercado={mercado}

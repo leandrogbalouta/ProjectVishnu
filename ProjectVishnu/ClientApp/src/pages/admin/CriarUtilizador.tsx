@@ -9,7 +9,6 @@ import {
   InputGroup,
   InputLeftElement,
   Select,
-  useToast,
 } from "@chakra-ui/react";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -18,6 +17,7 @@ import { FaUser } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import IContaInput from "../../common/Interfaces/Conta/IContaInput";
 import PasswordInput from "../../components/PasswordInput";
+import { useGlobalToaster } from "../../components/contexts/Toast/useGlobalToaster";
 
 export default function CriarUtilizador() {
   // state
@@ -25,7 +25,7 @@ export default function CriarUtilizador() {
   // Router
   const navigate = useNavigate();
   // misc
-  const toast = useToast();
+  const { addToast, isToastActive } = useGlobalToaster();
   // schema
   const schema = yup
     .object({
@@ -53,14 +53,12 @@ export default function CriarUtilizador() {
       .then((resp) => {
         if (resp.status === 201) {
           navigate("/admin");
-          if (!toast.isActive("sucesso")) {
-            toast({
+          if (!isToastActive("sucesso")) {
+            addToast({
               id: "sucesso",
-              title: `Utiliador criado com sucesso.`,
-              position: "top-right",
-              duration: 5000,
+              title: "Sucesso",
+              description: `Utiliador criado com sucesso.`,
               status: "success",
-              isClosable: true,
             });
           }
         } else {
@@ -68,14 +66,12 @@ export default function CriarUtilizador() {
         }
       })
       .catch((error) => {
-        if (!toast.isActive("erro")) {
-          toast({
+        if (isToastActive("erro")) {
+          addToast({
             id: "erro",
-            title: error.response.data.title,
-            position: "top-right",
-            duration: 10000,
+            title: "Erro",
+            description: error.response.data.title,
             status: "error",
-            isClosable: true,
           });
         }
       });

@@ -8,7 +8,6 @@ import {
   InputGroup,
   InputLeftElement,
   Select,
-  useToast,
 } from "@chakra-ui/react";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -17,12 +16,13 @@ import IObraOutput from "../../common/Interfaces/Obra/IObraOutput";
 import { useNavigate } from "react-router-dom";
 import { createObra, fetchMercados } from "../../common/API/APICalls";
 import { FaPen, FaUser, FaCalendarDay } from "react-icons/fa";
+import { useGlobalToaster } from "../../components/contexts/Toast/useGlobalToaster";
 
 export function ObraCreation() {
   const [mercados, setMercados] = useState<string[]>([]);
   const [estado, setEstado] = useState<string | undefined>(undefined);
   const navigate = useNavigate();
-  const toast = useToast();
+  const { addToast, isToastActive } = useGlobalToaster();
 
   const schema = yup
     .object({
@@ -50,14 +50,12 @@ export function ObraCreation() {
       .then((resp) => {
         if (resp.status === 201) {
           navigate("/obras");
-          if (!toast.isActive("sucesso")) {
-            toast({
+          if (!isToastActive("sucesso")) {
+            addToast({
               id: "sucesso",
-              title: `Obra criada com sucesso.`,
-              position: "top-right",
-              duration: 5000,
+              title: "Sucesso",
+              description: `Obra criada com sucesso.`,
               status: "success",
-              isClosable: true,
             });
           }
         } else {
@@ -65,14 +63,12 @@ export function ObraCreation() {
         }
       })
       .catch((error) => {
-        if (!toast.isActive("erro")) {
-          toast({
+        if (!isToastActive("erro")) {
+          addToast({
             id: "erro",
-            title: error.response.data.title,
-            position: "top-right",
-            duration: 10000,
+            title: "Erro",
+            description: error.response.data.title,
             status: "error",
-            isClosable: true,
           });
         }
       });
