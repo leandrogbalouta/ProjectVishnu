@@ -1,5 +1,9 @@
 import { useParams } from "react-router-dom";
-import { getAutosMedicao, uploadFilesToObra } from "../../common/API/APICalls";
+import {
+  downloadAutoMedicao,
+  getAutosMedicao,
+  uploadFilesToObra,
+} from "../../common/API/APICalls";
 import { DropzoneOptions, useDropzone } from "react-dropzone";
 import { useCallback, useEffect, useState } from "react";
 import { FcFile } from "react-icons/fc";
@@ -8,21 +12,21 @@ import uniqid from "uniqid";
 import { Button, Tooltip } from "@chakra-ui/react";
 import { IoMdCloseCircle } from "react-icons/io";
 import BackButton from "../../components/BackButton";
+import { MdDownloadForOffline } from "react-icons/md";
 
 export function AutosMedicao() {
-  const [autos, setAutos] = useState<string[]>([])
+  const [autos, setAutos] = useState<string[]>([]);
   const { codigo } = useParams();
   const [files, setFiles] = useState<File[]>([]);
 
-  useEffect(() =>{
+  useEffect(() => {
     const populateAutos = async () => {
-      const response = await getAutosMedicao(codigo!)
-      setAutos(response.data)
-    }
-    populateAutos()
-  },[])
+      const response = await getAutosMedicao(codigo!);
+      setAutos(response.data);
+    };
+    populateAutos();
+  }, []);
 
-  
   // File input
   const onDrop = useCallback((acceptedFiles: File[]) => {
     setFiles(acceptedFiles);
@@ -56,10 +60,49 @@ export function AutosMedicao() {
   const handleFormSubmit = async (selectedFiles: File[]) => {
     await uploadFilesToObra(codigo!!, selectedFiles);
   };
+ async function downloadFile(fileName: string) {
+   const data = await (await downloadAutoMedicao(codigo!, fileName)).data
+   // Create a temporary URL for the file blob
+   const url = window.URL.createObjectURL(new Blob([data]));
+   // Create a link element to trigger the download
+   const link = document.createElement('a');
+   link.href = url;
+   link.setAttribute('download', fileName);
+   document.body.appendChild(link);
+   link.click();
 
+   // Clean up the temporary URL
+   window.URL.revokeObjectURL(url);
+  }
+  // TODO DRY FIle and this
+  const AutosFileBlob = ({ title }: { title: string }) => (
+    <div
+      className="flex flex-col relative group h-fit w-fit select-none"
+      key={uniqid()}
+    >
+      <MdDownloadForOffline
+        className="hidden group-hover:block hover:cursor-pointer text-6xl !text-slate-800 dark:!text-slate-800 absolute m-auto top-0 right-0 bottom-0 left-0"
+        onClick={async () => downloadFile(title)}
+      />
+      <div className="flex flex-col items-center p-3 ring-1 rounded w-32 truncate ">
+        <FcFile className="text-5xl" />
+        <Tooltip label={title}>
+          <p className="text-center truncate w-full">{title}</p>
+        </Tooltip>
+      </div>
+    </div>
+  );
   return (
     <div className="flex flex-col h-full w-full gap-1">
-      <div className="data-panel flex-1">Placeholder</div>
+      <div className="data-panel flex-1 flex flex-wrap gap-3 p-1 w-full overflow-auto">
+        <>
+          {autos ? (
+            autos.map((file) => <AutosFileBlob key={uniqid()} title={file} />)
+          ) : (
+            <>Sem dados</>
+          )}
+        </>
+      </div>
       <div
         {...getRootProps({
           className:

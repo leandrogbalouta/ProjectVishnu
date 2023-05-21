@@ -132,28 +132,33 @@ export async function removeFuncionarioDeObra(
 export async function uploadFilesToObra(codigo: string, files: File[]) {
   const path = `obras/${codigo}/upload`;
   const formData = new FormData();
-  
+
   for (let i = 0; i < files.length; i++) {
-    formData.append('files', files[i]);
+    formData.append("files", files[i]);
   }
-  
+
   try {
     const response = await instance.post(path, formData, {
       headers: {
-        'Content-Type': 'multipart/form-data'
-      }
+        "Content-Type": "multipart/form-data",
+      },
     });
-    
+
     return response.data;
   } catch (error) {
     // Handle the error appropriately
-    console.error('Error uploading files to Obra:', error);
+    console.error("Error uploading files to Obra:", error);
     throw error;
   }
 }
 
-export async function getAutosMedicao(codigo: string){
-  return instance.get(`obras/${codigo}/autos-medicao`)
+export async function getAutosMedicao(codigo: string) {
+  return instance.get(`obras/${codigo}/autos-medicao`);
+}
+export async function downloadAutoMedicao(codigo: string, fileName: string) {
+  return instance.get(`obras/${codigo}/autos-medicao/${fileName}`, {
+    responseType: "blob",
+  });
 }
 
 // Folha de ponto

@@ -122,7 +122,7 @@ namespace ProjectVishnu.Controllers
                 ActionResult a = CreatedAtAction(actionName, routeValues, obraInput);
                 return a;
             }
-            catch (Exception) { return Problem(statusCode: 500, title: "Erro inesperado");}
+            catch (Exception) { return Problem(statusCode: 500, title: "Erro inesperado"); }
         }
 
         [HttpPut("{codigoInterno}")]
@@ -225,20 +225,37 @@ namespace ProjectVishnu.Controllers
                 _blobService.UploadBlobsAsync(codigoInterno, files);
                 return Ok();
 
-            }catch(Exception e)
+            }
+            catch (Exception e)
             {
                 return Problem(statusCode: 500, title: "Erro inesperado");
             }
         }
 
         [HttpGet("{codigoInterno}/autos-medicao")]
-        public IActionResult GetAutos(string codigoInterno){
+        public IActionResult GetAutos(string codigoInterno)
+        {
             try
             {
                 IEnumerable<string> names = _blobService.ListBlobs(codigoInterno);
                 return Ok(names);
 
-            }catch(Exception e)
+            }
+            catch (Exception e)
+            {
+                return Problem(statusCode: 500, title: "Erro inesperado");
+            }
+        }
+        [HttpGet("{codigoInterno}/autos-medicao/{fileName}")]
+        public async Task<IActionResult> DownloadAuto(string codigoInterno, string fileName)
+        {
+            try
+            {
+                Stream file = await _blobService.GetBlobStreamAsync(codigoInterno, fileName);
+                return File(file, "application/octet-stream", fileName);
+
+            }
+            catch (Exception e)
             {
                 return Problem(statusCode: 500, title: "Erro inesperado");
             }
