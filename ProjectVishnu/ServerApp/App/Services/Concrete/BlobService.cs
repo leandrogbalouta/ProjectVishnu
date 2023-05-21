@@ -24,19 +24,20 @@ namespace ProjectVishnu.ServerApp.App.Services.Concrete
                 foreach (IFormFile file in files)
                 {
                     BlobClient blobClient = _containerClient.GetBlobClient(directory + "/" + file.FileName);
+                    MemoryStream stream = new MemoryStream();
 
-                    using (var stream = new MemoryStream())
+                    using (var fileStream = file.OpenReadStream())
                     {
-                        using (var fileStream = file.OpenReadStream())
-                        {
-                            await fileStream.CopyToAsync(stream);
-                        }
-                        stream.Seek(0, SeekOrigin.Begin);
-                        await blobClient.UploadAsync(stream);
+                        await fileStream.CopyToAsync(stream);
                     }
+                    stream.Seek(0, SeekOrigin.Begin);
+                    await blobClient.UploadAsync(stream);
+
+                    // Dispose of the MemoryStream after uploading
+                    stream.Dispose();
                 }
             }
-            catch (Exception e)
+            catch (RequestFailedException e)
             {
                 throw e;
             }
@@ -55,7 +56,18 @@ namespace ProjectVishnu.ServerApp.App.Services.Concrete
             blobNames.RemoveAt(0);
             return blobNames.Select(blob => blob.Split("/")[1]);
         }
-
+        public async Task<Boolean> DeleteBlobAsync(string directory, string blobName)
+        {
+            try
+            {
+                BlobClient blobClient = _containerClient.GetBlobClient(directory + "/" + blobName);
+                return await blobClient.DeleteIfExistsAsync();
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
+        }
         public async Task<Stream> GetBlobStreamAsync(string directory, string blobName)
         {
             BlobClient blobClient = _containerClient.GetBlobClient(directory + "/" + blobName);
