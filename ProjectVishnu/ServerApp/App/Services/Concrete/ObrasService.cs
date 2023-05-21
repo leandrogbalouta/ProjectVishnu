@@ -22,7 +22,7 @@ namespace ProjectVishnu.Services.Concrete
         {
             try{
 
-                string CodigoInterno = (string.IsNullOrWhiteSpace(obraInput.CodigoInterno)) ? generateInternalCode(obraInput) : obraInput.CodigoInterno;
+                string CodigoInterno = generateInternalCode(obraInput);
                 _unitOfWork.Obras.Add(obraInput.ToObra(CodigoInterno));
                 _unitOfWork.Complete();
                 return CodigoInterno;
@@ -124,6 +124,7 @@ namespace ProjectVishnu.Services.Concrete
 
         private string generateInternalCode(ObraInputModel obraInput)
         {
+            if(!string.IsNullOrWhiteSpace(obraInput.CodigoInterno)) return obraInput.CodigoInterno;
             string CodigoInterno = generateInternalCodeFirstPart(obraInput);
             int count = _unitOfWork.Obras.CountCodigoOccurrences(CodigoInterno) +1;
             if (count < 10)
