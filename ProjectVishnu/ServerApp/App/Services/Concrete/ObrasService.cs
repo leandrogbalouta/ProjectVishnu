@@ -22,7 +22,7 @@ namespace ProjectVishnu.Services.Concrete
         {
             try{
 
-                string CodigoInterno = generateInternalCode(obraInput);
+                string CodigoInterno = (string.IsNullOrWhiteSpace(obraInput.CodigoInterno)) ? generateInternalCode(obraInput) : obraInput.CodigoInterno;
                 _unitOfWork.Obras.Add(obraInput.ToObra(CodigoInterno));
                 _unitOfWork.Complete();
                 return CodigoInterno;
