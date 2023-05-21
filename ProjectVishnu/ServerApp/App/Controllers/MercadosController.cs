@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Text.Json;
+using Microsoft.AspNetCore.Mvc;
 using ProjectVishnu.Models;
 using ProjectVishnu.ServerApp.App.Dtos;
 using ProjectVishnu.ServerApp.App.Services;
@@ -43,8 +44,16 @@ namespace ProjectVishnu.ServerApp.App.Controllers
         {
             try
             {
-                var result = _mercadosService.GetMercado(name);
-                return Ok();
+                Mercado result = _mercadosService.GetMercado(name);
+                // TODO ver o que fazer a isto.
+                MercadoDto mercado = new()
+                {
+                    Name = result.Mercadoname,
+                    Sigla = result.Sigla,
+                    DiaInicio = result.DiaInicio,
+                    DiaFim = result.DiaFim
+                };
+                return Ok(mercado);
             }
             catch (Exception e)
             {

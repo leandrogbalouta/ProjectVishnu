@@ -27,7 +27,9 @@ export function fetchTiposDocumento(): Promise<AxiosResponse> {
 export function fetchMercados(): Promise<AxiosResponse> {
   return instance.get("/mercados");
 }
-
+export function fetchMercado(nome: string): Promise<AxiosResponse<IMercadoOutput>> {
+  return instance.get(`/mercados/${nome}`);
+}
 export function createMercado(mercado: IMercadoOutput): Promise<AxiosResponse> {
   return instance.post("/mercados", mercado);
 }

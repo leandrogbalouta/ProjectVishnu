@@ -27,17 +27,20 @@ export function Obra() {
   const [callbackTrigger, setCallbackTrigger] = useState(false);
   const [data, setData] = useState(
     `${date.getFullYear()}-${date.getMonth() + 1}`
-    );
-    const [workDays, setWorkDays] = useState(1);
-    // TODO: check this
-    const handleDateChange = (event: any) => {
-      setData(event!.target!.value!);
-    };
-    const handleWorkDaysChange = (event: any) => {
-      setWorkDays(event!.target!.value!);
-    };
-  const callback = () => {setCallbackTrigger(!callbackTrigger)};
-  const contents = obra === null ? <Spinner /> : renderObra(obra, folhasDePonto);
+  );
+  const [workDays, setWorkDays] = useState(1);
+  // TODO: check this
+  const handleDateChange = (event: any) => {
+    setData(event!.target!.value!);
+  };
+  const handleWorkDaysChange = (event: any) => {
+    setWorkDays(event!.target!.value!);
+  };
+  const callback = () => {
+    setCallbackTrigger(!callbackTrigger);
+  };
+  const contents =
+    obra === null ? <Spinner /> : renderObra(obra, folhasDePonto);
 
   // check this
   async function submitFolhaDePonto() {
@@ -114,7 +117,11 @@ export function Obra() {
             {obra.chefeDeObra && (
               <div>
                 <p className="obra-heading">Chefe de obra</p>
-                <p onClick={() => navigate(`/funcionarios/${obra.chefeDeObra}`)}>{obra.chefeDeObra}</p>
+                <p
+                  onClick={() => navigate(`/funcionarios/${obra.chefeDeObra}`)}
+                >
+                  {obra.chefeDeObra}
+                </p>
               </div>
             )}
           </div>
