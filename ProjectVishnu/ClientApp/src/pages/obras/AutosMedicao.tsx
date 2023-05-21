@@ -47,12 +47,8 @@ export function AutosMedicao() {
         className="hidden group-hover:block text-lg text-slate-700 dark:!text-slate-200 absolute -top-1 -right-1"
         onClick={(e) => {
           e.stopPropagation();
-          console.log("click");
-
-          setTimeout(() => {
-            let newArr = files!.filter((f) => file !== f);
-            setFiles(newArr);
-          }, 10);
+          let newArr = files!.filter((f) => file !== f);
+          setFiles(newArr);
         }}
       />
       <div
@@ -101,14 +97,22 @@ export function AutosMedicao() {
     window.URL.revokeObjectURL(url);
   }
   async function deleteFile(fileName: string) {
-    await deleteAutoMedicao(codigo!, fileName).then(() => {
-      addToast({
-        title: "Sucesso",
-        description: "Ficheiro removido com sucesso.",
-        status: "success",
-      });
-      autosCallback();
-    });
+    await deleteAutoMedicao(codigo!, fileName)
+      .then(() => {
+        addToast({
+          title: "Sucesso",
+          description: "Ficheiro removido com sucesso.",
+          status: "success",
+        });
+        autosCallback();
+      })
+      .catch(() =>
+        addToast({
+          title: "Erro",
+          description: "Ocorreu um erro ao eleminar ficheiro.",
+          status: "error",
+        })
+      );
   }
   // TODO DRY FIle and this
   const AutosFileBlob = ({ title }: { title: string }) => (
