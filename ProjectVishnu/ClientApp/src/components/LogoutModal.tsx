@@ -19,11 +19,10 @@ export default function LogoutModal() {
   const [loggingOut, setLoggingOut] = useState<boolean>();
   const navigate = useNavigate();
   const { onClose, isOpen, onOpen } = useDisclosure();
-  const { setConta } = useAuth();
+  const conta = useAuth();
   async function logout() {
     setLoggingOut(true);
     localStorage.removeItem("DKMToken");
-    setConta(undefined);
     navigate("/");
   }
   return (
