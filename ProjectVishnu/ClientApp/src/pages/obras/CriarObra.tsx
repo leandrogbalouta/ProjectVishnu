@@ -16,6 +16,7 @@ import IObraOutput from "../../common/Interfaces/Obra/IObraOutput";
 import { useNavigate } from "react-router-dom";
 import { createObra, fetchMercados } from "../../common/API/APICalls";
 import { FaPen, FaUser, FaCalendarDay } from "react-icons/fa";
+import { FaHashtag } from "react-icons/fa";
 import { useGlobalToaster } from "../../components/contexts/Toast/useGlobalToaster";
 
 export function ObraCreation() {
@@ -26,6 +27,7 @@ export function ObraCreation() {
 
   const schema = yup
     .object({
+      codigoInterno: yup.string().notRequired(),
       designacao: yup.string().required("Por favor, introduza a designação."),
       cliente: yup.string().required("Por favor, introduza o nome do cliente."),
       estado: yup.string().required("Por favor, introduza o estado da obra"),
@@ -34,7 +36,6 @@ export function ObraCreation() {
       mercado: yup.string().required("Por favor, introduza o mercado."),
     })
     .required();
-
   const {
     register,
     handleSubmit,
@@ -46,6 +47,7 @@ export function ObraCreation() {
   const onSubmit: SubmitHandler<IObraOutput> = async (data) => AddObra(data);
   // end of form
   async function AddObra(obra: IObraOutput) {
+    console.log("sdsd");
     await createObra(obra)
       .then((resp) => {
         if (resp.status === 201) {
@@ -89,6 +91,23 @@ export function ObraCreation() {
         className="flex flex-col min-h-0 max-h-full"
         onSubmit={handleSubmit(onSubmit)}
       >
+         {/* Codigo Interno field */}
+         <FormControl className="mb-5 basis-2/5" isInvalid={!!errors.codigoInterno}>
+          <FormLabel htmlFor="codigoInterno">Código interno</FormLabel>
+          <InputGroup>
+            <InputLeftElement pointerEvents="none">
+              <FaHashtag />
+            </InputLeftElement>
+            <Input
+              id="codigoInterno"
+              type="text"
+              placeholder="Código Interno"
+              autoComplete="blank-codigoInterno"
+              {...register("codigoInterno")}
+            />
+          </InputGroup>
+          <FormErrorMessage>{errors.codigoInterno?.message}</FormErrorMessage>
+        </FormControl>
         {/* Designação field */}
         <FormControl className="mb-5 basis-2/5" isInvalid={!!errors.designacao}>
           <FormLabel htmlFor="designacao">Designação</FormLabel>

@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import {
+  deleteAutoMedicao,
   downloadAutoMedicao,
   getAutosMedicao,
   uploadFilesToObra,
@@ -9,23 +10,27 @@ import { useCallback, useEffect, useState } from "react";
 import { FcFile } from "react-icons/fc";
 import { AiOutlineCloudUpload } from "react-icons/ai";
 import uniqid from "uniqid";
-import { Button, Tooltip } from "@chakra-ui/react";
+import { Button, Tooltip, useToast } from "@chakra-ui/react";
 import { IoMdCloseCircle } from "react-icons/io";
 import BackButton from "../../components/BackButton";
 import { MdDownloadForOffline } from "react-icons/md";
+import { useGlobalToaster } from "../../components/contexts/Toast/useGlobalToaster";
+import { AxiosError } from "axios";
 
 export function AutosMedicao() {
   const [autos, setAutos] = useState<string[]>([]);
+  const [autosCallbackTrigger, setAutosCallbackTrigger] = useState(false);
   const { codigo } = useParams();
   const [files, setFiles] = useState<File[]>([]);
-
+  const { addToast } = useGlobalToaster();
+  const populateAutos = async () => {
+    const response = await getAutosMedicao(codigo!);
+    setAutos(response.data);
+  };
+  const autosCallback = () => setAutosCallbackTrigger(!autosCallbackTrigger);
   useEffect(() => {
-    const populateAutos = async () => {
-      const response = await getAutosMedicao(codigo!);
-      setAutos(response.data);
-    };
     populateAutos();
-  }, []);
+  }, [autosCallbackTrigger]);
 
   // File input
   const onDrop = useCallback((acceptedFiles: File[]) => {
@@ -42,7 +47,7 @@ export function AutosMedicao() {
         className="hidden group-hover:block text-lg text-slate-700 dark:!text-slate-200 absolute -top-1 -right-1"
         onClick={(e) => {
           e.stopPropagation();
-          let newArr = files!.filter((f) => file != f);
+          let newArr = files!.filter((f) => file !== f);
           setFiles(newArr);
         }}
       />
@@ -58,21 +63,56 @@ export function AutosMedicao() {
     </div>
   );
   const handleFormSubmit = async (selectedFiles: File[]) => {
-    await uploadFilesToObra(codigo!!, selectedFiles);
+    await uploadFilesToObra(codigo!!, selectedFiles)
+      .then(async () => {
+        addToast({
+          title: "Sucesso",
+          description: "Upload efetuado com sucesso",
+          status: "success",
+        });
+        setFiles([]);
+        autosCallback();
+      })
+      .catch((error: AxiosError) => {
+        console.log(error);
+        addToast({
+          title: "Erro",
+          description: error.response?.data as string,
+          status: "error",
+        });
+      });
   };
- async function downloadFile(fileName: string) {
-   const data = await (await downloadAutoMedicao(codigo!, fileName)).data
-   // Create a temporary URL for the file blob
-   const url = window.URL.createObjectURL(new Blob([data]));
-   // Create a link element to trigger the download
-   const link = document.createElement('a');
-   link.href = url;
-   link.setAttribute('download', fileName);
-   document.body.appendChild(link);
-   link.click();
+  async function downloadFile(fileName: string) {
+    const data = await (await downloadAutoMedicao(codigo!, fileName)).data;
+    // Create a temporary URL for the file blob
+    const url = window.URL.createObjectURL(new Blob([data]));
+    // Create a link element to trigger the download
+    const link = document.createElement("a");
+    link.href = url;
+    link.setAttribute("download", fileName);
+    document.body.appendChild(link);
+    link.click();
 
-   // Clean up the temporary URL
-   window.URL.revokeObjectURL(url);
+    // Clean up the temporary URL
+    window.URL.revokeObjectURL(url);
+  }
+  async function deleteFile(fileName: string) {
+    await deleteAutoMedicao(codigo!, fileName)
+      .then(() => {
+        addToast({
+          title: "Sucesso",
+          description: "Ficheiro removido com sucesso.",
+          status: "success",
+        });
+        autosCallback();
+      })
+      .catch(() =>
+        addToast({
+          title: "Erro",
+          description: "Ocorreu um erro ao eleminar ficheiro.",
+          status: "error",
+        })
+      );
   }
   // TODO DRY FIle and this
   const AutosFileBlob = ({ title }: { title: string }) => (
@@ -80,6 +120,12 @@ export function AutosMedicao() {
       className="flex flex-col relative group h-fit w-fit select-none"
       key={uniqid()}
     >
+      <IoMdCloseCircle
+        className="hover:cursor-pointer hidden group-hover:block text-lg text-slate-700 dark:!text-slate-200 absolute -top-1 -right-1"
+        onClick={() => {
+          deleteFile(title);
+        }}
+      />
       <MdDownloadForOffline
         className="hidden group-hover:block hover:cursor-pointer text-6xl !text-slate-800 dark:!text-slate-800 absolute m-auto top-0 right-0 bottom-0 left-0"
         onClick={async () => downloadFile(title)}

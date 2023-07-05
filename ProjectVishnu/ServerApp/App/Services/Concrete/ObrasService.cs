@@ -124,7 +124,11 @@ namespace ProjectVishnu.Services.Concrete
 
         private string generateInternalCode(ObraInputModel obraInput)
         {
+<<<<<<< HEAD
             if(obraInput.CodigoInterno != null) return obraInput.CodigoInterno;
+=======
+            if(!string.IsNullOrWhiteSpace(obraInput.CodigoInterno)) return obraInput.CodigoInterno;
+>>>>>>> feb85df7980104ddb9c83a6ec45468e98b71005d
             string CodigoInterno = generateInternalCodeFirstPart(obraInput);
             int count = _unitOfWork.Obras.CountCodigoOccurrences(CodigoInterno) +1;
             if (count < 10)

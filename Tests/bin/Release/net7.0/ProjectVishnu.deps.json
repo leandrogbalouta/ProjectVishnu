@@ -177,22 +177,38 @@
           "runtimes/win-arm/native/Microsoft.Data.SqlClient.SNI.dll": {
             "rid": "win-arm",
             "assetType": "native",
+<<<<<<< HEAD
             "fileVersion": "5.0.1.0"
+=======
+            "fileVersion": "0.0.0.0"
+>>>>>>> feb85df7980104ddb9c83a6ec45468e98b71005d
           },
           "runtimes/win-arm64/native/Microsoft.Data.SqlClient.SNI.dll": {
             "rid": "win-arm64",
             "assetType": "native",
+<<<<<<< HEAD
             "fileVersion": "5.0.1.0"
+=======
+            "fileVersion": "0.0.0.0"
+>>>>>>> feb85df7980104ddb9c83a6ec45468e98b71005d
           },
           "runtimes/win-x64/native/Microsoft.Data.SqlClient.SNI.dll": {
             "rid": "win-x64",
             "assetType": "native",
+<<<<<<< HEAD
             "fileVersion": "5.0.1.0"
+=======
+            "fileVersion": "0.0.0.0"
+>>>>>>> feb85df7980104ddb9c83a6ec45468e98b71005d
           },
           "runtimes/win-x86/native/Microsoft.Data.SqlClient.SNI.dll": {
             "rid": "win-x86",
             "assetType": "native",
+<<<<<<< HEAD
             "fileVersion": "5.0.1.0"
+=======
+            "fileVersion": "0.0.0.0"
+>>>>>>> feb85df7980104ddb9c83a6ec45468e98b71005d
           }
         }
       },

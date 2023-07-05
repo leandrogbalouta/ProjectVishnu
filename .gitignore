@@ -2,3 +2,5 @@ appsettings.json
 ProjectVishnu/ClientApp/storageKey/adminKey
 ProjectVishnu/bin
 ProjectVishnu/obj
+Test/bin
+Tests/obj

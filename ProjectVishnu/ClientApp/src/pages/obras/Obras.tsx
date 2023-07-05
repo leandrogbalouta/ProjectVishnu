@@ -37,6 +37,7 @@ export function Obras() {
     );
     const populateObrasData = async () => {
       const response = await fetchObras(filters);
+      console.log(response.data);
       setObras(response.data);
     };
     populateObrasData();

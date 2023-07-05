@@ -7,10 +7,10 @@ type Props = {
 }
 
 const WithPermission = ({roleRequired, children}: Props) => {
-    const {conta} = useAuth()
+    const conta  = useAuth();
     return(
         <>
-            {roleRequired === conta?.tipoDeUser && children}
+            {roleRequired === conta?.role && children}
         </>
     )
 }

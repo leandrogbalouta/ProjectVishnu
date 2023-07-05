@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Azure;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProjectVishnu.Models;
 using ProjectVishnu.ServerApp.App.Dtos;
@@ -218,15 +219,38 @@ namespace ProjectVishnu.Controllers
         }
 
         [HttpPost("{codigoInterno}/autos-medicao/upload")]
-        public IActionResult UploadFiles(string codigoInterno, [FromForm] List<IFormFile> files)
+        public async Task<IActionResult> UploadFiles(string codigoInterno, [FromForm] List<IFormFile> files)
         {
             try
             {
-                _blobService.UploadBlobsAsync(codigoInterno, files);
-                return Ok();
 
+                try
+                {
+                    await _blobService.UploadBlobsAsync(codigoInterno, files);
+                    return Ok();
+
+                }
+                catch (RequestFailedException e)
+                {
+                    var status = e.Status;
+                    if (status == 409) return Conflict("Tentativa de upload de ficheiro duplicado.");
+                    else throw;
+                }
             }
-            catch (Exception e)
+            catch (Exception)
+            {
+                return Problem(statusCode: 500, title: "Erro inesperado.");
+            }
+        }
+        [HttpDelete("{codigoInterno}/autos-medicao/{fileName}")]
+        public async Task<IActionResult> DeleteFile(string codigoInterno, string fileName)
+        {
+            try
+            {
+                bool result = await _blobService.DeleteBlobAsync(codigoInterno, fileName);
+                return result ? Ok() : throw new Exception("blob delete devolveu falso");
+            }
+            catch (System.Exception)
             {
                 return Problem(statusCode: 500, title: "Erro inesperado");
             }

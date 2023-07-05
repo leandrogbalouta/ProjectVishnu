@@ -27,7 +27,9 @@ export function fetchTiposDocumento(): Promise<AxiosResponse> {
 export function fetchMercados(): Promise<AxiosResponse> {
   return instance.get("/mercados");
 }
-export function fetchMercado(nome: string): Promise<AxiosResponse<IMercadoOutput>> {
+export function fetchMercado(
+  nome: string
+): Promise<AxiosResponse<IMercadoOutput>> {
   return instance.get(`/mercados/${nome}`);
 }
 export function createMercado(mercado: IMercadoOutput): Promise<AxiosResponse> {
@@ -132,7 +134,7 @@ export async function removeFuncionarioDeObra(
 }
 
 export async function uploadFilesToObra(codigo: string, files: File[]) {
-  const path = `obras/${codigo}/upload`;
+  const path = `obras/${codigo}/autos-medicao/upload`;
   const formData = new FormData();
 
   for (let i = 0; i < files.length; i++) {
@@ -156,6 +158,9 @@ export async function uploadFilesToObra(codigo: string, files: File[]) {
 
 export async function getAutosMedicao(codigo: string) {
   return instance.get(`obras/${codigo}/autos-medicao`);
+}
+export async function deleteAutoMedicao(codigo: string, fileName: string) {
+  return instance.delete(`obras/${codigo}/autos-medicao/${fileName}`);
 }
 export async function downloadAutoMedicao(codigo: string, fileName: string) {
   return instance.get(`obras/${codigo}/autos-medicao/${fileName}`, {
